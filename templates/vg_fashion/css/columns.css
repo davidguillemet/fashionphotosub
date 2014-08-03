@@ -1,0 +1,12 @@
+@charset "utf-8";
+/*
+ The layout is based 960 grid pixel system. The layout is divided 12 columns. Each column width comes from 12 columns width.
+*/
+
+.column-1 		{width:940px; float:left; margin:0 10px 20px 10px;}
+.column-2 		{width:620px; float:left; margin:0 10px 20px 10px;}
+.column-3 		{width:460px; float:left; margin:0 10px 20px 10px;}
+.column-4 		{width:300px; float:left; margin:0 10px 20px 10px;}
+.column-5 		{width:220px; float:left; margin:0 10px 20px 10px;}
+.column-6 		{width:140px; float:left; margin:0 10px 20px 10px;}
+.cover			{width:100%;  float:left; margin:0 0 15px 0;}

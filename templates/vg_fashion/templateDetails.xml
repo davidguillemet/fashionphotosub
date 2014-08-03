@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.7//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.7/template-install.dtd">
+<extension version="2.5" type="template" client="site" method="upgrade">
+	<name>vg_fashion</name>
+	<version>1.2.0</version>
+	<creationDate>December 2012</creationDate>
+	<author>Valentín García</author>
+	<authorEmail>htmgarcia@gmail.com</authorEmail>
+	<authorUrl>http://www.valentingarcia.com.mx</authorUrl>
+    <copyright>Copyright (C) Valentín García 2012</copyright>
+    <license>http://www.gnu.org/licenses/gpl.html GNU/GPL</license>
+	<description>
+		<![CDATA[
+		Fashion - Premium Responsive Portfolio Joomla Template. Info and Support: <a href="http://themeforest.net/user/htmgarcia" target="_blank">http://themeforest.net/user/htmgarcia</a><br/><a href="index.php?option=com_templates">Go to Template Manager</a> 
+		]]>
+	</description>
+	<files>
+		<folder>css</folder>
+		<folder>fonts</folder>
+		<folder>html</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<filename>favicon.png</filename>
+		<filename>index.html</filename>
+		<filename>index.php</filename>
+		<filename>error.php</filename>
+		<filename>component.php</filename>
+		<filename>template_preview.png</filename>
+		<filename>template_thumbnail.png</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>LICENSE.txt</filename>
+	</files>
+	<positions>
+		<position>fashion-menu</position>
+		<position>fashion-right-top</position>
+		<position>fashion-right-bottom</position>
+		<position>fashion-right</position>
+		<position>fashion-content-top</position>
+		<position>fashion-content-bottom</position>
+		<position>fashion-content-bottom-a</position>
+		<position>fashion-content-top-a</position>
+		<position>fashion-content-top-b</position>
+	</positions>
+	<languages>
+		<language tag="en-GB">en-GB.tpl_vg_fashion.ini</language>
+	</languages>
+	<config>
+		<fields name="params">	
+			<fieldset name="basic">		
+		    	<field name="vg_logo" type="media" label="Logo image" description="Choose a PNG image" />
+				<field name="vg_css" type="textarea" label="Custom CSS" description="Set/Change your custom CSS class" default="" cols="35" rows="10" />
+				<field name="vg_analytics" type="text" label="Google analytics code" description="Add your Google analytics here. EXAMPLE: UA-11831410-01" default="" />			
+			</fieldset>
+			<fieldset name="SOCIAL">		
+		    	<field name="vg_twitter" type="text" label="Twitter URL" description="EXAMPLE: http://www.site.com/something" default="" />
+				<field name="vg_twitter_tooltip" type="text" label="Twitter Tooltip" description="EXAMPLE: @envato" default="" />
+				<field name="vg_facebook" type="text" label="Facebook URL" description="EXAMPLE: http://www.site.com/something" default="" />
+				<field name="vg_facebook_tooltip" type="text" label="Facebook Tooltip" description="EXAMPLE: /envato" default="" />
+				<field name="vg_dribbble" type="text" label="Dribbble URL" description="EXAMPLE: http://www.site.com/something" default="" />
+				<field name="vg_dribbble_tooltip" type="text" label="Dribbble Tooltip" description="EXAMPLE: Envato" default="" />
+				<field name="vg_youtube" type="text" label="Youtube URL" description="EXAMPLE: http://www.site.com/something" default="" />
+				<field name="vg_youtube_tooltip" type="text" label="Youtube Tooltip" description="EXAMPLE: Envato" default="" />
+				<field name="vg_skype" type="text" label="Skype URL" description="EXAMPLE: http://www.site.com/something" default="" />
+				<field name="vg_skype_tooltip" type="text" label="Skype Tooltip" description="EXAMPLE: Envato" default="" />
+			</fieldset>
+			<fieldset name="FULLSLIDE">
+				<field name="vg_slide_status" type="radio" default="1" label="Status" description="" class="btn-group">
+					<option value="1">Enabled</option>
+					<option value="0">Disabled</option>
+				</field>
+				<field name="vg_slide_1" type="media" label="Image 1" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_2" type="media" label="Image 2" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_3" type="media" label="Image 3" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_4" type="media" label="Image 4" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_5" type="media" label="Image 5" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_6" type="media" label="Image 6" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_7" type="media" label="Image 7" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_8" type="media" label="Image 8" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_9" type="media" label="Image 9" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_10" type="media" label="Image 10" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_11" type="media" label="Image 11" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_12" type="media" label="Image 12" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_13" type="media" label="Image 13" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_14" type="media" label="Image 14" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_15" type="media" label="Image 15" description="Choose an image (PNG or JPG)" />
+				<field name="vg_slide_control" type="radio" default="1" label="Show controls" description="" class="btn-group">
+					<option value="1">Enabled</option>
+					<option value="0">Disabled</option>
+				</field>
+				<field name="vg_slide_interval" type="text" label="Slide Interval" description="Length between transitions. *Use number only. EXAMPLE:5000" default="5000" />
+				<field name="vg_transition" type="list" default="1" label="Transition" description="" class="">
+					<option value="1">Fade</option>
+					<option value="2">Slide Top</option>
+					<option value="3">Slide Right</option>
+					<option value="4">Slide Bottom</option>
+					<option value="5">Slide Left</option>
+					<option value="6">Carousel Right</option>
+					<option value="7">Carousel Left</option>
+					<option value="0">None</option>
+				</field>
+				<field name="vg_transition_speed" type="text" label="Transition speed" description="Speed of transition. *Use number only. EXAMPLE:300" default="300" />
+				<field name="vg_audio_1" type="text" label="Audio (mp4)" description="EXAMPLE: http://www.mysite.com/images/videos/myaudio.m4a" default="" />
+				<field name="vg_audio_mp3" type="text" label="Audio (mp3)" description="EXAMPLE: http://www.mysite.com/images/videos/myaudio.mp3" default="" />
+				<field name="vg_audio_oga" type="text" label="Audio (ogg)" description="EXAMPLE: http://www.mysite.com/images/videos/myaudio.ogg" default="" />
+			</fieldset>
+			
+			<fieldset name="FULLVIDEO">
+				<field name="vg_video_status" type="radio" default="0" label="Status" description="" class="btn-group">
+					<option value="1">Enabled</option>
+					<option value="0">Disabled</option>
+				</field>
+				<field name="vg_video_image" type="media" label="BG Image" description="Choose an image (PNG or JPG)" />
+				<field name="vg_video_1" type="text" label="Video" description="EXAMPLE: http://www.mysite.com/images/videos/myvideo.mp4" default="" />
+			</fieldset>
+			
+		</fields>
+	</config>
+</extension>
