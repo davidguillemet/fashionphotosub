@@ -1,0 +1,106 @@
+DEBUG   |140805 21:01:37|AliceCoreDomainAbstract :: New instance
+DEBUG   |140805 21:01:37|AliceCoreDomainAbstract :: New instance
+DEBUG   |140805 21:01:37|AliceCoreDomainAbstract :: New instance
+DEBUG   |140805 21:01:37|AliceCoreDomainAbstract :: New instance
+DEBUG   |140805 21:01:37|*** Batching successive steps (nesting level 1)
+DEBUG   |140805 21:01:37|====== Starting Step number 1 ======
+DEBUG   |140805 21:01:37|Kettenrad :: BREAKING STEP BEFORE SWITCHING DOMAIN
+DEBUG   |140805 21:01:37|----- Finished operation 1 ------
+INFO    |140805 21:01:37|--------------------------------------------------------------------------------
+INFO    |140805 21:01:37|Alice Log Inspector and Correction of Errors 3.11.3 (2014-07-17)
+INFO    |140805 21:01:37|What went wrong?
+INFO    |140805 21:01:37|--------------------------------------------------------------------------------
+INFO    |140805 21:01:37|--- System Information ---
+INFO    |140805 21:01:37|PHP Version        :5.3.28
+INFO    |140805 21:01:37|PHP OS             :Darwin
+INFO    |140805 21:01:37|PHP SAPI           :apache2handler
+INFO    |140805 21:01:37|OS Version         :Darwin
+INFO    |140805 21:01:37|Web Server         :Apache
+INFO    |140805 21:01:37|Joomla! version    :3.3.3
+INFO    |140805 21:01:37|Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36
+INFO    |140805 21:01:37|Safe mode          :
+INFO    |140805 21:01:37|Display errors     :
+INFO    |140805 21:01:37|Error reporting    :E_ALL
+INFO    |140805 21:01:37|Error display      :off
+INFO    |140805 21:01:37|Disabled functions :
+INFO    |140805 21:01:37|open_basedir restr.:
+INFO    |140805 21:01:37|Max. exec. time    :30
+INFO    |140805 21:01:37|Memory limit       :128M
+INFO    |140805 21:01:37|Current mem. usage :15540792
+INFO    |140805 21:01:37|--------------------------------------------------------------------------------
+DEBUG   |140805 21:01:37|----- Finished operation 2 ------
+DEBUG   |140805 21:01:37|----- Finished operation 3 ------
+DEBUG   |140805 21:01:37|Successful Smart algorithm on AliceCoreDomainInit
+DEBUG   |140805 21:01:37|Kettenrad :: Domain 'init' has finished.
+DEBUG   |140805 21:01:37|====== Finished Step number 1 ======
+DEBUG   |140805 21:01:37|*** Engine steps batching: Break flag detected.
+DEBUG   |140805 21:01:37|*** Batching of engine steps finished. I will now return control to the caller.
+DEBUG   |140805 21:01:39|Saving Kettenrad instance alice
+DEBUG   |140805 21:01:39|
+DEBUG   |140805 21:01:40| -- Loaded stored Alice Factory
+DEBUG   |140805 21:01:40|====== Starting Step number 1 ======
+DEBUG   |140805 21:01:40|Kettenrad :: BREAKING STEP BEFORE SWITCHING DOMAIN
+DEBUG   |140805 21:01:40|----- Finished operation 1 ------
+INFO    |140805 21:01:40|PHP version Test passed, detected version: 5.3.28
+INFO    |140805 21:01:40|Database type and version Detected database connector: mysqli
+INFO    |140805 21:01:40|Database type and version Detected database version: 5.5.34
+INFO    |140805 21:01:40|Available memory Detected memory limit: 128
+INFO    |140805 21:01:40|Available memory Detected memory usage: 15.11
+INFO    |140805 21:01:40|Available memory Test passed, detected available memory: 112.89
+DEBUG   |140805 21:01:40|----- Finished operation 2 ------
+DEBUG   |140805 21:01:40|----- Finished operation 3 ------
+DEBUG   |140805 21:01:40|Successful Smart algorithm on AliceCoreDomainRequirements
+DEBUG   |140805 21:01:40|Kettenrad :: Domain 'requirements' has finished.
+DEBUG   |140805 21:01:40|====== Finished Step number 1 ======
+DEBUG   |140805 21:01:40|*** Engine steps batching: Break flag detected.
+DEBUG   |140805 21:01:40|*** Batching of engine steps finished. I will now return control to the caller.
+DEBUG   |140805 21:01:42|Saving Kettenrad instance alice
+DEBUG   |140805 21:01:42| -- Loaded stored Alice Factory
+DEBUG   |140805 21:01:42|====== Starting Step number 2 ======
+DEBUG   |140805 21:01:42|Kettenrad :: BREAKING STEP BEFORE SWITCHING DOMAIN
+DEBUG   |140805 21:01:42|----- Finished operation 1 ------
+INFO    |140805 21:01:42|Backup engine state saving issues Detected starting steps: 4
+INFO    |140805 21:01:42|Backup engine state saving issues Detected saving steps: 4
+INFO    |140805 21:01:42|Backup engine state saving issues Test passed : 4 starting vs 4 savings
+INFO    |140805 21:01:42|Timeout while backing up Detected page running time: 2 seconds
+INFO    |140805 21:01:42|Timeout while backing up Detected page running time: 2 seconds
+INFO    |140805 21:01:42|Timeout while backing up Detected page running time: 2 seconds
+INFO    |140805 21:01:42|Timeout while backing up Detected page running time: 2 seconds
+INFO    |140805 21:01:42|Timeout while backing up Test passed : 4 starting vs 4 savings
+INFO    |140805 21:01:42|Number of tables being saved Test passed, there are no issues while creating the backup archive 
+INFO    |140805 21:01:42|Table row count Test passed, there are no issues while creating the backup archive 
+ERROR   |140805 21:01:42|Installation integrity Test passed, installation seems ok.
+ERROR   |140805 21:01:42|Post-processing engine and archive part size Test error, there is a post processing engine (dropbox) but no part size
+DEBUG   |140805 21:01:42|----- Finished operation 2 ------
+DEBUG   |140805 21:01:42|----- Finished operation 3 ------
+DEBUG   |140805 21:01:42|Successful Smart algorithm on AliceCoreDomainRuntimeerrors
+DEBUG   |140805 21:01:42|Kettenrad :: Domain 'runtimeerrors' has finished.
+DEBUG   |140805 21:01:42|====== Finished Step number 2 ======
+DEBUG   |140805 21:01:42|*** Engine steps batching: Break flag detected.
+DEBUG   |140805 21:01:42|*** Batching of engine steps finished. I will now return control to the caller.
+DEBUG   |140805 21:01:44|Saving Kettenrad instance alice
+DEBUG   |140805 21:01:45| -- Loaded stored Alice Factory
+DEBUG   |140805 21:01:45|====== Starting Step number 3 ======
+DEBUG   |140805 21:01:45|Kettenrad :: BREAKING STEP BEFORE SWITCHING DOMAIN
+DEBUG   |140805 21:01:45|----- Finished operation 1 ------
+INFO    |140805 21:01:45|Multiple Joomla! installations Test passed, no multiples sites detected.
+INFO    |140805 21:01:45|Large files issues Test passed, no large files issue detected.
+DEBUG   |140805 21:01:45|----- Finished operation 2 ------
+DEBUG   |140805 21:01:45|----- Finished operation 3 ------
+DEBUG   |140805 21:01:45|Successful Smart algorithm on AliceCoreDomainFilesystem
+DEBUG   |140805 21:01:45|Kettenrad :: Domain 'filesystem' has finished.
+DEBUG   |140805 21:01:45|====== Finished Step number 3 ======
+DEBUG   |140805 21:01:45|*** Engine steps batching: Break flag detected.
+DEBUG   |140805 21:01:45|*** Batching of engine steps finished. I will now return control to the caller.
+DEBUG   |140805 21:01:47|Saving Kettenrad instance alice
+DEBUG   |140805 21:01:47| -- Loaded stored Alice Factory
+DEBUG   |140805 21:01:47|====== Starting Step number 4 ======
+DEBUG   |140805 21:01:47|Kettenrad :: BREAKING STEP BEFORE SWITCHING DOMAIN
+DEBUG   |140805 21:01:47|Kettenrad :: No more domains to process
+DEBUG   |140805 21:01:47|*** Engine steps batching: Break flag detected.
+DEBUG   |140805 21:01:47|*** Batching of engine steps finished. I will now return control to the caller.
+DEBUG   |140805 21:01:49|Saving Kettenrad instance alice
+DEBUG   |140805 21:01:50| -- Loaded stored Alice Factory
+DEBUG   |140805 21:01:50|Kettenrad :: Just finished
+DEBUG   |140805 21:01:50|*** Batching of engine steps finished. I will now return control to the caller.
+DEBUG   |140805 21:01:52|Will not save a finished Kettenrad instance
