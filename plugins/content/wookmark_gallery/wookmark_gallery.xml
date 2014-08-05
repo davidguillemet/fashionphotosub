@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.0.0" group="content" method="upgrade">
+	<name>Content - Wookmark Image Gallery</name>
+	<author>Infyways Solutions</author>
+	<creationDate>October 2013</creationDate>
+	<copyright>Copyright (C) 2011 - 2012 Infyways Solutions. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>info@infyways.com</authorEmail>
+	<authorUrl>www.infyways.com</authorUrl>
+	<version>1.3</version>
+	<description><![CDATA[
+	<h4>Thank you for installing Wookmark Image Gallery Plugin.</h4><hr/>For any support and queries <a href="http://support.infyways.com" target="_blank">Click Here</a></br>For other Joomla! extensions please visit :<a href="http://www.infyways.com/store" target="_blank" >http://www.infyways.com/store</a>
+	]]></description>
+	<files>
+		<folder plugin="wookmark_gallery">wookmark_gallery</folder>
+		<filename plugin="wookmark_gallery">wookmark_gallery.php</filename>
+		<filename plugin="wookmark_gallery">index.html</filename>
+    </files>
+	<config>
+		<fields name="params">
+			<fieldset name="data0" label="Library Settings" addfieldpath="/plugins/content/wookmark_gallery/wookmark_gallery/admin/elements/">
+				<field type="utility" path="plugins/content/wookmark_gallery/wookmark_gallery/admin/" />
+				<field name="" type="spacer" default="&lt;b&gt;Library Settings&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;Library Settings&lt;/span&gt;" description=""/>
+				<field name="load1" type="radio" class="btn-group" default="1" label="Load jQuery Library" description="If you have more than one module using jQuery lib, then deactivate this. Or in case, you are not able to get the slideshow, then try disabling it. If you have no idea,what you are doing,then keep it ENABLED.">
+					<option value="1">ON</option>
+					<option value="0">OFF</option>
+				</field>
+				<field name="jsfiles" type="list" default="1" label="Include js file" description="You can define js files inside the head or body in case of conflicts.">
+						<option value="1">Head</option>
+						<option value="0">Body</option>
+				</field>
+			</fieldset>
+			<fieldset name="data1" label="Image and Title Settings" addfieldpath="plugins/content/wookmark_gallery/wookmark_gallery/admin/elements/">
+				
+				<field name="" type="spacer" default="&lt;b&gt;Image Settings&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;Image Settings&lt;/span&gt;" description=""/>
+				
+				<field name="autoresize_gal" type="list" label="Gallery Width Type" default="1" description="Select whether you want a gallery of dynamic(floating) width or fixed width. Dynamic(floating) width will auto-update the width of gallery when the browser window is resized." >
+						<option value="1">Dynamic</option>
+						<option value="0">Static</option>
+				</field>
+				<field name="width" type="text" label="Gallery Width" default="900" description="Enter the width of image gallery in pixels."/>
+				<field name="image_fetch" type="list" label="Fetch Image" default="1" description="Select whether you want to fetch image from folder or individual path.">
+						<option value="1">From Folder</option>
+						<option value="0">Individual Path</option>
+				</field>
+				<field name="tool" type="list" label="Thumb Image Creator Tool" default="" description="Select the version of the thumb image creator tool you want to use for creating thumb images.">
+						<option value="wookmark_gallery_image1">Version 1</option>
+						<option value="wookmark_gallery_image2">Version 2</option>
+				</field>
+				<field name="th_img_width" type="text" label="Thumb Image Width" default="150" description="Enter the width of the thumb image."/>
+				<field name="lg_cap" type="list" label="Large Image Caption" default="none" description="Select whether you want to enable or disable large image caption. &lt;b&gt;Note&lt;/b&gt; : This parameter works only when &lt;b&gt;Fetch Image&lt;/b&gt; is set to &lt;b&gt;Individual Path&lt;/b&gt;">
+						<option value="inline-block">Enable</option>
+						<option value="none">Disable</option>
+				</field>
+				<field name="cap_pos" type="list" label="Caption Position" default="none" description="Select the position where you want to display image caption. &lt;b&gt;Note&lt;/b&gt; : This parameter works only when &lt;b&gt;Fetch Image&lt;/b&gt; is set to &lt;b&gt;Individual Path&lt;/b&gt;">
+						<option value="float">Float</option>
+						<option value="inside">Inside</option>
+						<option value="outside">Outside</option>
+						<option value="over">Over</option>
+				</field>
+				<field name="offset" type="text" label="Offset" default="2" description="Enter the distance between grid items in pixels"/>
+				
+				
+				<field name="" type="spacer" default="&lt;b&gt;Animation Settings&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;Animation Settings&lt;/span&gt;" description=""/>
+				
+				<field name="bg_color" type="color" label="Background Color" default="#FFF" description="Select the background color of the screen when the images are opened in a fancybox."/>
+				<field name="bg_opc" type="text" label="Background Opacity" default="0.5" description="Enter the opacity of the background screen. It's value lies in between 0-1"/>
+				<field name="op_speed" type="text" label="Opening Speed" default="500" description="Enter the opening speed of the image in a fancybox (in milliseconds)."/>
+				<field name="cl_speed" type="text" label="Closing Speed" default="500" description="Enter the closing speed of the image in a fancybox (in milliseconds)."/>
+				<field name="sh_color" type="color" label="Shadow Color" default="#000" description="Select the shadow color of the fancybox."/>
+				<field name="sh_width" type="text" label="Shadow Width" default="50" description="Enter the shadow width of the fancybox."/>
+				<field name="cls_but" type="list" class="gk_switch" label="Show Close Button" default="1" description="Select whether you want to show close button or not.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="fan_border" type="text" label="FancyBox Border Width" default="5" description="Enter the width of fancybox border in pixels. Enter 0 if you dont want fancybox border."/>
+				<field name="effect" type="list" label="Opening And Closing Effect" default="elastic" description="Select the opening and closing effect of the fancybox .">
+					<option value="none">None</option>
+					<option value="elastic">Elastic</option>
+					<option value="fade">Fade</option>
+				</field>
+				<field name="" type="spacer" default="&lt;b&gt;Usage&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;Usage&lt;/span&gt;" description=""/>
+				<field type="how" />
+			</fieldset>
+			<fieldset name="data3" label="Support" addfieldpath="/plugins/content/wookmark_gallery/wookmark_gallery/admin/elements/">
+				<field type="about" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

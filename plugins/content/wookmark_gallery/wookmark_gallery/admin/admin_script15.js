@@ -1,0 +1,115 @@
+/**
+ * @package Woomark Image Gallery
+ * @version 1.1
+ * @author Infyways Solutions http://www.infyways.com
+ * @copyright Copyright (C) 2011 - 2012 Infyways Solutions.
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
+ *
+ */
+
+jQuery.noConflict();
+jQuery(document).ready(function(){
+
+	//////////////////////Dynamic/Static/////////////////
+	if(jQuery('#paramsautoresize_gal').val()=='1'){
+		jQuery('#paramswidth').parent().hide();
+		jQuery('#paramswidth-lbl').parent().hide();
+    }
+	else
+	{
+		jQuery('#paramswidth').parent().show();
+		jQuery('#paramswidth-lbl').parent().show();
+	}
+	jQuery('#paramsautoresize_gal').change(function(){
+		if(jQuery('#paramsautoresize_gal').val()=='1'){
+			jQuery('#paramswidth').parent().hide();
+			jQuery('#paramswidth-lbl').parent().hide();
+		}
+		else
+		{
+			jQuery('#paramswidth').parent().show();
+			jQuery('#paramswidth-lbl').parent().show();
+		}
+    });
+	//////////////////////Fetch Image From Folder/Individual image path/////////////////
+	if(jQuery('#paramsimage_fetch').val()=='1'){
+		jQuery('#paramsfolder_path').parent().show();
+		jQuery('#paramspath').parent().hide();
+		jQuery('#paramspath-lbl').parent().hide();
+		jQuery('#paramslg_cap').parent().hide();
+		jQuery('#paramslg_cap-lbl').parent().hide();
+		jQuery('#paramscap_pos').parent().hide();
+		jQuery('#paramscap_pos-lbl').parent().hide();
+		jQuery('#paramscap_text').parent().hide();
+		jQuery('#paramscap_text-lbl').parent().hide();
+    }
+	else
+	{
+		jQuery('#paramsfolder_path').parent().hide();
+		jQuery('#paramsfolder_path-lbl').parent().hide();
+		jQuery('#paramspath').parent().show();
+		jQuery('#paramspath-lbl').parent().show();
+		jQuery('#paramslg_cap').parent().show();
+		jQuery('#paramslg_cap-lbl').parent().show();
+		if(jQuery('#paramslg_cap').val()=='inline-block'){
+			jQuery('#paramscap_pos').parent().show();
+			jQuery('#paramscap_pos-lbl').parent().show();
+		}
+		else{
+			jQuery('#paramscap_pos').parent().hide();
+			jQuery('#paramscap_pos-lbl').parent().hide();
+		}
+		jQuery('#paramslg_cap').change(function(){
+			if(jQuery('#paramslg_cap').val()=='inline-block'){
+				jQuery('#paramscap_pos').parent().show();
+				jQuery('#paramscap_pos-lbl').parent().show();
+			}
+			else{
+				jQuery('#paramscap_pos').parent().hide();
+				jQuery('#paramscap_pos-lbl').parent().hide();
+			}
+		 });
+	}
+	
+	jQuery('#paramsimage_fetch').change(function(){
+		if(jQuery('#paramsimage_fetch').val()=='1'){
+			jQuery('#paramsfolder_path').parent().show();
+			jQuery('#paramspath').parent().hide();
+			jQuery('#paramspath-lbl').parent().hide();
+			jQuery('#paramslg_cap').parent().hide();
+			jQuery('#paramslg_cap-lbl').parent().hide();
+			jQuery('#paramscap_pos').parent().hide();
+			jQuery('#paramscap_pos-lbl').parent().hide();
+			jQuery('#paramscap_text').parent().hide();
+			jQuery('#paramscap_text-lbl').parent().hide();
+		}
+		else
+		{
+			jQuery('#paramsfolder_path').parent().hide();
+			jQuery('#paramsfolder_path-lbl').parent().hide();
+			jQuery('#paramspath').parent().show();
+			jQuery('#paramspath-lbl').parent().show();
+			jQuery('#paramslg_cap').parent().show();
+			jQuery('#paramslg_cap-lbl').parent().show();
+			if(jQuery('#paramslg_cap').val()=='inline-block'){
+				jQuery('#paramscap_pos').parent().show();
+				jQuery('#paramscap_pos-lbl').parent().show();
+			}
+			else{
+				jQuery('#paramscap_pos').parent().hide();
+				jQuery('#paramscap_pos-lbl').parent().hide();
+			}
+			jQuery('#paramslg_cap').change(function(){
+			if(jQuery('#paramslg_cap').val()=='inline-block'){
+				jQuery('#paramscap_pos').parent().show();
+				jQuery('#paramscap_pos-lbl').parent().show();
+			}
+			else{
+				jQuery('#paramscap_pos').parent().hide();
+				jQuery('#paramscap_pos-lbl').parent().hide();
+			}
+		 });
+		}
+    });
+    jQuery('#element-box div.m').css('display','block');
+});

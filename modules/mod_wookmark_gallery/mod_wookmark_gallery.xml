@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0.0" position="status" method="upgrade">
+	<name>Woomark Image Gallery</name>
+	<author>Infyways Solutions</author>
+	<creationDate>October 2013</creationDate>
+	<copyright>Copyright (C) 2011 - 2012 Infyways Solutions. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>info@infyways.com</authorEmail>
+	<authorUrl>www.infyways.com</authorUrl>
+	<version>1.3</version>
+	<description><![CDATA[
+	<h4>Thank you for installing Woomark Image Gallery.</h4><hr/>For any support and queries <a href="http://support.infyways.com" target="_blank">Click Here</a></br>For other Joomla! extensions please visit :<a href="http://store.infyways.com/" target="_blank" ><b>STORE</b></a>
+	]]></description>
+	<files>
+		<folder module="mod_wookmark_gallery">tmpl</folder>
+		<folder module="mod_wookmark_gallery">admin</folder>
+		<filename module="mod_wookmark_gallery">mod_wookmark_gallery.php</filename>
+		<filename module="mod_wookmark_gallery">helper.php</filename>
+		<filename module="mod_wookmark_gallery">index.html</filename>
+    </files>
+	<config>
+		<fields name="params">
+			<fieldset name="data" label="Library Settings" addfieldpath="/modules/mod_wookmark_gallery/admin/elements/">	
+				<field type="utility" path="modules/mod_wookmark_gallery/admin/" />
+				<field name="" type="spacer" default="&lt;b&gt;Library Settings&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;Library Settings&lt;/span&gt;" description=""/>
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="" />
+				<field name="load1" type="radio" class="btn-group" default="1" label="Load jQuery Library" description="If you have more than one module using jQuery lib, then deactivate this. Or in case, you are not able to get the slideshow, then try disabling it. If you have no idea,what you are doing,then keep it ENABLED.">
+					<option value="1">ON</option>
+					<option value="0">OFF</option>
+				</field>
+				<field name="jsfiles" type="list" default="1" label="Include js file" description="You can define js files inside the head or body in case of conflicts.">
+						<option value="1">Head</option>
+						<option value="0">Body</option>
+				</field>
+			</fieldset>
+			
+			<fieldset name="data1" label="Module Settings" addfieldpath="/modules/mod_wookmark_gallery/admin/elements/">
+				<field name="" type="spacer" default="&lt;b&gt;General Settings&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;General Settings&lt;/span&gt;" description=""/>
+				<field name="autoresize_gal" type="list" label="Gallery Width Type" default="1" description="Select whether you want a gallery of dynamic(floating) width or fixed width. Dynamic(floating) width will auto-update the width of gallery when the browser window is resized." >
+						<option value="1">Dynamic</option>
+						<option value="0">Static</option>
+				</field>
+				<field name="width" type="text" label="Gallery Width" default="900" description="Enter the width of image gallery in pixels."/>
+				<field name="image_fetch" type="list" label="Fetch Image" default="1" description="Select whether you want to fetch image from folder or individual path.">
+						<option value="1">From Folder</option>
+						<option value="0">Individual Path</option>
+				</field>
+				<field name="folder_path" type="text" label="Image Folder Path" default="images/test/" description="Enter the path of the image folder. &lt;b&gt;Note&lt;/b&gt; : This parameter works only when &lt;b&gt;Fetch Image&lt;/b&gt; is set to &lt;b&gt;From Folder&lt;/b&gt;"/>
+				<field name="tool" type="list" label="Thumb Image Creator Tool" default="" description="Select the version of the thumb image creator tool you want to use for creating thumb images.">
+						<option value="wookmark_gallery_image1">Version 1</option>
+						<option value="wookmark_gallery_image2">Version 2</option>
+				</field>
+				<field name="th_img_width" type="text" label="Thumb Image Width" default="150" description="Enter the width of the thumb image."/>
+				<field name="caption_option" type="list" label="Caption" default="none" description="Select whether you want to enable or disable image caption. &lt;b&gt;Note&lt;/b&gt; : This parameter works only when &lt;b&gt;Fetch Image&lt;/b&gt; is set to &lt;b&gt;Individual Path&lt;/b&gt;">
+						<option value="1">For Large Image Only</option>
+						<option value="2">For Thumb Image Only</option>
+						<option value="3">For Both Thumb and Large Image</option>
+						<option value="4">None</option>
+				</field>
+				<field name="link_option" type="list" label="Link" default="1" description="Select whether you want to enable or disable link. &lt;b&gt;Note&lt;/b&gt; : This parameter works only when &lt;b&gt;Fetch Image&lt;/b&gt; is set to &lt;b&gt;Individual Path&lt;/b&gt;">
+						<option value="1">Enable</option>
+						<option value="0">Disable</option>
+				</field>
+				<field name="target" type="list" label="Open In" default="_self" description="Select whether you want to open the link in new window or same window. &lt;b&gt;Note&lt;/b&gt; : This parameter works only when &lt;b&gt;Fetch Image&lt;/b&gt; is set to &lt;b&gt;Individual Path&lt;/b&gt;">
+						<option value="_self">Same Window</option>
+						<option value="_blank">New Window</option>
+				</field>
+				<field name="offset" type="text" label="Offset" default="2" description="Enter the distance between grid items in pixels"/>
+				
+				<field name="" type="spacer" default="&lt;b&gt;Animation Settings&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;Animation Settings&lt;/span&gt;" description=""/>
+				<field name="bg_color" type="color" label="Background Color" default="#FFF" description="Select the background color of the screen when the images are opened in a fancybox."/>
+				<field name="bg_opc" type="text" label="Background Opacity" default="0.5" description="Enter the opacity of the background screen. It's value lies in between 0-1"/>
+				<field name="op_speed" type="text" label="Opening Speed" default="500" description="Enter the opening speed of the image in a fancybox (in milliseconds)."/>
+				<field name="cl_speed" type="text" label="Closing Speed" default="500" description="Enter the closing speed of the image in a fancybox (in milliseconds)."/>
+				<field name="sh_color" type="color" label="Shadow Color" default="#000" description="Select the shadow color of the fancybox."/>
+				<field name="sh_width" type="text" label="Shadow Width" default="50" description="Enter the shadow width of the fancybox."/>
+				<field name="cls_but" type="radio" class="btn-group" label="Show Close Button" default="1" description="Select whether you want to show close button or not.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="fan_border" type="text" label="FancyBox Border Width" default="5" description="Enter the width of fancybox border in pixels. Enter 0 if you dont want fancybox border."/>
+				<field name="effect" type="list" label="Opening And Closing Effect" default="elastic" description="Select the opening and closing effect of the fancybox .">
+					<option value="none">None</option>
+					<option value="elastic">Elastic</option>
+					<option value="fade">Fade</option>
+				</field>
+				
+				<field name="" type="spacer" default="&lt;b&gt;Slide Settings&lt;/b&gt;" label="&lt;span style=&quot;color:#000; border-bottom: 1px solid #CCC;text-transform: uppercase; font-size:12px; font-weight:bold; padding:3px; margin:0; text-align:center;&quot;&gt;Slide Settings&lt;/span&gt;" description=""/>
+				<field
+						name="slides"
+						type="gsslidesmanager"
+						filter="raw"
+						default="[
+						{
+							|qq|imgname|qq|:|qq||qq|,
+							|qq|imgthumb|qq|:|qq||qq|,
+							|qq|imgcaption|qq|:|qq||qq|,
+							|qq|imglink|qq|:|qq||qq|
+						},{
+							|qq|imgname|qq|:|qq||qq|,
+							|qq|imgthumb|qq|:|qq||qq|,
+							|qq|imgcaption|qq|:|qq||qq|,
+							|qq|imglink|qq|:|qq||qq|
+							}
+						]"
+						/>
+					<field type="sliderinfo"/>
+			</fieldset>
+			
+			<fieldset name="data3" label="Support" addfieldpath="/modules/mod_wookmark_gallery/admin/elements/">
+				<field type="about" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
