@@ -1,1 +1,6 @@
 administrator/components/com_akeeba/backup/akeeba.backend.log
+images/phocagallery/*/*/*.jpg
+images/phocagallery/*/*/*/*.jpg
+images/phocagallery/*/*/*/*/*.jpg
+images/phocagallery/*/*/*/*/*/*.jpg
+images/phocagallery/*/*/*/*/*/*/*.jpg
