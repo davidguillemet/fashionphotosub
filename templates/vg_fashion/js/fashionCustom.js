@@ -73,7 +73,7 @@ $f(document).ready(function(){
 	});
 	
 	/* :::::::::::::: SOCIAL ICONS QTIP ::::::::::::: */
-	$f('.social-icons a[href][title]').qtip({
+	/*$f('.social-icons a[href][title]').qtip({
 		content: {
 			text: false // Use each elements title attribute
 		},
@@ -98,7 +98,7 @@ $f(document).ready(function(){
 			'font-size': 11,
 			'font-family': 'Arial'
 		}
-	});
+	});*/
 	
 	/* :::::::::::::: MOBILE SOCIAL ICONS ::::::::::::: */
 	$f('.social-mobile').click(function(e){
@@ -108,7 +108,7 @@ $f(document).ready(function(){
     });
 	
 	/* :::::::::::::: FLEXSLIDER ::::::::::::: */
-	$f(window).load(function() {
+	/*$f(window).load(function() {
 		$f('.flexslider').flexslider({
 			animation: 'fade',
 			controlNav: false,
@@ -116,7 +116,7 @@ $f(document).ready(function(){
 			animationDuration: 300
 		});
 		
-	});
+	});*/
 	
 	/* :::::::::::::: PORTFOLIO HOVER EFFECT ::::::::::::: */
 	var currentWindowWidth = $f(window).width();
@@ -184,7 +184,7 @@ $f(document).ready(function(){
 $f(function($){
 	
 	/*:::::::::: GRID NAVIGATION EFFECTS ::::::::::::*/
-	$f('#tj_container').gridnav({
+	/*$f('#tj_container').gridnav({
 		rows	: 3,
 		type	: {
 			mode		: 'seqfade', 	// use def | fade | seqfade | updown | sequpdown | showhide | disperse | rows
@@ -193,6 +193,6 @@ $f(function($){
 			factor		: 100,			// for seqfade, sequpdown, rows
 			reverse		: ''			// for sequpdown
 		}
-	});
+	});*/
 	
 });
