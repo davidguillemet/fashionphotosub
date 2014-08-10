@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" version="1.6.0" group="system" method="upgrade">
+
+	<title>eorisis: jQuery</title>
+	<name>eorisis_jquery</name>
+	<author>eorisis.com</author>
+	<authorUrl>http://eorisis.com</authorUrl>
+	<authorEmail>info@eorisis.com</authorEmail>
+	<copyright>Copyright (C) 2012-2014 eorisis. All Rights Reserved.</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<version>1.1.8</version>
+	<creationDate>2 August 2014</creationDate>
+	<compatibility>Joomla! 1.6 to 3.3 Series</compatibility>
+	<short_url>jquery</short_url>
+	<created>30 October 2012</created>
+	<min_php_version>5.2.0</min_php_version>
+	<description>PLG_SYSTEM_EORISIS_JQUERY_XML_DESCRIPTION</description>
+	<scriptfile>framework/install/eorisis_installer.php</scriptfile>
+
+	<files>
+		<filename plugin="eorisis_jquery">eorisis_jquery.php</filename>
+		<folder>framework</folder>
+		<filename>index.html</filename>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_eorisis_jquery.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_eorisis_jquery.sys.ini</language>
+	</languages>
+
+	<media destination="eorisis-jquery" folder="media">
+		<folder>lib</folder>
+		<folder>plugins</folder>
+		<folder>ui</folder>
+		<filename>htaccess.txt</filename>
+		<filename>index.html</filename>
+		<filename>jquery-noconflict.js</filename>
+	</media>
+
+	<config>
+		<fields name="params">
+
+			<!-- Info -->
+			<fieldset name="EO_INFO" addfieldpath="/plugins/system/eorisis_jquery/framework/admin/html/fields">
+				<field name="info" type="info" />
+			</fieldset>
+
+			<!-- jQuery Library -->
+			<fieldset name="EO_JQUERY">
+
+				<!-- Load Area -->
+				<field name="jquery_load_area" label="EO_JQ_LOAD_AREA" default="1" type="list" filter="int" description="EO_JQ_LOAD_AREA_DESC">
+					<option value="1">EO_JQ_SITE</option>
+					<option value="2">EO_JQ_ADMIN</option>
+					<option value="3">EO_JQ_SITE_AND_ADMIN</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Version to Use -->
+				<field name="jq_lib_version_choice" label="EO_JQ_JQUERY_VERSION_CHOICE" default="1" type="list" filter="int" description="EO_JQ_JQUERY_VERSION_CHOICE_DESC">
+					<option value="1">EO_JQ_JQUERY_VERSION_SPECIFIC</option>
+					<option value="2">EO_JQ_JQUERY_VERSION_CUSTOM</option>
+					<option value="0">EO_JQ_JQUERY_VERSION_LATEST</option>
+				</field>
+
+				<!-- Source for Latest -->
+				<field name="jq_lib_source_latest" label="EO_JQ_JQUERY_SOURCE_LATEST" default="1" type="list" filter="int" description="EO_JQ_JQUERY_SOURCE_LATEST_DESC">
+					<option value="1">EO_JQ_JQUERY_CDN</option>
+					<option value="2">EO_JQ_GOOGLE_AJAX_API_CDN</option>
+				</field>
+
+				<!-- Source for Specific -->
+				<field name="jq_lib_source_specific" label="EO_JQ_JQUERY_SOURCE_SPECIFIC" default="1" type="list" filter="int" description="EO_JQ_JQUERY_SOURCE_SPECIFIC_DESC">
+					<option value="1">EO_JQ_CDN</option>
+					<option value="0">EO_JQ_LOCALLY_HOSTED</option>
+				</field>
+
+				<!-- CDN Source for Specific -->
+				<field name="jq_lib_source_specific_cdn" label="EO_JQ_JQUERY_SOURCE_SPECIFIC_CDN" default="1" type="list" filter="int" description="EO_JQ_JQUERY_SOURCE_SPECIFIC_CDN_DESC">
+					<option value="1">EO_JQ_JQUERY_CDN</option>
+					<option value="2">EO_JQ_GOOGLE_AJAX_API_CDN</option>
+					<option value="3">EO_JQ_CDNJS_CDN</option>
+					<option value="4">EO_JQ_MICROSOFT_CDN</option>
+				</field>
+
+				<!-- Specific Version -->
+				<field name="jq_lib_version" label="EO_JQ_JQUERY_VERSION" default="1.11.1" type="list" description="EO_JQ_JQUERY_VERSION_DESC">
+					<option value="2.1.1">2.1.1</option>
+					<option value="2.1.0">2.1.0</option>
+					<option value="2.0.3">2.0.3</option>
+					<option value="2.0.2">2.0.2</option>
+					<option value="2.0.1">2.0.1</option>
+					<option value="2.0.0">2.0.0</option>
+					<option value="1.11.1">1.11.1 (Joomla 3.3.1 to 3.3.3)</option>
+					<option value="1.11.0">1.11.0 (Joomla 3.2.3 to 3.3.0)</option>
+					<option value="1.10.2">1.10.2 (Joomla 3.2.0 to 3.2.2)</option>
+					<option value="1.10.1">1.10.1</option>
+					<option value="1.10.0">1.10.0</option>
+					<option value="1.9.1">1.9.1</option>
+					<option value="1.9.0">1.9.0</option>
+					<option value="1.8.3">1.8.3 (Joomla 3.1.0 to 3.1.6)</option>
+					<option value="1.8.2">1.8.2</option>
+					<option value="1.8.1">1.8.1 (Joomla 3.0.0 to 3.0.4)</option>
+					<option value="1.8.0">1.8.0</option>
+					<option value="1.7.2">1.7.2</option>
+					<option value="1.7.1">1.7.1</option>
+					<option value="1.7.0">1.7.0</option>
+					<option value="1.6.4">1.6.4</option>
+					<option value="1.6.3">1.6.3</option>
+					<option value="1.6.2">1.6.2</option>
+					<option value="1.6.1">1.6.1</option>
+					<option value="1.6">1.6.0</option>
+					<option value="1.5.2">1.5.2</option>
+					<option value="1.5.1">1.5.1</option>
+					<option value="1.5">1.5.0</option>
+					<option value="1.4.4">1.4.4</option>
+					<option value="1.4.3">1.4.3</option>
+					<option value="1.4.2">1.4.2</option>
+					<option value="1.4.1">1.4.1</option>
+					<option value="1.4">1.4.0</option>
+					<option value="1.3.2">1.3.2</option>
+					<option value="1.3.1">1.3.1</option>
+					<option value="1.3">1.3.0</option>
+					<option value="1.2.6">1.2.6</option>
+					<option value="1.2.5">1.2.5</option>
+					<option value="1.2.4">1.2.4</option>
+					<option value="1.2.3">1.2.3</option>
+					<option value="1.2.2">1.2.2</option>
+					<option value="1.2.1">1.2.1</option>
+					<option value="1.2">1.2.0</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Custom Version -->
+				<field name="jq_lib_version_custom" label="EO_JQ_JQUERY_VERSION_CUSTOM_LABEL" size="5" type="text" class="span1" description="EO_JQ_JQUERY_VERSION_CUSTOM_DESC" />
+
+				<field name="jq_lib_version_custom_type" label="EO_JQ_JQUERY_VERSION_CUSTOM_TYPE" default="1" type="radio" filter="int" class="btn-group" description="EO_JQ_JQUERY_VERSION_CUSTOM_TYPE_DESC">
+					<option value="1">Minified</option>
+					<option value="2">Uncompressed</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- CDN Fallback -->
+				<field name="jq_lib_cdn_fallback" label="EO_JQ_CDN_FALLBACK" default="0" type="radio" class="btn-group" filter="int" description="EO_JQ_CDN_FALLBACK_DESC">
+					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+			</fieldset><!-- /jQuery Library -->
+
+
+			<!-- Migrate -->
+			<fieldset name="EO_MIGRATE">
+
+				<field name="jq_migrate" label="EO_JQ_STATE" default="1" type="list" filter="int" description="EO_JQ_MIGRATE_DESC">
+					<option value="1">EO_JQ_AUTO_LOAD</option>
+					<option value="2">EO_JQ_ALWAYS_LOAD</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Version -->
+				<field name="jq_migrate_version" label="EO_JQ_VERSION" default="1.2.1" type="list">
+					<option value="1.2.1">1.2.1 (Joomla 3.2 to 3.3)</option>
+					<option value="1.2.0">1.2.0</option>
+					<option value="1.1.1">1.1.1</option>
+					<option value="1.1.0">1.1.0</option>
+					<option value="1.0.0">1.0.0</option>
+				</field>
+
+				<!-- Source -->
+				<field name="jq_migrate_source" label="EO_JQ_SOURCE" default="1" type="list" filter="int">
+					<option value="1">EO_JQ_CDN</option>
+					<option value="0">EO_JQ_LOCALLY_HOSTED</option>
+				</field>
+
+				<!-- CDN Source -->
+				<field name="jq_migrate_source_cdn" label="EO_JQ_SOURCE_CDN" default="1" type="list" filter="int">
+					<option value="1">EO_JQ_JQUERY_CDN</option>
+					<option value="2">EO_JQ_CDNJS_CDN</option>
+					<option value="3">EO_JQ_MICROSOFT_CDN</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- CDN Fallback -->
+				<field name="jq_migrate_cdn_fallback" label="EO_JQ_CDN_FALLBACK" default="0" type="radio" class="btn-group" filter="int" description="EO_JQ_CDN_FALLBACK_DESC">
+					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+			</fieldset><!-- /Migrate -->
+
+
+			<!-- jQuery UI -->
+			<fieldset name="EO_JQUERY_UI">
+
+				<!-- Load Area -->
+				<field name="jquery_ui_load_area" label="EO_JQ_LOAD_AREA" default="0" type="list" filter="int" description="EO_JQ_LOAD_AREA_DESC">
+					<option value="1">EO_JQ_SITE</option>
+					<option value="2">EO_JQ_ADMIN</option>
+					<option value="3">EO_JQ_SITE_AND_ADMIN</option>
+					<option value="0">JNONE</option>
+				</field>
+
+				<!-- Load Elements -->
+				<field name="jq_ui_elem" label="EO_JQ_UI_ELEMENTS" default="js_css" type="list" description="EO_JQ_UI_ELEMENTS_DESC">
+					<option value="js">EO_JQ_UI_ELEMENTS_JS</option>
+					<option value="css">EO_JQ_UI_ELEMENTS_CSS</option>
+					<option value="js_css">EO_JQ_UI_ELEMENTS_JS_CSS</option>
+				</field>
+
+				<!-- CSS Media -->
+				<field name="jq_ui_css_media" label="EO_JQ_UI_CSS_MEDIA" default="null" type="radio" class="btn-group" filter="word" description="EO_JQ_UI_CSS_MEDIA_DESC">
+					<option value="all">All</option>
+					<option value="screen">Screen</option>
+					<option value="null">Omitted</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Theme -->
+				<field name="jq_ui_theme" label="EO_JQ_UI_THEME" default="ui-lightness" type="list" description="EO_JQ_UI_THEME_DESC">
+					<option value="ui-lightness">UI Lightness</option>
+					<option value="ui-darkness">UI Darkness</option>
+					<option value="smoothness">Smoothness</option>
+					<option value="start">Start</option>
+					<option value="redmond">Redmond</option>
+					<option value="sunny">Sunny</option>
+					<option value="overcast">Overcast</option>
+					<option value="le-frog">Le Frog</option>
+					<option value="flick">Flick</option>
+					<option value="pepper-grinder">Pepper Grinder</option>
+					<option value="eggplant">Eggplant</option>
+					<option value="dark-hive">Dark Hive</option>
+					<option value="cupertino">Cupertino</option>
+					<option value="south-street">South Street</option>
+					<option value="blitzer">Blitzer</option>
+					<option value="humanity">Humanity</option>
+					<option value="hot-sneaks">Hot Sneaks</option>
+					<option value="excite-bike">Excite Bike</option>
+					<option value="vader">Vader</option>
+					<option value="dot-luv">Dot Luv</option>
+					<option value="mint-choc">Mint Choc</option>
+					<option value="black-tie">Black Tie</option>
+					<option value="trontastic">Trontastic</option>
+					<option value="swanky-purse">Swanky Purse</option>
+				</field>
+
+				<!-- Version -->
+				<field name="jq_ui_version" label="EO_JQ_VERSION" default="1.11.0" type="list" description="EO_JQ_UI_VERSION_DESC">
+					<option value="1.11.0">1.11.0</option>
+					<option value="1.10.4">1.10.4</option>
+					<option value="1.10.3">1.10.3</option>
+					<option value="1.10.2">1.10.2</option>
+				</field>
+
+				<!-- Source -->
+				<field name="jq_ui_source" label="EO_JQ_SOURCE" default="1" type="list" filter="int" description="EO_JQ_UI_THEME_DESC">
+					<option value="1">EO_JQ_CDN</option>
+					<option value="0">EO_JQ_LOCALLY_HOSTED</option>
+				</field>
+
+				<!-- CDN Source -->
+				<field name="jq_ui_source_cdn" label="EO_JQ_SOURCE_CDN" default="1" type="list" filter="int">
+					<option value="1">EO_JQ_JQUERY_CDN</option>
+					<option value="2">EO_JQ_GOOGLE_AJAX_API_CDN</option>
+					<option value="3">EO_JQ_MICROSOFT_CDN</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Custom -->
+				<field name="jq_ui_custom" label="EO_JQ_UI_CUSTOM" default="0" type="radio" class="btn-group" filter="int" description="EO_JQ_UI_CUSTOM_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="jq_ui_custom_js" label="EO_JQ_UI_CUSTOM_JS" size="50" class="span5" type="text" description="EO_JQ_UI_CUSTOM_JS_DESC" />
+				<field name="jq_ui_custom_css" label="EO_JQ_UI_CUSTOM_CSS" size="50" class="span5" type="text" description="EO_JQ_UI_CUSTOM_CSS_DESC" />
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- CDN Fallback -->
+				<field name="jq_ui_cdn_fallback" label="EO_JQ_CDN_FALLBACK" default="0" type="radio" class="btn-group" filter="int" description="EO_JQ_CDN_FALLBACK_DESC">
+					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+			</fieldset><!-- /jQuery UI -->
+
+
+			<!-- Chosen -->
+			<fieldset name="EO_CHOSEN">
+
+				<!-- Load Area -->
+				<field name="jq_chosen_load_area" label="EO_JQ_LOAD_AREA" default="0" type="list" filter="int" description="EO_JQ_LOAD_AREA_DESC">
+					<option value="1">EO_JQ_SITE</option>
+					<option value="2">EO_JQ_ADMIN</option>
+					<option value="3">EO_JQ_SITE_AND_ADMIN</option>
+					<option value="0">JNONE</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Version -->
+				<field name="jq_chosen_version" label="EO_JQ_VERSION" default="0.9.14" type="list" description="EO_JQ_CHOSEN_JS_VERSION_DESC">
+					<option value="1.1.0">1.1.0</option>
+					<option value="1.0.0">1.0.0</option>
+					<option value="0.14.0">0.14.0</option>
+					<option value="0.13.0">0.13.0</option>
+					<option value="0.12.1">0.12.1</option>
+					<option value="0.12.0">0.12.0</option>
+					<option value="0.11.1">0.11.1</option>
+					<option value="0.10.1">0.10.1</option>
+					<option value="0.9.15">0.9.15</option>
+					<option value="0.9.14">0.9.14 (Joomla 3.2.3 to 3.3.3)</option>
+					<option value="0.9.13">0.9.13</option>
+					<option value="0.9.12">0.9.12 (Joomla 3.2.2)</option>
+					<option value="0.9.11">0.9.11</option>
+					<option value="0.9.10">0.9.10</option>
+					<option value="0.9.9">0.9.9</option>
+					<option value="0.9.8">0.9.8</option>
+				</field>
+
+				<!-- Source -->
+				<field name="jq_chosen_source" label="EO_JQ_SOURCE" default="1" type="list" filter="int">
+					<option value="1">EO_JQ_CDN</option>
+					<option value="0">EO_JQ_LOCALLY_HOSTED</option>
+				</field>
+
+				<!-- CDN Source -->
+				<field name="jq_chosen_source_cdn" label="EO_JQ_SOURCE_CDN" default="1" type="list" filter="int">
+					<option value="1">EO_JQ_CDNJS_CDN</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- CDN Fallback -->
+				<field name="jq_chosen_cdn_fallback" label="EO_JQ_CDN_FALLBACK" default="0" type="radio" class="btn-group" filter="int" description="EO_JQ_CDN_FALLBACK_DESC">
+					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+			</fieldset><!-- /Chosen -->
+
+
+			<!-- Easing -->
+			<fieldset name="EO_EASING">
+
+				<!-- Load Area -->
+				<field name="jq_easing_load_area" label="EO_JQ_LOAD_AREA" default="0" type="list" filter="int" description="EO_JQ_LOAD_AREA_DESC">
+					<option value="1">EO_JQ_SITE</option>
+					<option value="2">EO_JQ_ADMIN</option>
+					<option value="3">EO_JQ_SITE_AND_ADMIN</option>
+					<option value="0">JNONE</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Version -->
+				<field name="jq_easing_version" label="EO_JQ_VERSION" type="list">
+					<option value="1.3">1.3</option>
+				</field>
+
+				<!-- Source -->
+				<field name="jq_easing_source" label="EO_JQ_SOURCE" default="1" type="list" filter="int">
+					<option value="1">EO_JQ_CDN</option>
+					<option value="0">EO_JQ_LOCALLY_HOSTED</option>
+				</field>
+
+				<!-- CDN Source -->
+				<field name="jq_easing_source_cdn" label="EO_JQ_SOURCE_CDN" default="1" type="list" filter="int">
+					<option value="1">EO_JQ_CDNJS_CDN</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- CDN Fallback -->
+				<field name="jq_easing_cdn_fallback" label="EO_JQ_CDN_FALLBACK" default="0" type="radio" class="btn-group" filter="int" description="EO_JQ_CDN_FALLBACK_DESC">
+					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+			</fieldset><!-- /Easing -->
+
+
+			<!-- Advanced -->
+			<fieldset name="advanced">
+
+				<!-- jQuery noConflict -->
+				<field name="jq_no_conflict" label="EO_JQ_NOCONFLICT" default="1" type="list" filter="int" description="EO_JQ_NOCONFLICT_DESC">
+					<option value="1">EO_JQ_AUTO_LOAD</option>
+					<option value="2">EO_JQ_ALWAYS_LOAD</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Local URLs (JS Files) -->
+				<field name="local_urls_js" label="EO_JQ_LOCAL_URLS_JS" default="0" type="list" filter="int" description="EO_JQ_LOCAL_URLS_DESC">
+					<option value="1">EO_JQ_SCHEME_RELATIVE</option>
+					<option value="2">EO_JQ_ABSOLUTE</option>
+					<option value="0">EO_JQ_RELATIVE</option>
+				</field>
+
+				<!-- Local URLs (CSS Files) -->
+				<field name="local_urls_css" label="EO_JQ_LOCAL_URLS_CSS" default="0" type="list" filter="int" description="EO_JQ_LOCAL_URLS_DESC">
+					<option value="1">EO_JQ_SCHEME_RELATIVE</option>
+					<option value="2">EO_JQ_ABSOLUTE</option>
+					<option value="0">EO_JQ_RELATIVE</option>
+				</field>
+
+				<!-- Scheme -->
+				<field name="scheme" label="EO_JQ_SCHEME" default="auto" type="list" filter="word" description="EO_JQ_SCHEME_DESC">
+					<option value="auto">EO_JQ_AUTO</option>
+					<option value="http">http</option>
+					<option value="https">https</option>
+				</field>
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- Domain (FQDN) -->
+				<field name="domain_fqdn" label="EO_JQ_FQDN" default="1" type="list" filter="int" description="EO_JQ_FQDN_DESC">
+					<option value="1">EO_JQ_CURRENT</option>
+					<option value="2">EO_JQ_CUSTOM</option>
+				</field>
+				<field name="domain_fqdn_custom" label="EO_JQ_FQDN_CUSTOM" size="70" class="span4" type="text" description="EO_JQ_FQDN_CUSTOM_DESC" />
+
+				<field type="spacer" hr="true" class="eo_hr" />
+
+				<!-- CDN Fallback UA -->
+				<field name="curl_useragent" label="EO_JQ_CDN_FALLBACK_UA" default="0" type="radio" class="btn-group" filter="int" description="EO_JQ_CDN_FALLBACK_UA_DESC">
+					<option value="1">JENABLED</option>
+					<option value="0">JDISABLED</option>
+				</field>
+
+				<!-- User-Agent -->
+				<field name="curl_useragent_txt" label="EO_JQ_UA_TXT" default="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0" size="75" type="text" class="span5" description="EO_JQ_UA_TXT_DESC" />
+
+			</fieldset><!-- /Advanced -->
+
+		</fields>
+	</config>
+
+	<updateservers>
+		<server type="extension" priority="1" name="eorisis: jQuery">http://eorisis.com/updates/eorisis-jquery/extension.xml</server>
+	</updateservers>
+
+</extension>
