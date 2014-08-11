@@ -228,6 +228,18 @@ $f(document).ready(function(){
 
 <?php }//A2.--> ?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/shadowbox/shadowbox.css">
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/shadowbox/shadowbox.js"></script>
+<script type="text/javascript">
+Shadowbox.init({
+    handleOversize: "drag",
+    modal: true,
+	displayNav: true,
+	slideshowDelay: 5,
+	overlayOpacity: 0.8
+});
+</script>
+
 <style>
 <?php echo $vg_css; ?>
 </style>

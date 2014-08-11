@@ -128,28 +128,6 @@ class plgContentWookmark_Gallery extends JPlugin
 			  };
 			  var handler = jQuery('.tiles li');
 			  handler.wookmark(options);
-			  jQuery('.fancybox').fancybox({
-			  helpers: {
-							title : {
-								type : '$cap_pos' //float,inside,over,outside
-							},
-							overlay : {
-								speedIn : $op_speed,
-								speedOut: $cl_speed,
-								opacity : $bg_opc,
-								openSpeed: $op_speed,
-								closeSpeed: $cl_speed,
-								css : {
-									'background-color' : '$bg_color'
-								}
-							}
-						},
-						openEffect  : '$effect', //elastic,fade ,none
-						closeEffect	: '$effect',
-						wrapCSS    : 'fancybox-custom',
-						padding: $fan_border,
-						closeBtn  : $cls_but
-			  });
 			});
 			});
 		  </script>	";
@@ -176,7 +154,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		{
 		
 			$tag.="<li>
-					<a class='fancybox' data-fancybox-group='gallery' href='$base_url$folder_path$string1[$c]'>
+					<a rel='shadowbox[gallery]' href='$base_url$folder_path$string1[$c]'>
 						<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$folder_path$string1[$c]&w=$th_img_width&q=100'>
 					</a>
 			</li>";
@@ -197,7 +175,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		for($i = 0; $i < count($img_path); $i++)
 		{
 			$tag.="<li>
-					<a class='fancybox' data-fancybox-group='gallery' href='$base_url$img_path[$i]' title='$title[$i]'>
+					<a rel='shadowbox[gallery]' href='$base_url$img_path[$i]' title='$title[$i]'>
 						<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$img_path[$i]&w=$th_img_width&q=100'>
 					</a>
 				</li>";
