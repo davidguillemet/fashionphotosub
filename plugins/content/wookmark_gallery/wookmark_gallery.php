@@ -53,7 +53,7 @@ class plgContentWookmark_Gallery extends JPlugin
 				$itemWidth=$th_img_width+10;
 				
 				($cls_but==1) ? $cls_but='true' : $cls_but = 'false';
-				$document->addStyleSheet(JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/css/jquery.fancybox.css');
+				//$document->addStyleSheet(JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/css/jquery.fancybox.css');
 				if(!$autoresize_gal)
 				{
 					$document->addCustomTag("<style type='text/css'>
