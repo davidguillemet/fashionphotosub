@@ -310,7 +310,7 @@ ob_start();
         <?php echo $this -> loadTemplate('gmap');?>
 
         <?php
-            require_once(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'users'.DIRECTORY_SEPARATOR.'tmpl'.DIRECTORY_SEPARATOR.'default_author.php');
+            require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'users'.DIRECTORY_SEPARATOR.'default_author.php');
         ?>
 
         <?php echo $this -> loadTemplate('social_network');?>

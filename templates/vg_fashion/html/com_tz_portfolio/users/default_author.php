@@ -39,7 +39,7 @@ $tmpl           = JRequest::getString('tmpl');
         ?>
         <div class="clr"></div>
         <div class="tz_portfolio_user tz_portfolio_clear">
-<!--            <h3 class="TzArticleAuthorTitle">--><?php //echo JText::_('ARTICLE_AUTHOR_TITLE'); ?><!--</h3>-->
+            <h3 class="TzArticleAuthorTitle"><?php echo JText::_('ARTICLE_AUTHOR_TITLE'); ?></h3>
             <div class="AuthorBlock">
                     <div class="AuthorAvatar">
                         <img src="<?php echo $images;?>" width="<?php echo $authorParams -> get('tz_user_image_width')?>"/>
