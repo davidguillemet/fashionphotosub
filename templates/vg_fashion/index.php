@@ -196,7 +196,7 @@ $f(function($){
 									//print each file name
 									foreach($images as $image)
 									{	
-										echo "{image : '" . $image . "', title : '" . basename($image, '.jpg') . "'},";
+										echo "{image : '" . $this->baseurl . "/" . $image . "', title : '" . basename($image, '.jpg') . "'},";
 									}
 									?>
 									],
@@ -306,7 +306,7 @@ Shadowbox.init({
             <!-- Main -->
             <div class="column-<?php echo $vg_column_main; ?>" id="id-<?php echo $this->params->get( 'component_id' ); ?>">
 			
-				<div class="<?php echo $this->pageclass_sfx;?>">
+				<div class="<?php if (isset($this->pageclass_sfx)) echo $this->pageclass_sfx;?>">
 				
 					<jdoc:include type="message" />
 					
