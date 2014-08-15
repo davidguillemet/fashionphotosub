@@ -202,6 +202,7 @@
 		/* Launch Supersized
 		----------------------------*/
 		base.launch = function(){
+		
 			base.$el.css('visibility','visible');
 			$('#supersized-loader').remove();		//Hide loading animation
 			

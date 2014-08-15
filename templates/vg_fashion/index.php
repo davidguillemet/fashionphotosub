@@ -121,6 +121,7 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+<script type="text/javascript">var rootUrl = "<?php echo $this->baseurl; ?>/";</script>
 
 <!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/plugin/jquery-latest.pack.js"></script-->
 <!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.min.js"></script-->
@@ -155,8 +156,8 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 
 <!-- supersized -->
 <?php if( $vg_slide_status == 1 ){ ?>
-	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.3.2.7.min.js"></script>
-	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.shutter.min.js"></script>
+	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.3.2.7.js"></script>
+	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.shutter.js"></script>
 <?php } ?>
 
 <!--
@@ -183,24 +184,24 @@ $f(function($){
 		transition_speed		:	<?php echo $vg_transition_speed; ?>,		// Speed of transition
 		
 		// Components							
-		slide_links				:	'false',	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
+		slide_links				:	'blank',	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
 		slides 					:  	[			// Slideshow Images
-										<?php if( $vg_slide_1 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_1 . "', title : ''},"; ?>
-										<?php if( $vg_slide_2 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_2 . "', title : ''},"; ?>
-										<?php if( $vg_slide_3 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_3 . "', title : ''},"; ?>
-										<?php if( $vg_slide_4 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_4 . "', title : ''},"; ?>
-										<?php if( $vg_slide_5 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_5 . "', title : ''},"; ?>
-										<?php if( $vg_slide_6 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_6 . "', title : ''},"; ?>
-										<?php if( $vg_slide_7 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_7 . "', title : ''},"; ?>
-										<?php if( $vg_slide_8 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_8 . "', title : ''},"; ?>
-										<?php if( $vg_slide_9 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_9 . "', title : ''},"; ?>
-										<?php if( $vg_slide_10 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_10 . "', title : ''},"; ?>
-										<?php if( $vg_slide_11 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_11 . "', title : ''},"; ?>
-										<?php if( $vg_slide_12 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_12 . "', title : ''},"; ?>
-										<?php if( $vg_slide_13 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_13 . "', title : ''},"; ?>
-										<?php if( $vg_slide_14 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_14 . "', title : ''},"; ?>
-										<?php if( $vg_slide_15 ) echo "{image : '" . $this->baseurl . "/" . $vg_slide_15 . "', title : ''}"; ?>
-									]
+									<?php
+									//path to directory to scan
+									$directory = "images/supersized/";
+
+									//get all image files with a .jpg extension.
+									$images = glob($directory . "*.jpg");
+
+									//print each file name
+									foreach($images as $image)
+									{	
+										echo "{image : '" . $image . "', title : '" . basename($image, '.jpg') . "'},";
+									}
+									?>
+									],
+		random					: 1,
+		image_protect			: 0
 		
 	});
 });
@@ -349,20 +350,22 @@ Shadowbox.init({
 			<!-- supersized -->
 			<?php if( $vg_slide_status == 1 && $vg_slide_control == 1 ){//<--A3. ?>
 			
-            <!--Control Bar-->
+			<div id="progress-back" class="load-item">
+				<div id="progress-bar"></div>
+			</div>			
+            
+			<!--Control Bar-->
             <div id="controls-wrapper" class="load-item">
-                <div id="controls">
-                    <a id="prevslide" class="load-item"></a>
-                    <a id="play-button"><img id="pauseplay" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/images/img/pause.png" alt="" /></a>
-                    <a id="nextslide" class="load-item"></a>
+                
+				<div id="controls">
+					<a id="play-button"><img id="pauseplay" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/img/pause.png"/></a>
+					<div id="slidecounter">
+					<span class="slidenumber"></span> / <span class="totalslides"></span>
+					</div>
+					<div id="slidecaption"></div>
+					<ul id="slide-list"></ul>
                 </div>
-                <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-                <div id="jp_container_1" class="jp-audio">
-                    <ul class="jp-controls">
-                        <li><a href="javascript:;" class="jp-play" tabindex="1"><?php echo JText::_('VG_FS_PLAY') ?></a></li>
-                        <li><a href="javascript:;" class="jp-pause" tabindex="1"><?php echo JText::_('VG_FS_PAUSE') ?></a></li>
-                    </ul>
-                </div>
+				
             </div>
 			
 			<?php }//A3.--> ?>
