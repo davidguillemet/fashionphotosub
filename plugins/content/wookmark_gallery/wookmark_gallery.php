@@ -43,14 +43,15 @@ class plgContentWookmark_Gallery extends JPlugin
 		//check if there is a tooltip at all for performance
 		if(strpos($article->text, '{end-wookmark}'))
 		{
+			$width=$width.'px';
+			$sh_width=$sh_width.'px';
+			$itemWidth=$th_img_width+10;
+
 			static $wookmark_css;
 			if (!$wookmark_css) 
 			{
 			
 				$document = JFactory::getDocument();
-				$width=$width.'px';
-				$sh_width=$sh_width.'px';
-				$itemWidth=$th_img_width+10;
 				
 				($cls_but==1) ? $cls_but='true' : $cls_but = 'false';
 				//$document->addStyleSheet(JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/css/jquery.fancybox.css');
