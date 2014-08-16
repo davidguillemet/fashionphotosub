@@ -45,11 +45,9 @@ $tmpl           = JRequest::getString('tmpl');
                         <img src="<?php echo $images;?>" width="<?php echo $authorParams -> get('tz_user_image_width')?>"/>
                     </div>
                     <div class="AuthorDetails">
-                        <h3 class="AuthorName" >
-                            <a class="font-light"href="<?php echo JRoute::_('index.php?option=com_tz_portfolio&amp;view=users&amp;created_by='.$this -> listAuthor -> id.'&amp;Itemid='.JRequest::getCmd('Itemid'));?>"<?php echo $target?>>
+                        <h2 class="AuthorName">
                                 <?php echo $this -> listAuthor -> name;?>
-                            </a>
-                        </h3>
+                        </h2>
 
                         <?php if($authorParams -> get('show_gender_user')):?>
                             <?php if($this -> listAuthor -> gender):?>

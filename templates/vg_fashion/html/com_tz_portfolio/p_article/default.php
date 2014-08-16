@@ -101,8 +101,6 @@ ob_start();
             <?php endif; ?>
         </h2>
             <?php endif; ?>
-            <!--easy-sharethis-->
-        <hr class="line-hr">
 
         <?php $useDefList = (($params->get('show_author',1)) or ($params->get('show_category',1)) or ($params->get('show_parent_category',1))
         or ($params->get('show_create_date',1)) or ($params->get('show_modify_date',1)) or ($params->get('show_publish_date',1))
@@ -190,7 +188,6 @@ ob_start();
 
             <?php if($params -> get('tz_show_count_comment') == 1):?>
                 <span class="TZCommentCount">
-                    <?php echo JText::_('COM_TZ_PORTFOLIO_COMMENT_COUNT_TPL');?>
                     <?php if($params -> get('tz_comment_type') == 'facebook'):?>
                         <fb:comments-count href="<?php echo JRoute::_(TZ_PortfolioHelperRoute::getPortfolioArticleRoute($this->item->slug,$this -> item -> catid));?>"></fb:comments-count>
                     <?php endif;?>
@@ -207,9 +204,10 @@ ob_start();
                     <?php endif;?>
                     <?php if($params -> get('tz_comment_type') == 'disqus'):?>
                         <?php if(isset($this -> item -> commentCount)):?>
-                            (<?php echo $this -> item -> commentCount;?>)
+                            <?php echo $this -> item -> commentCount;?>
                         <?php endif;?>
                     <?php endif;?>
+					<?php echo JText::_('COM_TZ_PORTFOLIO_COMMENT_COUNT_TPL');?>
                 </span>
             <?php endif;?>
 
@@ -252,7 +250,8 @@ ob_start();
             </div>
         <?php endif; ?>
 
-
+         <hr class="line-hr">
+		 {easy-sharethis}
 
         <?php  if (!$params->get('show_intro')) :
             echo $this->item->event->afterDisplayTitle;
@@ -283,6 +282,9 @@ ob_start();
         </div>
         <?php endif;?>
 
+		{easy-sharethis}
+        <hr class="line-hr">
+
         <?php if ($params->get('show_modify_date',1)) : ?>
             <div class="TzArticleInfoBottom">
                 <?php if ($params->get('show_hits',1)) : ?>
@@ -302,6 +304,8 @@ ob_start();
             </div>
         <?php endif; ?>
 
+        <?php echo $this -> loadTemplate('social_network');?>
+
 
         <?php echo $this -> loadTemplate('attachments');?>
 
@@ -312,8 +316,6 @@ ob_start();
         <?php
             require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'users'.DIRECTORY_SEPARATOR.'default_author.php');
         ?>
-
-        <?php echo $this -> loadTemplate('social_network');?>
 
         <h3 class="TzCommentTitle"><?php echo JText::_('COM_TZ_PORTFOLIO_COMMENT_TITLE');?></h3>
         <?php echo $this -> item -> event -> onTZPortfolioCommentDisplay;?>

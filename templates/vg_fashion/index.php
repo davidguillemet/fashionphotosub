@@ -121,6 +121,7 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript">var rootUrl = "<?php echo $this->baseurl; ?>/";</script>
 
 <!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/plugin/jquery-latest.pack.js"></script-->
@@ -141,9 +142,9 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/flexslider.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/gridNavigation.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/joomla.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/custom.css" type="text/css" />
-<link href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/joomla.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/style.css" rel="stylesheet" type="text/css" />
 
 <!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/plugin/jquery.form.js"></script-->
 <!--script type="text/javascript">jQuery.noConflict();</script-->
@@ -350,23 +351,34 @@ Shadowbox.init({
 			<!-- supersized -->
 			<?php if( $vg_slide_status == 1 && $vg_slide_control == 1 ){//<--A3. ?>
 			
-			<div id="progress-back" class="load-item">
-				<div id="progress-bar"></div>
-			</div>			
-            
-			<!--Control Bar-->
-            <div id="controls-wrapper" class="load-item">
-                
-				<div id="controls">
-					<a id="play-button"><img id="pauseplay" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/img/pause.png"/></a>
-					<div id="slidecounter">
-					<span class="slidenumber"></span> / <span class="totalslides"></span>
-					</div>
-					<div id="slidecaption"></div>
-					<ul id="slide-list"></ul>
-                </div>
+				<div id="prevthumb"></div>
+				<div id="nextthumb"></div>
+ 
+				<a id="prevslide" class="load-item"></a>
+				<a id="nextslide" class="load-item"></a>
+				<div id="thumb-tray" class="load-item">
+					<div id="thumb-back"></div>
+					<div id="thumb-forward"></div>
+				</div>
 				
-            </div>
+				<div id="progress-back" class="load-item">
+					<div id="progress-bar"></div>
+				</div>			
+            
+				<!--Control Bar-->
+				<div id="controls-wrapper" class="load-item">
+                
+					<div id="controls">
+						<a id="play-button"><img id="pauseplay" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/img/pause.png"/></a>
+						<div id="slidecounter">
+							<span class="slidenumber"></span> / <span class="totalslides"></span>
+						</div>
+						<div id="slidecaption"></div>
+						<a id="tray-button"><img id="tray-arrow" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/img/button-tray-up.png"/></a>
+						<ul id="slide-list"></ul>
+					</div>
+				
+				</div>
 			
 			<?php }//A3.--> ?>
 			
