@@ -121,7 +121,8 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,600,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript">var rootUrl = "<?php echo $this->baseurl; ?>/";</script>
 
 <!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/plugin/jquery-latest.pack.js"></script-->
@@ -239,7 +240,8 @@ Shadowbox.init({
     modal: true,
 	displayNav: true,
 	slideshowDelay: 5,
-	overlayOpacity: 0.8
+	overlayOpacity: 0.8,
+	handleOversize: 'resize'
 });
 </script>
 

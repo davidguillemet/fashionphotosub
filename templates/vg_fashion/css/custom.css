@@ -1,7 +1,14 @@
+/* Google Font 'Open Sans' */
+/* Light => font-weight: 300 */
+/* Normal => font-weight: 400 */
+/* Semi Bold => font-weight: 600 */
+/* Bold => font-weight: 700 */
+
 body
 {
 	color: #e5e5e5;
 	font-family: 'Open Sans';
+	font-weight: 300;
 }
 
 body a:hover
@@ -9,15 +16,30 @@ body a:hover
 	color : #ff5b0a;
 }
 
+h3 
+{
+	font-family: 'Open Sans Condensed';
+	font-weight: 300;
+	line-height: 1.2;
+}
+
 .content
 {
 	font-family: 'Open Sans';
-	font-size: 13Px;
+	font-size: 13px;
+	font-weight: 300;
 }
 
 .title-block
 {
 	text-transform: uppercase;
+}
+
+/* Pour les menus */
+ul.nav li
+{
+	font-family: 'Open sans condensed';
+	font-weight: 300;
 }
 
 /* Pour les filtres du Portfolio */
@@ -177,7 +199,7 @@ div#TzContent .tz_item .tz_portfolio_video{
     cursor: inherit;
     text-transform: uppercase;
     text-shadow: 0px 2px 3px #000;
-    font-weight: normal;
+    font-weight: 300;
     text-decoration: none;
 }
 #TzContent .tz_feature_item .TzPortfolioDescription h3.TzPortfolioTitle a,
@@ -390,9 +412,10 @@ padding: 0 40px 40px;
 
 .TzPortfolioItemPage .TzItemPageInner h2.TzArticleTitle, .TzBlog .TzBlogInner .TzCategoryTitle, .foxcontainer h2 {
 font-size: 36px;
+font-family: 'Open Sans Condensed';
 text-transform: uppercase;
 color: #eee;
-font-weight: normal;
+font-weight: 300;
 margin: 0;
 padding-top: 10px;
 padding-bottom: 10px;
@@ -419,7 +442,7 @@ padding-bottom: 10px;
 font-size: 24px;
 text-transform: uppercase;
 color: #eee;
-font-weight: normal;
+font-weight: 300;
 margin: 0;
 padding-top: 20px;
 padding-bottom: 10px;
@@ -446,7 +469,7 @@ color: #757575;
 font-size: 11px;
 line-height: 20px;
 text-transform: uppercase;
-font-weight: normal;
+font-weight: 300;
 text-shadow: none;
 }
 
@@ -508,7 +531,7 @@ margin-bottom: 30px;
 .TzPortfolioItemPage h3.TzArticleAuthorTitle,
 .foxcontainer h3 
 {
-	font-weight: normal;
+	font-weight: 300;
 	font-size: 14px;
 	font-family: verdana;
 	color: #757575;
@@ -525,7 +548,7 @@ margin-bottom: 30px;
 {
 	font-family : 'Open Sans', Arial, sans-serif;;
 	font-size: 22px;
-	font-weight: normal;
+	font-weight: 300;
 	color: #ff5b0a;
 }
 
@@ -741,6 +764,11 @@ list-style: none;
 
 
 /* Wookmark Gallery */
+.myapp
+{
+	margin-bottom: 30px;
+	position: relative;
+}
 
 .tiles
 {
@@ -759,4 +787,14 @@ list-style: none;
 {
 	/*display: block;*/
 	border: 1px solid #dedede;
+}
+
+.wookmark-placeholder
+{
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background-color: #eee;
+	border: 1px solid #dedede;
+	z-index: -1;
 }
