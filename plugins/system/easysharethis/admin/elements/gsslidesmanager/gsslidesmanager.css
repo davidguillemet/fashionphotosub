@@ -1,0 +1,198 @@
+/**
+ * @copyright	Copyright (C) 2012 Cedric KEIFLIN alias ced1870
+ * http://www.joomlack.fr
+ * @license		GNU/GPL
+ * */
+ 
+#gsaddslide {
+	padding: 5px;
+	text-decoration: none;
+	font-weight: normal;
+	text-align: center;
+	background: linear-gradient(top, #fff, #eee);
+	background: -moz-linear-gradient(top, #fff, #eee);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #777), color-stop(.5, #555), color-stop(.5, #333), to(#000)); 
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	cursor: pointer;
+	background: #f4f4f4 url(add.png) 5px  center no-repeat;
+	text-indent: 30px;
+	height: 35px;
+	text-transform: uppercase;
+	 font-weight: bold;
+	  color: #000000;
+}
+
+
+
+#gsaddslide:hover {
+	background-color: #eee;
+}
+
+.gsslide {
+	 border: 1px solid #DDDDDD;
+    clear: both;
+    margin: 3px 0 !important;
+    min-height: 60px;
+}
+
+.gsslide input, .gsslide select {
+	clear: both;
+	float: none;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 5px;
+}
+
+.gsslidecontainer {
+	border-left: 1px solid #ccc;
+	float: left;
+	width: 88%;
+	padding-left: 2%;
+        position: relative;
+}
+
+.gsslidehandle {
+	cursor: move;
+	background: #f4f4f4;
+	min-height: 60px;
+	width: 8%;
+	float: left;
+	border-radius: 5px 0 0 5px;
+	-moz-border-radius: 5px 0 0 5px;
+	background: url(arrow_move.gif) center 40px no-repeat;
+}
+
+.gsslidenumber {
+	background: none repeat scroll 0 0 #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    color: #444444;
+    font-size: 20px;
+    height: 25px;
+    padding-top: 5px;
+    text-align: center;
+    text-shadow: 1px 1px #FFFFFF;
+}
+
+.gssliderow {
+	clear: both;
+}
+
+.gsslideimgname {
+        width: 200px;
+	margin-left: 5px;
+}
+
+.gsselectimg, .gsslidedelete {
+	padding: 5px;
+	color: 333;
+	text-decoration: none;
+	font-weight: normal;
+	text-align: center;
+	background: #f4f4f4;
+	background: linear-gradient(top, #fff, #eee);
+	background: -moz-linear-gradient(top, #fff, #eee);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	cursor: pointer;
+}
+
+.gsselectimg:hover {
+	background: #eee;
+}
+
+.gsslidedelete:hover {
+	background: url(delete_hover.png) center center no-repeat;
+}
+
+.gsselectimg {
+	display: block;
+	margin-left: 80px;
+}
+
+.gsslidedelete {
+/*	float: right !important;*/
+        top: 0;
+        position: absolute;
+        right :0;
+        width: 16px;
+        height: 16px;
+        background: url(delete.png) center center no-repeat;
+        border: none;
+}
+
+.gsslideimgcontainer {
+	float:left;
+	height:32px;
+	width:32px;
+	overflow:hidden;
+	border: 3px solid #fff;
+	box-shadow: 0px 0px 1px #333;
+	border-radius: 5px;
+	margin: 5px 5px 5px 0;
+}
+
+.gsslideimgcontainer img {
+	margin: 0 !important;
+}
+
+.gsslidelabel {
+	color: #444444;
+    display: inline-block;
+    font-weight: bold;
+    margin: 5px;
+    width: 75px;
+}
+
+.gsslidecoordinate, .gsslidecaption, .gsslidelink {
+	width: 200px;
+}
+
+.gsslidetargettext {
+	width: 210px;
+}
+
+.gsslideaccordeonbutton {
+    padding: 5px;
+    margin: 2px;
+    color: 333;
+    text-decoration: none;
+    font-weight: normal;
+    display: block;
+    float: left;
+    text-align: center;
+    background: #f4f4f4;
+    background: linear-gradient(top, #fff, #eee);
+    background: -moz-linear-gradient(top, #fff, #eee);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.gsslideaccordeonbutton:hover, .gsslideaccordeonbutton.open {
+    background: #eee;
+    color: #0080ff;
+}
+.gsslideimgname{
+	border: medium none !important;
+	color: #444444 !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+	font-family: Arial !important;
+	background-color: #FFFFFF !important;
+}
+.gsslideappmode{
+   margin-top: 10px !important;
+}
+#gsslideslist li {
+    list-style-type: none !important;
+}
