@@ -343,8 +343,7 @@ class plgContentTZ_Portfolio extends JPlugin
 
 			// Output.
 			if ($row->prev || $row->next) {
-				/*$html = '<h5 class="TzArticleTitle">' . $row->title . '</h5>'; // DGUI Add*/
-				/*$html = '<ul class="pager pagenav">';*/
+				$html = '';
 				if ($row->prev) {
 					$html .= '
 						<a href="'. $row->prev .'" rel="prev">
@@ -353,6 +352,10 @@ class plgContentTZ_Portfolio extends JPlugin
 							. $prevTitle . 
 						'</div></a>'
 					;
+				}
+				else
+				{
+					$html .= '<div class="previous TzNavigationItem">&nbsp;</div>';
 				}
 
 
@@ -365,9 +368,10 @@ class plgContentTZ_Portfolio extends JPlugin
 						</div></a>'
 					;
 				}
-				/*$html .= '
-				</ul>'
-				;*/
+				else
+				{
+					$html .= '<div class="next TzNavigationItem">&nbsp;</div>';
+				}
 
 				$row->pagination = $html;
 				$row->paginationposition = $this->params->get('position', 1);
