@@ -3,7 +3,7 @@
  * Item View Template: Edit
  *
  * @package         Snippets
- * @version         3.3.3
+ * @version         3.4.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ JHtml::_('formbehavior.chosen', 'select');
 
 JFactory::getLanguage()->load('com_content', JPATH_ADMINISTRATOR);
 
-JHtml::script('nnframework/script.min.js', false, true);
+JFactory::getDocument()->addScriptVersion(JURI::root(true) . '/media/nnframework/js/script.min.js');
 JHtml::stylesheet('nnframework/style.min.css', false, true);
 ?>
 

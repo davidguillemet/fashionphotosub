@@ -4,7 +4,7 @@
  * extra JHTML functions
  *
  * @package         NoNumber Framework
- * @version         14.8.1
+ * @version         14.8.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -74,9 +74,19 @@ class nnHtml
 
 		if (!$multiple)
 		{
+			$first_level = isset($options['0']->level) ? $options['0']->level : 0;
+			foreach ($options as &$option)
+			{
+				if (!isset($option->level))
+				{
+					continue;
+				}
+				$repeat = ($option->level - $first_level > 0) ? $option->level - $first_level : 0;
+				$option->text = str_repeat(' - ', $repeat) . $option->text;
+			}
 			$html = JHtml::_('select.genericlist', $options, $name, 'class="inputbox"', 'value', 'text', $value);
 
-			return preg_replace('#>\[\[\:(.*?)\:\]\]#si', ' style="\1">', $html);
+			return preg_replace('#>((?:\s*-\s*)*)\[\[\:(.*?)\:\]\]#si', ' style="\2">\1', $html);
 		}
 
 		if ($simple)

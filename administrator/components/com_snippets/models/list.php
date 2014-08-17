@@ -3,7 +3,7 @@
  * List Model
  *
  * @package         Snippets
- * @version         3.3.3
+ * @version         3.4.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -116,7 +116,7 @@ class SnippetsModelList extends JModelList
 					'a.*'
 				)
 			)
-			->from('`#__snippets` AS a');
+			->from('#__snippets AS a');
 
 		// Filter by published state
 		$state = $this->getState('filter.state');
@@ -172,6 +172,7 @@ class SnippetsModelList extends JModelList
 		$query = $this->_getListQuery();
 		if ($getall)
 		{
+			$query->clear('order')->order('a.published asc, a.ordering asc');
 			$this->_db->setQuery($query);
 			$items = $this->_db->loadObjectList('alias');
 		}

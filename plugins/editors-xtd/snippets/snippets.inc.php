@@ -4,7 +4,7 @@
  * Used for the editor button (template xml)
  *
  * @package         Snippets
- * @version         3.3.3
+ * @version         3.4.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -91,9 +91,9 @@ class plgButtonSnippetsPopup
 		$tag = $config->get('tag', 'snippet');
 
 		// Load component language
-		$lang = JFactory::getLanguage();
-		$lang->load('plg_system_nnframework', JPATH_ADMINISTRATOR);
-		$lang->load('com_snippets', JPATH_ADMINISTRATOR);
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
+		NNFrameworkFunctions::loadLanguage('plg_system_nnframework');
+		NNFrameworkFunctions::loadLanguage('com_snippets');
 
 		// Add scripts and styles
 		$script = "

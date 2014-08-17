@@ -338,7 +338,8 @@ class plgContentTZ_Portfolio extends JPlugin
 
 			// Output.
 			if ($row->prev || $row->next) {
-				$html = '
+				$html = '<h5 class="TzArticleTitle">' . $row->title . '</h5>'; // DGUI Add
+				$html .= '
 				<ul class="pager pagenav">'
 				;
 				if ($row->prev) {

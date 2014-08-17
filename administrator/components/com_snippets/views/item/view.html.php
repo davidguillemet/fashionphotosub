@@ -3,7 +3,7 @@
  * Item View
  *
  * @package         Snippets
- * @version         3.3.3
+ * @version         3.4.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

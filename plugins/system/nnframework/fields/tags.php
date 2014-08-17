@@ -4,7 +4,7 @@
  * Displays a select box of backend group levels
  *
  * @package         NoNumber Framework
- * @version         14.8.1
+ * @version         14.8.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

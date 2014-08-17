@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Snippets
- * @version         3.3.3
+ * @version         3.4.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,12 +18,14 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
+NNFrameworkFunctions::loadLanguage('plg_system_snippets');
+
 /**
  * System Plugin that places a Snippets code block into the text
  */
 class plgSystemSnippetsHelper
 {
-	function __construct(&$params)
+	public function __construct(&$params)
 	{
 		$this->option = JFactory::getApplication()->input->get('option');
 
@@ -36,66 +38,56 @@ class plgSystemSnippetsHelper
 		$bts = '((?:<p(?: [^>]*)?>\s*)?)';
 		$bte = '((?:\s*</p>)?)';
 		$this->params->tag_regex = preg_quote($this->params->tag, '#') . (($this->params->tag == 'snippet') ? 's?' : '');
-		$this->params->regex = '#' . $bts . '\{' . $this->params->tag_regex . ' ([^\}\|]+)((?:\|[^\}]*)?)\}' . $bte . '#s';
+		$this->params->regex = '#' . $bts . '\{' . $this->params->tag_regex . ' ([^\}\|]+)((?:\|.*?[^\\\\])?)\}' . $bte . '#s';
+
+		$this->params->protected_tags = array(
+			$this->params->tag
+		);
+		if ($this->params->tag == 'snippet')
+		{
+			$this->params->protected_tags[] = $this->params->tag . 's';
+		}
+
+		$this->params->disabled_components = array('com_acymailing');
 
 		require_once JPATH_ADMINISTRATOR . '/components/com_snippets/models/list.php';
 		$list = new SnippetsModelList;
 		$this->items = $list->getItems(1);
 	}
 
-	function onContentPrepare(&$article, &$context)
+	public function onContentPrepare(&$article, &$context)
 	{
-		if (isset($article->text)
-			&& !(
-				$context == 'com_content.category'
-				&& JFactory::getApplication()->input->get('view') == 'category'
-				&& !JFactory::getApplication()->input->get('layout')
-			)
-		)
-		{
-			$this->replaceTags($article->text);
-		}
-		if (isset($article->description))
-		{
-			$this->replaceTags($article->description);
-		}
-		if (isset($article->title))
-		{
-			$this->replaceTags($article->title);
-		}
-		if (isset($article->created_by_alias))
-		{
-			$this->replaceTags($article->created_by_alias);
-		}
+		NNFrameworkHelper::processArticle($article, $context, $this, 'replaceTags');
 	}
 
-	function onAfterDispatch()
+	public function onAfterDispatch()
 	{
-		if (JFactory::getDocument()->getType() != 'feed' && $this->option != 'com_acymailing' && JFactory::getDocument()->getType() != 'pdf')
+		// only in html and feeds
+		if (JFactory::getDocument()->getType() !== 'html' && JFactory::getDocument()->getType() !== 'feed')
 		{
 			return;
 		}
 
-		if ((JFactory::getDocument()->getType() == 'feed' || $this->option == 'com_acymailing') && isset(JFactory::getDocument()->items))
+		$html = JFactory::getDocument()->getBuffer('component');
+
+		if (empty($html) || is_array($html))
 		{
-			$context = 'feed';
-			$items = JFactory::getDocument()->items;
-			foreach ($items as $item)
-			{
-				$this->onContentPrepare($item, $context);
-			}
+			return;
 		}
 
-		// PDF
-		if (JFactory::getDocument()->getType() == 'pdf')
+		if (strpos($html, '{' . $this->params->tag) === false)
 		{
-			// Still to do for Joomla 2.5
+			return;
 		}
+
+		$this->replaceTags($html, 'component');
+
+		JFactory::getDocument()->setBuffer($html, 'component');
 	}
 
-	function onAfterRender()
+	public function onAfterRender()
 	{
-		// not in pdf's
+		// only in html and feeds
 		if (JFactory::getDocument()->getType() !== 'html' && JFactory::getDocument()->getType() !== 'feed')
 		{
 			return;
@@ -109,29 +101,45 @@ class plgSystemSnippetsHelper
 
 		if (JFactory::getDocument()->getType() != 'html')
 		{
-			$this->replaceTags($html);
+			$this->replaceTags($html, 'body');
 		}
 		else
 		{
 			// only do stuff in body
 			list($pre, $body, $post) = nnText::getBody($html);
-			$this->protect($body);
-			$this->replaceTags($body);
+			$this->replaceTags($body, 'body');
 			$html = $pre . $body . $post;
 		}
 
 		$this->cleanLeftoverJunk($html);
-		NNProtect::unprotect($html);
 
 		JResponse::setBody($html);
 	}
 
-	function replaceTags(&$str)
+	function replaceTags(&$str, $area = 'article')
 	{
 		if (!is_string($str) || $str == '')
 		{
 			return;
 		}
+
+		if ($area == 'component')
+		{
+			// allow in component?
+			if (in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components))
+			{
+				$this->protectTags($str);
+
+				return;
+			}
+		}
+
+		if (strpos($str, '{' . $this->params->tag) === false)
+		{
+			return;
+		}
+
+		$this->protect($str);
 
 		while (preg_match_all($this->params->regex, $str, $matches, PREG_SET_ORDER) > 0)
 		{
@@ -149,6 +157,8 @@ class plgSystemSnippetsHelper
 				$str = str_replace($match['0'], $snippet_html, $str);
 			}
 		}
+
+		NNProtect::unprotect($str);
 	}
 
 	function processSnippet($id, $vars)
@@ -180,13 +190,20 @@ class plgSystemSnippetsHelper
 		}
 
 		$html = $item->content;
+
 		if ($vars)
 		{
+			$unprotected = array('\\|', '\\{', '\\}');
+			$protected = nnProtect::protectArray($unprotected);
+			nnProtect::protectInString($vars, $unprotected, $protected);
+
 			$vars = explode('|', $vars);
+
 			foreach ($vars as $i => $var)
 			{
 				if ($i)
 				{
+					nnProtect::unprotectInString($var, array('|', '{', '}'), $protected);
 					$html = preg_replace('#\\\\' . $i . '(?![0-9])#', $var, $html);
 				}
 			}
@@ -213,12 +230,23 @@ class plgSystemSnippetsHelper
 		NNProtect::protectSourcerer($str);
 	}
 
+	function protectTags(&$str)
+	{
+		NNProtect::protectTags($str, $this->params->protected_tags);
+	}
+
+	function unprotectTags(&$str)
+	{
+		NNProtect::unprotectTags($str, $this->params->protected_tags);
+	}
+
 	/**
 	 * Just in case you can't figure the method name out: this cleans the left-over junk
 	 */
 	function cleanLeftoverJunk(&$str)
 	{
-		$str = preg_replace($this->params->regex, '', $str);
+		$this->unprotectTags($str);
+
 		$str = preg_replace('#<\!-- (START|END): SN_[^>]* -->#', '', $str);
 		if (!$this->params->place_comments)
 		{

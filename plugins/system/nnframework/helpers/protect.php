@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Protect
  *
  * @package         NoNumber Framework
- * @version         14.8.1
+ * @version         14.8.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -141,7 +141,7 @@ class NNProtect
 	 */
 	public static function getFormRegex($regex_format = 0)
 	{
-		$regex = '(<' . 'form\s[^>]*(id|name)="(adminForm|postform|submissionForm|default_action_user)")';
+		$regex = '(<' . 'form\s[^>]*((id|name)="(adminForm|postform|submissionForm|default_action_user)|action="[^"]*option=com_myjspace&(amp;)?view=see)")';
 
 		if ($regex_format)
 		{

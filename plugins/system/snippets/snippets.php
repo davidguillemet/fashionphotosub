@@ -1,10 +1,9 @@
 <?php
 /**
  * Main Plugin File
- * Does all the magic!
  *
  * @package         Snippets
- * @version         3.3.3
+ * @version         3.4.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,66 +18,72 @@ defined('_JEXEC') or die;
  */
 class plgSystemSnippets extends JPlugin
 {
-	function __construct(&$subject, $config)
+	private $_alias = 'snippets';
+	private $_title = 'SNIPPETS';
+	private $_lang_prefix = 'SNP';
+
+	private $_init = false;
+	private $_helper = null;
+
+	public function onAfterRoute()
 	{
-		$this->_pass = 0;
-		parent::__construct($subject, $config);
+		$this->getHelper();
 	}
 
-	function onAfterRoute()
+	public function onContentPrepare($context, &$article)
 	{
-		$this->_pass = 0;
-
-		jimport('joomla.filesystem.file');
-		if (JFile::exists(JPATH_PLUGINS . '/system/nnframework/helpers/protect.php'))
+		if (!$this->getHelper())
 		{
-			require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
-			// return if page should be protected
-			if (NNProtect::isProtectedPage('snippets', 1))
-			{
-				return;
-			}
+			return;
 		}
 
-		// load the admin language file
-		JFactory::getLanguage()->load('plg_' . $this->_type . '_' . $this->_name, JPATH_ADMINISTRATOR);
+		$this->_helper->onContentPrepare($article, $context);
+	}
 
-		// return if NoNumber Framework plugin is not installed
-		if (!JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php'))
+	public function onAfterDispatch()
+	{
+		if (!$this->getHelper())
 		{
-			if (JFactory::getApplication()->isAdmin() && JFactory::getApplication()->input->get('option') != 'com_login')
-			{
-				$msg = JText::_('SNP_NONUMBER_FRAMEWORK_NOT_INSTALLED')
-					. ' ' . JText::sprintf('SNP_EXTENSION_CAN_NOT_FUNCTION', JText::_('SNIPPETS'));
-				$mq = JFactory::getApplication()->getMessageQueue();
-				foreach ($mq as $m)
-				{
-					if ($m['message'] == $msg)
-					{
-						$msg = '';
-						break;
-					}
-				}
-				if ($msg)
-				{
-					JFactory::getApplication()->enqueueMessage($msg, 'error');
-				}
-			}
 			return;
 		}
 
-		if (JFile::exists(JPATH_PLUGINS . '/system/nnframework/helpers/protect.php'))
-		{
-			require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
-			// return if current page is an admin page
-			if (NNProtect::isAdmin())
-			{
-				return;
-			}
-		}
-		else if (JFactory::getApplication()->isAdmin())
+		$this->_helper->onAfterDispatch();
+	}
+
+	public function onAfterRender()
+	{
+		if (!$this->getHelper())
 		{
 			return;
+		}
+
+		$this->_helper->onAfterRender();
+	}
+
+	/*
+	 * Below methods are general functions used in most of the NoNumber extensions
+	 * The reason these are not placed in the NoNumber Framework files is that they also
+	 * need to be used when the NoNumber Framework is not installed
+	 */
+
+	/**
+	 * Create the helper object
+	 *
+	 * @return object The plugins helper object
+	 */
+	private function getHelper()
+	{
+		// Already initialized, so return
+		if ($this->_init)
+		{
+			return $this->_helper;
+		}
+
+		$this->_init = true;
+
+		if (!$this->isFrameworkEnabled())
+		{
+			return false;
 		}
 
 		if (!JFile::exists(JPATH_ADMINISTRATOR . '/components/com_snippets/models/list.php'))
@@ -86,41 +91,101 @@ class plgSystemSnippets extends JPlugin
 			return;
 		}
 
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
+
+		if (NNProtect::isAdmin())
+		{
+			return false;
+		}
+
+		if (NNProtect::isProtectedPage($this->_alias, 1))
+		{
+			return false;
+		}
+
 		// Load component parameters
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = NNParameters::getInstance();
-		$params = $parameters->getComponentParams('snippets');
+		$params = NNParameters::getInstance()->getComponentParams($this->_name);
 
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
+		$this->_helper = NNFrameworkHelper::getPluginHelper($this, $params);
 
-		// Include the Helper
-		require_once JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name . '/helper.php';
-		$class = get_class($this) . 'Helper';
-		$this->helper = new $class($params);
-
-		$this->_pass = 1;
+		return $this->_helper;
 	}
 
-	function onContentPrepare($context, &$article)
+	/**
+	 * Check if the NoNumber Framework is enabled
+	 *
+	 * @return bool
+	 */
+	private function isFrameworkEnabled()
 	{
-		if ($this->_pass)
+		// Return false if NoNumber Framework is not installed
+		if (!$this->isFrameworkInstalled())
 		{
-			$this->helper->onContentPrepare($article, $context);
+			return false;
 		}
+
+		$nnframework = JPluginHelper::getPlugin('system', 'nnframework');
+		if (!isset($nnframework->name))
+		{
+			$this->throwError($this->_lang_prefix . '_NONUMBER_FRAMEWORK_NOT_ENABLED');
+
+			return false;
+		}
+
+		return true;
 	}
 
-	function onAfterDispatch()
+	/**
+	 * Check if the NoNumber Framework is installed
+	 *
+	 * @return bool
+	 */
+	private function isFrameworkInstalled()
 	{
-		if ($this->_pass)
+		jimport('joomla.filesystem.file');
+
+		if (!JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php'))
 		{
-			$this->helper->onAfterDispatch();
+			$this->throwError($this->_lang_prefix . '_NONUMBER_FRAMEWORK_NOT_INSTALLED');
+
+			return false;
 		}
+
+		return true;
 	}
 
-	function onAfterRender()
+	/**
+	 * Place an error in the message queue
+	 */
+	private function throwError($text)
 	{
-		if ($this->_pass)
+		// Return if page is not an admin page or the admin login page
+		if (
+			!JFactory::getApplication()->isAdmin()
+			|| JFactory::getUser()->get('guest')
+		)
 		{
-			$this->helper->onAfterRender();
+			return;
 		}
+
+		// load the admin language file
+		JFactory::getLanguage()->load('plg_' . $this->_type . '_' . $this->_name, JPATH_ADMINISTRATOR);
+
+		$text = JText::_($text) . ' ' . JText::sprintf($this->_lang_prefix . '_EXTENSION_CAN_NOT_FUNCTION', JText::_($this->_title));
+
+		// Check if message is not already in queue
+		$messagequeue = JFactory::getApplication()->getMessageQueue();
+		foreach ($messagequeue as $message)
+		{
+			if ($message['message'] == $text)
+			{
+				return;
+			}
+		}
+
+		JFactory::getApplication()->enqueueMessage($text, 'error');
 	}
 }
+

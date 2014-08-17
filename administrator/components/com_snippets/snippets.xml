@@ -2,8 +2,8 @@
 <extension version="3.2" type="component" method="upgrade">
 	<name>COM_SNIPPETS</name>
 	<description>COM_SNIPPETS_DESC</description>
-	<version>3.3.3FREE</version>
-	<creationDate>May 2014</creationDate>
+	<version>3.4.0FREE</version>
+	<creationDate>August 2014</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>

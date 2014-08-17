@@ -2,8 +2,8 @@
 <extension version="3.2" type="plugin" group="system" method="upgrade">
 	<name>PLG_EDITORS-XTD_SNIPPETS</name>
 	<description>PLG_EDITORS-XTD_SNIPPETS_DESC</description>
-	<version>3.3.3FREE</version>
-	<creationDate>May 2014</creationDate>
+	<version>3.4.0FREE</version>
+	<creationDate>August 2014</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>
@@ -24,16 +24,15 @@
 				<field name="@loadlanguage" type="nn_loadlanguage" extension="plg_editors-xtd_snippets" />
 				<field name="@license" type="nn_license" extension="SNIPPETS" />
 				<field name="@version" type="nn_version" extension="SNIPPETS" />
-				<field name="@dependency" type="nn_dependency"
+				<field name="@dependency1" type="nn_dependency"
 					label="SNP_THE_COMPONENT"
 					file="/administrator/components/com_snippets/snippets.php" />
-				<field name="@dependency" type="nn_dependency"
+				<field name="@dependency2" type="nn_dependency"
 					label="SNP_THE_SYSTEM_PLUGIN"
 					file="/plugins/system/snippets/snippets.php" />
 				<field name="@header" type="nn_header"
 					label="SNIPPETS"
 					description="SNIPPETS_DESC"
-					xml="/plugins/editors-xtd/snippets/snippets.xml"
 					url="http://www.nonumber.nl/snippets" />
 
 				<field name="@notice_settings" type="nn_plaintext" label="SNP_SETTINGS" />

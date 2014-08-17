@@ -3,7 +3,7 @@
  * Main Admin file
  *
  * @package         Snippets
- * @version         3.3.3
+ * @version         3.4.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -37,7 +37,7 @@ $nnep = JPluginHelper::getPlugin('system', 'nnframework');
 if (!isset($nnep->name))
 {
 	$msg = JText::_('SNP_NONUMBER_FRAMEWORK_NOT_ENABLED')
-		. ' ' . JText::sprintf('SNP_EXTENSION_MAY_NOT_FUNCTION', JText::_('COM_SNIPPETS'));
+		. ' ' . JText::sprintf('SNP_EXTENSION_CAN_NOT_FUNCTION', JText::_('COM_SNIPPETS'));
 	JFactory::getApplication()->enqueueMessage($msg, 'notice');
 }
 

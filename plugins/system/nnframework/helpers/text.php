@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Text
  *
  * @package         NoNumber Framework
- * @version         14.8.1
+ * @version         14.8.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -331,6 +331,9 @@ class NNText
 	 */
 	public static function createAlias($str)
 	{
+		// Remove < > html entities
+		$str = str_replace(array('&lt;', '&gt;'), '', $str);
+
 		// Convert html entities
 		$str = html_entity_decode($str, ENT_COMPAT, 'UTF-8');
 
