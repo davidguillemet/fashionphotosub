@@ -674,7 +674,7 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                         $margin = 'margin: '.$tplItems -> margin.';';
                     }
                     if($tplItems -> padding){
-                        $padding = 'padding: '.$tplItems -> margin.';';
+                        $padding = 'padding: '.$tplItems -> padding.';';
                     }
                     if($background || $color || $margin || $padding){
                         $this -> document -> addStyleDeclaration('
