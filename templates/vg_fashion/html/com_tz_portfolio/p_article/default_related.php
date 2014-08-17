@@ -97,6 +97,7 @@ if($lists):
                             href="<?php echo $item -> _link;?>">
                         <img src="<?php echo $src;?>" alt="<?php echo $item -> title?>" title="<?php echo $item -> title;?>"/>
                     </a>
+					<div class="TzRelatedImageBg"><?php echo $item -> title;?></div>
                 </div>
                 <?php endif;?>
             <?php endif;?>

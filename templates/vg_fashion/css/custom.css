@@ -390,8 +390,8 @@ span.tagName{
 
 .dgui_gallery_item .TzRelated li
 {
-    display:inline;
-    list-style:none;
+    display: inline-block;
+    list-style: none;
 }
 .dgui_gallery_item .TzRelated li.first
 {
@@ -399,7 +399,8 @@ span.tagName{
 }
 .dgui_gallery_item .TzImage
 {
-	display:inline;
+	display: inline-block;
+	position: relative;
 }
 
 li.TzItem{
@@ -417,6 +418,30 @@ li.TzItem a {
 .dgui_gallery_item .TzRelated li img:hover
 {
 	border: 2px solid #ff5b0a;
+}
+
+.TzRelatedImageBg
+{
+    background: #000;
+	padding: 10px 0;
+	text-align: center;
+	text-transform: uppercase;
+	height: 0px;
+    bottom:2px;
+    left:2px;
+    right:2px;
+    opacity:0;
+    filter:alpha(opacity=0);
+    position: absolute;
+    -moz-transition: all 200ms linear 0ms;
+    -webkit-transition: all 200ms linear 0ms;
+    -o-transition: all 200ms linear 0ms;	
+}
+.dgui_gallery_item .TzImage:hover .TzRelatedImageBg
+{
+    opacity: 0.75;
+    filter:alpha(opacity=75);
+	height: 40px;
 }
 
 /* Templaza Article */
