@@ -266,7 +266,7 @@ class plgContentTZ_Portfolio extends JPlugin
 	        $case_when1 .= $query->concatenate(array($c_id, 'cc.alias'), ':');
 	        $case_when1 .= ' ELSE ';
 	        $case_when1 .= $c_id.' END as catslug';
-      		$query->select('a.id,'.$case_when.','.$case_when1);
+      		$query->select('a.id,a.title,'.$case_when.','.$case_when1); // DGUI Add a.title
 			$query->from('#__content AS a');
 			$query->leftJoin('#__categories AS cc ON cc.id = a.catid');
 			$query->where('a.catid = '. (int)$row->catid .' AND a.state = '. (int)$row->state
@@ -294,14 +294,19 @@ class plgContentTZ_Portfolio extends JPlugin
 			$row->prev = null;
 			$row->next = null;
 
+			$prevTitle = null;
+			$nextTitle = null;
+			
 			if ($location -1 >= 0)	{
 				// The previous content item cannot be in the array position -1.
 				$row->prev = $rows[$location -1];
+				$prevTitle = $row->prev->title;
 			}
 
 			if (($location +1) < count($rows)) {
 				// The next content item cannot be in an array position greater than the number of array postions.
 				$row->next = $rows[$location +1];
+				$nextTitle = $row->next->title;
 			}
 
 			$pnSpace = "";
@@ -338,16 +343,15 @@ class plgContentTZ_Portfolio extends JPlugin
 
 			// Output.
 			if ($row->prev || $row->next) {
-				$html = '<h5 class="TzArticleTitle">' . $row->title . '</h5>'; // DGUI Add
-				$html .= '
-				<ul class="pager pagenav">'
-				;
+				/*$html = '<h5 class="TzArticleTitle">' . $row->title . '</h5>'; // DGUI Add*/
+				/*$html = '<ul class="pager pagenav">';*/
 				if ($row->prev) {
 					$html .= '
-					<li class="previous">
-						<a href="'. $row->prev .'" rel="prev">'
-							. JText::_('JGLOBAL_LT') . $pnSpace . JText::_('JPREV') . '</a>
-					</li>'
+						<a href="'. $row->prev .'" rel="prev">
+						<div class="previous TzNavigationItem">
+						<i class="icon-left"></i>'
+							. $prevTitle . 
+						'</div></a>'
 					;
 				}
 
@@ -355,15 +359,15 @@ class plgContentTZ_Portfolio extends JPlugin
 
 				if ($row->next) {
 					$html .= '
-					<li class="next">
-						<a href="'. $row->next .'" rel="next">'
-							. JText::_('JNEXT') . $pnSpace . JText::_('JGLOBAL_GT') .'</a>
-					</li>'
+						<a href="'. $row->next .'" rel="next">
+						<div class="next TzNavigationItem">'
+							. $nextTitle .'<i class="icon-right"></i>
+						</div></a>'
 					;
 				}
-				$html .= '
+				/*$html .= '
 				</ul>'
-				;
+				;*/
 
 				$row->pagination = $html;
 				$row->paginationposition = $this->params->get('position', 1);
