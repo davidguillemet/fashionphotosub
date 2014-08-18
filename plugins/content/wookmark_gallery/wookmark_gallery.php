@@ -150,12 +150,18 @@ class plgContentWookmark_Gallery extends JPlugin
 			   $string1[] = $file;
 		   }
 		}
-		$tag='';
-		for($c=0;$c <count($string1) ; $c++)
-		{
 		
+		// Get image caption
+		$fileInfo = $this->getFileInfo($folder_path);
+		
+		$tag='';
+		for($c = 0; $c < count($string1); $c++)
+		{
+			$fileName = $string1[$c];
+			$caption = str_replace("'", "&apos;", $fileInfo[$fileName]);
+			
 			$tag.="<li>
-					<a rel='shadowbox[gallery]' href='$base_url$folder_path$string1[$c]'>
+					<a rel='shadowbox[gallery]' href='$base_url$folder_path$string1[$c]' title='$caption'>
 						<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$folder_path$string1[$c]&w=$th_img_width&q=100'>
 					</a>
 			</li>";
@@ -164,6 +170,58 @@ class plgContentWookmark_Gallery extends JPlugin
 		return $tag;
 	}
 	
+    private function getFileInfo($imageFolder)
+    {
+		$file_info = false;
+
+		$db =& JFactory::getDBO();
+		$query = 'SELECT title, filename, filepath FROM `#__phocagallery` p WHERE p.filepath ="'. trim(substr($imageFolder, 7), '/') .'"';
+		$db->setQuery($query);
+		$data = $db->loadObjectList(); 
+		if (count($data))
+		{
+			foreach ($data as $row)
+			{
+				$file_info[$row->filename] = $row->title;
+			}
+		}
+		else
+		{
+			$absolute_path = JPATH_SITE;		
+			$captions_lang = $absolute_path.$imageFolder.'/captions-'.$this->_params['lang'].'.txt';
+			$captions_txtfile = $absolute_path.$imageFolder.'/captions.txt';
+
+			if(file_exists($captions_lang))
+			{
+				$captions_file = array_map('trim', file($captions_lang));
+
+				foreach($captions_file as $value)
+				{
+					if(!empty($value))
+					{
+						$captions_line = explode('|', $value);
+						$file_info[$captions_line[0]] = $captions_line[1];
+					}
+				}
+			}
+			elseif(file_exists($captions_txtfile) AND !file_exists($captions_lang))
+			{
+				$captions_file = array_map('trim', file($captions_txtfile));
+
+				foreach($captions_file as $value)
+				{
+					if(!empty($value))
+					{
+						$captions_line = explode('|', $value);
+						$file_info[$captions_line[0]] = $captions_line[1];
+					}
+				}
+			}
+		}
+
+		return $file_info;
+    }
+
 	function fetchImgTxt($arr_img_path,$arr_title)
 	{
 		$base_url=JURI::root();

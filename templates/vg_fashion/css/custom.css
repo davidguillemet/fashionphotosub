@@ -381,7 +381,7 @@ span.tagName{
 }
 
 /* DGUI Horizontal Related Articles */
-/* dgui_gallery_item = paramètre "classe de page" dy menu "Galeries"*/
+/* dgui_gallery_item = paramètre "classe de page" du menu "Galeries"*/
 .dgui_gallery_item .TzRelated ul
 {
 	list-style: none;
