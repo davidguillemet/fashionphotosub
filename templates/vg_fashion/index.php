@@ -196,6 +196,7 @@ $f(function($){
 
 									//get all image files with a .jpg extension.
 									$images = glob($directory . "*.jpg");
+									shuffle($images);
 
 									//print each file name
 									foreach($images as $image)
@@ -204,7 +205,7 @@ $f(function($){
 									}
 									?>
 									],
-		random					: 1,
+		random					: 0,
 		image_protect			: 0
 		
 	});
