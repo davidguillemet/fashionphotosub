@@ -24,6 +24,7 @@ $params = $this -> item -> params;
 ?>
 <?php if ($params->get('show_hits',1)) : ?>
 	<span class="TzHits font-italic">
+		<i class="icon-eye" style="font-size: 18px"></i>
 		<?php echo JText::_('TZ_READ'); ?>
 		<?php echo JText::sprintf($this->item->hits); ?>
 		<?php echo JText::_('TZ_READ_TIME'); ?>

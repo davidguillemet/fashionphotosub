@@ -25,7 +25,8 @@ $params = $this -> item -> params;
 ?>
 <?php if ($params->get('show_modify_date',1)) : ?>
 	<span class="TzModified font-italic">
+		<i class="icon-edit" style="font-size: 16px"></i>
 		<?php echo JText::_('TZ_DATE_MODIFIED'); ?>
-		<?php echo JText::sprintf(JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?>
+		<?php echo JText::sprintf(JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC1'))); ?>
 	</span>
 <?php endif; ?>
