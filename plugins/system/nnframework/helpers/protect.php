@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Protect
  *
  * @package         NoNumber Framework
- * @version         14.8.2
+ * @version         14.8.4
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -30,12 +30,15 @@ class NNProtect
 	public static function isProtectedPage($ext = '', $hastags = 0, $exclude_formats = array('pdf'))
 	{
 		// return if disabled via url
-		// return if current page is raw or pdf format
+		// return if current page is pdf format
+		// return if current page is an image
 		// return if current page is NoNumber QuickPage
 		// return if current page is a JoomFish or Josetta page
 		return (
 			($ext && JFactory::getApplication()->input->get('disable_' . $ext))
 			|| in_array(JFactory::getApplication()->input->get('format'), $exclude_formats)
+			|| in_array(JFactory::getApplication()->input->get('view'), array('image', 'img'))
+			|| in_array(JFactory::getApplication()->input->get('type'), array('image', 'img'))
 			|| ($hastags
 				&& (
 					JFactory::getApplication()->input->getInt('nn_qp', 0)

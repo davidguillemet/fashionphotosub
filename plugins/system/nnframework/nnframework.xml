@@ -2,7 +2,7 @@
 <extension version="3.2" type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_NNFRAMEWORK</name>
 	<description>PLG_SYSTEM_NNFRAMEWORK_DESC</description>
-	<version>14.8.2</version>
+	<version>14.8.4</version>
 	<creationDate>August 2014</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
@@ -28,7 +28,7 @@
 					description="NONUMBER_FRAMEWORK_DESC" />
 			</fieldset>
 			<fieldset name="basic">
-				<field name="max_list_count" type="text" size="10" class="input-mini" default="2500" label="NN_MAX_LIST_COUNT" description="NN_MAX_LIST_COUNT" />
+				<field name="max_list_count" type="text" size="10" class="input-mini" default="2500" label="NN_MAX_LIST_COUNT" description="NN_MAX_LIST_COUNT_DESC" />
 			</fieldset>
 		</fields>
 	</config>
