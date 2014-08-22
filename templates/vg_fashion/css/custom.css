@@ -50,7 +50,7 @@ h3
 
 .footer
 {
-	z-index: 1000;
+	z-index: 998; /* 1 less than shadowbox */
 }
 /* Navigation entre articles */
 #tz-portfolio-template-navigation
@@ -79,6 +79,7 @@ h3
 .TzNavigationItem:hover
 {
 	color: #ff5b0a;
+	background-color: #212121;
 }
 #tz-portfolio-template-navigation .next
 {
@@ -433,7 +434,7 @@ li.TzItem a {
 
 .dgui_gallery_item .TzRelated li img
 {
-	border: 2px solid #a5a5a5;
+	border: 2px solid #a0afe8;
 }
 .dgui_gallery_item .TzRelated li img:hover
 {
