@@ -125,6 +125,11 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript">var rootUrl = "<?php echo $this->baseurl; ?>/";</script>
 
+<!-- Share This -->
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "23fa9369-ba77-499c-9e23-6f1e82eb5516", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
+
 <!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/plugin/jquery-latest.pack.js"></script-->
 <!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.min.js"></script-->
 <jdoc:include type="head" />
