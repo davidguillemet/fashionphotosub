@@ -10,3 +10,5 @@ plugins/content/wookmark_gallery/wookmark_gallery/tmpl/cache/*.*
 media/tz_portfolio/article/cache/*.jpg
 
 plugins/content/wookmark_gallery/wookmark_gallery/tmpl/cache/*.*
+
+tmp/*.*

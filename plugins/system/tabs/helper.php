@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Tabs
- * @version         3.6.5
+ * @version         3.6.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -39,7 +39,7 @@ class plgSystemTabsHelper
 		$this->params->tag_open = preg_replace('#[^a-z0-9-_]#si', '', $this->params->tag_open);
 		$this->params->tag_close = preg_replace('#[^a-z0-9-_]#si', '', $this->params->tag_close);
 		$this->params->tag_link = preg_replace('#[^a-z0-9-_]#si', '', $this->params->tag_link);
-		$this->params->tag_delimiter = ($this->params->tag_delimiter == 'space') ? '(?: |&nbsp;)' : '=';
+		$this->params->tag_delimiter = ($this->params->tag_delimiter == 'space') ? '(?: |&nbsp;|&\#160;)' : '=';
 
 		$this->params->regex = '#'
 			. $bts
@@ -404,6 +404,7 @@ class plgSystemTabsHelper
 				{
 					if ($val && in_array($val, array('active', 'opened', 'open')))
 					{
+						$item->active = 1;
 						$active = $i;
 						unset($tag->params[$j]);
 					}

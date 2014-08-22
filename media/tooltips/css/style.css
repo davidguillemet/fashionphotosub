@@ -2,7 +2,7 @@
  * Stylesheet
  *
  * @package         Tooltips
- * @version         3.7.3
+ * @version         3.7.4
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -156,13 +156,13 @@ body > .nn_tooltips.popover .arrow:after {
 body > .nn_tooltips.popover.top .arrow:after,
 body > .nn_tooltips.popover.bottom .arrow:after {
   left: 0;
-  margin-left: -11px;
+  margin-left: -10px;
 }
 body > .nn_tooltips.popover.left .arrow:after {
-  bottom: -11px;
+  bottom: -10px;
 }
 body > .nn_tooltips.popover.right .arrow:after {
-  bottom: -11px;
+  bottom: -10px;
 }
 /* TOOLTIP LINK STYLES */
 .nn_tooltips-link {
@@ -194,6 +194,7 @@ body > .nn_tooltips.popover.right .arrow:after {
   display: none;
 }
 .nn_tooltips.popover.isimg {
+  text-indent: 0;
   max-width: none;
 }
 .nn_tooltips.popover.isimg .popover-content {

@@ -2,7 +2,7 @@
  * Main JavaScript file
  *
  * @package         Tooltips
- * @version         3.7.3
+ * @version         3.7.4
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -12,8 +12,8 @@
 
 (function($) {
 	$(document).ready(function() {
-		var timeout = null;
-		var timeoutOff = 0;
+		var tt_timeout = null;
+		var tt_timeoutOff = 0;
 
 		// hover mode
 		$('.nn_tooltips-link.hover').popover({
@@ -70,7 +70,7 @@
 			// prevent other click events
 			evt.stopPropagation();
 
-			clearTimeout(timeout);
+			clearTimeout(tt_timeout);
 
 			// close all other popovers
 			$('.nn_tooltips-link.' + cls).each(function() {
@@ -90,14 +90,14 @@
 					evt.stopPropagation();
 
 					// switch timeout off for this tooltip
-					timeoutOff = 1;
-					clearTimeout(timeout);
+					tt_timeoutOff = 1;
+					clearTimeout(tt_timeout);
 				})
 				.on('touchstart', function(evt) {
 					evt.stopPropagation();
 				})
 				.mouseover(function(evt) {
-					clearTimeout(timeout);
+					clearTimeout(tt_timeout);
 				})
 				.mouseout(function(evt) {
 					tooltipsSetTimer(el);
@@ -107,9 +107,9 @@
 
 		function tooltipsSetTimer(el) {
 			// check if imeout should be set
-			if (!timeoutOff && tooltips_timeout) {
+			if (!tt_timeoutOff && tooltips_timeout) {
 				// set the timeout
-				timeout = setTimeout(function(el) {el.popover('hide');}, tooltips_timeout, el);
+				tt_timeout = setTimeout(function(el) {el.popover('hide');}, tooltips_timeout, el);
 			}
 		}
 

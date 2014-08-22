@@ -2,8 +2,8 @@
 <extension version="3.2" type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_TOOLTIPS</name>
 	<description>PLG_SYSTEM_TOOLTIPS_DESC</description>
-	<version>3.7.3PRO</version>
-	<creationDate>July 2014</creationDate>
+	<version>3.7.4PRO</version>
+	<creationDate>August 2014</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>
@@ -70,12 +70,12 @@
 				<field name="delay_hide" type="text" size="5" class="input-mini" default="250" label="TT_DELAY_HIDE" description="TT_DELAY_DESC" />
 				<field name="@toggler_mode_1b" type="nn_toggler" />
 				<field name="@toggler_mode_2a" type="nn_toggler" param="mode" value="click,sticky" />
-				<field name="use_timeout" type="radio" class="btn-group" default="1" label="NN_USE_TIMEOUT" description="NN_USE_TIMEOUT_DESC">
+				<field name="use_timeout" type="radio" class="btn-group" default="1" label="TT_USE_TIMEOUT" description="TT_USE_TIMEOUT_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 				<field name="@toggler_use_timeout_a" type="nn_toggler" param="use_timeout" value="1" />
-				<field name="timeout" type="text" size="5" class="input-mini" default="3000" label="TAB_TIMEOUT" description="TAB_TIMEOUT_DESC" />
+				<field name="timeout" type="text" size="5" class="input-mini" default="3000" label="TT_TIMEOUT" description="TT_TIMEOUT_DESC" />
 				<field name="@toggler_use_timeout_b" type="nn_toggler" />
 				<field name="@toggler_mode_2b" type="nn_toggler" />
 				<field name="position" type="radio" class="btn-group" default="top" label="TT_POSITION" description="TT_POSITION_DESC">

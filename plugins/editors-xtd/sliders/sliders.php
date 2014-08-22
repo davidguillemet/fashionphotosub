@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Sliders
- * @version         3.5.5
+ * @version         3.5.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

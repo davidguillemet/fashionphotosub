@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Functions
  *
  * @package         NoNumber Framework
- * @version         14.8.4
+ * @version         14.8.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  */
 class NNFrameworkFunctions
 {
-	var $_version = '14.8.4';
+	var $_version = '14.8.5';
 
 	public function getByUrl($url, $options = array())
 	{

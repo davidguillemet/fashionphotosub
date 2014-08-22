@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Tooltips
- * @version         3.7.3
+ * @version         3.7.4
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -109,18 +109,18 @@ class plgSystemTooltipsHelper
 			if ($this->params->border_color)
 			{
 				$styles['.nn_tooltips.popover'][] = 'border-color: ' . $this->params->border_color;
-				$styles['.nn_tooltips.popover.top .arrow::after'][] = 'border-top-color: ' . $this->params->border_color;
-				$styles['.nn_tooltips.popover.left .arrow::after'][] = 'border-left-color: ' . $this->params->border_color;
-				$styles['.nn_tooltips.popover.right .arrow::after'][] = 'border-right-color: ' . $this->params->border_color;
-				$styles['.nn_tooltips.popover.bottom .arrow::after'][] = 'border-bottom-color: ' . $this->params->border_color;
+				$styles['.nn_tooltips.popover.top .arrow'][] = 'border-top-color: ' . $this->params->border_color;
+				$styles['.nn_tooltips.popover.left .arrow'][] = 'border-left-color: ' . $this->params->border_color;
+				$styles['.nn_tooltips.popover.right .arrow'][] = 'border-right-color: ' . $this->params->border_color;
+				$styles['.nn_tooltips.popover.bottom .arrow'][] = 'border-bottom-color: ' . $this->params->border_color;
 			}
 			if ($this->params->bg_color_text)
 			{
 				$styles['.nn_tooltips.popover'][] = 'background-color: ' . $this->params->bg_color_text;
-				$styles['.nn_tooltips.popover.top .arrow'][] = 'border-top-color: ' . $this->params->bg_color_text;
-				$styles['.nn_tooltips.popover.left .arrow'][] = 'border-left-color: ' . $this->params->bg_color_text;
-				$styles['.nn_tooltips.popover.right .arrow'][] = 'border-right-color: ' . $this->params->bg_color_text;
-				$styles['.nn_tooltips.popover.bottom .arrow'][] = 'border-bottom-color: ' . $this->params->bg_color_text;
+				$styles['.nn_tooltips.popover.top .arrow:after'][] = 'border-top-color: ' . $this->params->bg_color_text;
+				$styles['.nn_tooltips.popover.left .arrow:after'][] = 'border-left-color: ' . $this->params->bg_color_text;
+				$styles['.nn_tooltips.popover.right .arrow:after'][] = 'border-right-color: ' . $this->params->bg_color_text;
+				$styles['.nn_tooltips.popover.bottom .arrow:after'][] = 'border-bottom-color: ' . $this->params->bg_color_text;
 			}
 			if ($this->params->text_color)
 			{
@@ -292,6 +292,7 @@ class plgSystemTooltipsHelper
 					$title = $tip['0'];
 					$content = $tip['1'];
 				}
+
 				if (preg_match('#^\s*<img [^>]*>\s*$#', $text))
 				{
 					$classes[] = 'isimg';
@@ -307,6 +308,12 @@ class plgSystemTooltipsHelper
 					. ' data-placement="' . $position . '"'
 					. ' data-content="' . $content . '"'
 					. ' title="' . $title . '">' . $text . '</span>';
+
+				if (in_array('isimg', $classes_popover))
+				{
+					// place the full image in a hidden span to make it pre-load it
+					$r .= '<span style="display:none;">' . html_entity_decode($content) . '</span>';
+				}
 				$str = str_replace($match['0'], $r, $str);
 			}
 		}
