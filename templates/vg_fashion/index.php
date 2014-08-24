@@ -211,7 +211,8 @@ $f(function($){
 									?>
 									],
 		random					: 0,
-		image_protect			: 0
+		image_protect			: 0,
+		autoplay				: 0
 		
 	});
 });
@@ -292,23 +293,16 @@ Shadowbox.init({
             <div class="title-block" style="<?php if( $vg_page_heading == '' ){ echo 'display:none;'; } ?>">
             	
 				<h3 <?php echo $pagetitle_fontsize; ?>><?php echo $pagetitle; ?></h3>
-				
-                <div class="content-hider">
+				                
+				<div class="content-hider">
                 	<a href="#" class="c-hider"></a>
                     <a href="#" class="c-opener"></a>
                 </div>
-				
-				<a href="#" class="social-mobile"><?php echo JText::_('VG_FS_BE_SOCIAL') ?></a>
-                <div class="social-icons">
-                	
-					<?php if( $vg_twitter ){ echo '<a href="' . $vg_twitter . '" class="twitter" title="' . $vg_twitter_tooltip . '"></a>'; } ?>
-					<?php if( $vg_facebook ){ echo '<a href="' . $vg_facebook . '" class="facebook" title="' . $vg_facebook_tooltip . '"></a>'; } ?>
-					<?php if( $vg_dribbble ){ echo '<a href="' . $vg_dribbble . '" class="dribble" title="' . $vg_dribbble_tooltip . '"></a>'; } ?>
-					<?php if( $vg_youtube ){ echo '<a href="' . $vg_youtube . '" class="youtube" title="' . $vg_youtube_tooltip . '"></a>'; } ?>
-					<?php if( $vg_skype ){ echo '<a href="' . $vg_skype . '" class="skype" title="' . $vg_skype_tooltip . '"></a>'; } ?>
-					
-                </div>
-				
+
+				<div class="search">
+				<jdoc:include type="modules" name="fashion-search" style="none" />
+				</div>
+								
             </div>
             <!-- /Title -->
             
