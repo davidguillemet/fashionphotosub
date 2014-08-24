@@ -165,9 +165,11 @@ class plgSearchTZ_Portfolio_Content extends JPlugin
 			$query->select('a.title AS title, a.metadesc, a.metakey, a.created AS created');
 			$query->select($query->concatenate(array('a.introtext', 'a.fulltext')).' AS text');
 			$query->select('c.title AS section, '.$case_when.','.$case_when1.', '.'\'2\' AS browsernav');
+			$query->select('x.images AS image');
 
 			$query->from('#__content AS a');
 			$query->innerJoin('#__categories AS c ON c.id=a.catid');
+			$query->innerJoin('#__tz_portfolio_xref_content AS x ON x.contentid=a.id'); // DGUI = pour récupérer les images
 			$query->where('('. $where .')' . 'AND a.state=1 AND c.published = 1 AND a.access IN ('.$groups.') '
 						.'AND c.access IN ('.$groups.') '
 						.'AND (a.publish_up = '.$db->Quote($nullDate).' OR a.publish_up <= '.$db->Quote($now).') '
@@ -275,6 +277,7 @@ class plgSearchTZ_Portfolio_Content extends JPlugin
 				foreach($row as $key => $article) {
 					if (searchHelper::checkNoHTML($article, $searchText, array('text', 'title', 'metadesc', 'metakey'))) {
 						$new_row[] = $article;
+						$article->image = str_replace(".jpg", "_M.jpg", $article->image); // DGUI Specify medium TZ image for search engine
 					}
 				}
 				$results = array_merge($results, (array) $new_row);
