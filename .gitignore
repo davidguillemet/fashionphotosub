@@ -10,3 +10,5 @@ plugins/content/wookmark_gallery/wookmark_gallery/tmpl/cache/*.*
 plugins/content/wookmark_gallery/wookmark_gallery/tmpl/cache/*.*
 
 tmp/*.*
+
+modules/mod_universal_ajaxlivesearch/cache/103/*.js
