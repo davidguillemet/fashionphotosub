@@ -133,7 +133,7 @@ $f(document).ready(function(){
 	}
 	
 	/* :::::::::::::: FANCYBOX ::::::::::::: */
-	$f('.fancybox').fancybox({});
+	/*$f('.fancybox').fancybox({});*/
 	
 	/* :::::::::::::: PORTFOLIO FILTER (ISOTOPE) ::::::::::::: */
 	// Needed variables
