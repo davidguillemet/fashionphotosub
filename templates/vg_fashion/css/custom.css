@@ -93,6 +93,12 @@ h3
 	font-weight: 400;
 	text-transform: uppercase;
 	text-decoration: none;
+	text-align: center;
+	float: left;
+	display: inline;
+	width: 50%;
+	padding: 20px;
+	white-space: nowrap;
     -moz-transition: all 200ms linear 0s;
     -webkit-transition: all 200ms linear 0s;
     -o-transition: all 200ms linear 0s;
@@ -117,15 +123,6 @@ h3
 #tz-portfolio-template-navigation .previous
 {
 	border-right: 2px solid #212121;	
-}
-
-.TzNavigationItem
-{
-	text-align: center;
-	float: left;
-	display: inline;
-	width: 50%;
-	padding: 20px 0;
 }
 
 /* Pour les menus */

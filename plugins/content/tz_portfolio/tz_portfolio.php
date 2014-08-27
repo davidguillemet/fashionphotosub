@@ -341,15 +341,32 @@ class plgContentTZ_Portfolio extends JPlugin
 				$row->next = '';
 			}
 
+			$prevShortTitle = $prevTitle;
+			$nextShortTitle = $nextTitle;
+			$prevShorten = false;
+			$nextShorten = false;
+			
+			if (strlen($prevTitle) > 30)
+			{
+				$prevShortTitle = mb_substr($prevTitle, 0, 30) . '...';
+				$prevShorten = true;
+			}
+			if (strlen($nextTitle) > 30)
+			{
+				$nextShortTitle = mb_substr($nextTitle, 0, 30) . '...';
+				$nextShorten = true;
+			}
+
 			// Output.
 			if ($row->prev || $row->next) {
 				$html = '';
 				if ($row->prev) {
 					$html .= '
 						<a href="'. $row->prev .'" rel="prev">
-						<div class="previous TzNavigationItem">
-						<i class="icon-left"></i>'
-							. $prevTitle . 
+						<div class="previous TzNavigationItem"'
+						. ($prevShorten == true ? ' title="'. $prevTitle .'"' : '') .
+						'><i class="icon-left"></i>'
+						. $prevShortTitle . 
 						'</div></a>'
 					;
 				}
@@ -363,8 +380,9 @@ class plgContentTZ_Portfolio extends JPlugin
 				if ($row->next) {
 					$html .= '
 						<a href="'. $row->next .'" rel="next">
-						<div class="next TzNavigationItem">'
-							. $nextTitle .'<i class="icon-right"></i>
+						<div class="next TzNavigationItem"'
+						. ($nextShorten == true ? ' title="'. $nextTitle .'"' : '') .
+						'>'	. $nextShortTitle .'<i class="icon-right"></i>
 						</div></a>'
 					;
 				}
