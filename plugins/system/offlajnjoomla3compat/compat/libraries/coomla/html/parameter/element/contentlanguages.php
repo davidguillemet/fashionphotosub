@@ -1,4 +1,13 @@
 <?php
+/*-------------------------------------------------------------------------
+# mod_improved_ajax_login - Improved AJAX Login and Register
+# -------------------------------------------------------------------------
+# @ author    Balint Polgarfi
+# @ copyright Copyright (C) 2014 Offlajn.com  All Rights Reserved.
+# @ license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+# @ website   http://www.offlajn.com
+-------------------------------------------------------------------------*/
+?><?php
 /**
  * @package     Joomla.Platform
  * @subpackage  HTML

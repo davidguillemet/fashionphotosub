@@ -33,6 +33,7 @@
 	<positions>
 		<position>fashion-menu</position>
 		<position>fashion-search</position>
+		<position>fashion-login</position>
 		<position>fashion-right-top</position>
 		<position>fashion-right-bottom</position>
 		<position>fashion-right</position>

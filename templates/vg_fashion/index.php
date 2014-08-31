@@ -358,8 +358,6 @@ Shadowbox.init({
 				<div id="prevthumb"></div>
 				<div id="nextthumb"></div>
  
-				<a id="prevslide" class="load-item"></a>
-				<a id="nextslide" class="load-item"></a>
 				<div id="thumb-tray" class="load-item">
 					<div id="thumb-back"></div>
 					<div id="thumb-forward"></div>
@@ -379,6 +377,9 @@ Shadowbox.init({
 						</div>
 						<div id="slidecaption"></div>
 						<a id="tray-button"><img id="tray-arrow" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/img/button-tray-up.png"/></a>
+						<div id="footer-toolbar">
+							<jdoc:include type="modules" name="fashion-login" style="none" />
+						</div>
 						<ul id="slide-list"></ul>
 					</div>
 				
