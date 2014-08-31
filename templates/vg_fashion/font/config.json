@@ -61,6 +61,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "0f4cae16f34ae243a6144c18a003f2d8",
+      "css": "cancel-circled",
+      "code": 59412,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2e2dba0307a502a8507c1729084c7ab5",
+      "css": "cancel-circled2",
+      "code": 59411,
+      "src": "fontawesome"
+    },
+    {
       "uid": "e82cedfa1d5f15b00c5a81c9bd731ea2",
       "css": "info-circled",
       "code": 59404,

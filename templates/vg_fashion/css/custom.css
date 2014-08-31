@@ -137,6 +137,169 @@ ul.nav li ul li a
 	font-size: 16px;
 }
 
+/* Pour le livre d'or TZ Guestbook */
+#TZGuestBook
+{
+	border-radius: 0px;
+	background: none;
+}
+
+#nnt_comment
+{
+	background: url('../images/img/blackBG.png') repeat;
+	text-align: center;
+	height: 100px;
+}
+
+#nnt_comment:hover
+{
+	color: #ff5b0a;
+}
+
+#nnt_comment_a1
+{
+	margin: auto;
+	float: none;
+	text-align: center;
+	font-weight: 600;
+	width: 100%;
+	height: 90px;
+	background: none;
+	padding: 10px 0 0 0;
+    -moz-transition: all 200ms linear 0s;
+    -webkit-transition: all 200ms linear 0s;
+    -o-transition: all 200ms linear 0s;
+}
+#nnt_comment_a1 > i
+{
+	font-size: 60px;	
+}
+#nnt_comment_a1:hover
+{
+	color: inherit;
+	background: #212121;
+}
+
+#wrap-baiviet
+{
+	background: none;
+	left: 8px;
+}
+
+.nnt-warp-comment-class
+{
+	background: url('../images/img/blackBG.png') repeat;
+	border: none;
+	margin: 10px 10px 0 0;
+}
+
+[class^="nnt-warl-comment-li"] > span, [class^="nnt-warl-comment-li"] > p
+{
+	font-family: 'Open Sans';
+	padding: 0;
+}
+
+[class^="nnt-warl-comment-li"]
+{
+	background: none;
+	border: none;
+	padding: 5px 15px 5px 17px;
+	margin: 0;
+	color: inherit;
+}
+
+.nnt-warl-comment-li-comment
+{
+	margin-bottom: 10px;
+	padding-left: 37px;
+}
+
+.nnt-warl-comment-li-title
+{
+	width: 100%;
+	height: auto;
+	font-weight: 600;
+	background: url("../images/notice.png") no-repeat 15px 15px;
+	padding-top: 20px;
+	padding-left : 37px;
+	font-size: 18px;
+	text-transform: uppercase;
+}
+
+.nnt-warl-comment-li-date, .nnt-warl-comment-li-name, .nnt-warl-comment-li-date-name, .nnt-warl-comment-li-mail, .nnt-warl-comment-li-site
+{
+	font-size: 12px;
+	font-style: italic;
+	color: #a5a5a5;
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+
+.nnt-warl-comment-li-name
+{
+	float: right;
+}
+
+.nnt-warl-comment-li-date
+{
+	float: left;
+	text-transform: capitalize;
+}
+
+.nnt-warl-comment-li-site, .nnt-warl-comment-li-mail
+{
+	text-align: right;
+}
+
+#warp-fom
+{
+	width: 500px;
+	height: 600px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -250px;
+	margin-top: -300px;
+	
+	border: none;
+	border-radius: 0px;
+	background: #1f1f1f;
+	color: inherit;
+	text-align: initial;
+	overflow: visible;
+}
+
+#tz-guestbook-form-title
+{
+	height: 45px;
+	position: relative;
+	padding: 10px 0 10px 15px;
+}
+
+#tz-guestbook-form-title > span:first-child
+{
+	font-size: 22px;
+	color: inherit;
+	text-transform: uppercase;
+}
+
+#tz-guestbook-h5-img, #tz-guestbook-h5-img:hover
+{
+	font-size: 40px;
+	font-weight: light;
+	color: #fff;
+	position: absolute;
+	left: auto;
+	right: -25px;
+	top: -20px;
+	width: auto;
+}
+#tz-guestbook-h5-img:hover
+{
+	cursor: pointer;
+	color: #ff5b0a;
+}
+
 /* Pour les filtres du Portfolio */
 #TzContent #tz_options .option-combo a {
 background-color: rgb(7, 7, 7);
