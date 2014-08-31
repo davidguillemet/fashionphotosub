@@ -216,7 +216,9 @@ ul.nav li ul li a
 .nnt-warl-comment-li-comment
 {
 	margin-bottom: 10px;
-	padding-left: 37px;
+	padding-left: 25px;
+	padding-right: 25px;
+	width: auto;
 }
 
 .nnt-warl-comment-li-title
@@ -256,19 +258,43 @@ ul.nav li ul li a
 	text-align: right;
 }
 
-#warp-fom
+#tz-Guestbook-seccess
 {
 	width: 500px;
-	height: 600px;
+	height: 50px;
+	display: none;
+	left: 50%;
+	top: 50%;
+	margin-left: -250px;
+	margin-top: -25px;
+	z-index: 5000;
+	position: fixed;
+	
+	text-align: center;
+	background: #fff;
+}
+#tz-Guestbook-seccess span
+{
+	padding-top: 13px;
+	display: block;
+	font-size: 15px;
+	color: #606060;
+}
+
+#warp-fom
+{
+	width: 550px;
+	height: 570px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	margin-left: -250px;
+	margin-left: -275px;
 	margin-top: -300px;
 	
 	border: none;
 	border-radius: 0px;
-	background: #1f1f1f;
+	background: #fff;
+	border-bottom: 3px solid #4b91b5;
 	color: inherit;
 	text-align: initial;
 	overflow: visible;
@@ -276,33 +302,126 @@ ul.nav li ul li a
 
 #tz-guestbook-form-title
 {
-	height: 45px;
 	position: relative;
 	padding: 10px 0 10px 15px;
+	background-color: #4b91b5;
 }
 
 #tz-guestbook-form-title > span:first-child
 {
 	font-size: 22px;
+	font-weight: 400;
 	color: inherit;
 	text-transform: uppercase;
 }
 
 #tz-guestbook-h5-img, #tz-guestbook-h5-img:hover
 {
-	font-size: 40px;
-	font-weight: light;
-	color: #fff;
 	position: absolute;
 	left: auto;
-	right: -25px;
-	top: -20px;
-	width: auto;
+	right: 0px;
+	top: 0px;
+	width: 50px;
+	height: 50px;
+	background-image: url('../images/close.png');
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 #tz-guestbook-h5-img:hover
 {
 	cursor: pointer;
 	color: #ff5b0a;
+}
+
+[id^="warp-input"], #warp-fom textarea
+{
+	border: 1px solid #d8d8d8;
+	background: #ffffaa no-repeat;
+	color: #a1a1a1;
+	font-size: 20px;
+	font-weight: 300;
+	line-height: 1.2;
+}
+
+
+.mandatory, #warp-fom textarea.mandatory
+{
+	border: 2px solid #d8d8d8;
+}
+
+.guestbook-warning
+{
+	height: 15px;
+}
+.guestbook-warning > span
+{
+	line-height: 1;
+}
+
+[class^="tz_input_"]
+{
+	font-family: inherit;
+	padding-left: 2px;
+}
+
+.warp-in2
+{
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
+	width: 92%;
+}
+
+.warp-in:first-child
+{
+	margin-top: 30px;
+}
+
+.warp-in
+{
+	margin-top: 10px;
+}
+
+#nnt_com1
+{
+	margin-top: 0px;
+	height: 30px;
+	min-height: 30px;
+}
+#warp-label
+{
+	float: none;
+	padding-left: 0px;
+}
+#warp-check
+{
+	float: none;
+	margin-left: 2px;
+	margin-right: 7px;
+}
+
+#warp-input-sub
+{
+	background-color: #4b91b5;
+	border-radius: 0px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	color: inherit;
+	text-shadow: none;
+	font-size: 20px;
+	height: 45px;
+	width: 92%;
+	margin-bottom: 0px;
+}
+#warp-input-sub:hover
+{
+	background-color: #65a8ca;
+}
+
+.guestbook-ajax-loader
+{
+	font-size: 20px;
 }
 
 /* Pour les filtres du Portfolio */

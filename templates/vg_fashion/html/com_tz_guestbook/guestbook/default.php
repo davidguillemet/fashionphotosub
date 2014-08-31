@@ -483,7 +483,7 @@ jQuery(document).ready(function () {
                         <?php endif;?>
                     },
                     loading: {
-                        msgText: "<em><?php echo JText::_("COM_TZ_GUESTBOOK_LOADING"); ?></em>",
+                        msgText: "<span class='guestbook-ajax-loader'><?php echo JText::_("COM_TZ_GUESTBOOK_LOADING"); ?></span>",
                         finishedMsg: '',
                         img: '<?php echo JURI::root();?>components/com_tz_guestbook/images/ajax-loader.gif',
                         selector: '#tz_append'

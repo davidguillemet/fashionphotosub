@@ -40,7 +40,7 @@ function nntinput4(){
     var inp4 = document.getElementById("warp-input2").value;
     var linp4=document.getElementById("warp-input2");
         if(inp4==""){
-            document.getElementById("warp-input2").value="Email";
+            document.getElementById("warp-input2").value = eMailLabel;
             linp4.focus();
             return false;
         }
@@ -59,7 +59,7 @@ function nntinput6(){
     var inp6 = document.getElementById("warp-input3").value;
     var linp6=document.getElementById("warp-input3");
         if(inp6==""){
-            document.getElementById("warp-input3").value="Title";
+            document.getElementById("warp-input3").value = commentTitleLabel;
             linp6.focus();
             return false;
         }
@@ -79,7 +79,7 @@ function nntinput8(){
     var inp8 = document.getElementById("text-ra").value;
     var linp8=document.getElementById("text-ra");
         if(inp8==""){
-            document.getElementById("text-ra").value="Your guestbook...";
+            document.getElementById("text-ra").value = commentLabel;
             linp8.focus();
             return false;
         }
@@ -94,7 +94,7 @@ function nntinput9(){
 function nntinput10(){
     var inp10 =document.getElementById("warp-input4").value;
     if(inp10 ==""){
-        document.getElementById("warp-input4").value ="Your website";
+        document.getElementById("warp-input4").value = webSiteLabel;
     }
 
 

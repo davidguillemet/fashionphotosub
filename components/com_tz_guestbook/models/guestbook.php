@@ -113,7 +113,7 @@ class Tz_guestbookModelGuestbook extends JModelForm
 
         $id = $user->id;
         switch ($website) {
-            case'Your website':
+            case JText::_('COM_TZ_GUESTBOOK_WEBSITE'):
                 $website = "";
                 break;
 
