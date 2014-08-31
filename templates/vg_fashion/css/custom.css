@@ -64,12 +64,6 @@ ul#slide-list
 	padding: 0px;
 }
 
-/* Footer Toolbar - login and newsletter */
-#footer-toolbar
-{
-	float: right;
-}
-
 /* Pour la recherhe AJAX */
 .search
 {
@@ -1100,16 +1094,25 @@ ul.check > li
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB50RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNS4xqx9I6wAAABZ0RVh0Q3JlYXRpb24gVGltZQAwMS8yMS8xMRTK2QYAAAD/SURBVEiJvZbhrYIwFEY/jQN0BEfgbfBGcATdwBEcwQ10g+cIbqAb6AawwfFHIda+thRt/ZIbSrhwLuQEmAGqnXl1whcgpjakGRY1IEbSud92NSADYChJ0qygXUtJJ0lI+nEPLAoBGtnJ/wEkScCn1QAdNutQz6eANc/8xfpKAW6AKQ3Z8ZrfVL+7Y4BVXynA0QPsxoaKTXYCll6zCQAuOXfuGtJ6F+icKQ1w9Y63/XnZEGGfayj3AABgmwPwIb4xqUR1zYEIOIwAWhK65kLUTxpLUtcpEIM1x89+KiAFEVZh17gsXadCBrVhgq6hGnvVXyVtnPVbKfnRiuYrv0QPpLh+2CdG8E0AAAAASUVORK5CYII=) 0 0 no-repeat;
 }
 
-/* Style pour Ajax Login */
-.loginH3
+/* Ajax Login & Register */
+
+#footer-toolbar
 {
-  display:none; // Ne pas afficher l'entête
-}
-.ial-login
-{
-  padding-top: 25px;
+	float: right;
+	height: 100%;
 }
 
+#mod_improved_ajax_login-106
+{
+	height: 100%;
+}
+.selectBtn, .logout
+{
+	height: 100%;
+	font-size: 20px;
+	padding: 10px;
+	border-left: 1px solid #333;
+}
 
 #mod-search-searchword
 {

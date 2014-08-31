@@ -20,3 +20,6 @@
 .icon-right-open:before { content: '\e812'; } /* '' */
 .icon-cancel-circled2:before { content: '\e813'; } /* '' */
 .icon-cancel-circled:before { content: '\e814'; } /* '' */
+.icon-lock:before { content: '\e815'; } /* '' */
+.icon-lock-open:before { content: '\e816'; } /* '' */
+.icon-lock-open-alt:before { content: '\e817'; } /* '' */
