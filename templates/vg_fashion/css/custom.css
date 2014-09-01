@@ -1327,6 +1327,11 @@ div#foxcontainer_c149 .fox_form input[type="text"]:focus
 	color: #a5a5a5;
 }
 
+div#foxcontainer_c149 .fox_form textarea
+{
+	resize: vertical;
+}
+
 div#foxcontainer_c149 .btn
 {
 	-webkit-border-radius: 0px;
