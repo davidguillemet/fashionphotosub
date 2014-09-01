@@ -1339,6 +1339,12 @@ div#foxcontainer_c149 .btn
 	border-radius: 0px;
 }
 
+div#foxcontainer_c149 .submit-button span,
+div#foxcontainer_c149 .reset-button span
+{
+	padding: 1px 0px 4px 0px;
+}
+
 div#foxcontainer_c149 .fcaptchafieldcontainer
 {
 	background-color: #fff;
@@ -1360,5 +1366,10 @@ div#foxcontainer_c149 .alert
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
-	margin-bottom: 40px;	
+	margin-bottom: 40px;
+}
+
+div#foxcontainer_c149 .foxform-extended .control-label
+{
+	text-align: right;
 }
