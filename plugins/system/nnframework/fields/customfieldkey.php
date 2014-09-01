@@ -4,7 +4,7 @@
  * Displays a custom key field (use in combination with customfieldvalue)
  *
  * @package         NoNumber Framework
- * @version         14.8.5
+ * @version         14.8.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

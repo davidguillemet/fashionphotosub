@@ -1288,3 +1288,72 @@ ul.check > li
 	border: 1px solid #dedede;
 	z-index: -1;
 }
+
+/* Fox Contact */
+
+.fox-contact-header .custom
+{
+	margin-top: 0px;
+	padding: 10px 25px 0 25px;
+}
+
+div#foxcontainer_c149
+{
+	width: auto;
+	padding: 40px 40px 20px 40px;
+	overflow: hidden;
+	margin: auto;
+}
+
+div#foxcontainer_c149 .fox_form select,
+div#foxcontainer_c149 .fox_form textarea,
+div#foxcontainer_c149 .fox_form input[type="text"]
+{
+	background-color: transparent;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	color: #a5a5a5;
+	font-size: 16px;
+	font-weight: 300;
+}
+
+div#foxcontainer_c149 .fox_form textarea:hover,
+div#foxcontainer_c149 .fox_form textarea:focus,
+div#foxcontainer_c149 .fox_form input[type="text"]:hover, 
+div#foxcontainer_c149 .fox_form input[type="text"]:focus
+{
+	background-color: transparent;
+	color: #a5a5a5;
+}
+
+div#foxcontainer_c149 .btn
+{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+div#foxcontainer_c149 .fcaptchafieldcontainer
+{
+	background-color: #fff;
+	padding: 5px;
+}
+
+div#foxcontainer_c149 .fox_captcha_img
+{
+	padding: 0px;
+	border: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	box-shadow: 0 0 7px rgba(192, 192, 192, 0.698);
+}
+
+div#foxcontainer_c149 .alert
+{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	margin-bottom: 40px;	
+}

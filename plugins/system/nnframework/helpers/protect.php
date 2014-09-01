@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Protect
  *
  * @package         NoNumber Framework
- * @version         14.8.5
+ * @version         14.8.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -188,22 +188,15 @@ class NNProtect
 	}
 
 	/**
-	 * protect all text based form fields
+	 * protect all html tags with some type of attributes/content
 	 */
 	public static function protectHtmlTags(&$str)
 	{
-		if (strpos($str, '</') === false)
-		{
-			return;
-		}
-
-		$regex = '#</?[a-z][^>]*>#si';
-
-		self::protectByRegex($str, $regex);
+		self::protectByRegex($str, '#<[a-z][^>]*(="[^"]*")+[^>]*>#si');
 	}
 
 	/**
-	 * protect all text based form fields
+	 * protect text by given regex
 	 */
 	private static function protectByRegex(&$str, $regex)
 	{
