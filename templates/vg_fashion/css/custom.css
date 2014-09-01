@@ -6,7 +6,7 @@
 
 body
 {
-	color: #e5e5e5;
+	color: #a5a5a5;
 	font-family: 'Open Sans';
 	font-weight: 400;
 }
@@ -27,7 +27,7 @@ body a:hover
 h3 
 {
 	font-family: 'Open Sans Condensed';
-	font-weight: 400;
+	font-weight: 600;
 	line-height: 1.2;
 }
 
@@ -55,8 +55,9 @@ h3
 
 .lead
 {
-	font-weight: 300;
+	font-weight: 400;
 	font-size: 20px;
+	color: #e5e5e5;
 }
 
 ul#slide-list
@@ -141,7 +142,10 @@ ul.nav li ul li a
 	font-family: 'Open sans condensed';
 	font-size: 16px;
 }
-
+ul.nav .separator
+{
+	color: #eee;
+}
 /* Pour le livre d'or TZ Guestbook */
 #TZGuestBook
 {
@@ -219,6 +223,7 @@ ul.nav li ul li a
 	padding-left: 25px;
 	padding-right: 25px;
 	width: auto;
+	color: #a5a5a5;
 }
 
 .nnt-warl-comment-li-title
@@ -229,8 +234,13 @@ ul.nav li ul li a
 	background: url("../images/notice.png") no-repeat 15px 15px;
 	padding-top: 20px;
 	padding-left : 37px;
-	font-size: 18px;
+	font-size: 20px;
 	text-transform: uppercase;
+}
+
+.nnt-warl-comment-li-title span
+{
+	font-family: "Open Sans Condensed";
 }
 
 .nnt-warl-comment-li-date, .nnt-warl-comment-li-name, .nnt-warl-comment-li-date-name, .nnt-warl-comment-li-mail, .nnt-warl-comment-li-site
@@ -725,6 +735,7 @@ span.tagName{
 {
 	list-style: none;
 	margin-left: 0px;
+	padding-left: 0px;
 }
 
 .dgui_gallery_item .TzRelated li
@@ -828,15 +839,16 @@ content: '\201D';
 padding: 0 40px 40px;
 }
 
-.TzPortfolioItemPage .TzItemPageInner h2.TzArticleTitle, .TzBlog .TzBlogInner .TzCategoryTitle, .foxcontainer h2 {
-font-size: 36px;
-font-family: 'Open Sans Condensed';
-text-transform: uppercase;
-color: #eee;
-font-weight: 400;
-margin: 0;
-padding-top: 10px;
-padding-bottom: 10px;
+.TzPortfolioItemPage .TzItemPageInner h2.TzArticleTitle, .TzBlog .TzBlogInner .TzCategoryTitle, .foxcontainer h2
+{
+	font-size: 36px;
+	font-family: 'Open Sans Condensed';
+	text-transform: uppercase;
+	color: #eee;
+	font-weight: 600;
+	margin: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .TzBlog .TzBlogInner .TzCategoryTitle, .TzBlog .TzBlogInner .TzCategoryDesc
@@ -856,21 +868,23 @@ padding-bottom: 10px;
 	padding-bottom: 10px;
 }
 
-.TzPortfolioItemPage .TzItemPageInner h3, .foxcontainer h2 {
-font-size: 24px;
-text-transform: uppercase;
-color: #eee;
-font-weight: 400;
-margin: 0;
-padding-top: 20px;
-padding-bottom: 10px;
+.TzPortfolioItemPage .TzItemPageInner h3, .foxcontainer h2
+{
+	font-size: 24px;
+	text-transform: uppercase;
+	color: #e5e5e5;
+	font-weight: 600;
+	margin: 0;
+	padding-top: 20px;
+	padding-bottom: 10px;
 }
 
 
-.TzItemPageInner p, .foxcontainer {
-margin: 0 0 10px;
-padding: 0;
-color: #e5e5e5;
+.TzItemPageInner p, .foxcontainer
+{
+	margin: 0 0 10px;
+	padding: 0;
+	color: #a5a5a5;
 }
 
 .TzPortfolioItemPage .TzArticleInfo {
