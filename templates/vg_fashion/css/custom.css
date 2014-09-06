@@ -65,6 +65,13 @@ ul#slide-list
 	padding: 0px;
 }
 
+/* Shadowbox */
+#sb-title-inner, #sb-info-inner, #sb-loading-inner, div.sb-message
+{
+	font-family: "Open Sans";
+	font-weight: 400;
+}
+
 /* Pour la recherhe AJAX */
 .search
 {
@@ -321,7 +328,7 @@ ul.nav .separator
 {
 	font-size: 22px;
 	font-weight: 400;
-	color: inherit;
+	color: #e5e5e5;
 	text-transform: uppercase;
 }
 
@@ -351,6 +358,7 @@ ul.nav .separator
 	font-size: 20px;
 	font-weight: 300;
 	line-height: 1.2;
+	resize: none;
 }
 
 
@@ -417,7 +425,7 @@ ul.nav .separator
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
-	color: inherit;
+	color: #e5e5e5;
 	text-shadow: none;
 	font-size: 20px;
 	height: 45px;
