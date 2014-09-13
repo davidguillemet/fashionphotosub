@@ -1435,3 +1435,35 @@ div#foxcontainer_c149 .foxform-extended .control-label
 	_font-size: 0px;
 	_line-height: 0px;
 }
+
+/*  NoNumber Tooltip */
+span.tooltips-link.bluetip {
+    background-color: #EEEEEE;
+    padding: 3px 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+div.popover.bluetip {
+    background-color: #FFFFFF;
+    color: #4b91b5;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+	padding: 0px;
+	-webkit-box-shadow: 4px 4px 20px 0px rgba(255,255,255,0.45);
+	-moz-box-shadow: 4px 4px 20px 0px rgba(255,255,255,0.45);
+	box-shadow: 4px 4px 20px 0px rgba(255,255,255,0.45);
+}
+div.popover.bluetip .arrow {
+    border-top-color: #339933;
+}
+div.popover.bluetip .popover-title {
+    background-color: #4b91b5;
+    color: #FFFFFF;
+    font-size: 1.5em;
+    font-weight: bold;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+}
