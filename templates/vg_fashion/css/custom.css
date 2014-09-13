@@ -1381,3 +1381,57 @@ div#foxcontainer_c149 .foxform-extended .control-label
 {
 	text-align: right;
 }
+
+/** Pour la bio **/
+.TreeTagVert {
+	color: #bfa12b;
+	border: 2px solid #bfa12b;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+.TreeVert {
+	width: 25px;
+	height: 20px;
+	background: #bfa12b;
+}
+
+.TreeTag {
+	border: 2px solid #5c8aa7;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.TreeTagPointer {
+	color: blue;
+	cursor: pointer;
+}
+
+.Tree {
+	width: 25px;
+	height: 20px;
+	background: #5c8aa7;
+}
+
+.TreeCell {
+	width: 25px;
+}
+
+
+.TreeLabel {
+	position: absolute;
+	border: 2px solid #5c8aa7;
+	padding: 4px 2px;
+	width: 120px;
+	/*height: 16px;*/
+	line-height: 16px;
+	text-align: center;
+	font-size:12px;
+	margin: 0px;
+}
+.TreeBranch {
+	position: absolute;
+	background-image: url('../images/TreeTag.jpg');
+	background-repeat: repeat;
+	_font-size: 0px;
+	_line-height: 0px;
+}
