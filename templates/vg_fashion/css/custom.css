@@ -443,7 +443,7 @@ ul.nav .separator
 }
 
 /* Pour les filtres du Portfolio */
-#TzContent #tz_options .option-combo a {
+#TzContent #tz_options .option-combo a, .mollusques a.btn {
 background-color: rgb(7, 7, 7);
 color: #e5e5e5;
 border: none;
@@ -457,10 +457,20 @@ border-radius: 0;
 -webkit-transition: all 200ms linear 0s;
 -o-transition: all 200ms linear 0s;
 }
+#TzContent #tz_options .option-combo a.selected, .mollusques a.selected
+{
+	background-color: #e5e5e5;
+	color: rgb(7, 7, 7);
+}
 
-#TzContent #tz_options .option-combo a:hover {
+#TzContent #tz_options .option-combo a:hover, .mollusques a.btn:hover {
 background-color: rgb(229, 229, 229);
 color: rgb(7, 7, 7);
+}
+
+.mollusques a.btn
+{
+	border: 1px solid #e5e5e5;
 }
 
 .tz_portfolio_image:hover span.icon_image,
@@ -1435,6 +1445,16 @@ div#foxcontainer_c149 .foxform-extended .control-label
 	_font-size: 0px;
 	_line-height: 0px;
 }
+.mollusques .TreeBranch
+{
+	background-image: none;
+	background-color: #e5e5e5;
+}
+
+.MollusqueLabel
+{
+	position: absolute;
+}
 
 /*  NoNumber Tooltip */
 span.tooltips-link.bluetip {
@@ -1451,9 +1471,6 @@ div.popover.bluetip {
     -moz-border-radius: 10px;
     border-radius: 10px;
 	padding: 0px;
-	-webkit-box-shadow: 4px 4px 20px 0px rgba(255,255,255,0.45);
-	-moz-box-shadow: 4px 4px 20px 0px rgba(255,255,255,0.45);
-	box-shadow: 4px 4px 20px 0px rgba(255,255,255,0.45);
 }
 div.popover.bluetip .arrow {
     border-top-color: #339933;
