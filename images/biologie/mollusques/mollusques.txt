@@ -1,8 +1,8 @@
 DSC_0480.jpg|Metasepia pfefferi|51|cephalopode
-DSC_6898.jpg|Chelidonura varians||gasteropode|opistobranche|cephalaspide
+DSC_6898.jpg|Chelidonura varians|58|gasteropode|opistobranche|cephalaspide
 DSC_5862.jpg|Elysia gordanae|53|gasteropode|opistobranche|sacoglosse
 DSC_1974.jpg|Sepia latimanus||cephalopode
-DSC_2184.jpg|Wunderpus photogenicus||cephalopode
+DSC_2184.jpg|Wunderpus photogenicus|59|cephalopode
 DSC_3356.jpg|Sepioteuthis lessoniana|52|cephalopode
 DSC_7435.jpg|Chromodoris annae|54|gasteropode|opistobranche|nudibranche|doridien
 DSC_3540.jpg|Nembrotha chamberlaini|55|gasteropode|opistobranche|nudibranche|doridien

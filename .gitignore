@@ -21,3 +21,5 @@ modules/mod_improved_ajax_login/cache/106/*.css
 modules/mod_improved_ajax_login/cache/106/*.png
 
 logs/*
+
+administrator/components/com_akeeba/backup/*.sql
