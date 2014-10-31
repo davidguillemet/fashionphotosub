@@ -26,6 +26,7 @@ if($params -> get('tz_show_gmap',1) == 1):
 <script type="text/javascript">
 
 var articleMarker;
+var initialZoomLevel = <?php echo $params -> get('tz_gmap_zoomlevel',10);?>;
 
 function HomeControl(controlDiv, map, location) {
 
@@ -57,7 +58,8 @@ function HomeControl(controlDiv, map, location) {
   // Setup the click event listeners: simply set the map to
   // Chicago
   google.maps.event.addDomListener(controlUI, 'click', function() {
-    map.setCenter(articleMarker.getPosition())
+    map.panTo(articleMarker.getPosition());
+	map.setZoom(initialZoomLevel);
   });
 
 }
@@ -69,7 +71,7 @@ function initializeMap() {
   var latitude = loc.lat;
   var longitude = loc.lng;
   
-  var map = createMap(latitude, longitude, <?php echo $params -> get('tz_gmap_zoomlevel',10);?>);
+  var map = createMap(latitude, longitude, initialZoomLevel);
 	
   articleMarker = addSingleMarker(map, loc);
   var homeControlDiv = document.createElement('div');

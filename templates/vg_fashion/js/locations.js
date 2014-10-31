@@ -86,6 +86,8 @@ function addAllMarkers(map)
 		'imagePath': rootTemplate + "images/map/m"
 	}
 	var markerCluster = new MarkerClusterer(map, markers, clusterOptions);
+	
+	// TOTO : Build custom control to filter locations
 }
 
 function getMarkerDesc(marker)
