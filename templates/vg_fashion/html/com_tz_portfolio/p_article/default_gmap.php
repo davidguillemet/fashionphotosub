@@ -20,116 +20,72 @@
 $doc    = &JFactory::getDocument();
 $params = $this -> item -> params;
 if($params -> get('tz_show_gmap',1) == 1):
-    
+  
 ?>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.x&language=en&libraries=places&sensor=false"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        jQuery(window).load(function(){
-            var map;
-            var geocoder;
-            var InitializeMap = function () {
 
-                var latlng = new google.maps.LatLng(<?php echo $params -> get('tz_gmap_latitude',21.0333333);?>,
-                                <?php echo $params -> get('tz_gmap_longitude',105.8500000);?>);
-                var myOptions =
-                {
-                    zoom: <?php echo $params -> get('tz_gmap_zoomlevel',10);?>,
-                    tooltip:true,
-                    center: latlng,
-                    scrollwheel: <?php if($params -> get('tz_gmap_mousewheel_zoom',1) == 1) echo 'true'; else echo 'false';?>,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-            }
-            var FindLocaiton = function () {
-                geocoder = new google.maps.Geocoder();
-                InitializeMap();
+<script type="text/javascript">
 
-                <?php if(!$params -> get('tz_gmap_address')):?>
-                    var latlng = new google.maps.LatLng(<?php echo $params -> get('tz_gmap_latitude',20.9815260);?>,
-                                    <?php echo $params -> get('tz_gmap_longitude',105.7890379);?>);
-                    geocoder.geocode({ 'location': latlng }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            map.setCenter(results[0].geometry.location);
-                            var marker = new google.maps.Marker({
-                                map: map,
-                                position: results[0].geometry.location
-                            });
-                            if (results[0].formatted_address) {
-                                region = results[0].formatted_address + '<br/>';
-                            }
-                            var infowindow = new google.maps.InfoWindow({
-                                content: <?php if($params -> get('tz_gmap_custom_tooltip')):?>
-                                            <?php echo '\''.$params -> get('tz_gmap_custom_tooltip').'\'';?>
-                                        <?php else:?>
-                                            'Location info:<br/>Country Name:' + region +
-                                            '<br/>LatLng:' + results[0].geometry.location + ''
-                                        <?php endif;?>
-                            });
-                            infowindow.open(map, marker);
-                            google.maps.event.addListener(marker, 'click', function () {
-                                // Calling the open method of the infoWindow
-                                infowindow.open(map, marker);
-                            });
+var articleMarker;
 
-                        }
-                        else {
-                            alert("Geocode was not successful for the following reason: " + status);
-                        }
-                    });
-                <?php endif;?>
+function HomeControl(controlDiv, map, location) {
 
-                <?php if($params -> get('tz_gmap_address')):?>
-                    var address = "<?php echo $params -> get('tz_gmap_address');?>";
-                    geocoder.geocode({ 'address': address }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            map.setCenter(results[0].geometry.location);
-                            var marker = new google.maps.Marker({
-                                map: map,
-                                position: results[0].geometry.location
-                            });
-                            if (results[0].formatted_address) {
-                                region = results[0].formatted_address + '<br/>';
-                            }
-                            var infowindow = new google.maps.InfoWindow({
-                                content: <?php if($params -> get('tz_gmap_custom_tooltip')):?>
-                                            <?php echo '\''.$params -> get('tz_gmap_custom_tooltip').'\'';?>
-                                        <?php else:?>
-                                            'Location info:<br/>Country Name:' + region +
-                                            '<br/>LatLng:' + results[0].geometry.location + ''
-                                        <?php endif;?>
-                            });
-                            infowindow.open(map, marker);
-                            google.maps.event.addListener(marker, 'click', function () {
-                                // Calling the open method of the infoWindow
-                                infowindow.open(map, marker);
-                            });
+  // Set CSS styles for the DIV containing the control
+  // Setting padding to 5 px will offset the control
+  // from the edge of the map
+  controlDiv.style.padding = '5px';
 
-                        }
-                        else {
-                            alert("Geocode was not successful for the following reason: " + status);
-                        }
+  // Set CSS for the control border
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.color = '#555555';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Centrer la carte sur ' + location.title;
+  controlDiv.appendChild(controlUI);
 
-                    });
-                <?php endif;?>
-            }
-            FindLocaiton();
+  // Set CSS for the control interior
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '18px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<i class="icon-home"></i>';
+  controlUI.appendChild(controlText);
 
-        });
-    </script>
-    <div class="TzGoogleMap">
-        <h3 class="TzGoogleMapTitle"><?php echo JText::_('COM_TZ_PORTFOLIO_GOOGLE_MAP_TITLE');?></h3>
-        <?php
-            $width  = $params -> get('tz_gmap_width','100%');
-            $height = $params -> get('tz_gmap_height','500px');
-            if(!preg_match('/^[0-9]+%$/',$width) AND !preg_match('/^[0-9]+px$/',$width)):
-                $width  = $params -> get('tz_gmap_width').'px';
-            endif;
-            if(!preg_match('/^[0-9]+%$/',$height) AND !preg_match('/^[0-9]+px$/',$height)):
-                $height  = $params -> get('tz_gmap_height').'px';
-            endif;
-        ?>
-        <div id="map_canvas" style="width:<?php echo $width;?>; height:<?php echo $height?>"></div>
-    </div>
+  // Setup the click event listeners: simply set the map to
+  // Chicago
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+    map.setCenter(articleMarker.getPosition())
+  });
+
+}
+
+function initializeMap() {
+
+  var locationId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
+  var loc = locations[locationId];
+  var latitude = loc.lat;
+  var longitude = loc.lng;
+  
+  var map = createMap(latitude, longitude, <?php echo $params -> get('tz_gmap_zoomlevel',10);?>);
+	
+  articleMarker = addSingleMarker(map, loc);
+  var homeControlDiv = document.createElement('div');
+  var homeControl = new HomeControl(homeControlDiv, map, loc);
+
+  homeControlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+  
+}
+
+google.maps.event.addDomListener(window, 'load', initializeMap);
+
+</script>
+
+<div class="TzGoogleMap">
+<h3 class="TzGoogleMapTitle"><?php echo JText::_('COM_TZ_PORTFOLIO_GOOGLE_MAP_TITLE');?></h3>
+<div id="map-canvas" style="width: 100%; height: 400px;">&nbsp;</div>
+</div>
 <?php endif;?>

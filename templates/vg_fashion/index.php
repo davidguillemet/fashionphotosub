@@ -123,7 +123,10 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,600,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin-ext' rel='stylesheet' type='text/css'>
-<script type="text/javascript">var rootUrl = "<?php echo $this->baseurl; ?>/";</script>
+<script type="text/javascript">
+var rootUrl = "<?php echo $this->baseurl; ?>/";
+var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
+</script>
 
 <!-- Share This -->
 <script type="text/javascript">var switchTo5x=true;</script>
@@ -168,14 +171,9 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.shutter.js"></script>
 <?php } ?>
 
-<!--
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jwplayer.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.qtip.min.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.flexslider-min.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.fancybox.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.gridnav.js"></script>
--->
-<!--script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script-->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKLtTlcioENuFJU6ruZwtIrwxr7S07nTw"></script>
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/markerclusterer.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/locations.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/fashionCustom.js"></script>
 
 <?php if( $vg_slide_status == 1 ){//<--A2. ?>
