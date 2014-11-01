@@ -1044,7 +1044,7 @@ margin: 0 0 17px 0;
 	margin: 0 0 10px 0;
 }
 
-.TzBlog h3.TzBlogTitle a.TzReadmore
+.TzBlog h3.TzBlogTitle a.TzReadmore, #mapinfocontainer a.TzReadmore
 {
 width: 110px;
 height: auto;
@@ -1060,7 +1060,19 @@ text-transform: none;
 font-weight: 600;
 }
 
-.TzBlog h3.TzBlogTitle a.TzReadmore:hover
+#mapinfocontainer a.TzReadmore
+{
+	width: auto;
+	font-size: 14px;
+	float: left;
+	padding-left: 25px;
+	border-left: 0px;
+	background-position: 0px center;
+}
+
+
+
+.TzBlog h3.TzBlogTitle a.TzReadmore:hover, #mapinfocontainer a.TzReadmore:hover
 {
 	color: #ff5b0a;
 }
@@ -1802,4 +1814,16 @@ overflow: hidden;
 font-size: 94%;
 padding: 2px 4px;
 word-wrap: break-word;
+}
+
+/* Google Map */
+#mapinfocontainer > h3.mapinfotitle
+{
+	margin: 0px;
+	padding: 0px;
+	color: #555;
+}
+#mapinfocontainer > p
+{
+	color: #555;
 }
