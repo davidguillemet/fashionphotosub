@@ -4,7 +4,7 @@
  * Displays plain text as element
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -54,6 +54,8 @@ class JFormFieldNN_PlainText extends JFormField
 
 	protected function getInput()
 	{
+		$this->params = $this->element->attributes();
+
 		$text = $this->prepareText(trim($this->value));
 
 		if (!$text)
@@ -64,26 +66,26 @@ class JFormFieldNN_PlainText extends JFormField
 		return '<fieldset class="nn_plaintext">' . $text . '</fieldset>';
 	}
 
-	private function prepareText($str = '')
+	private function prepareText($string = '')
 	{
-		if ($str == '')
+		if ($string == '')
 		{
 			return '';
 		}
 
 		// variables
-		$v1 = JText::_($this->get('var1'));
-		$v2 = JText::_($this->get('var2'));
-		$v3 = JText::_($this->get('var3'));
-		$v4 = JText::_($this->get('var4'));
-		$v5 = JText::_($this->get('var5'));
+		$var1 = JText::_($this->get('var1'));
+		$var2 = JText::_($this->get('var2'));
+		$var3 = JText::_($this->get('var3'));
+		$var4 = JText::_($this->get('var4'));
+		$var5 = JText::_($this->get('var5'));
 
-		$str = JText::sprintf(JText::_($str), $v1, $v2, $v3, $v4, $v5);
-		$str = trim(NNText::html_entity_decoder($str));
-		$str = str_replace('&quot;', '"', $str);
-		$str = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $str);
+		$string = JText::sprintf(JText::_($string), $var1, $var2, $var3, $var4, $var5);
+		$string = trim(NNText::html_entity_decoder($string));
+		$string = str_replace('&quot;', '"', $string);
+		$string = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $string);
 
-		return $str;
+		return $string;
 	}
 
 	private function get($val, $default = '')

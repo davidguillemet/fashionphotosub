@@ -3,7 +3,7 @@
  * Helper
  *
  * @package         Snippets
- * @version         3.4.0
+ * @version         3.5.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -51,23 +51,6 @@ class SnippetsHelper
 		}
 
 		return $result;
-	}
-
-	/**
-	 * Returns an array of standard published state filter options.
-	 *
-	 * @return    string            The HTML code for the select tag
-	 */
-	public static function publishedOptions()
-	{
-		// Build the active state filter options.
-		$options = array();
-		$options[] = JHtml::_('select.option', '*', 'JALL');
-		$options[] = JHtml::_('select.option', '1', 'JENABLED');
-		$options[] = JHtml::_('select.option', '0', 'JDISABLED');
-		$options[] = JHtml::_('select.option', '-2', 'JTRASHED');
-
-		return $options;
 	}
 
 	/**

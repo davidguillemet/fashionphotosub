@@ -2,7 +2,7 @@
  * NoNumber Page stylesheet
  *
  * @package         Tabs
- * @version         3.6.7
+ * @version         4.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -106,6 +106,21 @@
 			&.active > a:hover {
 				padding-bottom: 5px;
 			}
+
+			span.nn_tabs-title-inactive {
+				display: inherit;
+			}
+			span.nn_tabs-title-active {
+				display: none;
+			}
+			&.active {
+				span.nn_tabs-title-inactive {
+					display: none;
+				}
+				span.nn_tabs-title-active {
+					display: inherit;
+				}
+			}
 		}
 	}
 
@@ -129,6 +144,7 @@
 	.nn_tabs-scroll {
 		position: relative;
 		visibility: hidden;
+		padding: 0;
 	}
 
 	.nav-tabs-sm {

@@ -2,7 +2,7 @@
  * Popup stylesheet
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,7 +27,4 @@ body.nnpopup .page-title {
 body.nnpopup .header {
   margin-left: 0;
   margin-right: 0;
-}
-body.nnpopup .btn-toolbar {
-  margin-bottom: 3px;
 }

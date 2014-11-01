@@ -2,7 +2,7 @@
  * NoNumber Page stylesheet
  *
  * @package         Sliders
- * @version         3.5.6
+ * @version         4.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -87,6 +87,18 @@
   border-radius: 10px;
   overflow: hidden;
 }
+.nn_sliders.oldschool > .accordion-group span.nn_sliders-title-inactive {
+  display: inherit;
+}
+.nn_sliders.oldschool > .accordion-group span.nn_sliders-title-active {
+  display: none;
+}
+.nn_sliders.oldschool > .accordion-group.active span.nn_sliders-title-inactive {
+  display: none;
+}
+.nn_sliders.oldschool > .accordion-group.active span.nn_sliders-title-active {
+  display: inherit;
+}
 .nn_sliders.oldschool > .accordion-group > .accordion-heading > a,
 .nn_sliders.oldschool > .accordion-group > .accordion-heading > a:link,
 .nn_sliders.oldschool > .accordion-group > .accordion-heading > a:visited,
@@ -115,6 +127,10 @@
 .nn_sliders.oldschool .nn_sliders-scroll {
   position: relative;
   visibility: hidden;
+  padding: 0;
+}
+.nn_sliders.oldschool .nn_sliders-title {
+  display: none;
 }
 .nn_sliders.oldschool > .accordion-group > .accordion-heading > a:hover {
   color: #333333;

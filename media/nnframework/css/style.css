@@ -2,7 +2,7 @@
  * Main stylesheet
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,7 +13,7 @@
  * Stylesheet for font faces
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -52,12 +52,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-nonumber {
-  width: 16px !important;
-}
 .icon-nonumber:before {
   font-family: 'NoNumber' !important;
-  font-size: 16px !important;
+  font-size: 14.2px !important;
 }
 .btn .icon-nonumber {
   text-indent: -2px;
@@ -111,6 +108,9 @@
 }
 .icon-dbreplacer:before {
   content: "\e00a";
+}
+.icon-dummycontent:before {
+  content: "\e017";
 }
 .icon-emailprotector:before {
   content: "\e00b";
@@ -494,4 +494,8 @@ div.chzn-container#advancedparams_color_chzn {
 }
 .thumbnail-small > .thumbnail > img {
   max-width: 40px;
+}
+input.nn_codefield {
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-size: 1.4em !important;
 }

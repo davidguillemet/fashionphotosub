@@ -2,7 +2,7 @@
  * Main stylesheet
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,41 +21,52 @@
 		height: 23px;
 	}
 }
+
 fieldset.nn_plaintext {
 	margin-top: 5px;
 }
+
 .nn_code {
 	#font > #family > .monospace;
 	color: @grayLight;
 }
+
 div.nn_well {
 	padding-bottom: 0;
 	h4 {
 		margin-top: 6px;
 	}
 }
+
 .nn_well.alert-success,
 .nn_well.alert-error {
 	color: @grayDark;
 }
+
 .nn_btn-ignore.btn-danger.active {
 	.buttonBackground(@btnBackground, @btnBackgroundHighlight, @grayDark, 0 1px 1px rgba(255, 255, 255, .75));
 }
+
 .nn_btn-exclude.btn-success.active {
 	.buttonBackground(@btnDangerBackground, @btnDangerBackgroundHighlight);
 }
+
 .nn_textarea {
 	.box-sizing(border-box);
 }
+
 .header .icon-nonumber:before {
 	font-size: 20px !important;
 }
+
 .header .status .icon-nonumber:before {
 	font-size: 16px !important;
 }
+
 .icon-back:before {
 	content: "\e008";
 }
+
 .inlist .simplecolors-swatch span {
 	position: relative;
 }
@@ -65,6 +76,7 @@ div.nn_well {
 .btn-toolbar .dropdown-menu {
 	font-size: 13px;
 }
+
 .dropdown {
 	display: inline-block;
 }
@@ -152,4 +164,9 @@ div.chzn-container#advancedparams_color_chzn {
 
 .thumbnail-small > .thumbnail > img {
 	max-width: 40px;
+}
+
+input.nn_codefield {
+	#font > #family > .monospace;
+	font-size: 1.4em !important;
 }

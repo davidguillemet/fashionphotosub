@@ -2,7 +2,7 @@
  * NoNumber Page stylesheet
  *
  * @package         Tabs
- * @version         3.6.7
+ * @version         4.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,13 +16,13 @@
 @import "../../nnframework/less/init.less";
 @import "bootstrap.less";
 
+@background-color: #f5f5f5;
+@background-color-hover: #eee;
 @border-color: #ddd;
+@border-color-focus: #eab03f;
 
 .nn_tabs {
 	.clearfix();
-	> ul.nav-tabs-sm {
-		display: none;
-	}
 	> ul.nav-tabs {
 		> li {
 			/* Reset styles to prevent templates li styles from messing stuff up */
@@ -51,14 +51,27 @@
 			> a:focus,
 			&.active > a:focus {
 				outline: none;
-				border-color: rgb(234, 176, 63) rgb(234, 176, 63) transparent rgb(234, 176, 63);
-				.box-shadow(0 -2px 2px rgba(234, 176, 63, 0.5));
+				border-color: @border-color-focus;
+			}
+
+			span.nn_tabs-title-inactive {
+				display: inherit;
+			}
+			span.nn_tabs-title-active {
+				display: none;
+			}
+			&.active {
+				span.nn_tabs-title-inactive {
+					display: none;
+				}
+				span.nn_tabs-title-active {
+					display: inherit;
+				}
 			}
 		}
 	}
 	> .tab-content {
 		padding: 0;
-		margin-bottom: 10px;
 		> .tab-pane {
 			padding: 12px 0;
 			overflow-x: auto;
@@ -79,43 +92,12 @@
 	.nn_tabs-sm-scroll {
 		position: relative;
 		visibility: hidden;
-	}
-
-	&.nn_tabs-responsive {
-		@media (max-width: 768px) {
-			> ul.nav-tabs-sm {
-				display: block;
-			}
-			> ul.nav-tabs {
-				display: none;
-			}
-			> .tab-content {
-				> .tab-pane {
-					display: block;
-					.nn_tabs-title {
-						display: block;
-					}
-				}
-			}
-			.fade {
-				opacity: 1;
-			}
-			// Outline Content
-			&.outline_content {
-				> .tab-content {
-					border: none;
-					> .tab-pane {
-						padding: 12px 0;
-					}
-				}
-			}
-		}
+		padding: 0;
 	}
 
 	// Outline Content
 	&.outline_content {
 		> .tab-content {
-			margin-bottom: 18px;
 			border: 1px solid @border-color;
 			border-top: none;
 			.border-radius(0 0 4px 4px);
@@ -137,33 +119,29 @@
 				border: 1px solid @border-color;
 			}
 		}
-		&.top > ul.nav-tabs > li {
-			a,
-			a:hover, {
-				border-bottom-color: transparent;
-			}
-		}
-		&.bottom > ul.nav-tabs > li {
-			a,
-			a:hover, {
-				border-top-color: transparent;
-			}
-		}
-		&.left > ul.nav-tabs > li {
-			a,
-			a:hover, {
-				border-right-color: transparent;
-			}
-		}
-		&.right > ul.nav-tabs > li {
-			a,
-			a:hover, {
-				border-left-color: transparent;
+	}
+
+	&.color_inactive_handles {
+		> ul.nav {
+			> li {
+				> a {
+					background-color: @background-color;
+					margin-right: 5px;
+					&:hover {
+						background-color: @background-color-hover;
+					}
+				}
+				&.active {
+					> a,
+					> a:hover {
+						background-color: #fff;
+					}
+				}
 			}
 		}
 	}
 
-	@media (min-width: 769px) {
+	@media (min-width: 768px) {
 		// Right Alignment
 		&.align_right {
 			> ul.nav-tabs {
@@ -281,7 +259,7 @@
 					border-top-color: @color;
 				}
 			}
-			@media (max-width: 768px) {
+			@media (max-width: 767px) {
 				> li.@{name} {
 					> a,
 					> a:hover {
@@ -293,8 +271,24 @@
 		}
 
 		> ul.nav-tabs {
+			> li {
+				> a {
+					border-bottom-color: @border-color;
+				}
+				> a:focus,
+				&.active > a:focus {
+					border-bottom-color: transparent;
+					.box-shadow(0 -2px 2px rgba(234, 176, 63, 0.5));
+				}
+			}
+			> li.active {
+				a,
+				a:hover, {
+					border-bottom-color: transparent;
+				}
+			}
 			// Small screen styling
-			@media (max-width: 768px) {
+			@media (max-width: 767px) {
 				> li {
 					float: none;
 					&:last-child,
@@ -310,7 +304,6 @@
 					}
 				}
 			}
-
 			.tabColors();
 		}
 	}
@@ -330,7 +323,7 @@
 					border-bottom-color: @color;
 				}
 			}
-			@media (max-width: 768px) {
+			@media (max-width: 767px) {
 				> li.@{name} {
 					> a,
 					> a:hover {
@@ -350,15 +343,23 @@
 				margin-bottom: 0 !important;
 				// Actual tabs (as links)
 				> a {
+					border-top-color: @border-color;
 					.border-radius(0 0 4px 4px);
 					&:hover {
-						border-color: transparent @border-color @border-color @border-color;
+						border-color: transparent;
+						border-top-color: @border-color;
 					}
 				}
 				// Active state, and it's :hover to override normal :hover
 				&.active > a,
 				&.active > a:hover {
-					border-color: transparent @border-color @border-color @border-color;
+					border-color: @border-color;
+					border-top-color: transparent;
+				}
+				> a:focus,
+				&.active > a:focus {
+					border-top-color: transparent;
+					.box-shadow(0 2px 2px rgba(234, 176, 63, 0.5));
 				}
 			}
 
@@ -412,7 +413,7 @@
 					border-left-color: @color;
 				}
 			}
-			@media (max-width: 768px) {
+			@media (max-width: 767px) {
 				> li.@{name} {
 					> a,
 					> a:hover {
@@ -433,13 +434,20 @@
 				> a {
 					.border-radius(4px 0 0 4px);
 					&:hover {
-						border-color: @border-color transparent @border-color @border-color;
+						border-color: transparent;
+						border-right-color: @border-color;
 					}
 				}
 				// Active state, and it's :hover to override normal :hover
 				&.active > a,
 				&.active > a:hover {
-					border-color: @border-color transparent @border-color @border-color;
+					border-color: @border-color;
+					border-right-color: transparent;
+				}
+				> a:focus,
+				&.active > a:focus {
+					border-right-color: transparent;
+					.box-shadow(-2px 0 2px rgba(234, 176, 63, 0.5));
 				}
 			}
 
@@ -468,7 +476,7 @@
 					border-right-color: @color;
 				}
 			}
-			@media (max-width: 768px) {
+			@media (max-width: 767px) {
 				> li.@{name} {
 					> a,
 					> a:hover {
@@ -489,12 +497,19 @@
 				> a {
 					.border-radius(0 4px 4px 0);
 					&:hover {
-						border-color: @border-color @border-color @border-color transparent;
+						border-color: transparent;
+						border-left-color: @border-color;
 					}
 				}
 				&.active > a,
 				&.active > a:hover {
-					border-color: @border-color @border-color @border-color transparent;
+					border-color: @border-color;
+					border-left-color: transparent;
+				}
+				> a:focus,
+				&.active > a:focus {
+					border-left-color: transparent;
+					.box-shadow(2px 0 2px rgba(234, 176, 63, 0.5));
 				}
 			}
 
@@ -504,6 +519,45 @@
 		&.outline_content {
 			> .tab-content {
 				.border-radius(4px 0 4px 4px);
+			}
+		}
+	}
+}
+
+.nn_tabs-responsive {
+	> ul.nn-tabs-sm {
+		display: none;
+
+	}
+	@media (max-width: 767px) {
+		> ul.nn-tabs-sm {
+			display: block;
+		}
+
+		> .nn_tabs {
+			.clearfix();
+			> ul.nav-tabs {
+				display: none;
+			}
+			> .tab-content {
+				> .tab-pane {
+					display: block;
+					.nn_tabs-title {
+						display: block;
+					}
+				}
+			}
+			.fade {
+				opacity: 1;
+			}
+			// Outline Content
+			&.outline_content {
+				> .tab-content {
+					border: none;
+					> .tab-pane {
+						padding: 12px 0;
+					}
+				}
 			}
 		}
 	}

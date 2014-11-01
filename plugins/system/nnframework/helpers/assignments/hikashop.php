@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: HikaShop
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -90,16 +90,14 @@ class NNFrameworkAssignmentsHikaShop
 		switch (true)
 		{
 			case ($parent->params->view == 'category' && $parent->params->id):
-
 				return array($parent->params->id);
-				break;
+
 			case ($parent->params->view == 'category'):
 				include_once JPATH_ADMINISTRATOR . '/components/com_hikashop/helpers/helper.php';
 				$menuClass = hikashop_get('class.menus');
 				$menuData = $menuClass->get($parent->params->Itemid);
 
 				return $parent->makeArray($menuData->hikashop_params['selectparentlisting']);
-				break;
 
 			case ($parent->params->id):
 				$parent->q->clear()
@@ -110,7 +108,7 @@ class NNFrameworkAssignmentsHikaShop
 				$cats = $parent->db->loadColumn();
 
 				return $parent->makeArray($cats);
-				break;
+
 			default:
 				return array();
 		}

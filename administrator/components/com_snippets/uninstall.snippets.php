@@ -4,7 +4,7 @@
  * Performs some extra tasks when uninstalling the component
  *
  * @package         Snippets
- * @version         3.4.0
+ * @version         3.5.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

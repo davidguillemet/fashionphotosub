@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Helper
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -31,15 +31,21 @@ class NNFrameworkHelper
 
 	static function processArticle(&$article, &$context, &$helper, $method, $params = array())
 	{
-		if (isset($article->text)
-			&& !(
-				$context == 'com_content.category'
-				&& JFactory::getApplication()->input->get('view') == 'category'
-				&& !JFactory::getApplication()->input->get('layout')
-			)
-		)
+		if (!self::isCategoryList($context))
 		{
-			call_user_func_array(array($helper, $method), array_merge(array(&$article->text), $params));
+			switch (true)
+			{
+				case (isset($article->text)):
+					call_user_func_array(array($helper, $method), array_merge(array(&$article->text), $params));
+					break;
+
+				case (isset($article->introtext)):
+					call_user_func_array(array($helper, $method), array_merge(array(&$article->introtext), $params));
+
+				case (isset($article->fulltext)) :
+					call_user_func_array(array($helper, $method), array_merge(array(&$article->fulltext), $params));
+					break;
+			}
 		}
 
 		if (isset($article->description))
@@ -56,5 +62,33 @@ class NNFrameworkHelper
 		{
 			call_user_func_array(array($helper, $method), array_merge(array(&$article->created_by_alias), $params));
 		}
+	}
+
+	static function isCategoryList($context)
+	{
+		// Return false if it is not a category page
+		if ($context != 'com_content.category' || JFactory::getApplication()->input->get('view') != 'category')
+		{
+			return false;
+		}
+
+		// Return false if it is not a list layout
+		if (JFactory::getApplication()->input->get('layout') && JFactory::getApplication()->input->get('layout') != 'list')
+		{
+			return false;
+		}
+
+		// Return true if it IS a list layout
+		if (JFactory::getApplication()->input->get('layout') == 'list')
+		{
+			return true;
+		}
+
+		// Layout is empty, so check if default layout is list (default)
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
+		$parameters = NNParameters::getInstance();
+		$parameters = $parameters->getComponentParams('content');
+
+		return $parameters->category_layout == '_:default';
 	}
 }

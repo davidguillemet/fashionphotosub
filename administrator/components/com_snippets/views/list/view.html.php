@@ -3,7 +3,7 @@
  * List View
  *
  * @package         Snippets
- * @version         3.4.0
+ * @version         3.5.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -40,7 +40,9 @@ class SnippetsViewList extends JViewLegacy
 		$this->list = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
 		$this->state = $this->get('State');
-		$this->config = $this->parameters->getComponentParams('snippets', $this->state->params);
+		$this->config = $this->parameters->getComponentParams('snippets');
+		$this->filterForm = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -127,24 +129,5 @@ class SnippetsViewList extends JViewLegacy
 			$string = JString::substr($string, 0, $maxlen - 3) . '...';
 		}
 		return $string;
-	}
-
-	/**
-	 * Returns an array of fields the table can be sorted by
-	 *
-	 * @return  array  Array containing the field name to sort by as the key and display text as value
-	 *
-	 * @since   3.0
-	 */
-	protected function getSortFields()
-	{
-		return array(
-			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
-			'a.published' => JText::_('JSTATUS'),
-			'a.alias' => JText::_('SNP_SNIPPET_ID'),
-			'a.name' => JText::_('JGLOBAL_TITLE'),
-			'a.description' => JText::_('JGLOBAL_DESCRIPTION'),
-			'a.id' => JText::_('JGRID_HEADING_ID')
-		);
 	}
 }

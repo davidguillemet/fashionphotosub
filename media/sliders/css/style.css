@@ -2,7 +2,7 @@
  * NoNumber Page stylesheet
  *
  * @package         Sliders
- * @version         3.5.6
+ * @version         4.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -97,6 +97,18 @@
   -webkit-box-shadow: inset 0 0 2px #eab03f;
   box-shadow: inset 0 0 2px #eab03f;
 }
+.nn_sliders.accordion > .accordion-group span.nn_sliders-title-inactive {
+  display: inherit;
+}
+.nn_sliders.accordion > .accordion-group span.nn_sliders-title-active {
+  display: none;
+}
+.nn_sliders.accordion > .accordion-group.active span.nn_sliders-title-inactive {
+  display: none;
+}
+.nn_sliders.accordion > .accordion-group.active span.nn_sliders-title-active {
+  display: inherit;
+}
 .nn_sliders.accordion > .accordion-group > .accordion-body > .accordion-inner {
   padding: 15px;
   overflow-y: hidden !important;
@@ -118,7 +130,10 @@
 .nn_sliders.accordion > .accordion-group > .accordion-body > .accordion-inner > :last-child {
   margin-bottom: 0;
 }
-.nn_sliders.accordion > .accordion-group.icon a.accordion-toggle span.nn_sliders-toggle-inner:before {
+.nn_sliders.accordion > .accordion-group > .accordion-body > .accordion-inner .nn_sliders-title {
+  display: none;
+}
+.nn_sliders.accordion > .accordion-group.icon > .accordion-heading > a.accordion-toggle span.nn_sliders-toggle-inner:before {
   display: inline-block;
   *margin-right: .3em;
   font-family: 'IcoMoon';
@@ -126,7 +141,7 @@
   speak: none;
   content: "\2a";
 }
-.nn_sliders.accordion > .accordion-group.icon.active a.accordion-toggle span.nn_sliders-toggle-inner:before {
+.nn_sliders.accordion > .accordion-group.icon.active > .accordion-heading > a.accordion-toggle span.nn_sliders-toggle-inner:before {
   content: "\4b";
 }
 .nn_sliders.accordion > .accordion-group.blue {
@@ -264,4 +279,5 @@
 .nn_sliders.accordion .nn_sliders-scroll {
   position: relative;
   visibility: hidden;
+  padding: 0;
 }

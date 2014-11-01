@@ -4,7 +4,7 @@
  * Displays a list with modules
  *
  * @package         Modules Anywhere
- * @version         3.5.1
+ * @version         3.6.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

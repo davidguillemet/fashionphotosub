@@ -2,8 +2,8 @@
 <extension version="3.2" type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_TABS</name>
 	<description>PLG_SYSTEM_TABS_DESC</description>
-	<version>3.6.7PRO</version>
-	<creationDate>August 2014</creationDate>
+	<version>4.0.1PRO</version>
+	<creationDate>October 2014</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>
@@ -53,6 +53,10 @@
 					<option value="justify">&lt;span class="nnicon-paragraph-justify">&lt;/span></option>
 				</field>
 				<field name="@toggler_positioning_b" type="nn_toggler" />
+				<field name="color_inactive_handles" type="radio" class="btn-group" default="0" label="TAB_COLOR_INACTIVE_HANDLES" description="TAB_COLOR_INACTIVE_HANDLES_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
 				<field name="outline_handles" type="radio" class="btn-group" default="1" label="TAB_OUTLINE_HANDLES" description="TAB_OUTLINE_HANDLES_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>

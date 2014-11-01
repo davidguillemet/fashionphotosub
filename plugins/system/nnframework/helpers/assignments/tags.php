@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Tags
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -61,36 +61,48 @@ class NNFrameworkAssignmentsTags
 			return $parent->pass(0, $assignment);
 		}
 
-		$pass = 0;
-
 		foreach ($tags as $tag)
 		{
-			$pass = in_array($tag, $selection);
-			if ($pass && $params->inc_children == 2)
+			if (!$this->passTag($tag, $selection, $parent, $params))
 			{
-				$pass = 0;
+				continue;
 			}
-			else if (!$pass && $params->inc_children)
-			{
-				$parentids = self::getParentIds($parent, $tag);
-				$parentids = array_diff($parentids, array('1'));
-				foreach ($parentids as $id)
-				{
-					if (in_array($id, $selection))
-					{
-						$pass = 1;
-						break;
-					}
-				}
-				unset($parentids);
-			}
+
+			return $parent->pass(1, $assignment);
 		}
 
-		return $parent->pass($pass, $assignment);
+		return $parent->pass(0, $assignment);
 	}
 
-	function getParentIds(&$parent, $id = 0)
+	private function passTag($tag, $selection, $parent, $params)
 	{
-		return $parent->getParentIds($id, 'tags');
+		$pass = in_array($tag, $selection);
+
+		if ($pass)
+		{
+			// If passed, return false if assigned to only children
+			// Else return true
+			return ($params->inc_children != 2);
+		}
+
+		if (!$params->inc_children)
+		{
+			return false;
+		}
+
+		// Return true if a parent id is present in the selection
+		return array_intersect(
+			self::getParentIds($parent, $tag),
+			$selection
+		);
+	}
+
+	private function getParentIds(&$parent, $id = 0)
+	{
+		$parentids = $parent->getParentIds($id, 'tags');
+		// Remove the root tag
+		$parentids = array_diff($parentids, array('1'));
+
+		return $parentids;
 	}
 }

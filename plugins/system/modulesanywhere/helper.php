@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Modules Anywhere
- * @version         3.5.1
+ * @version         3.6.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -48,7 +48,7 @@ class plgSystemModulesAnywhereHelper
 		$bts = '((?:<p(?: [^>]*)?>)?)((?:\s*<br ?/?>)?\s*)';
 		$bte = '(\s*(?:<br ?/?>\s*)?)((?:</p>)?)';
 		$regex = '((?:\{div(?: [^\}]*)\})?)(\s*)'
-			. '\{(' . implode('|', $tags) . ')(?: |&nbsp;|&\#160;)((?:[^\}]*?\{[^\}]*?\})*[^\}]*?)\}'
+			. '\{(' . implode('|', $tags) . ')(?:\s|&nbsp;|&\#160;)((?:[^\}]*?\{[^\}]*?\})*[^\}]*?)\}'
 			. '(\s*)((?:\{/div\})?)';
 		$this->params->regex = '#' . $bts . $regex . $bte . '#s';
 		$this->params->regex2 = '#' . $regex . '#s';
@@ -123,14 +123,14 @@ class plgSystemModulesAnywhereHelper
 		JResponse::setBody($html);
 	}
 
-	function replaceTags(&$str, $area = 'article')
+	function replaceTags(&$string, $area = 'article')
 	{
-		if (!is_string($str) || $str == '')
+		if (!is_string($string) || $string == '')
 		{
 			return;
 		}
 
-		if (!preg_match('#\{' . $this->params->tags . '#', $str))
+		if (!preg_match('#\{' . $this->params->tags . '#', $string))
 		{
 			return;
 		}
@@ -141,61 +141,61 @@ class plgSystemModulesAnywhereHelper
 			&& in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components)
 		)
 		{
-			$this->protectTags($str);
+			$this->protectTags($string);
 
 			return;
 		}
 
-		$this->protect($str);
+		$this->protect($string);
 
 		// COMPONENT
 		if (JFactory::getDocument()->getType() == 'feed')
 		{
 			$s = '#(<item[^>]*>)#s';
-			$str = preg_replace($s, '\1<!-- START: MODA_COMPONENT -->', $str);
-			$str = str_replace('</item>', '<!-- END: MODA_COMPONENT --></item>', $str);
+			$string = preg_replace($s, '\1<!-- START: MODA_COMPONENT -->', $string);
+			$string = str_replace('</item>', '<!-- END: MODA_COMPONENT --></item>', $string);
 		}
-		if (strpos($str, '<!-- START: MODA_COMPONENT -->') === false)
+		if (strpos($string, '<!-- START: MODA_COMPONENT -->') === false)
 		{
-			$this->tagArea($str, 'MODA', 'component');
+			$this->tagArea($string, 'MODA', 'component');
 		}
 
 		$this->params->message = '';
 
-		$components = $this->getTagArea($str, 'MODA', 'component');
+		$components = $this->getTagArea($string, 'MODA', 'component');
 
 		foreach ($components as $component)
 		{
 			$this->processModules($component['1'], 'components');
-			$str = str_replace($component['0'], $component['1'], $str);
+			$string = str_replace($component['0'], $component['1'], $string);
 		}
 
 		// EVERYWHERE
-		$this->processModules($str, 'other');
+		$this->processModules($string, 'other');
 
-		NNProtect::unprotect($str);
+		NNProtect::unprotect($string);
 	}
 
-	function tagArea(&$str, $ext = 'EXT', $area = '')
+	function tagArea(&$string, $ext = 'EXT', $area = '')
 	{
-		if ($str && $area)
+		if ($string && $area)
 		{
-			$str = '<!-- START: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->' . $str . '<!-- END: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->';
+			$string = '<!-- START: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->' . $string . '<!-- END: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->';
 			if ($area == 'article_text')
 			{
-				$str = preg_replace('#(<hr class="system-pagebreak".*?/>)#si', '<!-- END: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->\1<!-- START: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->', $str);
+				$string = preg_replace('#(<hr class="system-pagebreak".*?/>)#si', '<!-- END: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->\1<!-- START: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->', $string);
 			}
 		}
 	}
 
-	function getTagArea(&$str, $ext = 'EXT', $area = '')
+	function getTagArea(&$string, $ext = 'EXT', $area = '')
 	{
 		$matches = array();
-		if ($str && $area)
+		if ($string && $area)
 		{
 			$start = '<!-- START: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->';
 			$end = '<!-- END: ' . strtoupper($ext) . '_' . strtoupper($area) . ' -->';
-			$matches = explode($start, $str);
+			$matches = explode($start, $string);
 			array_shift($matches);
 			foreach ($matches as $i => $match)
 			{
@@ -438,13 +438,16 @@ class plgSystemModulesAnywhereHelper
 	{
 		$renderer = JFactory::getDocument()->loadRenderer('module');
 
-		$html = '';
-		foreach (JModuleHelper::getModules($position) as $mod)
+		$html = array();
+		foreach (JModuleHelper::getModules($position) as $module)
 		{
-			$html .= $renderer->render($mod, array('style' => $chrome));
+			$module_html = $renderer->render($module, array('style' => $chrome));
+
+
+			$html[] = $module_html;
 		}
 
-		return $html;
+		return implode('', $html);
 	}
 
 	function processModule($id, $chrome = 'none', $ignores = array(), $overrides = array(), $area = 'articles')
@@ -574,6 +577,7 @@ class plgSystemModulesAnywhereHelper
 		$renderer = $document->loadRenderer('module');
 		$html = $renderer->render($module, array('style' => $chrome, 'name' => ''));
 
+
 		// don't return html on article level when caching is set
 		if (
 			$area == 'articles'
@@ -589,6 +593,7 @@ class plgSystemModulesAnywhereHelper
 
 		return $html;
 	}
+
 
 	function applyAssignments(&$module)
 	{
@@ -623,42 +628,42 @@ class plgSystemModulesAnywhereHelper
 		$helper->onPrepareModuleList($modules);
 	}
 
-	function protect(&$str)
+	function protect(&$string)
 	{
-		NNProtect::protectFields($str);
-		NNProtect::protectSourcerer($str);
+		NNProtect::protectFields($string);
+		NNProtect::protectSourcerer($string);
 	}
 
-	function protectTags(&$str)
+	function protectTags(&$string)
 	{
-		NNProtect::protectTags($str, $this->params->protected_tags);
+		NNProtect::protectTags($string, $this->params->protected_tags);
 	}
 
-	function unprotectTags(&$str)
+	function unprotectTags(&$string)
 	{
-		NNProtect::unprotectTags($str, $this->params->protected_tags);
+		NNProtect::unprotectTags($string, $this->params->protected_tags);
 	}
 
 	/**
 	 * Just in case you can't figure the method name out: this cleans the left-over junk
 	 */
-	function cleanLeftoverJunk(&$str)
+	function cleanLeftoverJunk(&$string)
 	{
-		$this->unprotectTags($str);
+		$this->unprotectTags($string);
 
-		$str = preg_replace('#<\!-- (START|END): MODA_[^>]* -->#', '', $str);
+		$string = preg_replace('#<\!-- (START|END): MODA_[^>]* -->#', '', $string);
 		if ($this->params->place_comments)
 		{
 			return;
 		}
 
-		$str = str_replace(
+		$string = str_replace(
 			array(
 				$this->params->comment_start, $this->params->comment_end,
 				htmlentities($this->params->comment_start), htmlentities($this->params->comment_end),
 				urlencode($this->params->comment_start), urlencode($this->params->comment_end)
-			), '', $str
+			), '', $string
 		);
-		$str = preg_replace('#' . preg_quote($this->params->message_start, '#') . '.*?' . preg_quote($this->params->message_end, '#') . '#', '', $str);
+		$string = preg_replace('#' . preg_quote($this->params->message_start, '#') . '.*?' . preg_quote($this->params->message_end, '#') . '#', '', $string);
 	}
 }

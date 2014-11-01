@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Tooltips
- * @version         3.7.4
+ * @version         3.7.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -546,9 +546,21 @@ class NNFrameworkAssignmentsHelper
 
 		$this->setAssignmentParams($assignments, $params, 'ips');
 
-		$this->setAssignmentParams($assignments, $params, 'geo', 'continents', 1);
-		$this->setAssignmentParams($assignments, $params, 'geo', 'countries', 1);
-		$this->setAssignmentParams($assignments, $params, 'geo', 'regions', 1);
+		list($id, $name) = $this->setAssignmentParams($assignments, $params, 'geo', 'continents', 1);
+		if ($id)
+		{
+			$assignments[$name]->params = (object) array('service' => isset($params->assignto_geo_service) ? $params->assignto_geo_service : '');
+		}
+		list($id, $name) = $this->setAssignmentParams($assignments, $params, 'geo', 'countries', 1);
+		if ($id)
+		{
+			$assignments[$name]->params = (object) array('service' => isset($params->assignto_geo_service) ? $params->assignto_geo_service : '');
+		}
+		list($id, $name) = $this->setAssignmentParams($assignments, $params, 'geo', 'regions', 1);
+		if ($id)
+		{
+			$assignments[$name]->params = (object) array('service' => isset($params->assignto_geo_service) ? $params->assignto_geo_service : '');
+		}
 
 		$this->setAssignmentParams($assignments, $params, 'templates');
 
@@ -745,32 +757,27 @@ class NNFrameworkAssignmentsHelper
 	{
 		$id = $maintype;
 		$name = $this->names[$maintype];
+
 		if ($subtype)
 		{
+			$id = $usemain
+				? $maintype . $subtype
+				: $subtype;
 			$name .= '_' . $this->names[$subtype];
-			if ($usemain)
-			{
-				$id .= $subtype;
-			}
-			else
-			{
-				$id = $subtype;
-			}
 		}
-		if (isset($params->{'assignto_' . $id}) && $params->{'assignto_' . $id})
+
+		if (!isset($params->{'assignto_' . $id}) || !$params->{'assignto_' . $id})
 		{
-			$assignments[$name] = new stdClass;
-			$assignments[$name]->assignment = $params->{'assignto_' . $id};
-			$assignments[$name]->selection = array();
-			$assignments[$name]->params = new stdClass;
-			if (isset($params->{'assignto_' . $id . '_selection'}) && !empty($params->{'assignto_' . $id . '_selection'}))
-			{
-				$assignments[$name]->selection = $params->{'assignto_' . $id . '_selection'};
-			}
+			return array('', $name);
 		}
-		else
+
+		$assignments[$name] = new stdClass;
+		$assignments[$name]->assignment = $params->{'assignto_' . $id};
+		$assignments[$name]->selection = array();
+		$assignments[$name]->params = new stdClass;
+		if (isset($params->{'assignto_' . $id . '_selection'}) && !empty($params->{'assignto_' . $id . '_selection'}))
 		{
-			$id = '';
+			$assignments[$name]->selection = $params->{'assignto_' . $id . '_selection'};
 		}
 
 		return array($id, $name);

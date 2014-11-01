@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Tooltips
- * @version         3.7.4
+ * @version         3.7.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -34,7 +34,7 @@ class plgSystemTooltipsHelper
 
 		$this->params->tag = preg_replace('#[^a-z0-9-_]#s', '', $this->params->tag);
 		$this->params->regex = '#'
-			. '\{' . preg_quote($this->params->tag, '#') . '((?: |&nbsp;|&\#160;|<)(?:[^\}]*\{[^\}]*\})*[^\}]*)\}'
+			. '\{' . preg_quote($this->params->tag, '#') . '((?:\s|&nbsp;|&\#160;|<)(?:[^\}]*\{[^\}]*\})*[^\}]*)\}'
 			. '(.*?)'
 			. '\{/' . preg_quote($this->params->tag, '#') . '\}'
 			. '#s';
@@ -175,29 +175,34 @@ class plgSystemTooltipsHelper
 
 		if (strpos($html, '{' . $this->params->tag) === false)
 		{
-			if (strpos($html, 'class="nn_tooltips-link ') === false)
+			if (strpos($html, 'class="nn_tooltips-link') === false)
 			{
 				// remove style and script if no items are found
 				$html = preg_replace('#\s*<' . 'link [^>]*href="[^"]*/(tooltips/css|css/tooltips)/[^"]*\.css[^"]*"[^>]* />#s', '', $html);
 				$html = preg_replace('#\s*<' . 'script [^>]*src="[^"]*/(tooltips/js|js/tooltips)/[^"]*\.js[^"]*"[^>]*></script>#s', '', $html);
 				$html = preg_replace('#/\* START: Tooltips .*?/\* END: Tooltips [a-z]* \*/\s*#s', '', $html);
 			}
+
+			$this->cleanLeftoverJunk($html);
+
+			JResponse::setBody($html);
+
+			return;
 		}
-		else
-		{
-			// only do stuff in body
-			list($pre, $body, $post) = nnText::getBody($html);
-			$this->replaceTags($body, 'body');
-			$html = $pre . $body . $post;
-		}
+
+		// only do stuff in body
+		list($pre, $body, $post) = nnText::getBody($html);
+		$this->replaceTags($body, 'body');
+		$html = $pre . $body . $post;
+
 		$this->cleanLeftoverJunk($html);
 
 		JResponse::setBody($html);
 	}
 
-	function replaceTags(&$str, $area = 'article')
+	public function replaceTags(&$string, $area = 'article')
 	{
-		if (!is_string($str) || $str == '')
+		if (!is_string($string) || $string == '')
 		{
 			return;
 		}
@@ -207,20 +212,20 @@ class plgSystemTooltipsHelper
 			// allow in component?
 			if (in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components))
 			{
-				$this->protectTags($str);
+				$this->protectTags($string);
 
 				return;
 			}
 		}
 
-		if (strpos($str, '{' . $this->params->tag) === false)
+		if (strpos($string, '{' . $this->params->tag) === false)
 		{
 			return;
 		}
 
-		$this->protect($str);
+		$this->protect($string);
 
-		if (preg_match_all($this->params->regex, $str, $matches, PREG_SET_ORDER) > 0)
+		if (preg_match_all($this->params->regex, $string, $matches, PREG_SET_ORDER) > 0)
 		{
 			foreach ($matches as $match)
 			{
@@ -314,41 +319,41 @@ class plgSystemTooltipsHelper
 					// place the full image in a hidden span to make it pre-load it
 					$r .= '<span style="display:none;">' . html_entity_decode($content) . '</span>';
 				}
-				$str = str_replace($match['0'], $r, $str);
+				$string = str_replace($match['0'], $r, $string);
 			}
 		}
 
-		NNProtect::unprotect($str);
+		NNProtect::unprotect($string);
 	}
 
-	function makeSave($str)
+	private function makeSave($string)
 	{
-		return str_replace(array('"', '<', '>'), array('&quot;', '&lt;', '&gt;'), $str);
+		return str_replace(array('"', '<', '>'), array('&quot;', '&lt;', '&gt;'), $string);
 	}
 
-	function protect(&$str)
+	private function protect(&$string)
 	{
-		NNProtect::protectFields($str);
-		NNProtect::protectSourcerer($str);
+		NNProtect::protectFields($string);
+		NNProtect::protectSourcerer($string);
 	}
 
-	function protectTags(&$str)
+	private function protectTags(&$string)
 	{
-		NNProtect::protectTags($str, $this->params->protected_tags);
+		NNProtect::protectTags($string, $this->params->protected_tags);
 	}
 
-	function unprotectTags(&$str)
+	private function unprotectTags(&$string)
 	{
-		NNProtect::unprotectTags($str, $this->params->protected_tags);
+		NNProtect::unprotectTags($string, $this->params->protected_tags);
 	}
 
 	/**
 	 * Just in case you can't figure the method name out: this cleans the left-over junk
 	 */
-	function cleanLeftoverJunk(&$str)
+	private function cleanLeftoverJunk(&$string)
 	{
-		$this->unprotectTags($str);
+		$this->unprotectTags($string);
 
-		NNProtect::removeInlineComments($str, 'Tooltips');
+		NNProtect::removeInlineComments($string, 'Tooltips');
 	}
 }

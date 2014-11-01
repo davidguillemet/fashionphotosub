@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,6 +27,8 @@ class plgSystemNNFramework extends JPlugin
 {
 	public function onAfterRoute()
 	{
+		$this->updateDownloadKey();
+
 		$this->loadSearchHelper();
 
 		if (!JFactory::getApplication()->input->getInt('nn_qp', 0))
@@ -39,6 +41,44 @@ class plgSystemNNFramework extends JPlugin
 		$helper = new plgSystemNNFrameworkHelper;
 
 		$helper->render();
+	}
+
+	function updateDownloadKey()
+	{
+		// Save the download key from the NoNumber Extension Manager config to the update sites
+		if (
+			JFactory::getApplication()->isSite()
+			|| JFactory::getApplication()->input->get('option') != 'com_config'
+			|| JFactory::getApplication()->input->get('task') != 'config.save.component.apply'
+			|| JFactory::getApplication()->input->get('component') != 'com_nonumbermanager'
+		)
+		{
+			return;
+		}
+
+		$form = JFactory::getApplication()->input->post->get('jform', array(), 'array');
+
+		if (!isset($form['key']))
+		{
+			return;
+		}
+
+		$key = $form['key'];
+
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true)
+			->update('#__update_sites as u')
+			->set('u.extra_query = ' . $db->q(''))
+			->where('u.location LIKE ' . $db->q('http://download.nonumber.nl%'));
+		$db->setQuery($query);
+		$db->execute();
+
+		$query = $query->clear()
+			->update('#__update_sites as u')
+			->set('u.extra_query = ' . $db->q('k=' . $key))
+			->where('u.location LIKE ' . $db->q('http://download.nonumber.nl%'));
+		$db->setQuery($query);
+		$db->execute();
 	}
 
 	function loadSearchHelper()
@@ -59,3 +99,4 @@ class plgSystemNNFramework extends JPlugin
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/search.php';
 	}
 }
+

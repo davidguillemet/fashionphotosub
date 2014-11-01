@@ -17,6 +17,7 @@
 	<extension name="COMPONENTS_ANYWHERE" type="plg_system" />
 	<extension name="CONTENT_TEMPLATER" type="com,plg_system,plg_editors-xtd" />
 	<extension name="DB_REPLACER" type="com" />
+	<extension name="DUMMY_CONTENT" type="plg_system,plg_editors-xtd" />
 	<extension name="EMAIL_PROTECTOR" type="plg_system" />
 	<extension name="IP_LOGIN" type="plg_system" />
 	<extension name="MODALIZER" type="plg_system" old="1" error="Modalizer has been replaced by Modals.&lt;br />&lt;br />You must uninstall or disable the old Modalizer plugin before you can install Modals!&lt;br />&lt;br />Modals has different options and functionality than the old Modalizer. So please investigate before switching to Modals." />

@@ -3,7 +3,7 @@
  * List Model
  *
  * @package         Snippets
- * @version         3.4.0
+ * @version         3.5.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -32,12 +32,12 @@ class SnippetsModelList extends JModelList
 		if (empty($config['filter_fields']))
 		{
 			$config['filter_fields'] = array(
-				'id', 'a.id',
-				'name', 'a.name',
-				'alias', 'a.alias',
-				'description', 'a.description',
 				'ordering', 'a.ordering',
-				'published', 'a.published',
+				'state', 'a.published',
+				'alias', 'a.alias',
+				'name', 'a.title',
+				'description', 'a.description',
+				'id', 'a.id',
 			);
 		}
 
@@ -61,20 +61,6 @@ class SnippetsModelList extends JModelList
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		// Load the filter state.
-		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
-
-		$state = $this->getUserStateFromRequest($this->context . '.filter.state', 'filter_state', '', 'string');
-		$this->setState('filter.state', $state);
-
-		$state = $this->getUserStateFromRequest($this->context . '.filter.fields', 'filter_fields', '', 'string');
-		$this->setState('filter.fields', $state);
-
-		// Load the parameters.
-		$params = JComponentHelper::getParams('com_snippets');
-		$this->setState('params', $params);
-
 		// List state information.
 		parent::populateState('a.ordering', 'asc');
 	}
@@ -150,10 +136,11 @@ class SnippetsModelList extends JModelList
 		}
 
 		// Add the list ordering clause.
-		$ordering = $this->getState('list.ordering', 'a.ordering');
-		$query->order($db->escape($ordering) . ' ' . $db->escape($this->getState('list.direction', 'ASC')));
+		$orderCol = $this->state->get('list.ordering', 'a.ordering');
+		$orderDirn = $this->state->get('list.direction');
 
-		//echo nl2br( str_replace( '#__','jos_',$query ) );
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
+
 		return $query;
 	}
 
@@ -185,6 +172,7 @@ class SnippetsModelList extends JModelList
 		if ($this->_db->getErrorNum())
 		{
 			$this->setError($this->_db->getErrorMsg());
+
 			return false;
 		}
 
@@ -288,6 +276,7 @@ class SnippetsModelList extends JModelList
 				$msg = JText::_('Error Saving Item') . ' ( ' . $saved . ' )';
 			}
 		}
+
 		JFactory::getApplication()->redirect('index.php?option=com_snippets&view=list', $msg);
 	}
 

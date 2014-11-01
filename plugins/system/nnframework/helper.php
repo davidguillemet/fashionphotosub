@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -53,6 +53,7 @@ class plgSystemNNFrameworkHelper
 			'media/rereplacer/images/image.inc.php',
 			'plugins/editors-xtd/articlesanywhere/articlesanywhere.inc.php',
 			'plugins/editors-xtd/contenttemplater/contenttemplater.inc.php',
+			'plugins/editors-xtd/dummycontent/dummycontent.inc.php',
 			'plugins/editors-xtd/modulesanywhere/modulesanywhere.inc.php',
 			'plugins/editors-xtd/snippets/snippets.inc.php',
 			'plugins/editors-xtd/sourcerer/sourcerer.inc.php'

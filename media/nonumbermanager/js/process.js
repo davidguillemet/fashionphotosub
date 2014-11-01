@@ -2,7 +2,7 @@
  * Main JavaScript file
  *
  * @package         NoNumber Extension Manager
- * @version         4.4.1
+ * @version         4.6.0
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

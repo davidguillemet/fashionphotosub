@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: ZOO
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -82,6 +82,7 @@ class NNFrameworkAssignmentsZOO
 						}
 					}
 					break;
+
 				case 'category':
 					if ($parent->params->id)
 					{
@@ -108,6 +109,7 @@ class NNFrameworkAssignmentsZOO
 						}
 					}
 					break;
+
 				case 'item':
 					$id = $parent->params->id;
 					if (!$id)
@@ -133,9 +135,9 @@ class NNFrameworkAssignmentsZOO
 						$cats[] = 'app' . $parent->db->loadResult();
 					}
 					break;
+
 				default:
 					return $parent->pass(0, $assignment);
-					break;
 			}
 		}
 

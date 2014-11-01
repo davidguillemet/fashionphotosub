@@ -4,7 +4,7 @@
  * Display a menuitem field with a button
  *
  * @package         NoNumber Framework
- * @version         14.8.6
+ * @version         14.10.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -95,7 +95,7 @@ class JFormFieldNN_MenuItems extends JFormField
 			$type->class = 'hidechildren';
 			$type->labelclass = 'nav-header';
 
-			$rlu[$type->menutype] = & $type;
+			$rlu[$type->menutype] = &$type;
 			$type->links = array();
 		}
 
@@ -116,11 +116,11 @@ class JFormFieldNN_MenuItems extends JFormField
 
 				if ($link->type == 'alias')
 				{
-					$link->text .=' <small>(' . JText::_('COM_MENUS_TYPE_ALIAS') . ')</small>';
+					$link->text .= ' <small>(' . JText::_('COM_MENUS_TYPE_ALIAS') . ')</small>';
 					$link->disable = 1;
 				}
 
-				$rlu[$link->menutype]->links[] = & $link;
+				$rlu[$link->menutype]->links[] = &$link;
 
 				// Cleanup garbage.
 				unset($link->menutype);

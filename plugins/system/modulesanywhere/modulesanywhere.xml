@@ -2,8 +2,8 @@
 <extension version="3.2" type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_MODULESANYWHERE</name>
 	<description>PLG_SYSTEM_MODULESANYWHERE_DESC</description>
-	<version>3.5.1FREE</version>
-	<creationDate>August 2014</creationDate>
+	<version>3.6.0FREE</version>
+	<creationDate>October 2014</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>
@@ -77,6 +77,8 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
+				<field name="@loadlanguage_config" type="nn_loadlanguage" extension="com_config" />
+				<field name="@notice_show_edit" type="nn_plaintext" label="MA_FRONTEND_EDITING" description="COM_CONFIG_FRONTEDITING_DESC" default="NN_ONLY_AVAILABLE_IN_PRO" />
 				<field name="place_comments" type="radio" class="btn-group" default="1" label="NN_PLACE_HTML_COMMENTS" description="NN_PLACE_HTML_COMMENTS_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>

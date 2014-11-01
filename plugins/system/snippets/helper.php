@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Snippets
- * @version         3.4.0
+ * @version         3.5.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -99,26 +99,16 @@ class plgSystemSnippetsHelper
 			return;
 		}
 
-		if (JFactory::getDocument()->getType() != 'html')
-		{
-			$this->replaceTags($html, 'body');
-		}
-		else
-		{
-			// only do stuff in body
-			list($pre, $body, $post) = nnText::getBody($html);
-			$this->replaceTags($body, 'body');
-			$html = $pre . $body . $post;
-		}
+		$this->replaceTags($html, 'body');
 
 		$this->cleanLeftoverJunk($html);
 
 		JResponse::setBody($html);
 	}
 
-	function replaceTags(&$str, $area = 'article')
+	function replaceTags(&$string, $area = 'article')
 	{
-		if (!is_string($str) || $str == '')
+		if (!is_string($string) || $string == '')
 		{
 			return;
 		}
@@ -128,20 +118,20 @@ class plgSystemSnippetsHelper
 			// allow in component?
 			if (in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components))
 			{
-				$this->protectTags($str);
+				$this->protectTags($string);
 
 				return;
 			}
 		}
 
-		if (strpos($str, '{' . $this->params->tag) === false)
+		if (strpos($string, '{' . $this->params->tag) === false)
 		{
 			return;
 		}
 
-		$this->protect($str);
+		$this->protect($string);
 
-		while (preg_match_all($this->params->regex, $str, $matches, PREG_SET_ORDER) > 0)
+		while (preg_match_all($this->params->regex, $string, $matches, PREG_SET_ORDER) > 0)
 		{
 			foreach ($matches as $match)
 			{
@@ -154,11 +144,11 @@ class plgSystemSnippetsHelper
 				{
 					$snippet_html = trim($match['1']) . $snippet_html . trim($match['4']);
 				}
-				$str = str_replace($match['0'], $snippet_html, $str);
+				$string = str_replace($match['0'], $snippet_html, $string);
 			}
 		}
 
-		NNProtect::unprotect($str);
+		NNProtect::unprotect($string);
 	}
 
 	function processSnippet($id, $vars)
@@ -224,40 +214,40 @@ class plgSystemSnippetsHelper
 		return $html;
 	}
 
-	function protect(&$str)
+	function protect(&$string)
 	{
-		NNProtect::protectFields($str);
-		NNProtect::protectSourcerer($str);
+		NNProtect::protectFields($string);
+		NNProtect::protectSourcerer($string);
 	}
 
-	function protectTags(&$str)
+	function protectTags(&$string)
 	{
-		NNProtect::protectTags($str, $this->params->protected_tags);
+		NNProtect::protectTags($string, $this->params->protected_tags);
 	}
 
-	function unprotectTags(&$str)
+	function unprotectTags(&$string)
 	{
-		NNProtect::unprotectTags($str, $this->params->protected_tags);
+		NNProtect::unprotectTags($string, $this->params->protected_tags);
 	}
 
 	/**
 	 * Just in case you can't figure the method name out: this cleans the left-over junk
 	 */
-	function cleanLeftoverJunk(&$str)
+	function cleanLeftoverJunk(&$string)
 	{
-		$this->unprotectTags($str);
+		$this->unprotectTags($string);
 
-		$str = preg_replace('#<\!-- (START|END): SN_[^>]* -->#', '', $str);
+		$string = preg_replace('#<\!-- (START|END): SN_[^>]* -->#', '', $string);
 		if (!$this->params->place_comments)
 		{
-			$str = str_replace(
+			$string = str_replace(
 				array(
 					$this->params->comment_start, $this->params->comment_end,
 					htmlentities($this->params->comment_start), htmlentities($this->params->comment_end),
 					urlencode($this->params->comment_start), urlencode($this->params->comment_end)
-				), '', $str
+				), '', $string
 			);
-			$str = preg_replace('#' . preg_quote($this->params->message_start, '#') . '.*?' . preg_quote($this->params->message_end, '#') . '#', '', $str);
+			$string = preg_replace('#' . preg_quote($this->params->message_start, '#') . '.*?' . preg_quote($this->params->message_end, '#') . '#', '', $string);
 		}
 	}
 }

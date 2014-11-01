@@ -2,7 +2,7 @@
  * NoNumber Page stylesheet
  *
  * @package         Sliders
- * @version         3.5.6
+ * @version         4.0.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -37,6 +37,21 @@
 			overflow: hidden;
 		}
 
+		span.nn_sliders-title-inactive {
+			display: inherit;
+		}
+		span.nn_sliders-title-active {
+			display: none;
+		}
+		&.active {
+			span.nn_sliders-title-inactive {
+				display: none;
+			}
+			span.nn_sliders-title-active {
+				display: inherit;
+			}
+		}
+
 		// Handles
 		> .accordion-heading {
 			> a,
@@ -63,6 +78,10 @@
 	.nn_sliders-scroll {
 		position: relative;
 		visibility: hidden;
+		padding: 0;
+	}
+	.nn_sliders-title {
+		display: none;
 	}
 
 	// Classes: Normal state + Hover state
