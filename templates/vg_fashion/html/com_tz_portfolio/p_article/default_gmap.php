@@ -29,7 +29,7 @@ function initializeMap() {
 
   var locationId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
   var loc = locations[locationId];
-  var map = createMap(loc.position.lat(), loc.position.lng(), <?php echo $params -> get('tz_gmap_zoomlevel',10);?>);
+  var map = createMap(loc.position.lat(), loc.position.lng(), <?php echo $params -> get('tz_gmap_zoomlevel',10);?>, true);
 	
   var articleMarker = addSingleMarker(map, loc);    
 }

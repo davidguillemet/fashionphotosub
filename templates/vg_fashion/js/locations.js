@@ -1,24 +1,39 @@
 ///////////////////////////
 // The location Categories
 ///////////////////////////////////////////
-var catAsieSudEst = { id: "ase", text: "Asie du Sud-Est", parent: null };
+var catGeographycalFilter = { id: "geo", text: "Filtres par zone géographique", parent: null, disabled: true};
+
+var catAsieSudEst = { id: "ase", text: "Asie du Sud-Est", parent: catGeographycalFilter };
+
 var catPhilippines = { id: "phi", text: "Philippines", parent: catAsieSudEst };
 var catMalaisie = { id: "mal", text: "Malaisie", parent: catAsieSudEst };
 var catIndonesie = { id: "ind", text: "Indonésie", parent: catAsieSudEst };
 catAsieSudEst.children = [catIndonesie, catMalaisie, catPhilippines];
 
-var catRedSea = { id: "red", text: "Mer Rouge", parent: null };
-var catEgypte = { if: "egy", text: "Egypte", parent: catRedSea };
+var catRedSea = { id: "red", text: "Mer Rouge", parent: catGeographycalFilter };
+var catEgypte = { id: "egy", text: "Egypte", parent: catRedSea };
 catRedSea.children = [catEgypte];
 
-var catMediterranee = { id: "med", text: "Méditerranée", parent: null }
+var catMediterranee = { id: "med", text: "Méditerranée", parent: catGeographycalFilter }
 var catFrance = { id: "fra", text: "France", parent: catMediterranee };
 catMediterranee.children = [catFrance];
 
+catGeographycalFilter.children = [catAsieSudEst, catRedSea, catMediterranee];
+
+var cat2014 = { id: "2014", text: "2014", parent: null};
+var cat2013 = { id: "2013", text: "2013", parent: null};
+var cat2012 = { id: "2012", text: "2012", parent: null};
+
 var cats = [
-  catAsieSudEst,
-  catMediterranee,
-  catRedSea
+	catAsieSudEst,
+	catRedSea,
+	catMediterranee
+];
+
+var dateCats = [
+	cat2014,
+	cat2013,
+	cat2012,	
 ];
 
 var catsMap = null;
@@ -87,7 +102,7 @@ locations["6"] = {
 var initialPosition = null;
 var initialZoomLevel = null;
 
-function HomeControl(controlDiv, map) {
+function HomeControl(controlDiv, map, single) {
 
   // Set CSS styles for the DIV containing the control
   // Setting padding to 5 px will offset the control
@@ -99,26 +114,43 @@ function HomeControl(controlDiv, map) {
   controlUI.style.backgroundColor = 'white';
   controlUI.style.color = '#555555';
   controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
+  controlUI.style.borderWidth = '1px';
   controlUI.style.textAlign = 'center';
-  controlUI.title = 'Recentrer la carte sur le point de départ';
+  controlUI.style.padding = '2px';
   controlDiv.appendChild(controlUI);
 
   // Set CSS for the control interior
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '18px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<i class="icon-home"></i>';
-  controlUI.appendChild(controlText);
+  var controlHome = document.createElement('span');
+  controlHome.style.fontFamily = 'Arial,sans-serif';
+  controlHome.style.fontSize = '18px';
+  controlHome.style.cursor = 'pointer';
+  controlHome.title = 'Recentrer la carte sur le point de départ';
+  controlHome.innerHTML = '<i class="icon-home"></i>';
+  controlUI.appendChild(controlHome);
 
   // Setup the click event listeners: simply set the map to the initial position and zoom level
-  google.maps.event.addDomListener(controlUI, 'click', function() {
+  google.maps.event.addDomListener(controlHome, 'click', function() {
     map.panTo(initialPosition);
 	map.setZoom(initialZoomLevel);
   });
+
+  if (single == false)
+  {
+    var controlClear = document.createElement('span');
+    controlClear.style.fontFamily = 'Arial,sans-serif';
+    controlClear.style.fontSize = '18px';
+    controlClear.style.cursor = 'pointer';
+    controlClear.title = 'Initialiser les filtres';
+    controlClear.innerHTML = '<i class="icon-cancel-circled"></i>';
+    controlUI.appendChild(controlClear);
+
+
+    // Setup the click event listeners: clear all filters
+	// areaFilter and dateFilter are defined in the "Google Map" article
+    google.maps.event.addDomListener(controlClear, 'click', function() {
+		clearFilters();
+    });
+  }
 
 }
 
@@ -128,7 +160,7 @@ var markerCluster = null;
 var map = null;
 var infowindow = null;
 
-function createMap(latitude, longitude, zoomValue)
+function createMap(latitude, longitude, zoomValue, single)
 {
 	initialPosition = new google.maps.LatLng(latitude, longitude);
 	initialZoomLevel = zoomValue;
@@ -160,7 +192,7 @@ function createMap(latitude, longitude, zoomValue)
 	
 	// Create a Custo control to center the map on the initial position with initial zoom level 
 	var homeControlDiv = document.createElement('div');
-	var homeControl = new HomeControl(homeControlDiv, map);
+	var homeControl = new HomeControl(homeControlDiv, map, single);
 	homeControlDiv.index = 1;
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
 
@@ -289,35 +321,76 @@ function categoryMatchFilter(cat, filterCat)
 	return false;
 }
 
-/////////
-// filterCats is an array of category identifers
-/////////
-function applyCatFiltering(filterCats)
+function applyFilteredMarkers(filteredMarkers)
 {
-	var filteredMarkers = markers;
-	
-	// No Filtering, return all markers
-	if (filterCats.length > 0)
-	{
-		filteredMarkers = new Array();
-  
-		for (var markerIndex = 0; markerIndex < markers.length; markerIndex++)
-		{
-			var currentMarker = markers[markerIndex];
-			var markerMatch = false;
-			for (var catIndex = 0; catIndex < filterCats.length && markerMatch == false; catIndex++)
-			{
-				var filterCatId = filterCats[catIndex];
-				if (categoryMatchFilter(currentMarker.location.cat, catsMap[filterCatId]))
-				{
-					filteredMarkers.push(currentMarker);
-					markerMatch = true;
-				}
-			}
-		}
-	}
     // Reset Markers from marker clusterer
 	markerCluster.clearMarkers();
 	// Add filtered MArkers and redraw the marker clusterer
 	markerCluster.addMarkers(filteredMarkers);
+	
+}
+
+function filterAreas(areaFilterCats, initialMarkers)
+{
+	var areaFilterMarkers = new Array();
+	for (var markerIndex = 0; markerIndex < initialMarkers.length; markerIndex++)
+	{
+		var currentMarker = initialMarkers[markerIndex];
+		var markerMatch = false;
+		for (var catIndex = 0; catIndex < areaFilterCats.length && markerMatch == false; catIndex++)
+		{
+			var areaFilterCatId = areaFilterCats[catIndex];
+			if (categoryMatchFilter(currentMarker.location.cat, catsMap[areaFilterCatId]))
+			{
+				areaFilterMarkers.push(currentMarker);
+				markerMatch = true;
+			}
+		}
+	}
+	return areaFilterMarkers;		
+}
+
+function filterDates(dateFilterCats, initialMarkers)
+{
+	var dataFilterdMarkers = new Array();
+	for (var markerIndex = 0; markerIndex < initialMarkers.length; markerIndex++)
+	{
+		var currentMarker = initialMarkers[markerIndex];
+		var markerMatch = false;
+		for (var catIndex = 0; catIndex < dateFilterCats.length && markerMatch == false; catIndex++)
+		{
+			var filterYear = dateFilterCats[catIndex];
+			var markerDate = currentMarker.location.date;
+			var markerYear = markerDate.substring(markerDate.length - 4);
+			if (filterYear == markerYear)
+			{
+				dataFilterdMarkers.push(currentMarker);
+				markerMatch = true;
+			}
+		}
+	}	
+	return dataFilterdMarkers;
+}
+
+/////////
+// areaFilterCats is an array of area category identifers
+// dateFilterCats is an array of date identifers
+/////////
+function applyCatFiltering(areaFilterCats, dateFilterCats)
+{
+	var filteredMarkers = markers;
+	
+	if (areaFilterCats != null && areaFilterCats.length > 0)
+	{
+		// Apply area filter first
+		filteredMarkers = filterAreas(areaFilterCats, filteredMarkers);
+	}
+	
+	if (dateFilterCats != null && dateFilterCats.length > 0)
+	{
+		// And then apply data filter
+		filteredMarkers = filterDates(dateFilterCats, filteredMarkers);
+	}
+	
+	applyFilteredMarkers(filteredMarkers)
 }
