@@ -169,9 +169,27 @@
       "src": "fontawesome"
     },
     {
+      "uid": "531bc468eecbb8867d822f1c11f1e039",
+      "css": "calendar",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
       "uid": "5278ef7773e948d56c4d442c8c8c98cf",
       "css": "lightbulb",
       "code": 59417,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0b2b66e526028a6972d51a6f10281b4b",
+      "css": "zoom-in",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d25d10efa900f529ad1d275657cfd30e",
+      "css": "zoom-out",
+      "code": 59425,
       "src": "fontawesome"
     },
     {
