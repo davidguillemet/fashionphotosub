@@ -34,3 +34,7 @@
 .icon-zoom-in:before { content: '\e820'; } /* '' */
 .icon-zoom-out:before { content: '\e821'; } /* '' */
 .icon-calendar:before { content: '\e822'; } /* '' */
+.icon-location:before { content: '\e823'; } /* '' */
+.icon-direction:before { content: '\e824'; } /* '' */
+.icon-target:before { content: '\e825'; } /* '' */
+.icon-filter:before { content: '\e826'; } /* '' */

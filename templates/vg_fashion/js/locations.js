@@ -284,7 +284,7 @@ function buildLocationDesc(location, single)
   var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
   markerDesc += "<td style='text-align: left;'>" + location.title + "</td>";
   markerDesc += "<td style='text-align: right;'>";
-  markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position)'><i class='icon-home' title='Centrer la carte sur ce lieu'></i></a>";
+  markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position)'><i class='icon-direction' title='Centrer la carte sur ce lieu'></i></a>";
   markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()+1)'><i class='icon-zoom-in' title='Zoom avant sur ce lieu'></i></a>";
   markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()-1)'><i class='icon-zoom-out' title='Zoom arrière sur ce lieu'></i></a>";
   markerDesc += "</td><tr></table></h3>";
