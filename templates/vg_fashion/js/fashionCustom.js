@@ -196,3 +196,27 @@ $f(function($){
 	});*/
 	
 });
+
+
+var isCallingRouter = false;
+function routeArticle(id, catid, itemid)
+{
+	if (isCallingRouter ==  true) return;
+	
+	isCallingRouter = true;
+
+	jQuery.ajax({
+      url: rootUrl + "router.php",
+      dataType: 'json',
+      data: { id: id, catid: catid, itemid: itemid },
+      success: onRouterResponse
+    });
+}
+
+function onRouterResponse(response)
+{
+    isCallingRouter = false;
+
+    var routedUrl = response.data;
+	location.href = routedUrl;
+}

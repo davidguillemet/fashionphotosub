@@ -293,33 +293,12 @@ function buildLocationDesc(location, single)
   if (single == false)
   {
 	  // no need to add the read more link inside the article itself... 
-	  markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(\"" + location.id + "\")'>Lire la suite...</a></p></div>";
+	  // routeArticle is defined in fashionCustom.js (fashion template js folder)
+	  markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(" + location.id + ", 8, 101)'>Lire la suite...</a></p></div>";
   }
   return markerDesc;
 }
 
-var isCallingRouter = false;
-function routeArticle(id)
-{
-	if (isCallingRouter ==  true) return;
-	
-	isCallingRouter = true;
-
-	jQuery.ajax({
-      url: rootUrl + "router.php",
-      dataType: 'json',
-      data: { id: id, catid: 8, itemid: 101 },
-      success: onRouterResponse
-    });
-}
-
-function onRouterResponse(response)
-{
-    isCallingRouter = false;
-
-    var routedUrl = response.data;
-	location.href = routedUrl;
-}
 
 function categoryMatchFilter(cat, filterCat)
 {
