@@ -43,7 +43,7 @@ class JConfig {
 	public $caching = '0';
 	public $cache_handler = 'file';
 	public $cachetime = '15';
-	public $MetaDesc = '';
+	public $MetaDesc = 'photographie sous-marine, biologie sous-marine, Asie du Sud-Est, Indonésie, Philippines, Malaisie';
 	public $MetaKeys = '';
 	public $MetaTitle = '1';
 	public $MetaAuthor = '1';

@@ -49,40 +49,12 @@ $vg_css = $this->params->get( 'vg_css' );
 //analytics
 $vg_analytics = $this->params->get( 'vg_analytics' );
 
-/****** SOCIAL ******/
-$vg_twitter = $this->params->get( 'vg_twitter' );
-$vg_facebook = $this->params->get( 'vg_facebook' );
-$vg_dribbble = $this->params->get( 'vg_dribbble' );
-$vg_youtube = $this->params->get( 'vg_youtube' );
-$vg_skype = $this->params->get( 'vg_skype' );
-$vg_twitter_tooltip = $this->params->get( 'vg_twitter_tooltip' );
-$vg_facebook_tooltip = $this->params->get( 'vg_facebook_tooltip' );
-$vg_dribbble_tooltip = $this->params->get( 'vg_dribbble_tooltip' );
-$vg_youtube_tooltip = $this->params->get( 'vg_youtube_tooltip' );
-$vg_skype_tooltip = $this->params->get( 'vg_skype_tooltip' );
-
 /****** FULLSCREEN SLIDESHOW ******/
 //status
 $vg_slide_status = $this->params->get('vg_slide_status',1);
 if( $vg_slide_status == 1 ){
 	//controls
 	$vg_slide_control = $this->params->get('vg_slide_control',1);
-	//images
-	$vg_slide_1 = $this->params->get('vg_slide_1');
-	$vg_slide_2 = $this->params->get('vg_slide_2');
-	$vg_slide_3 = $this->params->get('vg_slide_3');
-	$vg_slide_4 = $this->params->get('vg_slide_4');
-	$vg_slide_5 = $this->params->get('vg_slide_5');
-	$vg_slide_6 = $this->params->get('vg_slide_6');
-	$vg_slide_7 = $this->params->get('vg_slide_7');
-	$vg_slide_8 = $this->params->get('vg_slide_8');
-	$vg_slide_9 = $this->params->get('vg_slide_9');
-	$vg_slide_10 = $this->params->get('vg_slide_10');
-	$vg_slide_11 = $this->params->get('vg_slide_11');
-	$vg_slide_12 = $this->params->get('vg_slide_12');
-	$vg_slide_13 = $this->params->get('vg_slide_13');
-	$vg_slide_14 = $this->params->get('vg_slide_14');
-	$vg_slide_15 = $this->params->get('vg_slide_15');
 	//slide interval
 	$vg_slide_interval = $this->params->get('vg_slide_interval',5000);
 	//transition
@@ -133,8 +105,6 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "23fa9369-ba77-499c-9e23-6f1e82eb5516", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
 
-<!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/plugin/jquery-latest.pack.js"></script-->
-<!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.min.js"></script-->
 <jdoc:include type="head" />
 
 <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/favicon.png" />
@@ -220,26 +190,6 @@ $f(function($){
 	});
 });
 
-$f(document).ready(function(){
-	/* :::::::::::::: AUDIO PLAYER ::::::::::::: */
-	$f("#jquery_jplayer_1").jPlayer({
-		ready: function (event) {
-			$f(this).jPlayer("setMedia", {
-				<?php 
-				$supplied_formats = '';//start var 
-				$audio_files = '';//start var 
-				?>
-				<?php if( $vg_audio_1 ){ $audio_files .= 'm4a:"' . $vg_audio_1 . '",'; $supplied_formats .= 'm4a,'; } //mp4 ?>
-				<?php if( $vg_audio_mp3 ){ $audio_files .= 'mp3:"' . $vg_audio_mp3 . '",'; $supplied_formats .= 'mp3,'; } //mp3 ?>
-				<?php if( $vg_audio_oga ){ $audio_files .= 'oga:"' . $vg_audio_oga . '",'; $supplied_formats .= 'oga,'; } //ogg or oga ?>
-				<?php echo rtrim($audio_files, ','); ?>
-			}).jPlayer("play");
-		},
-		swfPath: "<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js",
-		supplied: "<?php echo rtrim($supplied_formats, ','); ?>",
-		wmode: "window"
-	});
-});
 </script>
 
 <?php }//A2.--> ?>

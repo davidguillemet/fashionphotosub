@@ -27,8 +27,10 @@ function GetArticleRoute($articleId, $itemId, $catid)
 {
 	if (strlen($articleId) > 0)
 	{
-		// index.php?option=com_tz_portfolio&amp;view=p_article&amp;id=51&amp;catid=13&amp;Itemid=153
-		// index.php/biologie/la-galerie-des-mollusques/item/13-biologie/mollusques/metasepia-pfefferi/51
+		// Pour Metasepia pfefferi:
+		// Url générée    : index.php?option=com_tz_portfolio&amp;view=p_article&amp;id=51&amp;catid=13&amp;Itemid=153
+		// Url SEF routée : index.php/biologie/la-galerie-des-mollusques/item/13-biologie/mollusques/metasepia-pfefferi/51
+		// --> même résultat avaec id=51 ou id=51:metasepia-pfefferi
 		// Pour Anilao :
 		// index.php?option=com_tz_portfolio&amp;view=p_article&amp;id=1:2014-anilao&amp;catid=8&amp;Itemid=101
 		// ItemId = 101 = "Galeries"

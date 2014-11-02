@@ -293,15 +293,32 @@ function buildLocationDesc(location, single)
   if (single == false)
   {
 	  // no need to add the read more link inside the article itself... 
-	  markerDesc += "<p><a class='TzReadmore' hef='javascript:routeArticle(\"" + location.id + "\")'>Lire la suite...</a></p></div>";
+	  markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(\"" + location.id + "\")'>Lire la suite...</a></p></div>";
   }
   return markerDesc;
 }
 
+var isCallingRouter = false;
 function routeArticle(id)
 {
-  // TODO...
-  // Create a router.php which will build the SEF Url for the specified article
+	if (isCallingRouter ==  true) return;
+	
+	isCallingRouter = true;
+
+	jQuery.ajax({
+      url: rootUrl + "router.php",
+      dataType: 'json',
+      data: { id: id, catid: 8, itemid: 101 },
+      success: onRouterResponse
+    });
+}
+
+function onRouterResponse(response)
+{
+    isCallingRouter = false;
+
+    var routedUrl = response.data;
+	location.href = routedUrl;
 }
 
 function categoryMatchFilter(cat, filterCat)
