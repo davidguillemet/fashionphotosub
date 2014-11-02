@@ -7,3 +7,4 @@ DSC_3356.jpg|Sepioteuthis lessoniana|52|cephalopode
 DSC_7435.jpg|Chromodoris annae|54|gasteropode|opistobranche|nudibranche|doridien
 DSC_3540.jpg|Nembrotha chamberlaini|55|gasteropode|opistobranche|nudibranche|doridien
 DSC_3524.jpg|Chromodoris geometrica|56|gasteropode|opistobranche|nudibranche|doridien
+DSC_5943.jpg|Neosimnia spelta|61|gasteropode|prosobranche
