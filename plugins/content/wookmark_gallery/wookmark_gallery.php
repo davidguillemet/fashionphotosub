@@ -54,7 +54,6 @@ class plgContentWookmark_Gallery extends JPlugin
 				$document = JFactory::getDocument();
 				
 				($cls_but==1) ? $cls_but='true' : $cls_but = 'false';
-				//$document->addStyleSheet(JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/css/jquery.fancybox.css');
 				if(!$autoresize_gal)
 				{
 					$document->addCustomTag("<style type='text/css'>
@@ -63,20 +62,12 @@ class plgContentWookmark_Gallery extends JPlugin
 					</style>");
 				}
 				($autoresize_gal==1) ? $autoresize_gal='true' : $autoresize_gal = 'false';
-				$document->addCustomTag("<style type='text/css'>
-					.fancybox-custom .fancybox-skin {
-							box-shadow: 0 0 $sh_width $sh_color;
-						}
-				</style>");
 				if($jsfiles==1)
 				{
 					if($load1==1)
 					{
 						$document->addScript( JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/jquery-1.7.2.min.js' );
 					}
-				$document->addScript(JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/images.loaded.js' );
-				$document->addScript(JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/jquery.wookmark.js' );
-				$document->addScript(JURI::root().'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/jquery.fancybox.js' );
 				}
 				else
 				{
@@ -84,9 +75,6 @@ class plgContentWookmark_Gallery extends JPlugin
 					{
 						echo '<script src="'.$base_url.'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/jquery-1.7.2.min.js" type="text/javascript"></script>';
 					}
-					echo '<script src="'.$base_url.'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/images.loaded.js" type="text/javascript"></script>
-							<script src="'.$base_url.'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/jquery.wookmark.js" type="text/javascript"></script>
-						  <script src="'.$base_url.'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/js/jquery.fancybox.js" type="text/javascript"></script>';
 				}
 				$wookmark_css = 1;
 			}
