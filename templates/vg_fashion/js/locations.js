@@ -72,6 +72,26 @@ var cat2012 = {
 	text: "2012",
 	parent: null
 };
+var cat2011 = {
+	id: "2011",
+	text: "2011",
+	parent: null
+};
+var cat2010 = {
+	id: "2010",
+	text: "2010",
+	parent: null
+};
+var cat2009 = {
+	id: "2009",
+	text: "2009",
+	parent: null
+};
+var cat2008 = {
+	id: "2008",
+	text: "2008",
+	parent: null
+};
 
 var cats = [
 	catAsieSudEst,
@@ -83,6 +103,10 @@ var dateCats = [
 	cat2014,
 	cat2013,
 	cat2012,
+	cat2011,
+	cat2010,
+	cat2009,
+	cat2008
 ];
 
 var catsMap = null;
@@ -146,6 +170,15 @@ locations["6"] = {
 	position: new google.maps.LatLng(4.243302, 118.631540),
 	date: "Mai 2013",
 	cat: catMalaisie
+};
+locations["7"] = {
+	id: "7",
+	alias: "2009-lembeh",
+	title: "Lembeh",
+	desc: "Séjour au <a href='http://www.diverslodgelembeh.com/' target='_blank'>Divers Lodge Lembeh</a>",
+	position: new google.maps.LatLng(1.40617, 125.17007),
+	date: "Novembre 2009",
+	cat: catIndonesie
 };
 
 var initialPosition = null;
