@@ -13,6 +13,7 @@ function GetImageHeight($fileName, $thumbWidth)
 
 $filter = $_REQUEST['filter'];
 $width = $_REQUEST['width'];
+$category = $_REQUEST['category'];
 
 // Read the image file content
 $imageFile = "mollusques.txt";
@@ -70,6 +71,7 @@ $result = array(
   'success' => TRUE,
   'message' => 'Retrieved pictures',
   'filter' => $filter,
+  'category' => $category,
   'data' => $data
 );
 

@@ -31,6 +31,11 @@ h3
 	line-height: 1.2;
 }
 
+.ddsmoothmenu ul li ul li a
+{
+	width: 180px;
+}
+
 .content
 {
 	font-family: 'Open Sans';
@@ -457,6 +462,13 @@ border-radius: 0;
 -webkit-transition: all 200ms linear 0s;
 -o-transition: all 200ms linear 0s;
 }
+.mollusques #all 
+{
+	background-color: rgb(229, 229, 229);
+	color: rgb(7, 7, 7);
+	cursor: default;	
+}
+
 #TzContent #tz_options .option-combo a.selected, .mollusques a.selected
 {
 	background-color: #e5e5e5;
