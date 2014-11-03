@@ -197,7 +197,6 @@ $f(function($){
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/shadowbox/shadowbox.js"></script>
 <script type="text/javascript">
 Shadowbox.init({
-    handleOversize: "drag",
     modal: true,
 	displayNav: true,
 	slideshowDelay: 5,
