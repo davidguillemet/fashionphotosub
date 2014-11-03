@@ -195,6 +195,44 @@ function buildCustomControl(parentControl, icon, title) {
 	return newControl;
 }
 
+function toggleFullScreen(controlFullScreen)
+{
+	var currentCenter = map.getCenter();
+
+	if (controlFullScreen.fullScreen == false)
+	{
+		controlFullScreen.fullScreen = true;
+				
+		$mapCanvas.css("position", 'fixed')
+      		.css('top', 0)
+      		.css('left', 0)
+      	  	.css("width", '100%')
+      		.css("height", '100%')
+	  		.css("z-index", 100000);
+
+		controlFullScreen.innerHTML = '<i class="icon-resize-small"></i>';
+		controlFullScreen.title = "Réduire";
+			
+	}
+	else
+	{
+		controlFullScreen.fullScreen = false;
+
+	    $mapCanvas.css("position", 'relative')
+	    	.css('top', 0)
+	    	.css("width", googleMapWidth)
+	    	.css("height", googleMapHeight)
+			.css("z-index", googleMapZindex);
+			
+		controlFullScreen.innerHTML = '<i class="icon-resize-full"></i>';
+		controlFullScreen.title = "Plein écran";
+	}
+		
+	google.maps.event.trigger(map, 'resize');
+	map.setCenter(currentCenter);
+	return false;
+}
+
 function HomeControl(controlDiv, map, single) {
 
 	// Set CSS styles for the DIV containing the control
@@ -236,6 +274,13 @@ function HomeControl(controlDiv, map, single) {
 			clearFilters();
 		});
 	}
+	// A control to make the google map full screen
+	var controlFullScreen = buildCustomControl(controlUI, "resize-full", "Plein écran");
+	controlFullScreen.fullScreen = false;				
+	google.maps.event.addDomListener(controlFullScreen, 'click', function() {
+		toggleFullScreen(this);
+	});
+
 }
 
 
@@ -243,6 +288,10 @@ var markers = [];
 var markerCluster = null;
 var map = null;
 var infowindow = null;
+var googleMapWidth = null;
+var googleMapHeight = null;
+var googleMapZindex = null;
+var $mapCanvas = null;
 
 function createMap(latitude, longitude, zoomValue, single) {
 	initialPosition = new google.maps.LatLng(latitude, longitude);
@@ -250,7 +299,7 @@ function createMap(latitude, longitude, zoomValue, single) {
 
 	// Create coogle map options
 	var mapOptions = {
-		backgroundColor: 'transparent',
+		backgroundColor: 'black',
 		center: initialPosition,
 		zoom: zoomValue,
 		scrollwheel: false,
@@ -272,8 +321,14 @@ function createMap(latitude, longitude, zoomValue, single) {
 
 	// Create the Google Map instance
 	map = new google.maps.Map(
-		document.getElementById('map-canvas'),
+		document.getElementById("map-canvas"),
 		mapOptions);
+	
+	// Get Map dimensions
+	$mapCanvas = jQuery("#map-canvas");
+	googleMapWidth = $mapCanvas.css('width');
+	googleMapHeight = $mapCanvas.css('height');
+	googleMapZindex = $mapCanvas.css('z-index');
 
 	// Create a Custo control to center the map on the initial position with initial zoom level 
 	var homeControlDiv = document.createElement('div');
@@ -357,11 +412,11 @@ function getMarkerDesc(marker) {
 
 function buildLocationDesc(location, single) {
 	var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
-	markerDesc += "<td style='text-align: left;'>" + location.title + "</td>";
+	markerDesc += "<td style='text-align: left;'><a href='javascript:routeArticle(" + location.id + ", 8, 101)'>" + location.title + "</a></td>";
 	markerDesc += "<td style='text-align: right;'>";
 	markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position)'><i class='icon-direction' title='Centrer la carte sur ce lieu'></i></a>";
-	markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()+1)'><i class='icon-zoom-in' title='Zoom avant sur ce lieu'></i></a>";
-	markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()-1)'><i class='icon-zoom-out' title='Zoom arrière sur ce lieu'></i></a>";
+	markerDesc += "<a href='javascript:map.setCenter(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()+1)'><i class='icon-zoom-in' title='Zoom avant'></i></a>";
+	markerDesc += "<a href='javascript:map.setCenter(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()-1)'><i class='icon-zoom-out' title='Zoom arrière'></i></a>";
 	markerDesc += "</td><tr></table></h3>";
 	markerDesc += "<em><i class='icon-calendar'></i>" + location.date + "</em>"
 	markerDesc += "<p>" + location.desc + "</p>";
