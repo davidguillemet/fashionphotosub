@@ -39,7 +39,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
             else :
                 echo JText::_("COM_TZ_GUESTBOOK_NOTICE_2");
             endif;
-            ?>
+            ?><&nbsp;i class="icon-emo-beer"></i>
         </span>
     </div>
 

@@ -7,6 +7,18 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "53ed8570225581269cd7eff5795e8bea",
+      "css": "emo-unhappy",
+      "code": 59434,
+      "src": "fontelico"
+    },
+    {
+      "uid": "3a900d0e9f43f5409211f62bec557379",
+      "css": "emo-beer",
+      "code": 59435,
+      "src": "fontelico"
+    },
+    {
       "uid": "72109d2fb3088d0e66ea6a9204297651",
       "css": "spin1",
       "code": 59392,
