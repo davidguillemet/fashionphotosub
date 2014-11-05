@@ -79,33 +79,32 @@ class plgContentWookmark_Gallery extends JPlugin
 				$wookmark_css = 1;
 			}
 			$string = $article->text;
-			if($image_fetch)
+
+			$regex = "/{wookmark}(.*?){end-wookmark}/is";			
+			preg_match_all($regex, $string, $matches);
+			for ($n = 0; $n < count($matches[0]); $n++)
 			{
-					$regex = "/{wookmark}(.*?){end-wookmark}/is";			
-					preg_match_all($regex, $string, $matches);
-					for($n = 0; $n < count($matches[0]); $n++)
-					{
-						$arr_org = $matches[0][$n];
-						$arr_folder_path = $matches[1][$n]; // image path 
-						$returned = $this->fetchImgFold($arr_folder_path);// returned value
-						$matches[0][$n]=str_replace($matches[0][$n],"<div class='myapp'><ul class='tiles'>$returned</ul></div>",$matches[0][$n]);
-						$string= str_replace($arr_org,$matches[0][$n],$string);
-					}
+				$arr_org = $matches[0][$n];
+				$arr_folder_path = $matches[1][$n]; // image path 
+						
+				$singleRegex = "/{wookmark}(.*?){title}(.*?){align}(.*?){end-wookmark}/is";
+				preg_match_all($singleRegex, $arr_org, $singleMatches);
+				if (count($singleMatches[0]) > 0)
+				{
+					// only one match might happen...
+					$arr_image_path = $singleMatches[1][0];
+					$arr_image_title = $singleMatches[2][0];
+					$imageAlign = $singleMatches[3][0];
+					$returned = $this->fetchImgTxt($arr_image_path, $arr_image_title, $imageAlign);
+					$string= str_replace($arr_org, $returned, $string);
+				}
+				else
+				{
+					$returned = $this->fetchImgFold($arr_folder_path);
+					$string= str_replace($arr_org,"<div class='myapp'><ul class='tiles'>$returned</ul></div>",$string);
+				}
 			}
-			else
-			{
-					$regex = "/{wookmark}(.*?){title}(.*?){end-wookmark}/is";			
-					preg_match_all($regex, $string, $matches);
-					for($n = 0; $n < count($matches[0]); $n++)
-					{
-						$arr_org = $matches[0][$n];
-						$arr_folder_path = $matches[1][$n]; // image path 
-						$arr_title = $matches[2][$n]; // image path 
-						$returned = $this->fetchImgTxt($arr_folder_path,$arr_title);// returned value
-						$matches[0][$n]=str_replace($matches[0][$n],"<div class='myapp'><ul class='tiles'>$returned</ul></div>",$matches[0][$n]);
-						$string= str_replace($arr_org,$matches[0][$n],$string);
-					}
-			}
+
 			$article->text=$string."<script type='text/javascript'>
 			jQuery(document).imagesLoaded(function() {
 			jQuery(document).ready(new function() {
@@ -192,7 +191,7 @@ class plgContentWookmark_Gallery extends JPlugin
 					}
 				}
 			}
-			elseif(file_exists($captions_txtfile) AND !file_exists($captions_lang))
+			else if (file_exists($captions_txtfile) AND !file_exists($captions_lang))
 			{
 				$captions_file = array_map('trim', file($captions_txtfile));
 
@@ -210,7 +209,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		return $file_info;
     }
 
-	function fetchImgTxt($arr_img_path,$arr_title)
+	function fetchImgTxt($arr_img_path, $arr_title, $align)
 	{
 		$base_url=JURI::root();
 		$tool = $this->params->def('tool');
@@ -218,14 +217,14 @@ class plgContentWookmark_Gallery extends JPlugin
 		$th_img_width = $this->params->def('th_img_width');
 		$img_path=explode(',',$arr_img_path);
 		$title=explode(',',$arr_title);
+		$wookmarkPath = $base_url . "plugins/content/wookmark_gallery/wookmark_gallery/tmpl/" . $tool . ".php";
 		$tag='';
-		for($i = 0; $i < count($img_path); $i++)
+		for ($i = 0; $i < count($img_path); $i++)
 		{
-			$tag.="<li>
-					<a rel='shadowbox[gallery]' href='$base_url$img_path[$i]' title='$title[$i]'>
-						<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$img_path[$i]&w=$th_img_width&q=100'>
-					</a>
-				</li>";
+			$tag .= "<span class='wookmark-single-" . $align . "'>" .
+					"<a rel='shadowbox[single]' href='" . $base_url . $img_path[$i] . "' title='" . $title[$i] . "'>" .
+					"<img  src='" . $wookmarkPath . "?src=" . $base . "/" . $img_path[$i] . "&w=" . $th_img_width . "&q=100'>" .
+					"</a></span>";
 		}
 		return $tag;
 	}

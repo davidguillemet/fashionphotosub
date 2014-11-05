@@ -31,6 +31,36 @@ h3
 	line-height: 1.2;
 }
 
+/* Lien de menu aved des enfants à afficher -> mettre un petit + */
+.ddsmoothmenu > ul.menu > li.deeper > span:after,
+.ddsmoothmenu > ul.menu > li.deeper > a:after
+{
+    font-family: "fontello";
+	font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+ 
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+ 
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+     
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+ 
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+	content: '\e834';
+}
+
 .ddsmoothmenu ul li ul li a
 {
 	width: 180px;
@@ -39,7 +69,7 @@ h3
 .content
 {
 	font-family: 'Open Sans';
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: 400;
 }
 
@@ -148,6 +178,7 @@ ul.nav li
 {
 	font-family: 'Open sans condensed';
 	font-weight: 600;
+	margin: 25px 0px 0 20px;
 }
 ul.nav li ul li a
 {
@@ -448,19 +479,20 @@ ul.nav .separator
 }
 
 /* Pour les filtres du Portfolio */
-#TzContent #tz_options .option-combo a, .mollusques a.btn {
-background-color: rgb(7, 7, 7);
-color: #e5e5e5;
-border: none;
-box-shadow: none;
-margin-right: 5px;
-padding: 8px 15px 8px 15px;
-text-transform: capitalize;
-text-decoration: none;
-border-radius: 0;
--moz-transition: all 200ms linear 0s;
--webkit-transition: all 200ms linear 0s;
--o-transition: all 200ms linear 0s;
+#TzContent #tz_options .option-combo a, .mollusques a.btn
+{
+	background-color: rgb(7, 7, 7);
+	color: #e5e5e5;
+	border: none;
+	box-shadow: none;
+	margin-right: 5px;
+	padding: 8px 15px 8px 15px;
+	text-transform: capitalize;
+	text-decoration: none;
+	border-radius: 0;
+	-moz-transition: all 200ms linear 0s;
+	-webkit-transition: all 200ms linear 0s;
+	-o-transition: all 200ms linear 0s;
 }
 .mollusques #all 
 {
@@ -475,9 +507,10 @@ border-radius: 0;
 	color: rgb(7, 7, 7);
 }
 
-#TzContent #tz_options .option-combo a:hover, .mollusques a.btn:hover {
-background-color: rgb(229, 229, 229);
-color: rgb(7, 7, 7);
+#TzContent #tz_options .option-combo a:hover, .mollusques a.btn:hover
+{
+	background-color: rgb(229, 229, 229);
+	color: rgb(7, 7, 7);
 }
 
 .mollusques a.btn
@@ -503,7 +536,7 @@ a.bg-item
 	text-decoration: none;
 }
 
-#filter
+#filter > a
 {
 	line-height: 40px;
 }
@@ -1382,6 +1415,24 @@ ul.check > li
 	border: 1px solid #dedede;
 	z-index: -1;
 }
+
+[class^="wookmark-single-"]
+{
+	margin-top: 6px;
+	margin-bottom: 10px;
+	border: 1px solid white;
+}
+.wookmark-single-right
+{
+	float: right;
+	margin-left: 15px;
+}
+.wookmark-single-left
+{
+	float: left;
+	margin-right: 15px;
+}
+
 
 /* Fox Contact */
 

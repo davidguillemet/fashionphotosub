@@ -55,7 +55,13 @@ var catFrance = {
 };
 catMediterranee.children = [catFrance];
 
-catGeographycalFilter.children = [catAsieSudEst, catRedSea, catMediterranee];
+var catAtlantiqueNord = {
+	id: "atl",
+	text: "Atlantique Nord",
+	parent: null
+}
+
+catGeographycalFilter.children = [catAsieSudEst, catAtlantiqueNord, catRedSea, catMediterranee];
 
 var cat2014 = {
 	id: "2014",
@@ -95,6 +101,7 @@ var cat2008 = {
 
 var cats = [
 	catAsieSudEst,
+	catAtlantiqueNord,
 	catRedSea,
 	catMediterranee
 ];
@@ -180,6 +187,25 @@ locations["7"] = {
 	date: "Novembre 2009",
 	cat: catIndonesie
 };
+locations["62"] = {
+	id: "62",
+	alias: "2013-capvert",
+	title: "Cap Vert",
+	desc: "Séjour au Cap Vert, Île de Sal",
+	position: new google.maps.LatLng(16.597557, -22.908165),
+	date: "Mars 2013",
+	cat: catAtlantiqueNord
+};
+locations["63"] = {
+	id: "63",
+	alias: "2012-acores",
+	title: "Les Açores",
+	desc: "Séjour aux Açores (Pico et Faîal)",
+	position: new google.maps.LatLng(38.539841, -28.576521),
+	date: "Septembre 2012",
+	cat: catAtlantiqueNord
+};
+
 
 var initialPosition = null;
 var initialZoomLevel = null;
@@ -412,7 +438,7 @@ function getMarkerDesc(marker) {
 
 function buildLocationDesc(location, single) {
 	var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
-	markerDesc += "<td style='text-align: left;'><a href='javascript:routeArticle(" + location.id + ", 8, 101)'>" + location.title + "</a></td>";
+	markerDesc += "<td style='text-align: left; padding-right: 20px;'><a href='javascript:routeArticle(" + location.id + ", 8, 101)'>" + location.title + "</a></td>";
 	markerDesc += "<td style='text-align: right;'>";
 	markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position)'><i class='icon-target' title='Centrer la carte sur ce lieu'></i></a>";
 	markerDesc += "<a href='javascript:map.setCenter(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()+1)'><i class='icon-zoom-in' title='Zoom avant'></i></a>";
