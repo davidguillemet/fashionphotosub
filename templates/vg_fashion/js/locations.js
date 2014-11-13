@@ -61,7 +61,13 @@ var catAtlantiqueNord = {
 	parent: null
 }
 
-catGeographycalFilter.children = [catAsieSudEst, catAtlantiqueNord, catRedSea, catMediterranee];
+var catPacifiqueNord = {
+	id: "pac",
+	text: "Pacifique Nord",
+	parent: null
+}
+
+catGeographycalFilter.children = [catAsieSudEst, catAtlantiqueNord, catPacifiqueNord, catRedSea, catMediterranee];
 
 var cat2014 = {
 	id: "2014",
@@ -204,6 +210,60 @@ locations["63"] = {
 	position: new google.maps.LatLng(38.539841, -28.576521),
 	date: "Septembre 2012",
 	cat: catAtlantiqueNord
+};
+locations["64"]= {
+	id: "64",
+	alias: "2012-weda",
+	title: "Weda",
+	desc: "Séjour au <a href='http://www.wedaresort.com/' target='_blank'>Weda Reef & Rainforest Resort</a><br>Halmahera, archipel des Moluques",
+	position: new google.maps.LatLng(0.41958, 127.905836),
+	date: "Mars 2012",
+	cat: catIndonesie
+};
+locations["65"]= {
+	id: "65",
+	alias: "2012-lembeh",
+	title: "Lembeh",
+	desc: "Séjour au <a href='http://www.diverslodgelembeh.com/' target='_blank'>Divers Lodge Lembeh</a>",
+	position: new google.maps.LatLng(1.405637, 125.171176),
+	date: "Mars 2012",
+	cat: catIndonesie
+};
+locations["66"]= {
+	id: "66",
+	alias: "2011-bali",
+	title: "Bali",
+	desc: "Safari avec <a href='http://www.ikandive.com/' target='_blank'>Ikandive</a>",
+	position: new google.maps.LatLng(-8.529796, 115.508977),
+	date: "Novembre 2011",
+	cat: catIndonesie
+};
+locations["67"]= {
+	id: "67",
+	alias: "2011-colombie",
+	title: "Colombie Britannique",
+	desc: "Séjour au <a href='http://www.godspocket.com/' target='_blank'>God's Pocket Resort</a>",
+	position: new google.maps.LatLng(50.840275, -127.592334),
+	date: "Novembre 2011",
+	cat: catPacifiqueNord
+};
+locations["68"]= {
+	id: "68",
+	alias: "2011-cerbere",
+	title: "Cerbère",
+	desc: "Stage 'Limaces de rêve' au centre <a href='http://www.capcerbere.com/' target='_blank'>Cap Cerbère</a>",
+	position: new google.maps.LatLng(42.440418,	3.167233),
+	date: "Juillet 2011",
+	cat: catMediterranee
+};
+locations["69"]= {
+	id: "69",
+	alias: "2011-marseille",
+	title: "Marseille",
+	desc: "Week-end sur l'île du Frioul",
+	position: new google.maps.LatLng(43.281941, 5.309277),
+	date: "Juin 2011",
+	cat: catMediterranee
 };
 
 

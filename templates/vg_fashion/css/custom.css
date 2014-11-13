@@ -538,7 +538,7 @@ a.bg-item
 
 #filter > a
 {
-	line-height: 40px;
+	line-height: 43px;
 }
 
 /* Pour l'affichage du portfolio */
@@ -973,7 +973,7 @@ background-image: url(../images/icon-info.png);
 background-repeat: no-repeat;
 padding: 0px 0 3px 25px;
 line-height: 20px;
-font-size: 11px;
+font-size: 14px;
 color: #a5a5a5;
 text-transform: uppercase;
 }
@@ -992,7 +992,7 @@ background-position: left -21px;
 
 .TzArticleInfoBottom span {
 color: #a5a5a5;
-font-size: 12px;
+font-size: 14px;
 }
 
 .TzArticleInfoBottom span.TzHits {
@@ -1028,7 +1028,7 @@ margin-bottom: 30px;
 .foxcontainer h3 
 {
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	font-family: verdana;
 	color: #757575;
 	text-transform: uppercase;
@@ -1803,7 +1803,25 @@ text-align: center;
 margin-left: auto;
 margin-right: auto;
 }
-
+div.thumbinner {
+border: 1px solid #aaa;
+padding: 3px;
+font-size: 94%;
+text-align: center;
+overflow: hidden;
+}
+div.tright {
+margin: .5em 0 1.3em 1.4em;
+}
+div.thumb {
+margin-bottom: .5em;
+width: auto;
+background-color: transparent;
+}
+div.tright, div.floatright, table.floatright {
+clear: right;
+float: right;
+}
 .references-small.decimal ol {
 list-style-type: decimal;
 }
