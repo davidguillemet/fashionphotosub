@@ -70,21 +70,26 @@
 	 * Loads data from the API.
 	 */
 
-	function loadData(dataType) {
-		isLoading = true;
+	function loadData(action, dataType) {
 
-		$tiles.empty();
-		$('#loaderCircle').show();
+		if (action == 'filter')
+		{
+			isLoading = true;
+			$tiles.empty();
+			$('#loaderCircle').show();
+		}		
+
 		$.ajax({
 			url: apiURL,
 			dataType: 'json',
 			data: {
+				action: action,
 				filter: dataType,
 				width: thumbnailWith
 			},
-			success: onLoadData
+			success: action == 'filter' ? onLoadData : initDependencyChart
 		});
-
+		
 	};
 
 	/**
@@ -278,18 +283,23 @@
 	};
 
 	var customNodes = new Array(),
+		imgCount = null,
 		currentSVGNode = null,
+		currentDataNode = null,
 		tmpNodes,
 		label_w = 70,
 		branch_w = 62,
 		layer_wider_label = new Array(),
 		depencencyChart,
-		nodeColor = "#269926",
+		nodeColor = "#0F990F",//"#269926",
+		emptyNodeColor = "#6B996B",
 		selectedNodeColor = "#3191c1",
 		tooltips = [];
 
-	function initDependencyChart() {
-
+	function initDependencyChart(response) {
+		
+		imgCount = response.data;
+		
 		tmpNodes = d3.layout.tree().size([500, 400]).nodes(data);
 
 		// Create a svg canvas
@@ -312,7 +322,22 @@
 		prepareNodes(data.children);
 		//align nodes.
 		updateNodesXOffset()
+		
 		drawChart();
+		
+		$('svg text').tipsy({
+			gravity: $.fn.tipsy.autoWE,
+			html: true,
+			delayIn: 0,
+			delayOut: 0,
+			offset: 8,
+			opacity: 1,
+			fade: true,
+			title: function() {
+				return tooltips[this.id];
+			}
+		});
+
 	}
 
 	function updateNodesXOffset() {
@@ -385,20 +410,30 @@
 		//                p[2] = d.target.x + "," + m;
 		return "M" + p[0] + "C" + p[1] + " " + p[2] + " " + p[3];
 	}
+	
+	function getNodeColor(node)
+	{
+		return imgCount[node.id] > 0 ? nodeColor : emptyNodeColor;
+	}
 
 	function selectFilter(node) {
+		
 		if (node.id == 'all') return;
+		
 		// Change the background color for the clicked node
-		// #3191c1
 		var clickedNode = depencencyChart.select("#" + node.id);
+		
 		if (currentSVGNode != null)
 		{
-			currentSVGNode.attr("fill", nodeColor);
+			currentSVGNode.attr("fill", getNodeColor(currentDataNode));
 		}
-		clickedNode.attr("fill", selectedNodeColor);
-		currentSVGNode = clickedNode;
 		
-		loadData(node.id);
+		clickedNode.attr("fill", selectedNodeColor);
+		
+		currentSVGNode = clickedNode;
+		currentDataNode = node;
+		
+		loadData('filter', node.id);
 	}
 
 	function drawChart() {
@@ -437,13 +472,14 @@
 			var txtW = txtBox.node().getComputedTextLength();
 			nodeSVG.insert("rect", "text")
 				.attr("id", node.id)
-				.attr("fill", nodeColor)
+				.attr("fill", getNodeColor(node))
 				.attr("width", txtW + 20)
 				.attr("height", "27")
 				.attr("y", "-15")
 				.attr("x", "0")
 				.attr("rx", 4)
-				.attr("ry", 4);
+				.attr("ry", 4)
+							.data(node);
 									
 			if (node.children) {
 				node.x = node.x + txtW + 20;
@@ -478,20 +514,7 @@
 		});
 	}
 
-	initDependencyChart();
-	
-	$('svg text').tipsy({
-		gravity: $.fn.tipsy.autoWE,
-		html: true,
-		delayIn: 0,
-		delayOut: 0,
-		offset: 8,
-		opacity: 1,
-		fade: true,
-		title: function() {
-			return tooltips[this.id];
-		}
-	});
+	loadData('count', '');
 	
 })(jQuery);
 
