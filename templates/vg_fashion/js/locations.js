@@ -1,17 +1,11 @@
 ///////////////////////////
 // The location Categories
 ///////////////////////////////////////////
-var catGeographycalFilter = {
-	id: "geo",
-	text: "Filtres par zone géographique",
-	parent: null,
-	disabled: true
-};
 
 var catAsieSudEst = {
 	id: "ase",
 	text: "Asie du Sud-Est",
-	parent: catGeographycalFilter
+	parent: null
 };
 
 var catPhilippines = {
@@ -31,10 +25,16 @@ var catIndonesie = {
 };
 catAsieSudEst.children = [catIndonesie, catMalaisie, catPhilippines];
 
+var catCaraibes = {
+	id: "car",
+	text: "Caraïbes",
+	parent: null
+};
+
 var catRedSea = {
 	id: "red",
 	text: "Mer Rouge",
-	parent: catGeographycalFilter
+	parent: null
 };
 var catEgypte = {
 	id: "egy",
@@ -46,7 +46,7 @@ catRedSea.children = [catEgypte];
 var catMediterranee = {
 	id: "med",
 	text: "Méditerranée",
-	parent: catGeographycalFilter
+	parent: null
 }
 var catFrance = {
 	id: "fra",
@@ -66,8 +66,6 @@ var catPacifiqueNord = {
 	text: "Pacifique Nord",
 	parent: null
 }
-
-catGeographycalFilter.children = [catAsieSudEst, catAtlantiqueNord, catPacifiqueNord, catRedSea, catMediterranee];
 
 var cat2014 = {
 	id: "2014",
@@ -108,8 +106,10 @@ var cat2008 = {
 var cats = [
 	catAsieSudEst,
 	catAtlantiqueNord,
+	catCaraibes,
 	catRedSea,
-	catMediterranee
+	catMediterranee,
+	catPacifiqueNord
 ];
 
 var dateCats = [
@@ -264,6 +264,24 @@ locations["69"]= {
 	position: new google.maps.LatLng(43.281941, 5.309277),
 	date: "Juin 2011",
 	cat: catMediterranee
+};
+locations["78"]= {
+	id: "78",
+	alias: "2011-martinique",
+	title: "La Martinique",
+	desc: "Séjour au centre UCPA de Saint-Pierre",
+	position: new google.maps.LatLng(14.747452, -61.177325),
+	date: "Janvier 2011",
+	cat: catCaraibes
+};
+locations["79"]= {
+	id: "79",
+	alias: "2011-dominique",
+	title: "La Dominique",
+	desc: "Séjour chez <a href='' target='http://www.east-carib-dive.com/'>La Doudou</a>",
+	position: new google.maps.LatLng(15.445076, -61.446619),
+	date: "Janvier 2011",
+	cat: catCaraibes
 };
 
 
