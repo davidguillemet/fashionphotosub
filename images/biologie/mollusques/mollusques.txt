@@ -17,3 +17,10 @@ DSC_3493.jpg|Euprymna berryi|75|cephalopode|dibranchiaux|decapode
 DSC_2905.jpg|Abdopus sp|76|cephalopode|dibranchiaux|octopode
 DSC_3388.jpg|Sepiadarium kochi|77|cephalopode|dibranchiaux|decapode
 DSC_4820.jpg|Cyphoma gibbosum|81|gasteropode|prosobranche
+DSC_3303.jpg|Limaria fragilis|82|bivalve
+DSC_5871.jpg|Thuridilla hopei|83|gasteropode|opistobranche|sacoglosse
+DSC_5904.jpg|Elysia timida|84|gasteropode|opistobranche|sacoglosse
+DSC_3334.jpg|Elysia ornata|85|gasteropode|opistobranche|sacoglosse
+DSC_2913.jpg|Philinopsis cyanea|86|gasteropode|opistobranche|cephalaspide
+DSC_3073.jpg|Philinopsis pilsbryi|87|gasteropode|opistobranche|cephalaspide
+DSC_3387.jpg|Philinopsis sp.|88|gasteropode|opistobranche|cephalaspide
