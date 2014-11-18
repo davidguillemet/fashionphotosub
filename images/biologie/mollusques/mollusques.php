@@ -11,16 +11,29 @@ function GetImageHeight($fileName, $thumbWidth)
 	return round($thumbHeigt);
 }
 
+$categories = array(
+	"bivalve" => "20|170",
+	"decapode" => "37|186",
+	"octopode" => "36|185",
+	"tetrabranchiaux" => "35|184",
+	"anaspide" => "26|179",
+	"cephalaspide" => "25|178",
+	"gymnosomata" => "24|177",
+	"notaspide" => "27|180",
+	"aeolidien" => "30|173",
+	"arminace" => "31|174",
+	"dendronotace" => "32|175",
+	"doridien" => "33|176",
+	"sacoglosse" => "28|181",
+	"thecosomata" => "29|182",
+	"prosobranche" => "22|171"
+);
+
 $filter = $_REQUEST['filter'];
 $width = $_REQUEST['width'];
-$category = $_REQUEST['category'];
 
 // Read the image file content
 $imageFile = "mollusques.txt";
-// 153 est l'id du menu "Galerie des mollusques"
-$itemId = 153;
-// 13 est la catégorie Mollusques (sous Biologie)
-$catid = 13;
 $images = file($imageFile);
 
 $data = array();
@@ -30,6 +43,7 @@ foreach($images as $image_properties)
 {
     if(!empty($image_properties))
     {
+		$cat = "";
 		$addImage = false;
         $properties = explode('|', $image_properties);
 		
@@ -50,6 +64,9 @@ foreach($images as $image_properties)
 				if (strcasecmp(trim($properties[$i]), $filter) == 0)
 				{
 					$addImage = true;
+					// The catagory is the final category of the specy
+					$finalcat = trim($properties[count($properties) - 1]);
+					$cat = $categories[$finalcat];
 				}
 			}	
 		}
@@ -61,6 +78,7 @@ foreach($images as $image_properties)
 				'img' => $imageFileName,
 				'desc' => $properties[1],
 				'id' => $properties[2],
+				'cat' => $cat,
 				'height' => GetImageHeight($imageFileName, $width)
 			);	
 		}
@@ -71,7 +89,6 @@ $result = array(
   'success' => TRUE,
   'message' => 'Retrieved pictures',
   'filter' => $filter,
-  'category' => $category,
   'data' => $data
 );
 

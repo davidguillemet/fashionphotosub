@@ -1,0 +1,37 @@
+{
+ "name": "flare",
+ "children": [
+  {"name": "Céphalopodes"},
+  {
+   "name": "Gastéropodes",
+   "children": [
+    {
+     "name": "Opistobranches",
+     "children": [
+      {
+		  "name": "Nudibranches",
+		  "children": [
+			  {"name": "Aéolidiens", "size": 1200},
+			  {"name": "Arminacés", "size": 1200},
+			  {"name": "Dendronotacés", "size": 1200},
+			  {"name": "Doridiens", "size": 1200}
+		  ]
+	  },
+      {"name": "Gymnosomata", "size": 2047},
+      {"name": "Cephalaspidea", "size": 1375},
+      {"name": "Anaspidea", "size": 8746},
+      {"name": "Notaspidea", "size": 2202},
+      {"name": "Sacoglosses", "size": 1382},
+      {"name": "Thecosomata", "size": 1629}
+     ]
+    },
+    {"name": "Prosobranches", "size": 1041}
+   ]
+  },
+  {"name": "Bivalves","size": 1200},
+  {"name": "Monoplacophores","size": 1200},
+  {"name": "Aplcacophores","size": 1200},
+  {"name": "Polyplacophores","size": 1200},
+  {"name": "Scaphopodes","size": 1200}
+ ]
+}
