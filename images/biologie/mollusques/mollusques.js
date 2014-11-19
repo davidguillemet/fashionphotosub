@@ -285,7 +285,6 @@
 	var customNodes = new Array(),
 		imgCount = null,
 		currentSVGNode = null,
-		currentDataNode = null,
 		tmpNodes,
 		label_w = 70,
 		branch_w = 62,
@@ -416,22 +415,32 @@
 		return imgCount[node.id] > 0 ? nodeColor : emptyNodeColor;
 	}
 
-	function selectFilter(node) {
+	function getRectNodeId(node)
+	{
+		return node.id + "-rect";
+	}
+	
+	function getTextNodeId(node)
+	{
+		return node.id + "-text";
+	}
+	
+	function selectFilter(clickedTextNode) {
 		
+		// Get the bound data from the D3 node
+		var node = clickedTextNode.__data__;
+
 		if (node.id == 'all') return;
-		
-		// Change the background color for the clicked node
-		var clickedNode = depencencyChart.select("#" + node.id);
-		
+				
 		if (currentSVGNode != null)
 		{
-			currentSVGNode.attr("fill", getNodeColor(currentDataNode));
+			var currentNode = currentSVGNode.__data__;
+			depencencyChart.select("#" + getRectNodeId(currentNode)).attr("fill", getNodeColor(currentNode));
 		}
 		
-		clickedNode.attr("fill", selectedNodeColor);
+		depencencyChart.select("#" + getRectNodeId(node)).attr("fill", selectedNodeColor);
 		
-		currentSVGNode = clickedNode;
-		currentDataNode = node;
+		currentSVGNode = clickedTextNode;
 		
 		loadData('filter', node.id);
 	}
@@ -455,31 +464,33 @@
 	                    .attr("r", 3);
 	        }*/
 			
-			var txtBoxId = node.id + "-text";
+			var txtBoxId = getTextNodeId(node);
+			var rectBoxId = getRectNodeId(node);
 				
 			var txtBox = nodeSVG.append("svg:text")
+				.data([node])
 				.attr("id", txtBoxId)
 				.attr("dx", 10)
 				.attr("dy", 4)
 				.attr("fill", "#ffffff") //node.current ? "#ffffff" : node.children ? "#3191c1" : "#269926")
 				.text(node.name)
-				.on("click", function(n) {
-					selectFilter(node)
+				.on("click", function() {
+					selectFilter(this);
 				});
 			
 			tooltips[txtBoxId] = node.desc;
 
 			var txtW = txtBox.node().getComputedTextLength();
+			
 			nodeSVG.insert("rect", "text")
-				.attr("id", node.id)
+				.attr("id", rectBoxId)
 				.attr("fill", getNodeColor(node))
 				.attr("width", txtW + 20)
 				.attr("height", "27")
 				.attr("y", "-15")
 				.attr("x", "0")
 				.attr("rx", 4)
-				.attr("ry", 4)
-							.data(node);
+				.attr("ry", 4);
 									
 			if (node.children) {
 				node.x = node.x + txtW + 20;
