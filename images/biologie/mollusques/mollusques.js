@@ -414,6 +414,11 @@
 	{
 		return imgCount[node.id] > 0 ? nodeColor : emptyNodeColor;
 	}
+	
+	function getTextColor(node)
+	{
+		return imgCount[node.id] > 0 ? "#FFFFFF" : "#CCCCCC";
+	}
 
 	function getRectNodeId(node)
 	{
@@ -472,7 +477,7 @@
 				.attr("id", txtBoxId)
 				.attr("dx", 10)
 				.attr("dy", 4)
-				.attr("fill", "#ffffff") //node.current ? "#ffffff" : node.children ? "#3191c1" : "#269926")
+				.attr("fill", getTextColor(node))
 				.text(node.name)
 				.on("click", function() {
 					selectFilter(this);
