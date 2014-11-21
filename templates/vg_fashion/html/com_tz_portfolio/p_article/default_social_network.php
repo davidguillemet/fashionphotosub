@@ -25,7 +25,7 @@ $socialInfos    = $this -> socialInfo;
 $url = JRoute::_(TZ_PortfolioHelperRoute::getPortfolioArticleRoute($this -> item -> slug,$this -> item -> catid),true,-1);
 //$url    = 'http://www.templaza.com';
 ?>
-<p style="text-align: center">
+<p style="text-align: center; height: 38px;">
 <span class='st_sharethis_large' displayText='ShareThis'></span>
 <span class='st_twitter_large' displayText='Tweet'></span>
 <span class='st_linkedin_large' displayText='LinkedIn'></span>
