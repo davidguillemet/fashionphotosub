@@ -414,6 +414,7 @@
 			});
 		
 		gElements.append("svg:text")
+			.attr("class", "alphabeticalfilter")
 			.attr("x", circleRadius)
 			.attr("y", circleRadius + 6)
 			.attr("text-anchor", "middle")
@@ -421,6 +422,16 @@
 			.text(function(d,i) { return alphabet.charAt(i); })
 			.on("click", function(d,i) {
 				if (d > 0) alphabeticalFilter(i);
+			});
+
+			$('svg text.alphabeticalfilter').tipsy({
+				gravity: 's',
+				html: true,
+				delayIn: 0,
+				delayOut: 0,
+				offset: 2,
+				opacity: 1,
+				fade: true
 			});
 	}
 
@@ -437,7 +448,8 @@
 			.attr("fill", function (d) { return d > 0 ? nodeColor : emptyNodeColor; });
 		
 		gElements.select("text")
-			.attr("fill", function (d) { return d > 0 ? "#FFFFFF" : "#CCCCCC"; });
+			.attr("fill", function (d) { return d > 0 ? "#FFFFFF" : "#CCCCCC"; })
+			.attr("title", function (d) { return d == 0 ? "" : d + " image" + (d > 1 ? "s" :""); } );
 	}
 	
 	function updateNodesXOffset() {
