@@ -1348,11 +1348,22 @@ ul.check > li
 {
 	list-style: none outside none;
 	background-image: none;
+	display: none;
+
+	-webkit-transition: all 0.3s ease-out;
+	-moz-transition: all 0.3s ease-out;
+	-o-transition: all 0.3s ease-out;
+	transition: all 0.3s ease-out;
+}
+
+.tiles li.inactive
+{
+	visibility: hidden;
+	opacity: 0;
 }
 
 .tiles li img
 {
-	/*display: block;*/
 	border: 1px solid #dedede;
 }
 
@@ -1941,8 +1952,13 @@ word-wrap: break-word;
 }
 
 /* D3JS */
-.node {
-  cursor: pointer;
+.node
+{
+ 	cursor: pointer;
+}
+.inactivenode
+{
+	cursor: default;
 }
 .node:hover
 {

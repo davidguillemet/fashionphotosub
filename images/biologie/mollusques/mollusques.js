@@ -57,7 +57,7 @@
 				$newImages.each(function() {
 					var $self = $(this);
 					window.setTimeout(function() {
-						$self.css('visibility', 'visible');
+						//$self.css('opacity', '1'); // --> Issue with filtering
 					}, Math.random() * fadeInDelay);
 				});
 			} else {
@@ -105,8 +105,12 @@
 		var length = data.length;
 		var image, opacity;
 
-		if (length > 0) {
-			for (var i = 0; i < length; i++) {
+		var alphabeticalData = buildInitiaAlphabeticalData();
+		
+		if (length > 0)
+		{
+			for (var i = 0; i < length; i++)
+			{
 				image = data[i];
 				var imageFilePath = rootUrl + imagesFolder + image.img;
 				
@@ -114,7 +118,7 @@
 				var category = categoryAndItem[0];
 				var item = categoryAndItem[1];
 
-				html += '<li data-name="' + image.desc + '" style="visibility: hidden;">';
+				html += "<li data-name='" + image.desc + "' data-filter-class='[\"" + image.desc.charAt(0) + "\"]'>";
 				html += '<div class="wmcontainer">';
 				html += '<div class="wmdesc">' + image.desc + '</div>';
 				html += '<div class="wmbg"><div class="wmlinks">';
@@ -134,8 +138,14 @@
 				html += '&amp;w=' + thumbnailWith + '&amp;q=100" width="' + thumbnailWith + '" height="' + image.height + '">';
 				html += '</div>';
 				html += '</li>';
+				
+				// Update alphabetical data
+				var alphabetPos = alphabet.indexOf(image.desc.charAt(0));
+				alphabeticalData[alphabetPos]++;
 			}
-		} else {
+		}
+		else
+		{
 			html += '<li style="width: 100%;"><table style="height: 100px; margin: auto"><tr>';
 			html += '<td><i class="icon-emo-displeased" style="font-size: 50px"></i></td>';
 			html += '<td style="vertical-align: middle; font-size: 20px;">Désolé, nous n\'avons pas d\'image qui corresponde à votre sélection</td>';
@@ -146,6 +156,10 @@
 
 		// Apply layout.
 		applyLayout($newImages, (length > 0));
+		
+		// Update Alhabetical Filter
+		updateAlphabeticalFilter(alphabeticalData);
+		
 	};
 
 	var data = {
@@ -281,20 +295,61 @@
 			"layer": 1
 		}]
 	};
+	
+	var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	var customNodes = new Array(),
 		imgCount = null,
 		currentSVGNode = null,
+		selectedAlphabeticalFilter = null,
 		tmpNodes,
 		label_w = 70,
 		branch_w = 62,
+		circleRadius = 13,
+		circleSpacing = 7,
 		layer_wider_label = new Array(),
 		depencencyChart,
 		nodeColor = "#0F990F",//"#269926",
 		emptyNodeColor = "#6B996B",
-		selectedNodeColor = "#3191c1",
+		selectedNodeColor = "#0081C1",
 		tooltips = [];
 
+	function buildInitiaAlphabeticalData()
+	{
+		var data = [];
+		for (var i = 0; i < 26; i++)
+		{
+			data[i] = 0;
+		}
+		return data;
+	}
+	
+	function alphabeticalFilter(charPos)
+	{
+		var charFilter = alphabet.charAt(charPos);
+		var wookmarkFilter = new Array();
+		wookmarkFilter.push(charFilter);
+		
+		// New Fill for selected filter
+		if (selectedAlphabeticalFilter != null)
+		{
+			selectedAlphabeticalFilter.attr("fill", nodeColor);
+		}
+		
+		selectedAlphabeticalFilter = d3.select("#alphabetical").select("#alphabetical-" + charPos);
+		selectedAlphabeticalFilter.attr("fill", selectedNodeColor);
+		
+		// Filter wookmark gallery
+		$handler.wookmarkInstance.filter(wookmarkFilter);
+		
+		// Setup shadowbox links
+		Shadowbox.clearCache();
+		// Select all shadowbox links:
+		var links = $(".tiles > li:not(.inactive) a.sblink");
+		Shadowbox.setup(links);
+		
+	}
+	
 	function initDependencyChart(response) {
 		
 		imgCount = response.data;
@@ -336,9 +391,55 @@
 				return tooltips[this.id];
 			}
 		});
-
+		
+		// Create Alphabetical filter buttons
+		var gElements = d3.select("#alphabetical").append("svg:svg")
+			.attr("width", 860)
+			.attr("height", circleRadius * 2)
+			.selectAll("g")
+			.data(buildInitiaAlphabeticalData())
+			.enter()
+			.append("g")
+			.attr("transform", function (d,i) { return "translate(" + ( i * ( circleRadius * 2 + circleSpacing) ) + ",0)"})
+			.attr("class", "inactivenode");
+					
+		gElements.append("circle")
+			.attr("id", function(d,i) { return "alphabetical-" + i; })
+			.attr("cy", circleRadius)
+			.attr("cx", circleRadius)
+			.attr("r", circleRadius)
+			.attr("fill", emptyNodeColor)
+			.on("click", function(d,i) {
+				if (d > 0) alphabeticalFilter(i);
+			});
+		
+		gElements.append("svg:text")
+			.attr("x", circleRadius)
+			.attr("y", circleRadius + 6)
+			.attr("text-anchor", "middle")
+			.attr("fill", "#CCCCCC")
+			.text(function(d,i) { return alphabet.charAt(i); })
+			.on("click", function(d,i) {
+				if (d > 0) alphabeticalFilter(i);
+			});
 	}
 
+	function updateAlphabeticalFilter(alphabeticalData)
+	{
+		selectedAlphabeticalFilter = null;
+		
+		var gElements = d3.select("#alphabetical")
+			.selectAll("g")
+			.data(alphabeticalData)
+			.attr("class", function (d) { return d > 0 ? "node" : "inactivenode"; } );	
+		
+		gElements.select("circle")
+			.attr("fill", function (d) { return d > 0 ? nodeColor : emptyNodeColor; });
+		
+		gElements.select("text")
+			.attr("fill", function (d) { return d > 0 ? "#FFFFFF" : "#CCCCCC"; });
+	}
+	
 	function updateNodesXOffset() {
 		var x_offsets = new Array();
 		x_offsets[0] = 0;
@@ -455,13 +556,9 @@
 		customNodes.forEach(function(node) {
 
 			var nodeSVG = depencencyChart.append("svg:g")
-				.attr("transform", "translate(" + node.x + "," + node.y + ")");
-			
-			if (node.id != "all")
-			{
-				nodeSVG.attr("class", "node");
-			}
-									
+				.attr("transform", "translate(" + node.x + "," + node.y + ")")
+				.attr("class", (node.id != "all" && imgCount[node.id] > 0) ? "node" : "inactivenode");
+												
 			/*if (node.depth > 0) {
 	            nodeSVG.append("svg:circle")
 	                    .attr("stroke", node.children ? "#3191c1" : "#269926")
@@ -480,7 +577,7 @@
 				.attr("fill", getTextColor(node))
 				.text(node.name)
 				.on("click", function() {
-					selectFilter(this);
+					if (imgCount[node.id] > 0) selectFilter(this);
 				});
 			
 			tooltips[txtBoxId] = node.desc;
