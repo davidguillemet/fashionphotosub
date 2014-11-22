@@ -45,7 +45,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		{
 			$width=$width.'px';
 			$sh_width=$sh_width.'px';
-			$itemWidth=$th_img_width+10;
+			$itemWidth=$th_img_width+2;//+10;
 
 			static $wookmark_css;
 			if (!$wookmark_css) 
