@@ -309,9 +309,11 @@
 		circleSpacing = 7,
 		layer_wider_label = new Array(),
 		depencencyChart,
-		nodeColor = "#0F990F",//"#269926",
-		emptyNodeColor = "#6B996B",
+		nodeColor = "#00B300",//"#269926",
+		emptyNodeColor = "#7DB37D";//"#6B996B",
 		selectedNodeColor = "#0081C1",
+		textColor = "#ffffff",
+		emptyTextColor = "#dddddd",
 		tooltips = [];
 
 	function buildInitiaAlphabeticalData()
@@ -418,7 +420,7 @@
 			.attr("x", circleRadius)
 			.attr("y", circleRadius + 6)
 			.attr("text-anchor", "middle")
-			.attr("fill", "#CCCCCC")
+			.attr("fill", emptyTextColor)
 			.text(function(d,i) { return alphabet.charAt(i); })
 			.on("click", function(d,i) {
 				if (d > 0) alphabeticalFilter(i);
@@ -448,8 +450,8 @@
 			.attr("fill", function (d) { return d > 0 ? nodeColor : emptyNodeColor; });
 		
 		gElements.select("text")
-			.attr("fill", function (d) { return d > 0 ? "#FFFFFF" : "#CCCCCC"; })
-			.attr("title", function (d) { return d == 0 ? "" : d + " image" + (d > 1 ? "s" :""); } );
+			.attr("fill", function (d) { return d > 0 ? textColor : emptyTextColor; })
+			.attr("title", function (d) { return d == 0 ? "" : d + " espèce" + (d > 1 ? "s" :""); } );
 	}
 	
 	function updateNodesXOffset() {
@@ -530,7 +532,7 @@
 	
 	function getTextColor(node)
 	{
-		return imgCount[node.id] > 0 ? "#FFFFFF" : "#CCCCCC";
+		return imgCount[node.id] > 0 ? textColor : emptyTextColor;
 	}
 
 	function getRectNodeId(node)
