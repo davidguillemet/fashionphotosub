@@ -790,7 +790,8 @@ ul.nav li{
 	margin:0 0 0 295px;
 }
 #controls-wrapper{
-	width:150px;
+	/*width:150px;*/
+	width: 100%;
 }
 #prevslide, #nextslide{
 	width:30px;
@@ -800,13 +801,13 @@ ul.nav li{
 	background-position:center;
 }
 #play-button{
-	width:20px;
+	/*width:20px;
 	height:30px;
 	padding:12px 3px 0 12px;
-	margin:0;
+	margin:0;*/
 }
 #controls{
-	width:100px;
+	/*width:100px;*/
 }
 .jp-play, .jp-pause{
 	width:20px;
@@ -943,7 +944,7 @@ a.mobile-menu-button{
 	margin:0 0 0 155px;
 }
 #controls-wrapper{
-	width:150px;
+	/*width:150px;*/
 }
 #prevslide, #nextslide{
 	width:30px;
@@ -953,13 +954,17 @@ a.mobile-menu-button{
 	background-position:center;
 }
 #play-button{
-	width:20px;
+	/*width:20px;
 	height:30px;
 	padding:12px 3px 0 12px;
-	margin:0;
+	margin:0;*/
 }
 #controls{
-	width:100px;
+	/*width:100px;*/
+}
+#slide-list
+{
+	display: none;
 }
 .jp-play, .jp-pause{
 	width:20px;
@@ -1113,7 +1118,7 @@ a.mobile-menu-button{
 	margin:0 0 0 70px;
 }
 #controls-wrapper{
-	width:150px;
+	/*width:150px;*/
 }
 #prevslide, #nextslide{
 	width:30px;
@@ -1123,14 +1128,19 @@ a.mobile-menu-button{
 	background-position:center;
 }
 #play-button{
-	width:20px;
+	/*width:20px;
 	height:30px;
 	padding:12px 3px 0 12px;
-	margin:0;
+	margin:0;*/
 }
 #controls{
-	width:100px;
+	/*width:100px;*/
 }
+#slide-list
+{
+	display: none;
+}
+
 .jp-play, .jp-pause{
 	width:20px;
 	height:30px;
