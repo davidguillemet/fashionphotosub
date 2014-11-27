@@ -203,7 +203,8 @@ Shadowbox.init({
 	displayNav: true,
 	slideshowDelay: 5,
 	overlayOpacity: 0.8,
-	handleOversize: 'resize'
+	handleOversize: 'resize',
+	onOpen: function (image) { Shadowbox.play(); Shadowbox.pause(); }
 });
 </script>
 
