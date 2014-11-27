@@ -116,6 +116,29 @@ class plgContentWookmark_Gallery extends JPlugin
 			  };
 			  var handler = jQuery('.tiles li');
 			  handler.wookmark(options);
+			  
+			  jQuery('.tiles li').tipsy({
+				gravity: 's',
+				html: true,
+				delayIn: 0,
+				delayOut: 0,
+				offset: 0,
+				opacity: 1,
+				fade: true,
+				title: function () {
+					var li = jQuery(this);
+					var a = li.children().first();
+					var title = a.attr('title');
+					if (title != null && title.length > 0)
+					{
+						li.attr('title', title);
+						a.attr('title', '');
+						return title;
+					}
+					return li.attr('original-title');
+				}
+			  });
+
 			});
 			});
 		  </script>	";
