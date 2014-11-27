@@ -9,7 +9,8 @@
 		thumbnailWith = 203,
 		fadeInDelay = 1000, // TODO = increment this value with the number of images
 		$window = $(window),
-		$document = $(document);
+		$document = $(document),
+		imagesTooltip = [];
 
 	function comparatorName(a, b) {
 		return $(a).data('name') < $(b).data('name') ? -1 : 1;
@@ -29,9 +30,11 @@
 	 */
 
 	function applyLayout($newImages, hasImages) {
-		options.container.imagesLoaded(function() {
+		options.container.imagesLoaded(function()
+		{
 			// Destroy the old handler
-			if ($handler.wookmarkInstance) {
+			if ($handler.wookmarkInstance)
+			{
 				$handler.wookmarkInstance.clear();
 			}
 
@@ -40,27 +43,56 @@
 			// Clear previous images and add new ones
 			$tiles.append($newImages);
 
-			if (hasImages) {
+			if (hasImages)
+			{
 				$handler = $('li', $tiles);
 				$handler.wookmark(options);
 
 				// Setup shadowbox links
 				Shadowbox.clearCache();
 				// Select all shadowbox links:
-				var links = $(".tiles > li a.sblink");
-				links.sort(function(a, b) {
+				var imgLinks = $(".tiles > li a.sblink");
+				imgLinks.each(function() { var $imgLink = $(this); imagesTooltip[$imgLink.attr('id')] = $imgLink.attr('title'); });
+				imgLinks.sort(function(a, b) {
 					return $(a).attr('title').localeCompare($(b).attr('title'));
 				});
-				Shadowbox.setup(links);
+				Shadowbox.setup(imgLinks);
+				
+				imgLinks.tipsy({
+					gravity: 's',
+					html: true,
+					delayIn: 0,
+					delayOut: 0,
+					offset: 8,
+					opacity: 1,
+					fade: true,
+					title: function() { return "Agrandir l'image"; }
+				});
+				
+				var articleLinks = $(".tiles > li a.artlink");
+				articleLinks.tipsy({
+					gravity: 's',
+					html: true,
+					delayIn: 0,
+					delayOut: 0,
+					offset: 8,
+					opacity: 1,
+					fade: true,
+					title: function() { return "Voir les détails"; }
+				});
 
 				// Set opacity for each new image at a random time
-				$newImages.each(function() {
+				$newImages.each(function()
+				{
 					var $self = $(this);
 					window.setTimeout(function() {
-						//$self.css('opacity', '1'); // --> Issue with filtering
-					}, Math.random() * fadeInDelay);
+							//$self.css('opacity', '1'); // --> Issue with filtering
+						},
+						Math.random() * fadeInDelay);
 				});
-			} else {
+			}
+			else
+			{
 				$tiles.css("height", 100);
 			}
 		});
@@ -118,18 +150,24 @@
 				var category = categoryAndItem[0];
 				var item = categoryAndItem[1];
 
+				var articleLink = '<a class=\'artlink\' href=\'javascript:routeArticle(' + image.id + ',' + category + ',' + item + ')\'>';
+				var articleLinkEncoded = articleLink.replace('"', '\\"').replace('<', '&lt;').replace('>','&gt;');
+				
+				var imgLinkId = "imgLink" + i;
+				
 				html += "<li data-name='" + image.desc + "' data-filter-class='[\"" + image.desc.charAt(0) + "\"]'>";
 				html += '<div class="wmcontainer">';
 				html += '<div class="wmdesc">' + image.desc + '</div>';
 				html += '<div class="wmbg"><div class="wmlinks">';
 				html += '<a class="sblink" rel="shadowbox[mollusques]" href="' + imageFilePath + '"';
-				html += ' title="' + image.desc + '">';
+				html += ' id="' + imgLinkId + '"';
+				html += ' title="' + articleLinkEncoded + image.desc + '&lt;/a&gt;">';
 				html += '<i class="icon-search" style="font-size: 30px;"></i>';
 				html += '</a>';
-				if (image.id.length > 0) {
-					html += '&nbsp;&nbsp;&nbsp;<a href="javascript:';
-					html += 'routeArticle(' + image.id + ', ' + category + ', ' + item + ')';
-					html += '" title="Voir les détails">';
+				if (image.id.length > 0)
+				{
+					html += '&nbsp;&nbsp;&nbsp;';
+					html += articleLink;
 					html += '<i class="icon-link-ext" style="font-size: 30px"></i>';
 					html += '</a>';
 				}
@@ -348,6 +386,8 @@
 		Shadowbox.clearCache();
 		// Select all shadowbox links:
 		var links = $(".tiles > li:not(.inactive) a.sblink");
+		links.each(function() { var $imgLink = $(this); $imgLink.attr('title', imagesTooltip[$imgLink.attr('id')]); });
+		
 		Shadowbox.setup(links);
 		
 	}
