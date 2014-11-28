@@ -6,7 +6,7 @@
 		apiURL = rootUrl + imagesFolder + 'mollusques.php',
 		wPlugin = 'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/wookmark_gallery_image1.php?src=',
 		lastRequestTimestamp = 0,
-		thumbnailWith = 203,
+		thumbnailWith = 210,
 		fadeInDelay = 1000, // TODO = increment this value with the number of images
 		$window = $(window),
 		$document = $(document),
@@ -21,7 +21,7 @@
 		autoResize: true, // This will auto-update the layout when the browser window is resized.
 		container: $('.tiles'), // Optional, used for some extra CSS styling
 		offset: 5, // Optional, the distance between grid items
-		itemWidth: 203, // Optional, the width of a grid item
+		itemWidth: thumbnailWith, // Optional, the width of a grid item
 		comparator: comparatorName
 	};
 
@@ -208,7 +208,7 @@
 		"current": true,
 		"children": [{
 			"id": "aplacophore",
-			"name": "Alacacophores",
+			"name": "Aplacacophores",
 			"desc": "",
 			"layer": 1
 		}, {
@@ -336,7 +336,9 @@
 	
 	var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-	var customNodes = new Array(),
+	var customNodes = null,
+		chartActive = null, // true if the chart is active
+		minWidthForGraph = 940, // If width is lower than 940 pixels, display a select instead of graph
 		imgCount = null,
 		currentSVGNode = null,
 		selectedAlphabeticalFilter = null,
@@ -392,10 +394,90 @@
 		
 	}
 	
-	function initDependencyChart(response) {
+	function onResize()
+	{
+		var contentWidthCssValue = $(".column-1").css('width');
+		var contentWidth = parseInt(contentWidthCssValue.substr(0, contentWidthCssValue.length - 2));
 		
-		imgCount = response.data;
+		if (contentWidth < minWidthForGraph)
+		{
+			configureSelect();
+		}
+		else
+		{
+			configureChart();
+		}
+	}
+	
+	function formatSelectElement(item)
+	{
+		var count = imgCount[item.id];
+		if (count == null) count = 0;
+		return item.name + "  (" +  count + ")";
+	}
+	
+	function configureSelect()
+	{
+		// Configure the select element only if it's not already active
+		if (chartActive != null && chartActive == false) return;
+				
+		chartActive = false;
+				
+		// no D3js tree is width lower than 940px
+		d3.selectAll("#filters svg").remove();
+		var filters = $("#filters");
+		filters.empty();
+		filters.css("display", "none");
+	
+		var alphabetical = $("#alphabetical");
+		alphabetical.empty();
+		alphabetical.css("display", "none");
 		
+		var $initiaTip = $("#initialTip");
+		if ($initiaTip)
+		{
+			$initiaTip.remove();
+			$(".tiles").css("height","60px");
+		}
+		
+		// show the div container for the select element
+		$("#selectContainer").css("display","block");
+		
+		// Setuo the select element
+		$("#selectmollusque").select2({
+			placeholder: "Sélectionnez une famille de mollusques...",
+			data: { results: data.children, text: 'name' },
+			formatSelection: formatSelectElement,
+			formatResult: formatSelectElement
+		});
+		$("#selectmollusque").on("change", function(e) {
+			loadData('filter', e.val);
+		});
+	}
+	
+	function configureChart()
+	{
+		// Configure the chart only if it's not already active
+		if (chartActive != null && chartActive == true) return;
+		
+		// Destroy the select element
+		if (chartActive == false)
+		{
+			// Remove the event handler
+			$("#selectmollusque").unbind("change");
+		}
+		// Destroy and hide the select element
+		$("#selectmollusque").select2("destroy");
+		$("#selectContainer").css("display","none");
+	
+		// Show the chart and alphabetical filter container
+		$("#filters").css("display", "block");
+		$("#alphabetical").css("display","block");
+
+		chartActive = true;
+						
+		customNodes = new Array();
+				
 		tmpNodes = d3.layout.tree().size([500, 400]).nodes(data);
 
 		// Create a svg canvas
@@ -442,7 +524,7 @@
 			.data(buildInitiaAlphabeticalData())
 			.enter()
 			.append("g")
-			.attr("transform", function (d,i) { return "translate(" + ( i * ( circleRadius * 2 + circleSpacing) ) + ",0)"})
+			.attr("transform", function (d,i) { return "translate(" + ( i * ( circleRadius * 2 + circleSpacing) + 4 ) + ",0)"})
 			.attr("class", "inactivenode");
 					
 		gElements.append("circle")
@@ -475,6 +557,15 @@
 				opacity: 1,
 				fade: true
 			});
+	}
+	
+	function initDependencyChart(response) {
+		
+		imgCount = response.data;
+				
+		$( window ).resize(onResize);
+		
+		onResize();
 	}
 
 	function updateAlphabeticalFilter(alphabeticalData)
@@ -517,7 +608,7 @@
 		})
 		return ret;
 	}
-
+	
 	function prepareNodes(nodes) {
 		nodes.forEach(function(node) {
 			prepareNode(node);
@@ -606,7 +697,7 @@
 	}
 
 	function drawChart() {
-
+		
 		customNodes.forEach(function(node) {
 
 			var nodeSVG = depencencyChart.append("svg:g")
@@ -679,8 +770,8 @@
 					.on("click", function(n) { alert('click'); })*/
 			}
 		});
-	}
-
+	}	
+	
 	loadData('count', '');
 	
 })(jQuery);

@@ -1342,6 +1342,7 @@ ul.check > li
 	list-style-type: none;
 	position: relative;
 	margin: 0;
+	padding-left: 0px;
 }
 
 .tiles li
