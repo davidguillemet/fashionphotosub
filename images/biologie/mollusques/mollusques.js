@@ -6,22 +6,77 @@
 		apiURL = rootUrl + imagesFolder + 'mollusques.php',
 		wPlugin = 'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/wookmark_gallery_image1.php?src=',
 		lastRequestTimestamp = 0,
-		thumbnailWith = 210,
+		defaultThumbnailWith = 210,
 		fadeInDelay = 1000, // TODO = increment this value with the number of images
 		$window = $(window),
 		$document = $(document),
-		imagesTooltip = [];
+		imagesTooltip = [],
+		previousContentWidth = -1,
+		currentFilter = null;
+	
+	// column-1 width = 100% (300px) -> 460px -> 730px -> 940px
+	var responsiveData = [
+		{ thumbWidth: 210, chart: false },
+		{ thumbWidth: 184, chart: false },
+		{ thumbWidth: 210, chart: false },
+		{ thumbWidth: 210, chart: true }
+	]
 
-	function comparatorName(a, b) {
+	function comparatorName(a, b)
+	{
 		return $(a).data('name') < $(b).data('name') ? -1 : 1;
+	}
+		
+	function getContentWidth()
+	{
+		var contentWidthCssValue = $(".column-1").css('width');
+		var contentWidth = parseInt(contentWidthCssValue.substr(0, contentWidthCssValue.length - 2));
+		return contentWidth;
+	}
+
+	function getResponsiveData(width)
+	{
+		var contentWidth = width == null ? getContentWidth() : width;
+		var dataIndex = -1;
+		if (contentWidth < 460)
+		{
+			dataIndex = 0;
+		}
+		else if (contentWidth < 730)
+		{
+			dataIndex = 1;
+		}
+		else if (contentWidth < 940)
+		{
+			dataIndex = 2;
+		}
+		else
+		{
+			dataIndex = 3;
+		}
+		
+		if (dataIndex != -1)
+		{
+			return responsiveData[dataIndex];
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	function getWookmarkThumbnailWidth()
+	{
+		var responsiveData = getResponsiveData();
+		return responsiveData.thumbWidth;
 	}
 
 	// Prepare layout options.
-	var options = {
+	var defaultWookmarkOptions = {
 		autoResize: true, // This will auto-update the layout when the browser window is resized.
 		container: $('.tiles'), // Optional, used for some extra CSS styling
 		offset: 5, // Optional, the distance between grid items
-		itemWidth: thumbnailWith, // Optional, the width of a grid item
+		itemWidth: defaultThumbnailWith, // Optional, the width of a grid item
 		comparator: comparatorName
 	};
 
@@ -30,7 +85,7 @@
 	 */
 
 	function applyLayout($newImages, hasImages) {
-		options.container.imagesLoaded(function()
+		defaultWookmarkOptions.container.imagesLoaded(function()
 		{
 			// Destroy the old handler
 			if ($handler.wookmarkInstance)
@@ -46,7 +101,8 @@
 			if (hasImages)
 			{
 				$handler = $('li', $tiles);
-				$handler.wookmark(options);
+				defaultWookmarkOptions.itemWidth = getWookmarkThumbnailWidth();
+				$handler.wookmark(defaultWookmarkOptions);
 
 				// Setup shadowbox links
 				Shadowbox.clearCache();
@@ -54,7 +110,7 @@
 				var imgLinks = $(".tiles > li a.sblink");
 				imgLinks.each(function() { var $imgLink = $(this); imagesTooltip[$imgLink.attr('id')] = $imgLink.attr('title'); });
 				imgLinks.sort(function(a, b) {
-					return $(a).attr('title').localeCompare($(b).attr('title'));
+					return $(a).attr('data-name').localeCompare($(b).attr('data-name'));
 				});
 				Shadowbox.setup(imgLinks);
 				
@@ -102,13 +158,14 @@
 	 * Loads data from the API.
 	 */
 
-	function loadData(action, dataType) {
+	function loadData(action, family) {
 
 		if (action == 'filter')
 		{
 			isLoading = true;
 			$tiles.empty();
 			$('#loaderCircle').show();
+			currentFilter = family;
 		}		
 
 		$.ajax({
@@ -116,8 +173,8 @@
 			dataType: 'json',
 			data: {
 				action: action,
-				filter: dataType,
-				width: thumbnailWith
+				filter: family,
+				width: getWookmarkThumbnailWidth()
 			},
 			success: action == 'filter' ? onLoadData : initDependencyChart
 		});
@@ -137,7 +194,8 @@
 		var length = data.length;
 		var image, opacity;
 
-		var alphabeticalData = buildInitiaAlphabeticalData();
+		alphabeticalData = buildInitiaAlphabeticalData();
+		var thumbnailWith = getWookmarkThumbnailWidth();
 		
 		if (length > 0)
 		{
@@ -160,7 +218,7 @@
 				html += '<div class="wmdesc">' + image.desc + '</div>';
 				html += '<div class="wmbg"><div class="wmlinks">';
 				html += '<a class="sblink" rel="shadowbox[mollusques]" href="' + imageFilePath + '"';
-				html += ' id="' + imgLinkId + '"';
+				html += ' id="' + imgLinkId + '" data-name="' + image.desc + '"';
 				html += ' title="' + articleLinkEncoded + image.desc + '&lt;/a&gt;">';
 				html += '<i class="icon-search" style="font-size: 30px;"></i>';
 				html += '</a>';
@@ -337,9 +395,8 @@
 	var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	var customNodes = null,
-		chartActive = null, // true if the chart is active
-		minWidthForGraph = 940, // If width is lower than 940 pixels, display a select instead of graph
 		imgCount = null,
+		alphabeticalData = null,
 		currentSVGNode = null,
 		selectedAlphabeticalFilter = null,
 		tmpNodes,
@@ -394,19 +451,51 @@
 		
 	}
 	
-	function onResize()
-	{
-		var contentWidthCssValue = $(".column-1").css('width');
-		var contentWidth = parseInt(contentWidthCssValue.substr(0, contentWidthCssValue.length - 2));
+	// Loading is true when onResize is called when the page is loading
+	function onResize(loading)
+	{		
+		var prevResponsiveData = getResponsiveData(previousContentWidth);
+		var newResponsiveData = getResponsiveData();
+
+		var contentWidth = getContentWidth();
+		previousContentWidth = contentWidth;
 		
-		if (contentWidth < minWidthForGraph)
+		var prevThumbWidth = prevResponsiveData.thumbWidth;
+		var newThumbWidth = newResponsiveData.thumbWidth;
+		
+		var prevIsChart = prevResponsiveData.chart;
+		var newIsChart = newResponsiveData.chart;
+		
+		// We don't switch if the page is just loading
+		var switching = loading == true ? false : true;
+		var reloadData = currentFilter != null && prevThumbWidth != newThumbWidth;
+		
+		// Redraw chart if needed
+		if (loading == true || prevIsChart != newIsChart)
 		{
-			configureSelect();
+			if (newIsChart)
+			{
+				configureChart(switching);
+				if (!reloadData)
+				{
+					// updateAlphabeticalFilter is called in onLoadData
+					// Update Alhabetical Filter
+					updateAlphabeticalFilter(alphabeticalData);
+				}
+			}
+			else
+			{
+				configureSelect(switching);
+			}
 		}
-		else
+		
+		// Reload images if needed
+		if (reloadData)
 		{
-			configureChart();
-		}
+			// Thumbnail width have changed...
+			// Reload images
+			loadData('filter', currentFilter);
+		}		
 	}
 	
 	function formatSelectElement(item)
@@ -416,15 +505,12 @@
 		return item.name + "  (" +  count + ")";
 	}
 	
-	function configureSelect()
-	{
-		// Configure the select element only if it's not already active
-		if (chartActive != null && chartActive == false) return;
-				
-		chartActive = false;
-				
-		// no D3js tree is width lower than 940px
-		d3.selectAll("#filters svg").remove();
+	function configureSelect(switching)
+	{				
+		if (switching)
+		{
+			d3.selectAll("#filters svg").remove();
+		}
 		var filters = $("#filters");
 		filters.empty();
 		filters.css("display", "none");
@@ -453,21 +539,24 @@
 		$("#selectmollusque").on("change", function(e) {
 			loadData('filter', e.val);
 		});
+		
+		if (currentFilter != null)
+		{
+			$("#selectmollusque").select2("val", currentFilter);
+		}
 	}
 	
-	function configureChart()
+	// switch is true if we switch from select to chart
+	function configureChart(switching)
 	{
-		// Configure the chart only if it's not already active
-		if (chartActive != null && chartActive == true) return;
-		
 		// Destroy the select element
-		if (chartActive == false)
+		if (switching)
 		{
 			// Remove the event handler
 			$("#selectmollusque").unbind("change");
+			$("#selectmollusque").select2("destroy");
 		}
-		// Destroy and hide the select element
-		$("#selectmollusque").select2("destroy");
+		// Hide the select element
 		$("#selectContainer").css("display","none");
 	
 		// Show the chart and alphabetical filter container
@@ -562,10 +651,11 @@
 	function initDependencyChart(response) {
 		
 		imgCount = response.data;
+		previousContentWidth = getContentWidth();
 				
 		$( window ).resize(onResize);
 		
-		onResize();
+		onResize(true);
 	}
 
 	function updateAlphabeticalFilter(alphabeticalData)
@@ -634,7 +724,6 @@
 				layer_wider_label[node.layer] = this_label_w;
 			}
 		}
-		//                node.x = nodex;
 		//x will be set
 		node.depth = parseInt(node.layer);
 		customNodes.push(node);
@@ -656,24 +745,24 @@
 		return "M" + p[0] + "C" + p[1] + " " + p[2] + " " + p[3];
 	}
 	
-	function getNodeColor(node)
+	function getNodeColor(nodeId)
 	{
-		return imgCount[node.id] > 0 ? nodeColor : emptyNodeColor;
+		return imgCount[nodeId] > 0 ? nodeColor : emptyNodeColor;
 	}
 	
-	function getTextColor(node)
+	function getTextColor(nodeId)
 	{
-		return imgCount[node.id] > 0 ? textColor : emptyTextColor;
+		return imgCount[nodeId] > 0 ? textColor : emptyTextColor;
 	}
 
-	function getRectNodeId(node)
+	function getRectNodeId(nodeId)
 	{
-		return node.id + "-rect";
+		return nodeId + "-rect";
 	}
 	
-	function getTextNodeId(node)
+	function getTextNodeId(nodeId)
 	{
-		return node.id + "-text";
+		return nodeId + "-text";
 	}
 	
 	function selectFilter(clickedTextNode) {
@@ -683,15 +772,12 @@
 
 		if (node.id == 'all') return;
 				
-		if (currentSVGNode != null)
+		if (currentFilter != null)
 		{
-			var currentNode = currentSVGNode.__data__;
-			depencencyChart.select("#" + getRectNodeId(currentNode)).attr("fill", getNodeColor(currentNode));
+			depencencyChart.select("#" + getRectNodeId(currentFilter)).attr("fill", getNodeColor(currentFilter));
 		}
 		
-		depencencyChart.select("#" + getRectNodeId(node)).attr("fill", selectedNodeColor);
-		
-		currentSVGNode = clickedTextNode;
+		depencencyChart.select("#" + getRectNodeId(node.id)).attr("fill", selectedNodeColor);
 		
 		loadData('filter', node.id);
 	}
@@ -703,35 +789,28 @@
 			var nodeSVG = depencencyChart.append("svg:g")
 				.attr("transform", "translate(" + node.x + "," + node.y + ")")
 				.attr("class", (node.id != "all" && imgCount[node.id] > 0) ? "node" : "inactivenode");
-												
-			/*if (node.depth > 0) {
-	            nodeSVG.append("svg:circle")
-	                    .attr("stroke", node.children ? "#3191c1" : "#269926")
-	                    .attr("fill", "#fff")
-	                    .attr("r", 3);
-	        }*/
 			
-			var txtBoxId = getTextNodeId(node);
-			var rectBoxId = getRectNodeId(node);
+			var txtBoxId = getTextNodeId(node.id);
+			var rectBoxId = getRectNodeId(node.id);
 				
 			var txtBox = nodeSVG.append("svg:text")
 				.data([node])
 				.attr("id", txtBoxId)
 				.attr("dx", 10)
 				.attr("dy", 4)
-				.attr("fill", getTextColor(node))
+				.attr("fill", getTextColor(node.id))
 				.text(node.name)
 				.on("click", function() {
 					if (imgCount[node.id] > 0) selectFilter(this);
 				});
-			
+							
 			tooltips[txtBoxId] = node.desc;
 
 			var txtW = txtBox.node().getComputedTextLength();
 			
 			nodeSVG.insert("rect", "text")
 				.attr("id", rectBoxId)
-				.attr("fill", getNodeColor(node))
+				.attr("fill", currentFilter == node.id ? selectedNodeColor : getNodeColor(node.id))
 				.attr("width", txtW + 20)
 				.attr("height", "27")
 				.attr("y", "-15")
@@ -760,14 +839,6 @@
 						return d.warning === "true" ? "link warning" : "link"
 					})
 					.attr("d", customSpline)
-
-				//draw a node at the end of the link
-				/*nodeSVG.append("svg:circle")
-	                    .attr("stroke", "#3191c1")
-	                    .attr("fill", "#fff")
-	                    .attr("r", 6)
-						.attr("transform", "translate(" + (txtW + 26) + ",0)")
-					.on("click", function(n) { alert('click'); })*/
 			}
 		});
 	}	
