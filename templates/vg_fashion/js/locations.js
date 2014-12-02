@@ -324,7 +324,7 @@ function toggleFullScreen(controlFullScreen)
 
 	    $mapCanvas.css("position", 'relative')
 	    	.css('top', 0)
-	    	.css("width", googleMapWidth)
+	    	.css("width", "100%")
 	    	.css("height", googleMapHeight)
 			.css("z-index", googleMapZindex);
 			
@@ -392,7 +392,6 @@ var markers = [];
 var markerCluster = null;
 var map = null;
 var infowindow = null;
-var googleMapWidth = null;
 var googleMapHeight = null;
 var googleMapZindex = null;
 var $mapCanvas = null;
@@ -430,7 +429,6 @@ function createMap(latitude, longitude, zoomValue, single) {
 	
 	// Get Map dimensions
 	$mapCanvas = jQuery("#map-canvas");
-	googleMapWidth = $mapCanvas.css('width');
 	googleMapHeight = $mapCanvas.css('height');
 	googleMapZindex = $mapCanvas.css('z-index');
 

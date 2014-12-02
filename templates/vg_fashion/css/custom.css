@@ -1977,3 +1977,62 @@ word-wrap: break-word;
   stroke: #ccc;
   stroke-width: 2px;
 }
+
+#area-filter-container
+{
+	width: 50%;
+	float: left;
+}
+#date-filter-container
+{
+	width: 50%;
+	float: right;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+
+	#area-filter-container
+	{
+		width: 50%;
+		float: left;
+	}
+	#date-filter-container
+	{
+		width: 50%;
+		float: right;
+	}
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+	#area-filter-container
+	{
+		width: 100%;
+		float: left;
+	}
+	#date-filter-container
+	{
+		width: 100%;
+		float: left;
+	}
+
+}
+
+@media only screen and (min-width: 200px) and (max-width: 479px) {
+
+	#area-filter-container
+	{
+		width: 100%;
+		float: left;
+	}
+	#date-filter-container
+	{
+		width: 100%;
+		float: left;
+	}
+
+}
+
+
+
