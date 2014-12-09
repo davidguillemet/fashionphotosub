@@ -364,9 +364,9 @@ class plgContentTZ_Portfolio extends JPlugin
 					$html .= '
 						<a href="'. $row->prev .'" rel="prev">
 						<div class="previous TzNavigationItem"'
-						. ($prevShorten == true ? ' title="'. $prevTitle .'"' : '') .
-						'><i class="icon-left"></i>'
-						. $prevShortTitle . 
+						. ' title="'. $prevTitle .'"' .
+						'><i class="icon-left navigationicon"></i>&nbsp;'
+						. '<span class="navigationcpation">' . $prevShortTitle . '</span>' .
 						'</div></a>'
 					;
 				}
@@ -381,8 +381,8 @@ class plgContentTZ_Portfolio extends JPlugin
 					$html .= '
 						<a href="'. $row->next .'" rel="next">
 						<div class="next TzNavigationItem"'
-						. ($nextShorten == true ? ' title="'. $nextTitle .'"' : '') .
-						'>'	. $nextShortTitle .'<i class="icon-right"></i>
+						. ' title="'. $nextTitle .'"' .
+						'><span class="navigationcpation">'	. $nextShortTitle .'</span>&nbsp;<i class="icon-right navigationicon"></i>
 						</div></a>'
 					;
 				}

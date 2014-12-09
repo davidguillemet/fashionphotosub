@@ -124,6 +124,7 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/fontello.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/animation.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/tipsy.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/jqcloud.css" type="text/css" />
 
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.color.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.isotope.min.js"></script>
@@ -134,6 +135,7 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.imagesloaded.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.wookmark.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.tipsy.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jqcloud-1.0.4.min.js"></script>
 
 
 <!-- supersized -->
@@ -247,17 +249,17 @@ Shadowbox.init({
 			
             <!-- Title -->
             <div class="title-block" style="<?php if( $vg_page_heading == '' ){ echo 'display:none;'; } ?>">
-            	
-				<h3 <?php echo $pagetitle_fontsize; ?>><?php echo $pagetitle; ?></h3>
-				                
+				
 				<div class="content-hider">
                 	<a href="#" class="c-hider"></a>
                     <a href="#" class="c-opener"></a>
                 </div>
-
+				
 				<div class="search">
 				<jdoc:include type="modules" name="fashion-search" style="none" />
 				</div>
+            	
+				<h3 <?php echo $pagetitle_fontsize; ?>><?php echo $pagetitle; ?></h3>                
 								
             </div>
             <!-- /Title -->

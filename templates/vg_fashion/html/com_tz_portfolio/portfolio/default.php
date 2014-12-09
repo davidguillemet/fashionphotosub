@@ -94,23 +94,9 @@ $doc->addStyleDeclaration('
                     <?php echo $this->escape($this->params->get('page_heading')); ?>
                 </h1>
                 <?php endif; ?>
-<!--                <h2 class="TzFilter">--><?php //echo JText::_('COM_TZ_PORTFOLIO_FILTER');?><!--</h2>-->
 
+                <div id="filter" class="option-set clearfix" data-option-key="filter" style="width: 100%; height: 240px;">
 
-
-                <div id="filter" class="option-set clearfix" data-option-key="filter">
-
-                    <a href="#show-all" data-option-value="*" class="btn btn-small selected">
-                        <?php echo JText::_('COM_TZ_PORTFOLIO_SHOW_ALL');?>
-                    </a>
-
-                    <?php if($params -> get('tz_filter_type','tags') == 'tags'):?>
-                        <?php echo $this -> loadTemplate('tags');?>
-                    <?php endif;?>
-                    
-                    <?php if($params -> get('tz_filter_type','tags') == 'categories'):?>
-                        <?php echo $this -> loadTemplate('categories');?>
-                    <?php endif;?>
                 </div>
             </div>
             <?php endif;?>
@@ -142,15 +128,6 @@ $doc->addStyleDeclaration('
                 </div>
             <?php endif;?>
 
-            <?php if($params -> get('tz_portfolio_layout') == 'default'):?>
-<!--                <div class="TzShow">-->
-<!--                  <span class="title">--><?php //echo strtoupper(JText::_('JSHOW'));?><!--</span>-->
-<!--                    <form name="adminForm" method="post" id="TzShowItems"-->
-<!--                          action="index.php?option=com_tz_portfolio&view=portfolio&Itemid=--><?php //echo $this -> Itemid?><!--">-->
-<!--                          --><?php //echo $this -> pagination -> getLimitBox();?>
-<!--                    </form>-->
-<!--                </div>-->
-            <?php endif;?>
         </div>
 
         <div id="portfolio" class="super-list variable-sizes clearfix">
@@ -262,11 +239,12 @@ $doc->addStyleDeclaration('
     });
 
     function loadPortfolio(){
-
-          var $optionSets = jQuery('#tz_options .option-set'),
-             $optionLinks = $optionSets.find('a');
-          $optionLinks.click(function(event){
-
+          
+		  var $optionSets = jQuery('#tz_options .option-set');
+		  
+          var $optionLinks = $optionSets.find('a');
+          
+		  $optionLinks.click(function(event){
               event.preventDefault();
             var $this = jQuery(this);
             // don't proceed if already selected
@@ -300,8 +278,13 @@ $doc->addStyleDeclaration('
           });
 
     }
-//    isotopeinit();
-    loadPortfolio();
+
+//    loadPortfolio();
+	jQuery("#filter").jQCloud(buildLocationCloud(), {
+		delayedMode: true,
+		removeOverflowing: false,
+		afterCloudRender: loadPortfolio
+	});
 
       </script>
 

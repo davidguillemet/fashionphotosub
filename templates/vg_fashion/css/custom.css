@@ -134,7 +134,7 @@ ul#slide-list
 {
 	border-top: 4px solid #212121;
 }
-.TzNavigationItem
+.￿
 {
 	color: #a0afe8;
 	font-size: 20px;
@@ -151,15 +151,15 @@ ul#slide-list
     -webkit-transition: all 200ms linear 0s;
     -o-transition: all 200ms linear 0s;
 }
-.TzNavigationItem .icon-right
+.￿ .icon-right
 {
 	margin-left: 10px;
 }
-.TzNavigationItem .icon-left
+.￿ .icon-left
 {
 	margin-right: 10px;
 }
-.TzNavigationItem:hover
+.￿:hover
 {
 	color: #ff5b0a;
 	background-color: #212121;
@@ -484,16 +484,28 @@ ul.nav .separator
 	background-color: rgb(7, 7, 7);
 	color: #e5e5e5;
 	border: none;
-	box-shadow: none;
-	margin-right: 5px;
-	padding: 8px 15px 8px 15px;
+	padding: 5px 10px 5px 10px;
 	text-transform: capitalize;
 	text-decoration: none;
 	border-radius: 0;
 	-moz-transition: all 200ms linear 0s;
 	-webkit-transition: all 200ms linear 0s;
 	-o-transition: all 200ms linear 0s;
+	
+	-moz-box-shadow: 3px 3px 10px 2px #656565;
+	-webkit-box-shadow: 3px 3px 10px 2px #656565;
+	-o-box-shadow: 3px 3px 10px 2px #656565;
+	box-shadow: 3px 3px 10px 2px #656565;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=135, Strength=10);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+    opacity: 0.8;
+    filter:alpha(opacity=80);
+
 }
+
 .mollusques #all 
 {
 	background-color: rgb(229, 229, 229);
@@ -2016,6 +2028,16 @@ word-wrap: break-word;
 		width: 100%;
 		float: left;
 	}
+	
+	.navigationcpation
+	{
+		display: none;
+	}
+
+	.navigationicon
+	{
+		font-size: 35px;
+	}
 
 }
 
@@ -2030,6 +2052,16 @@ word-wrap: break-word;
 	{
 		width: 100%;
 		float: left;
+	}
+
+	.navigationcpation
+	{
+		display: none;
+	}
+	
+	.navigationicon
+	{
+		font-size: 35px;
 	}
 
 }
