@@ -80,6 +80,7 @@ class plgContentWookmark_Gallery extends JPlugin
 			}
 			$string = $article->text;
 
+			$containerCount = 0;
 			$regex = "/{wookmark}(.*?){end-wookmark}/is";			
 			preg_match_all($regex, $string, $matches);
 			for ($n = 0; $n < count($matches[0]); $n++)
@@ -101,22 +102,29 @@ class plgContentWookmark_Gallery extends JPlugin
 				else
 				{
 					$returned = $this->fetchImgFold($arr_folder_path);
-					$string= str_replace($arr_org,"<div class='myapp'><ul class='tiles'>$returned</ul></div>",$string);
+					$string= str_replace($arr_org,"<div class='myapp' id='myapp$containerCount'><ul class='tiles' id='tiles$containerCount'>$returned</ul></div>",$string);
+					$containerCount++;
 				}
 			}
 
-			$article->text=$string."<script type='text/javascript'>
+			$javascript = "<script type='text/javascript'>
 			jQuery(document).imagesLoaded(function() {
-			jQuery(document).ready(new function() {
-			  var options = {
-				autoResize: $autoresize_gal, 
-				container: jQuery('.myapp'), 
-				offset: $offset, 
-				itemWidth: $itemWidth
-			  };
-			  var handler = jQuery('.tiles li');
-			  handler.wookmark(options);
+			jQuery(document).ready(new function() {";
+			
+			for ($galleryIndex = 0; $galleryIndex < $containerCount; $galleryIndex++)
+			{
+				$javascript .= "
+				  var options$galleryIndex = {
+					autoResize: $autoresize_gal, 
+					container: jQuery('#myapp$galleryIndex'), 
+					offset: $offset, 
+					itemWidth: $itemWidth
+				  };
+				  var handler$galleryIndex = jQuery('#tiles$galleryIndex li');
+				  handler$galleryIndex.wookmark(options$galleryIndex);";
+			}
 			  
+			$javascript .= "
 			  jQuery('.tiles li').tipsy({
 				gravity: 's',
 				html: true,
@@ -142,6 +150,9 @@ class plgContentWookmark_Gallery extends JPlugin
 			});
 			});
 		  </script>	";
+		  
+		  $article->text = $string . $javascript;
+		  
 		}
 	}
 
