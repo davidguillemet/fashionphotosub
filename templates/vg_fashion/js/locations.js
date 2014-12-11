@@ -62,7 +62,13 @@ var catFrance = {
 	alias: "france",
 	parent: catMediterranee
 };
-catMediterranee.children = [catFrance];
+var catEspagne = {
+	id: "esp",
+	text: "Espagne",
+	alias: "espagne",
+	parent: catMediterranee	
+}
+catMediterranee.children = [catFrance, catEspagne];
 
 var catAtlantiqueNord = {
 	id: "atl",
@@ -70,6 +76,19 @@ var catAtlantiqueNord = {
 	alias: "atlantique-nord",
 	parent: null
 }
+var catCaboVerde = {
+	id: "cab",
+	text: "Cap Vert",
+	alias: "cap-vert",
+	parent: catAtlantiqueNord
+};
+var catAzores = {
+	id: "azo",
+	text: "Açores",
+	alias: "acores",
+	parent: catAtlantiqueNord
+};
+catAtlantiqueNord.children = [catCaboVerde, catAzores];
 
 var catPacifiqueNord = {
 	id: "pac",
@@ -83,7 +102,13 @@ var catCanada = {
 	alias: "canada",
 	parent: catPacifiqueNord
 };
-catPacifiqueNord.children = [catCanada];
+var catMexique = {
+	id: "mex",
+	text: "Mexique",
+	alias: "mexique",
+	parent: catPacifiqueNord	
+};
+catPacifiqueNord.children = [catCanada, catMexique];
 
 var cat2014 = {
 	id: "2014",
@@ -218,7 +243,7 @@ locations["62"] = {
 	desc: "Séjour au Cap Vert, Île de Sal",
 	position: new google.maps.LatLng(16.597557, -22.908165),
 	date: "Mars 2013",
-	cat: [catAtlantiqueNord]
+	cat: [catAtlantiqueNord, catCaboVerde]
 };
 locations["63"] = {
 	id: "63",
@@ -227,7 +252,7 @@ locations["63"] = {
 	desc: "Séjour aux Açores (Pico et Faîal)",
 	position: new google.maps.LatLng(38.539841, -28.576521),
 	date: "Septembre 2012",
-	cat: [catAtlantiqueNord]
+	cat: [catAtlantiqueNord, catAzores]
 };
 locations["64"]= {
 	id: "64",
@@ -319,14 +344,69 @@ locations["156"] = {
 	date: "Octobre 2010",
 	cat: [catFrance, catMediterranee]
 };
+locations["157"] = {
+	id: "157",
+	alias: "2010-port-de-la-selva",
+	title: "Port de la Selva",
+	desc: "Séjour au <a href='http://fr.cips-dive.com/' target='_blank'>CIPS</a> de Port de la Selva",
+	position: new google.maps.LatLng(42.338554, 3.203014),
+	date: "Septembre 2010",
+	cat: [catEspagne, catMediterranee]
+};
+locations["158"] = {
+	id: "158",
+	alias: "2010-egypte",
+	title: "Egypte",
+	desc: "Croisière 'Odysée' dans le grand sud Egyptien",
+	position: new google.maps.LatLng(25.53253, 34.63388),
+	date: "Août 2010",
+	cat: [catRedSea, catEgypte]
+};
+locations["159"] = {
+	id: "159",
+	alias: "2010-08-marseille",
+	title: "Marseille",
+	desc: "Week-end à Marseille",
+	position: new google.maps.LatLng(43.293747, 5.363297),
+	date: "Août 2010",
+	cat: [catFrance, catMediterranee]
+};
+locations["160"] = {
+	id: "160",
+	alias: "2010-glenans",
+	title: "Les Glénans",
+	desc: "Séjour au <a href='http://www.cip-glenan.fr/' target='_blank'>CIP</a> des Glénans",
+	position: new google.maps.LatLng(47.723101, -4.00383),
+	date: "Juillet 2010",
+	cat: [catAtlantiqueNord, catFrance]
+};
+locations["161"] = {
+	id: "161",
+	alias: "2010-llafranc",
+	title: "Llafranc",
+	desc: "Séjour 'bio' avec Robert Oms",
+	position: new google.maps.LatLng(41.895178, 3.18566),
+	date: "Juin 2010",
+	cat: [catMediterranee, catEspagne]
+};
+locations["162"] = {
+	id: "162",
+	alias: "2010-socorro",
+	title: "Socorro",
+	desc: "Croisière à bord du <a href='http://www.nautilusexplorer.com/' target='_blank'>Nautilus Explorer</a>",
+	position: new google.maps.LatLng(18.776, -110.978),
+	date: "Mars 2010",
+	cat: [catPacifiqueNord, catMexique]
+};
 
-// Weight for a single trip
-var sigleWeight = 1;
+
 
 function buildLocationCloud()
 {
 	var tagCloud = [];
 	var catMap = [];
+	// Weight for a single trip
+	var singleWeight = 1;
 	
 	for (var key in locations)
 	{
@@ -341,7 +421,7 @@ function buildLocationCloud()
 				if (catMap[locationCat.id] == null)
 				{					
 					catMap[locationCat.id] = locationCat;
-					locationCat.weight = sigleWeight;
+					locationCat.weight = singleWeight;
 					locationCat.link = {
 						"data-option-value": "." + locationCat.alias, 
 						"href": "#" + locationCat.alias,
@@ -351,7 +431,7 @@ function buildLocationCloud()
 				}
 				else
 				{
-					locationCat.weight += sigleWeight;
+					locationCat.weight += singleWeight;
 				}
 			}
 
