@@ -134,7 +134,7 @@ ul#slide-list
 {
 	border-top: 4px solid #212121;
 }
-.￿
+.TzNavigationItem
 {
 	color: #a0afe8;
 	font-size: 20px;
@@ -151,15 +151,15 @@ ul#slide-list
     -webkit-transition: all 200ms linear 0s;
     -o-transition: all 200ms linear 0s;
 }
-.￿ .icon-right
+.TzNavigationItem .icon-right
 {
 	margin-left: 10px;
 }
-.￿ .icon-left
+.TzNavigationItem .icon-left
 {
 	margin-right: 10px;
 }
-.￿:hover
+.TzNavigationItem:hover
 {
 	color: #ff5b0a;
 	background-color: #212121;
