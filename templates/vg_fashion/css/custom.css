@@ -2001,6 +2001,25 @@ word-wrap: break-word;
 	float: right;
 }
 
+/* iFrame responsives pour les vidéos */
+.iframe-responsive-wrapper        {
+    position: relative;
+}
+
+.iframe-responsive-wrapper .iframe-ratio {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.iframe-responsive-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 959px) {
 
 	#area-filter-container
