@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Licenses
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,7 +13,7 @@
 
 defined('_JEXEC') or die;
 
-class NNLicenses
+class nnLicenses
 {
 	public static $instance = null;
 

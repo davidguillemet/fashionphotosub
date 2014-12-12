@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: FlexiContent
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 /**
  * Assignments: FlexiContent
  */
-class NNFrameworkAssignmentsFlexiContent
+class nnFrameworkAssignmentsFlexiContent
 {
 	function passPageTypes(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{

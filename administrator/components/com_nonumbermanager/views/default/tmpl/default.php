@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         NoNumber Extension Manager
- * @version         4.6.0
+ * @version         4.6.4
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -57,7 +57,7 @@ JFactory::getDocument()->addScriptDeclaration($script);
 // Version check
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/versions.php';
 if ($config->get('show_update_notification', 1)) {
-	echo NNVersions::getInstance()->getMessage('nonumbermanager', '', '', 'component');
+	echo nnVersions::getInstance()->getMessage('nonumbermanager', '', '', 'component');
 }
 
 $loading = '<div class="progress progress-striped active" style="min-width: 60px;"><div class="bar" style="width: 100%;"></div></div>';
@@ -333,7 +333,7 @@ $loading = '<div class="progress progress-striped active" style="min-width: 60px
 	</div>
 <?php
 // Copyright
-echo NNVersions::getInstance()->getCopyright('NONUMBER_EXTENSION_MANAGER', '', 17071, 'nonumbermanager', 'component', $config->get('show_copyright', 1));
+echo nnVersions::getInstance()->getCopyright('NONUMBER_EXTENSION_MANAGER', '', 17071, 'nonumbermanager', 'component', $config->get('show_copyright', 1));
 
 function makeSafe($str)
 {

@@ -2,7 +2,7 @@
  * Main JavaScript file
  *
  * @package         NoNumber Extension Manager
- * @version         4.6.0
+ * @version         4.6.4
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -71,7 +71,7 @@ var NNEM_INSTALL = 0;
 				var url = 'index.php?option=com_nonumbermanager&view=process&tmpl=component&id=' + id;
 				if (NNEM_INSTALL) {
 					url += '&action=install';
-					ext_url = $('#url_' + id).val() + '&action=' + NNEM_TASK
+					ext_url = $('#url_' + id).val() + '&action=' + NNEM_TASK + '&host=' + window.location.hostname;
 					url += '&url=' + escape(ext_url);
 				} else {
 					url += '&action=uninstall';

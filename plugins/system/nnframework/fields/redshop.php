@@ -4,7 +4,7 @@
  * Displays a multiselectbox of available RedShop categories / products
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,7 +27,7 @@ class JFormFieldNN_RedShop extends JFormField
 
 	protected function getInput()
 	{
-		if (!NNFrameworkFunctions::extensionInstalled('redshop'))
+		if (!nnFrameworkFunctions::extensionInstalled('redshop'))
 		{
 			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_FILES_NOT_FOUND', JText::_('NN_REDSHOP')) . '</fieldset>';
 		}
@@ -43,7 +43,7 @@ class JFormFieldNN_RedShop extends JFormField
 			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_TABLE_NOT_FOUND', JText::_('NN_REDSHOP')) . '</fieldset>';
 		}
 
-		$parameters = NNParameters::getInstance();
+		$parameters = nnParameters::getInstance();
 		$params = $parameters->getPluginParams('nnframework');
 		$this->max_list_count = $params->max_list_count;
 
@@ -126,7 +126,7 @@ class JFormFieldNN_RedShop extends JFormField
 		}
 		foreach ($list as $item)
 		{
-			$item->treename = NNText::prepareSelectItem($item->treename, $item->published, '', 1);
+			$item->treename = nnText::prepareSelectItem($item->treename, $item->published, '', 1);
 			$options[] = JHtml::_('select.option', $item->id, $item->treename, 'value', 'text', 0);
 		}
 
@@ -150,7 +150,7 @@ class JFormFieldNN_RedShop extends JFormField
 		foreach ($list as $item)
 		{
 			$item->name = $item->name . ' [' . $item->number . ']' . ($item->cat ? ' [' . $item->cat . ']' : '');
-			$item->name = NNText::prepareSelectItem($item->name, $item->published);
+			$item->name = nnText::prepareSelectItem($item->name, $item->published);
 			$options[] = JHtml::_('select.option', $item->id, $item->name, 'value', 'text', 0);
 		}
 

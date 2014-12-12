@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Tabs
- * @version         4.0.1
+ * @version         4.0.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,7 +19,7 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/tags.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-NNFrameworkFunctions::loadLanguage('plg_system_tabs');
+nnFrameworkFunctions::loadLanguage('plg_system_tabs');
 
 /**
  * Plugin that replaces stuff
@@ -44,7 +44,7 @@ class plgSystemTabsHelper
 		$this->params->disabled_components = array_merge($disabled_components, $this->params->disabled_components);
 
 		
-		$url = NNText::getURI();
+		$url = nnText::getURI();
 		$this->params->cookie_name = 'nn_tabs_' . md5($url);
 
 		require_once __DIR__ . '/helpers/helpers.php';
@@ -53,7 +53,7 @@ class plgSystemTabsHelper
 
 	public function onContentPrepare(&$article, &$context)
 	{
-		NNFrameworkHelper::processArticle($article, $context, $this, 'replaceTags');
+		nnFrameworkHelper::processArticle($article, $context, $this, 'replaceTags');
 	}
 
 	public function onAfterDispatch()

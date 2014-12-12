@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: PHP
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 /**
  * Assignments: PHP
  */
-class NNFrameworkAssignmentsPHP
+class nnFrameworkAssignmentsPHP
 {
 	function passPHP(&$parent, &$params, $selection = array(), $assignment = 'all', $article = 0)
 	{
@@ -81,12 +81,12 @@ class NNFrameworkAssignmentsPHP
 			{
 				$user = JFactory::getUser();
 			}
-			$php .= ';return 1;';
+			$php .= ';return true;';
 			$temp_PHP_func = create_function('&$article, &$Itemid, &$mainframe, &$app, &$document, &$doc, &$database, &$db, &$user', $php);
 
 			// evaluate the script
 			ob_start();
-			$pass = $temp_PHP_func($article, $Itemid, $mainframe, $app, $document, $doc, $database, $db, $user) ? 1 : 0;
+			$pass = (bool) $temp_PHP_func($article, $Itemid, $mainframe, $app, $document, $doc, $database, $db, $user);
 			unset($temp_PHP_func);
 			ob_end_clean();
 

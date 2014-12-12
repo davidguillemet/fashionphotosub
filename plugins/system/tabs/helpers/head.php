@@ -3,7 +3,7 @@
  * Plugin Helper File: Head
  *
  * @package         Tabs
- * @version         4.0.1
+ * @version         4.0.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

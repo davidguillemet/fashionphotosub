@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Snippets
- * @version         3.5.1
+ * @version         3.5.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -93,22 +93,22 @@ class plgSystemSnippets extends JPlugin
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (NNProtect::isAdmin())
+		if (nnProtect::isAdmin())
 		{
 			return false;
 		}
 
-		if (NNProtect::isProtectedPage($this->_alias, 1))
+		if (nnProtect::isProtectedPage($this->_alias, 1))
 		{
 			return false;
 		}
 
 		// Load component parameters
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$params = NNParameters::getInstance()->getComponentParams($this->_name);
+		$params = nnParameters::getInstance()->getComponentParams($this->_name);
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = NNFrameworkHelper::getPluginHelper($this, $params);
+		$this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
 
 		return $this->_helper;
 	}

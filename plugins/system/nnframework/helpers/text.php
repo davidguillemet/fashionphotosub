@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Text
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,10 +13,7 @@
 
 defined('_JEXEC') or die;
 
-/**
- * Functions
- */
-class NNText
+class nnText
 {
 	public static function dateToDateFormat($dateFormat)
 	{
@@ -247,7 +244,7 @@ class NNText
 	/**
 	 * gets attribute from a tag string
 	 */
-	public static function fixHtmlTagStructure(&$string)
+	public static function fixHtmlTagStructure(&$string, $remove_surrounding_p_tags = 1)
 	{
 		// Combine duplicate <p> tags
 		nnText::combinePTags($string);
@@ -258,8 +255,11 @@ class NNText
 		// Remove duplicate ending </p> tags
 		nnText::removeDuplicateTags($string, '/p');
 
-		// Remove surrounding <p></p> blocks
-		nnText::removeSurroundingPBlocks($string);
+		if ($remove_surrounding_p_tags)
+		{
+			// Remove surrounding <p></p> blocks
+			nnText::removeSurroundingPBlocks($string);
+		}
 	}
 
 	/**

@@ -4,7 +4,7 @@
  * Display a menuitem field with a button
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -30,7 +30,6 @@ class JFormFieldNN_MenuItems extends JFormField
 
 		JFactory::getLanguage()->load('com_menus', JPATH_ADMINISTRATOR);
 
-		require_once JPATH_ADMINISTRATOR . '/components/com_menus/helpers/menus.php';
 		$options = $this->getMenuLinks();
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';

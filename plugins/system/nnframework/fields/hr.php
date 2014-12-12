@@ -4,7 +4,7 @@
  * Displays a line
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,14 +19,14 @@ class JFormFieldNN_HR extends JFormField
 	public $type = 'HR';
 
 	protected function getLabel()
-	{
+{
 		return '';
 	}
 
 	protected function getInput()
 	{
-		JHtml::stylesheet('nnframework/style.min.css', false, true);
+ 	JHtml::stylesheet('nnframework/style.min.css', false, true);
 
-		return '<div class="nn_panel nn_hr"></div>';
+     	return '<div class="nn_panel nn_hr"></div>';
 	}
 }

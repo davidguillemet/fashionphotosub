@@ -2,7 +2,7 @@
  * Main stylesheet
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -166,7 +166,17 @@ div.chzn-container#advancedparams_color_chzn {
 	max-width: 40px;
 }
 
-input.nn_codefield {
+input.nn_codefield,
+input.nn_keyfield,
+div.nn_keycode {
 	#font > #family > .monospace;
 	font-size: 1.4em !important;
+}
+
+.nn_keycode {
+	color: @grayLight;
+	padding: 2px 0;
+}
+#jform_key_button {
+	margin-left: 8px;
 }

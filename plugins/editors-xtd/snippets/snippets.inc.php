@@ -4,7 +4,7 @@
  * Used for the editor button (template xml)
  *
  * @package         Snippets
- * @version         3.5.1
+ * @version         3.5.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,7 +27,7 @@ if ($user->get('guest')
 
 require_once JPATH_ADMINISTRATOR . '/components/com_snippets/helpers/helper.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-$parameters = NNParameters::getInstance();
+$parameters = nnParameters::getInstance();
 $params = $parameters->getComponentParams('snippets');
 
 if (JFactory::getApplication()->isSite())
@@ -92,8 +92,8 @@ class plgButtonSnippetsPopup
 
 		// Load component language
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
-		NNFrameworkFunctions::loadLanguage('plg_system_nnframework');
-		NNFrameworkFunctions::loadLanguage('com_snippets');
+		nnFrameworkFunctions::loadLanguage('plg_system_nnframework');
+		nnFrameworkFunctions::loadLanguage('com_snippets');
 
 		// Add scripts and styles
 		$script = "
@@ -108,7 +108,7 @@ class plgButtonSnippetsPopup
 		?>
 		<div class="header">
 			<div class="container-fluid">
-				<h1 CLASS="page-title"><?php echo JText::_('ARTICLES_ANYWHERE'); ?></h1>
+				<h1 CLASS="page-title"><?php echo JText::_('SNIPPETS'); ?></h1>
 
 			</div>
 		</div>

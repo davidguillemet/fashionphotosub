@@ -3,7 +3,7 @@
  * List View
  *
  * @package         Snippets
- * @version         3.5.1
+ * @version         3.5.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -34,7 +34,7 @@ class SnippetsViewList extends JViewLegacy
 	public function display($tpl = null)
 	{
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$this->parameters = NNParameters::getInstance();
+		$this->parameters = nnParameters::getInstance();
 
 		$this->enabled = SnippetsHelper::isEnabled();
 		$this->list = $this->get('Items');

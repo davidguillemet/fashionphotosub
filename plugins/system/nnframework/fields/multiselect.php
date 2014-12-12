@@ -4,7 +4,7 @@
  * Displays a multiselectbox
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -23,25 +23,25 @@ class JFormFieldNN_MultiSelect extends JFormField
 	private $params = null;
 
 	protected function getInput()
-	{
-		$this->params = $this->element->attributes();
+{
+	 $this->params = $this->element->attributes();
 
-		if (!is_array($this->value))
+	     if (!is_array($this->value))
 		{
 			$this->value = explode(',', $this->value);
-		}
+  	}
 
-		foreach ($this->element->children() as $item)
-		{
-			$item_value = (string) $item['value'];
+	foreach ($this->element->children() as $item)
+	  {
+		$item_value = (string) $item['value'];
 			$item_name = JText::_(trim((string) $item));
-			$item_disabled = (int) $item['disabled'];
-			$options[] = JHtml::_('select.option', $item_value, $item_name, 'value', 'text', $item_disabled);
+ 		$item_disabled = (int) $item['disabled'];
+		     $options[] = JHtml::_('select.option', $item_value, $item_name, 'value', 'text', $item_disabled);
 		}
 
-		$size = (int) $this->get('size');
+  	$size = (int) $this->get('size');
 
-		require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';
+	require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';
 
 		return nnHtml::selectlist($options, $this->name, $this->value, $this->id, $size, 1);
 	}
@@ -49,5 +49,5 @@ class JFormFieldNN_MultiSelect extends JFormField
 	private function get($val, $default = '')
 	{
 		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
-	}
+  }
 }

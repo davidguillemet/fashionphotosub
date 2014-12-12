@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,7 +17,7 @@ if (JFactory::getApplication()->isAdmin())
 {
 	// load the NoNumber Framework language file
 	require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
-	NNFrameworkFunctions::loadLanguage('plg_system_nnframework');
+	nnFrameworkFunctions::loadLanguage('plg_system_nnframework');
 }
 
 /**
@@ -76,7 +76,8 @@ class plgSystemNNFramework extends JPlugin
 		$query = $query->clear()
 			->update('#__update_sites as u')
 			->set('u.extra_query = ' . $db->q('k=' . $key))
-			->where('u.location LIKE ' . $db->q('http://download.nonumber.nl%'));
+			->where('u.location LIKE ' . $db->q('http://download.nonumber.nl%'))
+			->where('u.location LIKE ' . $db->q('%&pro=1%'));
 		$db->setQuery($query);
 		$db->execute();
 	}

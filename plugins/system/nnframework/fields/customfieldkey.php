@@ -4,7 +4,7 @@
  * Displays a custom key field (use in combination with customfieldvalue)
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -24,7 +24,7 @@ class JFormFieldNN_CustomFieldKey extends JFormField
 		$this->params = $this->element->attributes();
 
 		$label = ($this->get('label') ? $this->get('label') : '');
-		$size = ($this->get('size') ? 'size="' . $this->get('size') . '"' : '');
+		$size = ($this->get('size') ? 'style="width:' . $this->get('size') . 'px"' : '');
 		$class = ($this->get('class') ? 'class="' . $this->get('class') . '"' : 'class="text_area"');
 		$this->value = htmlspecialchars(html_entity_decode($this->value, ENT_QUOTES), ENT_QUOTES);
 

@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Modules Anywhere
- * @version         3.6.0
+ * @version         3.6.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -66,19 +66,19 @@ class plgButtonModulesAnywhere extends JPlugin
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (!NNProtect::isSystemPluginInstalled($this->_alias))
+		if (!nnProtect::isSystemPluginInstalled($this->_alias))
 		{
 			return false;
 		}
 
 		// Load plugin parameters
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = NNParameters::getInstance();
+		$parameters = nnParameters::getInstance();
 		$params = $parameters->getPluginParams($this->_name);
 
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = NNFrameworkHelper::getPluginHelper($this, $params);
+		$this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
 
 		return $this->_helper;
 	}

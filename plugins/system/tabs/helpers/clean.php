@@ -3,7 +3,7 @@
  * Plugin Helper File: Clean
  *
  * @package         Tabs
- * @version         4.0.1
+ * @version         4.0.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -32,7 +32,7 @@ class plgSystemTabsHelperClean
 	{
 		$this->helpers->get('protect')->unprotectTags($string);
 
-		NNProtect::removeFromHtmlTagContent($string, $this->params->protected_tags);
-		NNProtect::removeInlineComments($string, 'Tabs');
+		nnProtect::removeFromHtmlTagContent($string, $this->params->protected_tags);
+		nnProtect::removeInlineComments($string, 'Tabs');
 	}
 }

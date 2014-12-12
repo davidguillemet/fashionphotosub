@@ -4,7 +4,7 @@
  * Displays a multiselectbox of available K2 categories / tags / items
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,7 +27,7 @@ class JFormFieldNN_K2 extends JFormField
 
 	protected function getInput()
 	{
-		if (!NNFrameworkFunctions::extensionInstalled('k2'))
+		if (!nnFrameworkFunctions::extensionInstalled('k2'))
 		{
 			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_FILES_NOT_FOUND', JText::_('NN_K2')) . '</fieldset>';
 		}
@@ -43,7 +43,7 @@ class JFormFieldNN_K2 extends JFormField
 			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_TABLE_NOT_FOUND', JText::_('NN_K2')) . '</fieldset>';
 		}
 
-		$parameters = NNParameters::getInstance();
+		$parameters = nnParameters::getInstance();
 		$params = $parameters->getPluginParams('nnframework');
 		$this->max_list_count = $params->max_list_count;
 
@@ -130,7 +130,7 @@ class JFormFieldNN_K2 extends JFormField
 		}
 		foreach ($list as $item)
 		{
-			$item->treename = NNText::prepareSelectItem($item->treename, $item->published, '', 1);
+			$item->treename = nnText::prepareSelectItem($item->treename, $item->published, '', 1);
 			$options[] = JHtml::_('select.option', $item->id, $item->treename, 'value', 'text', 0);
 		}
 
@@ -173,7 +173,7 @@ class JFormFieldNN_K2 extends JFormField
 		foreach ($list as $item)
 		{
 			$item->name = $item->name . ' [' . $item->id . ']' . ($item->cat ? ' [' . $item->cat . ']' : '');
-			$item->name = NNText::prepareSelectItem($item->name, $item->published);
+			$item->name = nnText::prepareSelectItem($item->name, $item->published);
 			$options[] = JHtml::_('select.option', $item->id, $item->name, 'value', 'text', 0);
 		}
 

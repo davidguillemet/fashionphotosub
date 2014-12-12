@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Tabs
- * @version         4.0.1
+ * @version         4.0.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,112 +18,112 @@ defined('_JEXEC') or die;
  */
 class plgButtonTabs extends JPlugin
 {
-	private $_alias = 'tabs';
+  private $_alias = 'tabs';
 
 	private $_init = false;
 	private $_helper = null;
 
 	/**
 	 * Display the button
-	 *
+*
 	 * @return array  A two element array of ( imageName, textToInsert )
 	 */
 	function onDisplay($name)
 	{
 		if (!$this->getHelper())
 		{
-			return;
+ 		return;
 		}
 
-		return $this->_helper->render($name);
+	     return $this->_helper->render($name);
 	}
 
 	/*
 	 * Below methods are general functions used in most of the NoNumber extensions
-	 * The reason these are not placed in the NoNumber Framework files is that they also
+  * The reason these are not placed in the NoNumber Framework files is that they also
 	 * need to be used when the NoNumber Framework is not installed
-	 */
+*/
 
 	/**
 	 * Create the helper object
-	 *
+  *
 	 * @return object The plugins helper object
 	 */
-	private function getHelper()
+private function getHelper()
 	{
-		// Already initialized, so return
-		if ($this->_init)
+ 	// Already initialized, so return
+	     if ($this->_init)
 		{
-			return $this->_helper;
+	  	return $this->_helper;
 		}
 
 		$this->_init = true;
 
-		if (!$this->isFrameworkEnabled())
+	if (!$this->isFrameworkEnabled())
 		{
-			return false;
+  		return false;
 		}
 
-		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
+	require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (!NNProtect::isSystemPluginInstalled($this->_alias))
-		{
+		if (!nnProtect::isSystemPluginInstalled($this->_alias))
+ 	{
 			return false;
-		}
+	     }
 
 		// Load plugin parameters
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = NNParameters::getInstance();
+  	$parameters = nnParameters::getInstance();
 		$params = $parameters->getPluginParams($this->_name);
 
-		// allow in component?
-		if (
-			(!is_array($params->disabled_components) && JFactory::getApplication()->input->get('option') == $params->disabled_components)
-			|| (is_array($params->disabled_components) && in_array(JFactory::getApplication()->input->get('option'), $params->disabled_components))
+	// allow in component?
+	  if (
+		(!is_array($params->disabled_components) && JFactory::getApplication()->input->get('option') == $params->disabled_components)
+		 || (is_array($params->disabled_components) && in_array(JFactory::getApplication()->input->get('option'), $params->disabled_components))
 		)
 		{
-			return false;
+	     	return false;
 		}
 
 		// allow in frontend?
-		if (!$params->enable_frontend && JFactory::getApplication()->isSite())
-		{
-			return false;
-		}
+	  if (!$params->enable_frontend && JFactory::getApplication()->isSite())
+	{
+	  	return false;
+	}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = NNFrameworkHelper::getPluginHelper($this, $params);
+	 $this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
 
 		return $this->_helper;
 	}
 
 	/**
-	 * Check if the NoNumber Framework is enabled
+     * Check if the NoNumber Framework is enabled
 	 *
 	 * @return bool
-	 */
+  */
 	private function isFrameworkEnabled()
 	{
 		// Return false if NoNumber Framework is not installed
-		if (!$this->isFrameworkInstalled())
-		{
+	if (!$this->isFrameworkInstalled())
+	  {
 			return false;
 		}
 
-		$nnframework = JPluginHelper::getPlugin('system', 'nnframework');
+	$nnframework = JPluginHelper::getPlugin('system', 'nnframework');
 
 		return isset($nnframework->name);
 	}
 
 	/**
-	 * Check if the NoNumber Framework is installed
+ * Check if the NoNumber Framework is installed
 	 *
 	 * @return bool
-	 */
+     */
 	private function isFrameworkInstalled()
-	{
+  {
 		jimport('joomla.filesystem.file');
 
-		return JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php');
-	}
+	return JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php');
+  }
 }

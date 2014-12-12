@@ -4,7 +4,7 @@
  * Displays a multiselectbox of available VirtueMart categories / products
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,7 +27,7 @@ class JFormFieldNN_VirtueMart extends JFormField
 
 	protected function getInput()
 	{
-		if (!NNFrameworkFunctions::extensionInstalled('virtuemart'))
+		if (!nnFrameworkFunctions::extensionInstalled('virtuemart'))
 		{
 			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_FILES_NOT_FOUND', JText::_('NN_VIRTUEMART')) . '</fieldset>';
 		}
@@ -43,7 +43,7 @@ class JFormFieldNN_VirtueMart extends JFormField
 			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_TABLE_NOT_FOUND', JText::_('NN_VIRTUEMART')) . '</fieldset>';
 		}
 
-		$parameters = NNParameters::getInstance();
+		$parameters = nnParameters::getInstance();
 		$params = $parameters->getPluginParams('nnframework');
 		$this->max_list_count = $params->max_list_count;
 
@@ -64,8 +64,9 @@ class JFormFieldNN_VirtueMart extends JFormField
 			return nnHtml::selectlist($options, $this->name, $this->value, $this->id, $size, $multiple);
 		}
 
-		$attr = '';
-		$attr .= ' size="' . (int) $size . '"';
+		$size = $size ? 'style="width:' . $size . 'px"' : '';
+
+		$attr = $size;
 		$attr .= $multiple ? ' multiple="multiple"' : '';
 
 		return JHtml::_('select.genericlist', $options, $this->name, trim($attr), 'value', 'text', $this->value, $this->id);
@@ -129,7 +130,7 @@ class JFormFieldNN_VirtueMart extends JFormField
 		}
 		foreach ($list as $item)
 		{
-			$item->treename = NNText::prepareSelectItem($item->treename, $item->published, '', 1);
+			$item->treename = nnText::prepareSelectItem($item->treename, $item->published, '', 1);
 			$options[] = JHtml::_('select.option', $item->id, $item->treename, 'value', 'text', 0);
 		}
 
@@ -169,7 +170,7 @@ class JFormFieldNN_VirtueMart extends JFormField
 		foreach ($list as $item)
 		{
 			$item->name = $item->name . ' [' . $item->sku . ']' . ($item->cat ? ' [' . $item->cat . ']' : '');
-			$item->name = NNText::prepareSelectItem($item->name, $item->published);
+			$item->name = nnText::prepareSelectItem($item->name, $item->published);
 			$options[] = JHtml::_('select.option', $item->id, $item->name, 'value', 'text', 0);
 		}
 
@@ -189,7 +190,10 @@ class JFormFieldNN_VirtueMart extends JFormField
 		{
 			case (strpos($config, 'active_languages=') !== false):
 				$lang = substr($config, strpos($config, 'active_languages='));
-				$lang = substr($lang, 0, strpos($lang, '|'));
+				if(strpos($lang, '|=') !== false)
+				{
+					$lang = substr($lang, 0, strpos($lang, '|'));
+				}
 				$lang = explode('=', $lang);
 				$lang = unserialize($lang[1]);
 
@@ -203,7 +207,10 @@ class JFormFieldNN_VirtueMart extends JFormField
 
 			case (strpos($config, 'vmlang=') !== false) :
 				$lang = substr($config, strpos($config, 'vmlang='));
-				$lang = substr($lang, 0, strpos($lang, '|'));
+				if (strpos($lang, '|=') !== false)
+				{
+					$lang = substr($lang, 0, strpos($lang, '|'));
+				}
 
 				if (preg_match('#"([^"]*_[^"]*)"#', $lang, $lang))
 				{

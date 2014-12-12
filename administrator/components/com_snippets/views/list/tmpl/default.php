@@ -3,7 +3,7 @@
  * List View Template: Default
  *
  * @package         Snippets
- * @version         3.5.1
+ * @version         3.5.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.tooltip');
-JHtml::_('script', 'system/multiselect.js', false, true);
+JHtml::_('behavior.multiselect');
 JHtml::_('formbehavior.chosen', 'select');
 
 JHtml::stylesheet('nnframework/style.min.css', false, true);
@@ -46,22 +46,9 @@ $cols = 7;
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/versions.php';
 if ($this->config->show_update_notification)
 {
-	echo NNVersions::getInstance()->getMessage('snippets', '', '', 'component');
+	echo nnVersions::getInstance()->getMessage('snippets', '', '', 'component');
 }
 ?>
-	<script type="text/javascript">
-		Joomla.orderTable = function() {
-			table = document.getElementById("sortTable");
-			direction = document.getElementById("directionTable");
-			order = table.options[table.selectedIndex].value;
-			if (order != '<?php echo $listOrder; ?>') {
-				dirn = 'asc';
-			} else {
-				dirn = direction.options[direction.selectedIndex].value;
-			}
-			Joomla.tableOrdering(order, dirn, '');
-		}
-	</script>
 	<form action="<?php echo JRoute::_('index.php?option=com_snippets&view=list'); ?>" method="post" name="adminForm" id="adminForm">
 		<?php
 		// Search tools bar
@@ -72,25 +59,25 @@ if ($this->config->show_update_notification)
 			<thead>
 			<tr>
 				<th width="1%" class="nowrap center hidden-phone">
-					<?php echo JHtml::_('grid.sort', '<span class="icon-menu-2"></span>', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
+					<?php echo JHtml::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
 				</th>
 				<th width="1%" class="hidden-phone">
-					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+					<?php echo JHtml::_('grid.checkall'); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
 				</th>
 				<th class="title">
-					<?php echo JHtml::_('grid.sort', 'SNP_SNIPPET_ID', 'a.alias', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'SNP_SNIPPET_ID', 'a.alias', $listDirn, $listOrder); ?>
 				</th>
 				<th class="title">
-					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'a.name', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'a.name', $listDirn, $listOrder); ?>
 				</th>
 				<th class="title hidden-phone">
-					<?php echo JHtml::_('grid.sort', 'JGLOBAL_DESCRIPTION', 'a.description', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_DESCRIPTION', 'a.description', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center hidden-phone">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
 				</th>
 			</tr>
 			</thead>
@@ -180,10 +167,10 @@ if ($this->config->show_update_notification)
 <?php
 // PRO Check
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/licenses.php';
-echo NNLicenses::getInstance()->getMessage('SNIPPETS', 0);
+echo nnLicenses::getInstance()->getMessage('SNIPPETS', 0);
 
 // Copyright
-echo NNVersions::getInstance()->getCopyright('SNIPPETS', '', 13003, 'snippets', 'component');
+echo nnVersions::getInstance()->getCopyright('SNIPPETS', '', 13003, 'snippets', 'component');
 
 function makeTooltipSafe($str)
 {

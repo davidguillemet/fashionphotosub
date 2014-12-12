@@ -4,7 +4,7 @@
  * extra JHTML functions
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -14,9 +14,6 @@
 
 defined('_JEXEC') or die;
 
-/**
- * nnHtml
- */
 class nnHtml
 {
 	static function selectlist(&$options, $name, $value, $id, $size = 0, $multiple = 0, $simple = 0)
@@ -27,7 +24,7 @@ class nnHtml
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$parameters = NNParameters::getInstance();
+		$parameters = nnParameters::getInstance();
 		$params = $parameters->getPluginParams('nnframework');
 
 		if (!is_array($value))
@@ -70,8 +67,6 @@ class nnHtml
 			return '<fieldset class="radio"><label for="' . $id . '">' . JText::_('NN_ITEM_IDS') . ':</label>' . $input . '</fieldset>';
 		}
 
-		$size = $size ? $size : 300;
-
 		if (!$multiple)
 		{
 			$first_level = isset($options['0']->level) ? $options['0']->level : 0;
@@ -91,8 +86,7 @@ class nnHtml
 
 		if ($simple)
 		{
-			$attr = '';
-			$attr .= ' size="' . (int) $size . '"';
+			$attr = $size ? 'style="width: ' . (int) $size . 'px"' : '';
 			$attr .= $multiple ? ' multiple="multiple"' : '';
 
 			return JHtml::_('select.genericlist', $options, $name, trim($attr), 'value', 'text', $value, $id);
@@ -151,7 +145,9 @@ class nnHtml
 			}
 		}
 
-		$html[] = '<ul class="nn_multiselect-ul" style="max-height:' . (int) $size . 'px;overflow-x: hidden;">';
+		$size = $size ?: 300;
+
+		$html[] = '<ul class="nn_multiselect-ul" style="max-height:300px;min-width:' . (int) $size . 'px;overflow-x: hidden;">';
 		$prevlevel = 0;
 
 		foreach ($o as $i => $option)

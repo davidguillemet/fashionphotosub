@@ -3,7 +3,7 @@
  * Main File
  *
  * @package         Modules Anywhere
- * @version         3.6.0
+ * @version         3.6.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -88,18 +88,18 @@ class plgSystemModulesAnywhere extends JPlugin
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (NNProtect::isAdmin())
+		if (nnProtect::isAdmin())
 		{
 			return false;
 		}
 
-		if (NNProtect::isProtectedPage($this->_alias, 1))
+		if (nnProtect::isProtectedPage($this->_alias, 1))
 		{
 			return false;
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = NNFrameworkHelper::getPluginHelper($this);
+		$this->_helper = nnFrameworkHelper::getPluginHelper($this);
 
 		return $this->_helper;
 	}

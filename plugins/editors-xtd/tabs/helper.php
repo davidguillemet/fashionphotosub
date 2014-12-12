@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Tabs
- * @version         4.0.1
+ * @version         4.0.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -38,7 +38,7 @@ class plgButtonTabsHelper
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
-		NNFrameworkFunctions::loadLanguage('plg_editors-xtd_tabs');
+		nnFrameworkFunctions::loadLanguage('plg_editors-xtd_tabs');
 
 		JHtml::stylesheet('nnframework/style.min.css', false, true);
 

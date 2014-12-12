@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Modules Anywhere
- * @version         3.6.0
+ * @version         3.6.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,7 +17,7 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
 
-NNFrameworkFunctions::loadLanguage('plg_system_modulesanywhere');
+nnFrameworkFunctions::loadLanguage('plg_system_modulesanywhere');
 
 /**
  * Plugin that places modules
@@ -69,7 +69,7 @@ class plgSystemModulesAnywhereHelper
 		$area = isset($article->created_by) ? 'articles' : 'other';
 
 
-		NNFrameworkHelper::processArticle($article, $context, $this, 'processModules', array($area));
+		nnFrameworkHelper::processArticle($article, $context, $this, 'processModules', array($area));
 	}
 
 	public function onAfterDispatch()
@@ -173,7 +173,7 @@ class plgSystemModulesAnywhereHelper
 		// EVERYWHERE
 		$this->processModules($string, 'other');
 
-		NNProtect::unprotect($string);
+		nnProtect::unprotect($string);
 	}
 
 	function tagArea(&$string, $ext = 'EXT', $area = '')
@@ -468,7 +468,7 @@ class plgSystemModulesAnywhereHelper
 		}
 		else
 		{
-			$query->where('m.title = ' . $db->quote(NNText::html_entity_decoder($id)));
+			$query->where('m.title = ' . $db->quote(nnText::html_entity_decoder($id)));
 		}
 		if (!$ignore_access)
 		{
@@ -597,51 +597,67 @@ class plgSystemModulesAnywhereHelper
 
 	function applyAssignments(&$module)
 	{
-		$module->published = 1;
-		$modules = array($module->id => $module);
-		$this->onPrepareModuleList($modules);
-		$module = array_shift($modules);
+		$this->setModulePublishState($module);
 
 		if (!$module->published)
 		{
-			$module = 0;
+			$module = null;
 		}
 	}
 
-	function onPrepareModuleList(&$modules)
+	function setModulePublishState(&$module)
 	{
+		$module->published = 1;
+
 		// for old Advanced Module Manager versions
 		if (function_exists('plgSystemAdvancedModulesPrepareModuleList'))
 		{
+			$modules = array($module->id => $module);
 			plgSystemAdvancedModulesPrepareModuleList($modules);
+			$module = array_shift($modules);
 
-			return;
-		}
-
-		if (!class_exists('plgSystemAdvancedModuleHelper'))
-		{
 			return;
 		}
 
 		// for new Advanced Module Manager versions
-		$helper = new plgSystemAdvancedModuleHelper;
-		$helper->onPrepareModuleList($modules);
+		if (class_exists('plgSystemAdvancedModuleHelper'))
+		{
+			$modules = array($module->id => $module);
+			$helper = new plgSystemAdvancedModuleHelper;
+			$helper->onPrepareModuleList($modules);
+			$module = array_shift($modules);
+
+			return;
+		}
+
+		// for core Joomla
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true)
+			->select('mm.moduleid')
+			->from('#__modules_menu AS mm')
+			->where('mm.moduleid = ' . (int) $module->id)
+			->where('(mm.menuid = ' . ((int) JFactory::getApplication()->input->getInt('Itemid')) . ' OR mm.menuid <= 0)');
+		$db->setQuery($query);
+		$result = $db->loadResult();
+		$module->published = !empty($result);
+
+		return;
 	}
 
 	function protect(&$string)
 	{
-		NNProtect::protectFields($string);
-		NNProtect::protectSourcerer($string);
+		nnProtect::protectFields($string);
+		nnProtect::protectSourcerer($string);
 	}
 
 	function protectTags(&$string)
 	{
-		NNProtect::protectTags($string, $this->params->protected_tags);
+		nnProtect::protectTags($string, $this->params->protected_tags);
 	}
 
 	function unprotectTags(&$string)
 	{
-		NNProtect::unprotectTags($string, $this->params->protected_tags);
+		nnProtect::unprotectTags($string, $this->params->protected_tags);
 	}
 
 	/**

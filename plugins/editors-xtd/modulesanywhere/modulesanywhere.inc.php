@@ -4,7 +4,7 @@
  * Displays a list with modules
  *
  * @package         Modules Anywhere
- * @version         3.6.0
+ * @version         3.6.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -26,7 +26,7 @@ if ($user->get('guest')
 }
 
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-$parameters = NNParameters::getInstance();
+$parameters = nnParameters::getInstance();
 $params = $parameters->getPluginParams('modulesanywhere');
 
 if (JFactory::getApplication()->isSite())
@@ -48,10 +48,10 @@ class plgButtonModulesAnywherePopup
 
 		// load the admin language file
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
-		NNFrameworkFunctions::loadLanguage('plg_system_nnframework');
-		NNFrameworkFunctions::loadLanguage('plg_editors-xtd_modulesanywhere');
-		NNFrameworkFunctions::loadLanguage('plg_system_modulesanywhere');
-		NNFrameworkFunctions::loadLanguage('com_modules');
+		nnFrameworkFunctions::loadLanguage('plg_system_nnframework');
+		nnFrameworkFunctions::loadLanguage('plg_editors-xtd_modulesanywhere');
+		nnFrameworkFunctions::loadLanguage('plg_system_modulesanywhere');
+		nnFrameworkFunctions::loadLanguage('com_modules');
 
 		JHtml::stylesheet('nnframework/style.min.css', false, true);
 
@@ -170,8 +170,8 @@ class plgButtonModulesAnywherePopup
 		{
 			$extension = $type->value;
 			$source = JPATH_SITE . '/modules/' . $extension;
-			NNFrameworkFunctions::loadLanguage($extension . '.sys', JPATH_SITE)
-			|| NNFrameworkFunctions::loadLanguage($extension . '.sys', $source);
+			nnFrameworkFunctions::loadLanguage($extension . '.sys', JPATH_SITE)
+			|| nnFrameworkFunctions::loadLanguage($extension . '.sys', $source);
 			$types[$i]->text = JText::_($type->text);
 		}
 		JArrayHelper::sortObjects($types, 'text', 1, true, JFactory::getLanguage()->getLocale());

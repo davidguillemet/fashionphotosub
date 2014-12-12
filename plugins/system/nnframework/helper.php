@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -24,26 +24,13 @@ class plgSystemNNFrameworkHelper
 	{
 		$url = JFactory::getApplication()->input->getString('url', '');
 
-		$func = new NNFrameworkFunctions;
+		$func = new nnFrameworkFunctions;
 
 		if ($url)
 		{
 			echo $func->getByUrl($url);
+
 			die;
-		}
-
-		$file = JFactory::getApplication()->input->getString('file', '');
-
-		// only allow files that have .inc.php in the file name
-		if (!$file || (strpos($file, '.inc.php') === false))
-		{
-			die;
-		}
-
-		$folder = JFactory::getApplication()->input->getString('folder', '');
-		if ($folder)
-		{
-			$file = implode('/', explode('.', $folder)) . '/' . $file;
 		}
 
 		$allowed = array(
@@ -58,6 +45,14 @@ class plgSystemNNFrameworkHelper
 			'plugins/editors-xtd/snippets/snippets.inc.php',
 			'plugins/editors-xtd/sourcerer/sourcerer.inc.php'
 		);
+
+		$file = JFactory::getApplication()->input->getString('file', '');
+		$folder = JFactory::getApplication()->input->getString('folder', '');
+
+		if ($folder)
+		{
+			$file = implode('/', explode('.', $folder)) . '/' . $file;
+		}
 
 		if (!$file || in_array($file, $allowed) === false)
 		{

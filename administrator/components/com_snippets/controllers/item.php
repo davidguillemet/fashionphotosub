@@ -3,7 +3,7 @@
  * Item Controller
  *
  * @package         Snippets
- * @version         3.5.1
+ * @version         3.5.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

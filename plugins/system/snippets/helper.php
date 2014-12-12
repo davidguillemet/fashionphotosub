@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Snippets
- * @version         3.5.1
+ * @version         3.5.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,7 +18,7 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
 require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-NNFrameworkFunctions::loadLanguage('plg_system_snippets');
+nnFrameworkFunctions::loadLanguage('plg_system_snippets');
 
 /**
  * System Plugin that places a Snippets code block into the text
@@ -57,7 +57,7 @@ class plgSystemSnippetsHelper
 
 	public function onContentPrepare(&$article, &$context)
 	{
-		NNFrameworkHelper::processArticle($article, $context, $this, 'replaceTags');
+		nnFrameworkHelper::processArticle($article, $context, $this, 'replaceTags');
 	}
 
 	public function onAfterDispatch()
@@ -148,7 +148,7 @@ class plgSystemSnippetsHelper
 			}
 		}
 
-		NNProtect::unprotect($string);
+		nnProtect::unprotect($string);
 	}
 
 	function processSnippet($id, $vars)
@@ -216,18 +216,18 @@ class plgSystemSnippetsHelper
 
 	function protect(&$string)
 	{
-		NNProtect::protectFields($string);
-		NNProtect::protectSourcerer($string);
+		nnProtect::protectFields($string);
+		nnProtect::protectSourcerer($string);
 	}
 
 	function protectTags(&$string)
 	{
-		NNProtect::protectTags($string, $this->params->protected_tags);
+		nnProtect::protectTags($string, $this->params->protected_tags);
 	}
 
 	function unprotectTags(&$string)
 	{
-		NNProtect::unprotectTags($string, $this->params->protected_tags);
+		nnProtect::unprotectTags($string, $this->params->protected_tags);
 	}
 
 	/**

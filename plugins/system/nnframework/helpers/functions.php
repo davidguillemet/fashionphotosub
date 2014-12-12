@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Functions
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,15 +13,24 @@
 
 defined('_JEXEC') or die;
 
+require_once __DIR__ . '/cache.php';
+
 /**
  * Framework Functions
  */
-class NNFrameworkFunctions
+class nnFrameworkFunctions
 {
-	var $_version = '14.10.7';
+	var $_version = '14.11.8';
 
-	public function getByUrl($url, $options = array())
+	public function getByUrl($url)
 	{
+		$hash = md5('getByUrl_' . $url);
+
+		if (nnCache::has($hash))
+		{
+			return nnCache::get($hash);
+		}
+
 		// only allow url calls from administrator
 		if (!JFactory::getApplication()->isAdmin())
 		{
@@ -60,14 +69,25 @@ class NNFrameworkFunctions
 		header("Cache-Control: public");
 		header("Content-type: text/xml");
 
-		return self::getContents($url);
+		return nnCache::set($hash,
+			self::getContents($url)
+		);
 	}
 
 	public function getContents($url, $fopen = 0)
 	{
+		$hash = md5('getByUrl_' . $url . '_' . $fopen);
+
+		if (nnCache::has($hash))
+		{
+			return nnCache::get($hash);
+		}
+
 		if ((!$fopen || !ini_get('allow_url_fopen')) && function_exists('curl_init') && function_exists('curl_exec'))
 		{
-			return $this->curl($url);
+			return nnCache::set($hash,
+				$this->curl($url)
+			);
 		}
 
 		if (!ini_get('allow_url_fopen'))
@@ -86,11 +106,20 @@ class NNFrameworkFunctions
 			$html[] = fgets($file, 1024);
 		}
 
-		return implode('', $html);
+		return nnCache::set($hash,
+			implode('', $html)
+		);
 	}
 
 	protected function curl($url)
 	{
+		$hash = md5('curl_' . $url);
+
+		if (nnCache::has($hash))
+		{
+			return nnCache::get($hash);
+		}
+
 		$timeout = JFactory::getApplication()->input->getInt('timeout', 3);
 		$timeout = min(array(30, max(array(3, $timeout))));
 
@@ -127,7 +156,9 @@ class NNFrameworkFunctions
 		}
 		curl_close($ch);
 
-		return $html;
+		return nnCache::set($hash,
+			$html
+		);
 	}
 
 	public function curl_redir_exec($ch)
@@ -239,6 +270,13 @@ class NNFrameworkFunctions
 
 	static function xmlToObject($url, $root)
 	{
+		$hash = md5('curl_' . $url . '_' . $root);
+
+		if (nnCache::has($hash))
+		{
+			return nnCache::get($hash);
+		}
+
 		if (JFile::exists($url))
 		{
 			$xml = @new SimpleXMLElement($url, LIBXML_NONET | LIBXML_NOCDATA, 1);
@@ -250,15 +288,20 @@ class NNFrameworkFunctions
 
 		if (!@count($xml))
 		{
-			return new stdClass;
+			return nnCache::set($hash,
+				new stdClass
+			);
 		}
 
 		if ($root)
 		{
 			if (!isset($xml->$root))
 			{
-				return new stdClass;
+				return nnCache::set($hash,
+					new stdClass
+				);
 			}
+
 			$xml = $xml->$root;
 		}
 
@@ -269,7 +312,9 @@ class NNFrameworkFunctions
 			$xml = $xml->$root;
 		}
 
-		return $xml;
+		return nnCache::set($hash,
+			$xml
+		);
 	}
 
 	static function xmlToArray($xml, $options = array())

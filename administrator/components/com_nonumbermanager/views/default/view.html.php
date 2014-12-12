@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         NoNumber Extension Manager
- * @version         4.6.0
+ * @version         4.6.4
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -44,7 +44,7 @@ class NoNumberManagerViewDefault extends JViewLegacy
 	{
 		if (!isset($this->config)) {
 			require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-			$parameters = NNParameters::getInstance();
+			$parameters = nnParameters::getInstance();
 			$this->config = $parameters->getComponentParams('nonumbermanager');
 		}
 		return $this->config;

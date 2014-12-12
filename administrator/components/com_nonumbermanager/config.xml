@@ -3,10 +3,8 @@
 	<fieldset name="options" label="JOPTIONS">
 		<field name="@loadlanguage" type="nn_loadlanguage" extension="com_nonumbermanager" />
 		<field name="@block_key_a" type="nn_block" start="1" label="NNEM_DOWNLOAD_KEY" description="NNEM_DOWNLOAD_KEY_DESC" />
-		<field name="key" type="text"
-			autocomplete="off"
+		<field name="key" type="nn_key"
 			filter="raw"
-			class="nn_codefield"
 			label="NNEM_DOWNLOAD_KEY"
 			/>
 		<field name="@block_key_b" type="nn_block" end="1" />

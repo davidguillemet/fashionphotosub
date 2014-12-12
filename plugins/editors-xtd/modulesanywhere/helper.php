@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Modules Anywhere
- * @version         3.6.0
+ * @version         3.6.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Templates
  *
  * @package         NoNumber Framework
- * @version         14.10.7
+ * @version         14.11.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 /**
  * Assignments: Templates
  */
-class NNFrameworkAssignmentsTemplates
+class nnFrameworkAssignmentsTemplates
 {
 	function passTemplates(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{

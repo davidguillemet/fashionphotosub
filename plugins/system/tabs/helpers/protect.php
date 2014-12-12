@@ -3,7 +3,7 @@
  * Plugin Helper File: Protect
  *
  * @package         Tabs
- * @version         4.0.1
+ * @version         4.0.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -16,34 +16,34 @@ defined('_JEXEC') or die;
 class plgSystemTabsHelperProtect
 {
 	var $helpers = array();
-	var $params = null;
+var $params = null;
 
 	public function __construct()
-	{
+ {
 		require_once __DIR__ . '/helpers.php';
 		$this->helpers = plgSystemTabsHelpers::getInstance();
-		$this->params = $this->helpers->getParams();
+     	$this->params = $this->helpers->getParams();
 
-		$this->params->protected_tags = array(
+  	$this->params->protected_tags = array(
 			'{' . $this->params->tag_open,
 			'{/' . $this->params->tag_close,
-			$this->params->tag_link
+	  $this->params->tag_link
 		);
-	}
+}
 
 	public function protect(&$string)
 	{
-		NNProtect::protectFields($string);
-		NNProtect::protectSourcerer($string);
+	 nnProtect::protectFields($string);
+	     nnProtect::protectSourcerer($string);
 	}
 
 	public function protectTags(&$string)
 	{
-		NNProtect::protectTags($string, $this->params->protected_tags);
+	  nnProtect::protectTags($string, $this->params->protected_tags);
 	}
 
 	public function unprotectTags(&$string)
-	{
-		NNProtect::unprotectTags($string, $this->params->protected_tags);
+{
+	  nnProtect::unprotectTags($string, $this->params->protected_tags);
 	}
 }
