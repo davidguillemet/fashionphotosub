@@ -88,7 +88,14 @@ var catAzores = {
 	alias: "acores",
 	parent: catAtlantiqueNord
 };
-catAtlantiqueNord.children = [catCaboVerde, catAzores];
+var catFranceAtl = {
+	id: "fra_atl",
+	text: "France",
+	alias: "france",
+	parent: catAtlantiqueNord
+};
+
+catAtlantiqueNord.children = [catAzores, catCaboVerde, catFranceAtl];
 
 var catPacifiqueNord = {
 	id: "pac",
@@ -378,7 +385,7 @@ locations["160"] = {
 	desc: "Séjour au <a href='http://www.cip-glenan.fr/' target='_blank'>CIP</a> des Glénans",
 	position: new google.maps.LatLng(47.723101, -4.00383),
 	date: "Juillet 2010",
-	cat: [catAtlantiqueNord, catFrance]
+	cat: [catAtlantiqueNord, catFranceAtl]
 };
 locations["161"] = {
 	id: "161",
@@ -418,9 +425,9 @@ function buildLocationCloud()
 			{
 				var locationCat = locCats[catIndex];
 				
-				if (catMap[locationCat.id] == null)
+				if (catMap[locationCat.alias] == null)
 				{					
-					catMap[locationCat.id] = locationCat;
+					catMap[locationCat.alias] = locationCat;
 					locationCat.weight = singleWeight;
 					locationCat.link = {
 						"data-option-value": "." + locationCat.alias, 
@@ -651,7 +658,9 @@ function addAllMarkers(map) {
 	}
 
 	var clusterOptions = {
-		'imagePath': rootTemplate + "images/map/m"
+		imagePath: rootTemplate + "images/map/m",
+		averageCenter: true,
+		gridSize: 20
 	}
 
 	markerCluster = new MarkerClusterer(map, markers, clusterOptions);
@@ -707,7 +716,7 @@ function applyFilteredMarkers(filteredMarkers) {
 	markerCluster.clearMarkers();
 	// Add filtered MArkers and redraw the marker clusterer
 	markerCluster.addMarkers(filteredMarkers);
-
+	markerCluster.fitMapToMarkers();
 }
 
 function filterAreas(areaFilterCats, initialMarkers)
