@@ -180,7 +180,7 @@ var catsMap = null;
 ////////////////////////////////////////////
 var locations = new Array();
 
-locations["1"] = {
+locations.push({
 	id: "1",
 	alias: "2014-anilao",
 	title: "Anilao",
@@ -188,8 +188,8 @@ locations["1"] = {
 	position: new google.maps.LatLng(13.755980, 120.918013),
 	date: "Janvier 2014",
 	cat: [catAsieSudEst, catPhilippines]
-};
-locations["2"] = {
+});
+locations.push({
 	id: "2",
 	alias: "2013-komodo",
 	title: "Komodo",
@@ -197,8 +197,8 @@ locations["2"] = {
 	position: new google.maps.LatLng(-8.576795, 119.658441),
 	date: "Octobre 2013",
 	cat: [catAsieSudEst, catIndonesie]
-};
-locations["3"] = {
+});
+locations.push({
 	id: "3",
 	alias: "2013-egypte",
 	title: "Egypte",
@@ -206,8 +206,8 @@ locations["3"] = {
 	position: new google.maps.LatLng(24.91917, 35.86944),
 	date: "Août 2013",
 	cat: [catEgypte, catRedSea]
-};
-locations["4"] = {
+});
+locations.push({
 	id: "4",
 	alias: "2013-ciotat",
 	title: "La Ciotat",
@@ -215,8 +215,8 @@ locations["4"] = {
 	position: new google.maps.LatLng(43.174996, 5.610905),
 	date: "Juin 2013",
 	cat: [catFrance, catMediterranee]
-};
-locations["5"] = {
+});
+locations.push({
 	id: "5",
 	alias: "2013-sipadan",
 	title: "Sipadan",
@@ -224,8 +224,8 @@ locations["5"] = {
 	position: new google.maps.LatLng(4.115236, 118.628458),
 	date: "Mai 2013",
 	cat: [catAsieSudEst, catMalaisie]
-};
-locations["6"] = {
+});
+locations.push({
 	id: "6",
 	alias: "2013-mabul",
 	title: "Mabul",
@@ -233,8 +233,8 @@ locations["6"] = {
 	position: new google.maps.LatLng(4.243302, 118.631540),
 	date: "Mai 2013",
 	cat: [catAsieSudEst, catMalaisie]
-};
-locations["7"] = {
+});
+locations.push({
 	id: "7",
 	alias: "2009-lembeh-bunaken",
 	title: "Lembeh",
@@ -242,8 +242,8 @@ locations["7"] = {
 	position: new google.maps.LatLng(1.40617, 125.17007),
 	date: "Novembre 2009",
 	cat: [catAsieSudEst, catIndonesie]
-};
-locations["7b"] = {
+});
+locations.push({
 	id: "7",
 	alias: "2009-lembeh-bunaken",
 	title: "Bunaken",
@@ -251,9 +251,8 @@ locations["7b"] = {
 	position: new google.maps.LatLng(1.61879, 124.76609),
 	date: "Novembre 2009",
 	cat: [catAsieSudEst, catIndonesie]
-};
-			
-locations["62"] = {
+});			
+locations.push({
 	id: "62",
 	alias: "2013-capvert",
 	title: "Cap Vert",
@@ -261,8 +260,8 @@ locations["62"] = {
 	position: new google.maps.LatLng(16.597557, -22.908165),
 	date: "Mars 2013",
 	cat: [catAtlantiqueNord, catCaboVerde]
-};
-locations["63"] = {
+});
+locations.push({
 	id: "63",
 	alias: "2012-acores",
 	title: "Les Açores",
@@ -270,8 +269,8 @@ locations["63"] = {
 	position: new google.maps.LatLng(38.539841, -28.576521),
 	date: "Septembre 2012",
 	cat: [catAtlantiqueNord, catAzores]
-};
-locations["64"]= {
+});
+locations.push({
 	id: "64",
 	alias: "2012-weda",
 	title: "Weda",
@@ -279,8 +278,8 @@ locations["64"]= {
 	position: new google.maps.LatLng(0.41958, 127.905836),
 	date: "Mars 2012",
 	cat: [catAsieSudEst, catIndonesie]
-};
-locations["65"]= {
+});
+locations.push({
 	id: "65",
 	alias: "2012-lembeh",
 	title: "Lembeh",
@@ -288,8 +287,8 @@ locations["65"]= {
 	position: new google.maps.LatLng(1.405637, 125.171176),
 	date: "Mars 2012",
 	cat: [catAsieSudEst, catIndonesie]
-};
-locations["66"]= {
+});
+locations.push({
 	id: "66",
 	alias: "2011-bali",
 	title: "Bali",
@@ -297,8 +296,8 @@ locations["66"]= {
 	position: new google.maps.LatLng(-8.529796, 115.508977),
 	date: "Novembre 2011",
 	cat: [catAsieSudEst, catIndonesie]
-};
-locations["67"]= {
+});
+locations.push({
 	id: "67",
 	alias: "2011-colombie",
 	title: "Colombie Britannique",
@@ -306,8 +305,8 @@ locations["67"]= {
 	position: new google.maps.LatLng(50.840275, -127.592334),
 	date: "Novembre 2011",
 	cat: [catPacifiqueNord, catCanada]
-};
-locations["68"]= {
+});
+locations.push({
 	id: "68",
 	alias: "2011-cerbere",
 	title: "Cerbère",
@@ -315,8 +314,8 @@ locations["68"]= {
 	position: new google.maps.LatLng(42.440418,	3.167233),
 	date: "Juillet 2011",
 	cat: [catFrance, catMediterranee]
-};
-locations["69"]= {
+});
+locations.push({
 	id: "69",
 	alias: "2011-marseille",
 	title: "Marseille",
@@ -324,8 +323,8 @@ locations["69"]= {
 	position: new google.maps.LatLng(43.281941, 5.309277),
 	date: "Juin 2011",
 	cat: [catFrance, catMediterranee]
-};
-locations["78"]= {
+});
+locations.push({
 	id: "78",
 	alias: "2011-martinique",
 	title: "La Martinique",
@@ -333,8 +332,8 @@ locations["78"]= {
 	position: new google.maps.LatLng(14.747452, -61.177325),
 	date: "Janvier 2011",
 	cat: [catCaraibes]
-};
-locations["79"]= {
+});
+locations.push({
 	id: "79",
 	alias: "2011-dominique",
 	title: "La Dominique",
@@ -342,8 +341,8 @@ locations["79"]= {
 	position: new google.maps.LatLng(15.445076, -61.446619),
 	date: "Janvier 2011",
 	cat: [catCaraibes]
-};
-locations["155"] = {
+});
+locations.push({
 	id: "155",
 	alias: "2010-11-marseille",
 	title: "Marseille",
@@ -351,8 +350,8 @@ locations["155"] = {
 	position: new google.maps.LatLng(43.293747, 5.363297),
 	date: "Novembre 2010",
 	cat: [catFrance, catMediterranee]
-};
-locations["156"] = {
+});
+locations.push({
 	id: "156",
 	alias: "2010-challenge",
 	title: "Challenge de Marseille",
@@ -360,8 +359,8 @@ locations["156"] = {
 	position: new google.maps.LatLng(43.26615, 5.371403),
 	date: "Octobre 2010",
 	cat: [catFrance, catMediterranee]
-};
-locations["157"] = {
+});
+locations.push({
 	id: "157",
 	alias: "2010-port-de-la-selva",
 	title: "Port de la Selva",
@@ -369,8 +368,8 @@ locations["157"] = {
 	position: new google.maps.LatLng(42.338554, 3.203014),
 	date: "Septembre 2010",
 	cat: [catEspagne, catMediterranee]
-};
-locations["158"] = {
+});
+locations.push({
 	id: "158",
 	alias: "2010-egypte",
 	title: "Egypte",
@@ -378,8 +377,8 @@ locations["158"] = {
 	position: new google.maps.LatLng(25.53253, 34.63388),
 	date: "Août 2010",
 	cat: [catRedSea, catEgypte]
-};
-locations["159"] = {
+});
+locations.push({
 	id: "159",
 	alias: "2010-08-marseille",
 	title: "Marseille",
@@ -387,8 +386,8 @@ locations["159"] = {
 	position: new google.maps.LatLng(43.293747, 5.363297),
 	date: "Août 2010",
 	cat: [catFrance, catMediterranee]
-};
-locations["160"] = {
+});
+locations.push({
 	id: "160",
 	alias: "2010-glenans",
 	title: "Les Glénans",
@@ -396,8 +395,8 @@ locations["160"] = {
 	position: new google.maps.LatLng(47.723101, -4.00383),
 	date: "Juillet 2010",
 	cat: [catAtlantiqueNord, catFranceAtl]
-};
-locations["161"] = {
+});
+locations.push({
 	id: "161",
 	alias: "2010-llafranc",
 	title: "Llafranc",
@@ -405,8 +404,8 @@ locations["161"] = {
 	position: new google.maps.LatLng(41.895178, 3.18566),
 	date: "Juin 2010",
 	cat: [catMediterranee, catEspagne]
-};
-locations["162"] = {
+});
+locations.push({
 	id: "162",
 	alias: "2010-socorro",
 	title: "Socorro",
@@ -414,8 +413,8 @@ locations["162"] = {
 	position: new google.maps.LatLng(18.776, -110.978),
 	date: "Mars 2010",
 	cat: [catPacifiqueNord, catMexique]
-};
-locations["165"] = {
+});
+locations.push({
 	id: "165",
 	alias: "2009-saint-raphael",
 	title: "Saint-Raphaël",
@@ -423,8 +422,8 @@ locations["165"] = {
 	position: new google.maps.LatLng(43.413282, 6.7805909),
 	date: "Octobre 2009",
 	cat: [catMediterranee, catFrance]
-};
-locations["166"] = {
+});
+locations.push({
 	id: "166",
 	alias: "2009-egypte",
 	title: "Egypte",
@@ -432,7 +431,7 @@ locations["166"] = {
 	position: new google.maps.LatLng(27.2568, 33.818),
 	date: "Septembre 2009",
 	cat: [catRedSea, catEgypte]
-};
+});
 
 
 function buildLocationCloud()
@@ -442,33 +441,30 @@ function buildLocationCloud()
 	// Weight for a single trip
 	var singleWeight = 1;
 	
-	for (var key in locations)
+	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
-		if (locations.hasOwnProperty(key)) {
-			
-			var loc = locations[key];
-			var locCats = loc.cat;
-			for (var catIndex = 0; catIndex < locCats.length; catIndex++)
-			{
-				var locationCat = locCats[catIndex];
-				
-				if (catMap[locationCat.alias] == null)
-				{					
-					catMap[locationCat.alias] = locationCat;
-					locationCat.weight = singleWeight;
-					locationCat.link = {
-						"data-option-value": "." + locationCat.alias, 
-						"href": "#" + locationCat.alias,
-						"class": "btn btn-small"
-					};
-					tagCloud.push(locationCat);
-				}
-				else
-				{
-					locationCat.weight += singleWeight;
-				}
-			}
+		var loc = locations[locIndex];
+		var locCats = loc.cat;
+		for (var catIndex = 0; catIndex < locCats.length; catIndex++)
+		{
+			var locationCat = locCats[catIndex];
 
+			if (catMap[locationCat.alias] == null)
+			{
+				catMap[locationCat.alias] = locationCat;
+				locationCat.weight = singleWeight;
+				locationCat.link =
+				{
+					"data-option-value": "." + locationCat.alias,
+					"href": "#" + locationCat.alias,
+					"class": "btn btn-small"
+				};
+				tagCloud.push(locationCat);
+			}
+			else
+			{
+				locationCat.weight += singleWeight;
+			}
 		}
 	}
 	
@@ -479,15 +475,12 @@ function GetLocations(articleId)
 {
 	var articleLocations = [];
 	
-	for (var key in locations)
+	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
-		if (locations.hasOwnProperty(key))
-		{	
-			var loc = locations[key];
-			if (loc.id == articleId)
-			{
-				articleLocations.push(loc);
-			}
+		var loc = locations[locIndex];
+		if (loc.id == articleId)
+		{
+			articleLocations.push(loc);
 		}
 	}
 	
@@ -706,14 +699,13 @@ function populateCategoryMap(catArray) {
 	}
 }
 
-function addAllMarkers(map) {
-	for (var key in locations) {
-		if (locations.hasOwnProperty(key)) {
-			var loc = locations[key];
-			var marker = createMarker(loc, false);
-
-			markers.push(marker);
-		}
+function addAllMarkers(map)
+{
+	for (var locIndex = 0; locIndex < locations.length; locIndex++)
+	{
+		var loc = locations[locIndex];
+		var marker = createMarker(loc, false);
+		markers.push(marker);
 	}
 
 	markerCluster = new MarkerClusterer(map, markers, clusterOptions);

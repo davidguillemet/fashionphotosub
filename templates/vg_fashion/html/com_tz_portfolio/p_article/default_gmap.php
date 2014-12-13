@@ -27,12 +27,6 @@ if($params -> get('tz_show_gmap',1) == 1):
 
 var markerCluster = null;
 
-function SetOriginalPositionAndZoom(map)
-{
-	// This method overwrittes the original method from location.js
-	markerCluster.fitMapToMarkers();
-}
-
 function initializeMap()
 {
 	var locationId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
@@ -65,6 +59,10 @@ function initializeMap()
 	{
 		markerCluster = new MarkerClusterer(map, articleMarkers, clusterOptions);
 		markerCluster.fitMapToMarkers();
+		SetOriginalPositionAndZoom = function(map) {
+			// This method overwrittes the original method SetOriginalPositionAndZoom which is defined in location.js
+			markerCluster.fitMapToMarkers();			
+		}
 	}
 	
 }
