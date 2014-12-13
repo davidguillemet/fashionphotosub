@@ -280,11 +280,16 @@ $doc->addStyleDeclaration('
     }
 
 //    loadPortfolio();
-	jQuery("#filter").jQCloud(buildLocationCloud(), {
-		delayedMode: true,
-		removeOverflowing: false,
-		afterCloudRender: loadPortfolio
-	});
+	function onLocationsDataLoaded()
+	{
+		jQuery("#filter").jQCloud(buildLocationCloud(), {
+			delayedMode: true,
+			removeOverflowing: false,
+			afterCloudRender: loadPortfolio
+		});
+	}
+	
+	loadLocationsData();
 
       </script>
 

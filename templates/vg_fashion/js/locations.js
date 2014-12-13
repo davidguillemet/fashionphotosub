@@ -1,438 +1,51 @@
-///////////////////////////
-// The location Categories
-///////////////////////////////////////////
 
-var catAsieSudEst = {
-	id: "ase",
-	text: "Asie du Sud-Est",
-	alias: "asie-du-sud-est",
-	parent: null
-};
-
-var catPhilippines = {
-	id: "phi",
-	text: "Philippines",
-	alias: "philippines",
-	parent: catAsieSudEst
-};
-var catMalaisie = {
-	id: "mal",
-	text: "Malaisie",
-	alias: "malaisie",
-	parent: catAsieSudEst
-};
-var catIndonesie = {
-	id: "ind",
-	text: "Indonésie",
-	alias: "indonesie",
-	parent: catAsieSudEst
-};
-catAsieSudEst.children = [catIndonesie, catMalaisie, catPhilippines];
-
-var catCaraibes = {
-	id: "car",
-	text: "Caraïbes",
-	alias: "caraibes",
-	parent: null
-};
-
-var catRedSea = {
-	id: "red",
-	text: "Mer Rouge",
-	alias: "mer-rouge",
-	parent: null
-};
-var catEgypte = {
-	id: "egy",
-	text: "Egypte",
-	alias: "egypte",
-	parent: catRedSea
-};
-catRedSea.children = [catEgypte];
-
-var catMediterranee = {
-	id: "med",
-	text: "Méditerranée",
-	alias: "mediterranee",
-	parent: null
-}
-var catFrance = {
-	id: "fra",
-	text: "France",
-	alias: "france",
-	parent: catMediterranee
-};
-var catEspagne = {
-	id: "esp",
-	text: "Espagne",
-	alias: "espagne",
-	parent: catMediterranee	
-}
-catMediterranee.children = [catFrance, catEspagne];
-
-var catAtlantiqueNord = {
-	id: "atl",
-	text: "Atlantique Nord",
-	alias: "atlantique-nord",
-	parent: null
-}
-var catCaboVerde = {
-	id: "cab",
-	text: "Cap Vert",
-	alias: "cap-vert",
-	parent: catAtlantiqueNord
-};
-var catAzores = {
-	id: "azo",
-	text: "Açores",
-	alias: "acores",
-	parent: catAtlantiqueNord
-};
-var catFranceAtl = {
-	id: "fra_atl",
-	text: "France",
-	alias: "france",
-	parent: catAtlantiqueNord
-};
-
-catAtlantiqueNord.children = [catAzores, catCaboVerde, catFranceAtl];
-
-var catPacifiqueNord = {
-	id: "pac",
-	text: "Pacifique Nord",
-	alias: "pacifique-nord",
-	parent: null
-}
-var catCanada = {
-	id: "can",
-	text: "Canada",
-	alias: "canada",
-	parent: catPacifiqueNord
-};
-var catMexique = {
-	id: "mex",
-	text: "Mexique",
-	alias: "mexique",
-	parent: catPacifiqueNord	
-};
-catPacifiqueNord.children = [catCanada, catMexique];
-
-var cat2014 = {
-	id: "2014",
-	text: "2014",
-	parent: null
-};
-var cat2013 = {
-	id: "2013",
-	text: "2013",
-	parent: null
-};
-var cat2012 = {
-	id: "2012",
-	text: "2012",
-	parent: null
-};
-var cat2011 = {
-	id: "2011",
-	text: "2011",
-	parent: null
-};
-var cat2010 = {
-	id: "2010",
-	text: "2010",
-	parent: null
-};
-var cat2009 = {
-	id: "2009",
-	text: "2009",
-	parent: null
-};
-var cat2008 = {
-	id: "2008",
-	text: "2008",
-	parent: null
-};
-
-var cats = [
-	catAsieSudEst,
-	catAtlantiqueNord,
-	catCaraibes,
-	catRedSea,
-	catMediterranee,
-	catPacifiqueNord
-];
-
-var dateCats = [
-	cat2014,
-	cat2013,
-	cat2012,
-	cat2011,
-	cat2010,
-	cat2009,
-	cat2008
-];
-
+var startYear = 2008;
+var dateCats = null;
+var cats = null;
 var catsMap = null;
+var locations = null;
 
-////////////////////////////////////////////
-// The locations
-// The location key is the joomla article ID
-////////////////////////////////////////////
-var locations = new Array();
 
-locations.push({
-	id: "1",
-	alias: "2014-anilao",
-	title: "Anilao",
-	desc: "Une semaine de Muck Dive chez <a href='http://www.clubocellaris.com/' target='_blank'>Ocellaris</a>",
-	position: new google.maps.LatLng(13.755980, 120.918013),
-	date: "Janvier 2014",
-	cat: [catAsieSudEst, catPhilippines]
-});
-locations.push({
-	id: "2",
-	alias: "2013-komodo",
-	title: "Komodo",
-	desc: "Croisière sur le Tidak Apa'Apa (<a href='http://komodosailing.com/' target='_blank'>Komodo Sailing</a>)",
-	position: new google.maps.LatLng(-8.576795, 119.658441),
-	date: "Octobre 2013",
-	cat: [catAsieSudEst, catIndonesie]
-});
-locations.push({
-	id: "3",
-	alias: "2013-egypte",
-	title: "Egypte",
-	desc: "Croisière BDE avec <a href='http://www.sharkeducation.com/' target='_blank'>Shark Education</a>",
-	position: new google.maps.LatLng(24.91917, 35.86944),
-	date: "Août 2013",
-	cat: [catEgypte, catRedSea]
-});
-locations.push({
-	id: "4",
-	alias: "2013-ciotat",
-	title: "La Ciotat",
-	desc: "Participation au stage bio de l'ASD12",
-	position: new google.maps.LatLng(43.174996, 5.610905),
-	date: "Juin 2013",
-	cat: [catFrance, catMediterranee]
-});
-locations.push({
-	id: "5",
-	alias: "2013-sipadan",
-	title: "Sipadan",
-	desc: "Croisière Sipadan à bord du Celebes Explorer",
-	position: new google.maps.LatLng(4.115236, 118.628458),
-	date: "Mai 2013",
-	cat: [catAsieSudEst, catMalaisie]
-});
-locations.push({
-	id: "6",
-	alias: "2013-mabul",
-	title: "Mabul",
-	desc: "Séjour au <a href='http://www.sipadanmabulresort.com/' target='_blank'>Sipadan MAbul ResorT</a>",
-	position: new google.maps.LatLng(4.243302, 118.631540),
-	date: "Mai 2013",
-	cat: [catAsieSudEst, catMalaisie]
-});
-locations.push({
-	id: "7",
-	alias: "2009-lembeh-bunaken",
-	title: "Lembeh",
-	desc: "Séjour au <a href='http://www.diverslodgelembeh.com/' target='_blank'>Divers Lodge Lembeh</a>",
-	position: new google.maps.LatLng(1.40617, 125.17007),
-	date: "Novembre 2009",
-	cat: [catAsieSudEst, catIndonesie]
-});
-locations.push({
-	id: "7",
-	alias: "2009-lembeh-bunaken",
-	title: "Bunaken",
-	desc: "Séjour chez <a href='http://www.divefroggies.com/' target='_blank'>Froggies Divers</a>",
-	position: new google.maps.LatLng(1.61879, 124.76609),
-	date: "Novembre 2009",
-	cat: [catAsieSudEst, catIndonesie]
-});			
-locations.push({
-	id: "62",
-	alias: "2013-capvert",
-	title: "Cap Vert",
-	desc: "Séjour au Cap Vert, Île de Sal",
-	position: new google.maps.LatLng(16.597557, -22.908165),
-	date: "Mars 2013",
-	cat: [catAtlantiqueNord, catCaboVerde]
-});
-locations.push({
-	id: "63",
-	alias: "2012-acores",
-	title: "Les Açores",
-	desc: "Séjour aux Açores (Pico et Faîal)",
-	position: new google.maps.LatLng(38.539841, -28.576521),
-	date: "Septembre 2012",
-	cat: [catAtlantiqueNord, catAzores]
-});
-locations.push({
-	id: "64",
-	alias: "2012-weda",
-	title: "Weda",
-	desc: "Séjour au <a href='http://www.wedaresort.com/' target='_blank'>Weda Reef & Rainforest Resort</a><br>Halmahera, archipel des Moluques",
-	position: new google.maps.LatLng(0.41958, 127.905836),
-	date: "Mars 2012",
-	cat: [catAsieSudEst, catIndonesie]
-});
-locations.push({
-	id: "65",
-	alias: "2012-lembeh",
-	title: "Lembeh",
-	desc: "Séjour au <a href='http://www.diverslodgelembeh.com/' target='_blank'>Divers Lodge Lembeh</a>",
-	position: new google.maps.LatLng(1.405637, 125.171176),
-	date: "Mars 2012",
-	cat: [catAsieSudEst, catIndonesie]
-});
-locations.push({
-	id: "66",
-	alias: "2011-bali",
-	title: "Bali",
-	desc: "Safari avec <a href='http://www.ikandive.com/' target='_blank'>Ikandive</a>",
-	position: new google.maps.LatLng(-8.529796, 115.508977),
-	date: "Novembre 2011",
-	cat: [catAsieSudEst, catIndonesie]
-});
-locations.push({
-	id: "67",
-	alias: "2011-colombie",
-	title: "Colombie Britannique",
-	desc: "Séjour au <a href='http://www.godspocket.com/' target='_blank'>God's Pocket Resort</a>",
-	position: new google.maps.LatLng(50.840275, -127.592334),
-	date: "Novembre 2011",
-	cat: [catPacifiqueNord, catCanada]
-});
-locations.push({
-	id: "68",
-	alias: "2011-cerbere",
-	title: "Cerbère",
-	desc: "Stage 'Limaces de rêve' au centre <a href='http://www.capcerbere.com/' target='_blank'>Cap Cerbère</a>",
-	position: new google.maps.LatLng(42.440418,	3.167233),
-	date: "Juillet 2011",
-	cat: [catFrance, catMediterranee]
-});
-locations.push({
-	id: "69",
-	alias: "2011-marseille",
-	title: "Marseille",
-	desc: "Week-end sur l'île du Frioul",
-	position: new google.maps.LatLng(43.281941, 5.309277),
-	date: "Juin 2011",
-	cat: [catFrance, catMediterranee]
-});
-locations.push({
-	id: "78",
-	alias: "2011-martinique",
-	title: "La Martinique",
-	desc: "Séjour au centre UCPA de Saint-Pierre",
-	position: new google.maps.LatLng(14.747452, -61.177325),
-	date: "Janvier 2011",
-	cat: [catCaraibes]
-});
-locations.push({
-	id: "79",
-	alias: "2011-dominique",
-	title: "La Dominique",
-	desc: "Séjour chez <a href='http://www.east-carib-dive.com/' target='_blank'>La Doudou</a>",
-	position: new google.maps.LatLng(15.445076, -61.446619),
-	date: "Janvier 2011",
-	cat: [catCaraibes]
-});
-locations.push({
-	id: "155",
-	alias: "2010-11-marseille",
-	title: "Marseille",
-	desc: "Week-End avec <a href='http://mcmplongee.fr/' target='_blank'>Les Plaisirs De La Mer</a>",
-	position: new google.maps.LatLng(43.293747, 5.363297),
-	date: "Novembre 2010",
-	cat: [catFrance, catMediterranee]
-});
-locations.push({
-	id: "156",
-	alias: "2010-challenge",
-	title: "Challenge de Marseille",
-	desc: "Participation au <a href='http://www.challenge-de-marseille.com/' target='_blank'>Challenge de Photo Sous-Marine de Marseille</a>",
-	position: new google.maps.LatLng(43.26615, 5.371403),
-	date: "Octobre 2010",
-	cat: [catFrance, catMediterranee]
-});
-locations.push({
-	id: "157",
-	alias: "2010-port-de-la-selva",
-	title: "Port de la Selva",
-	desc: "Séjour au <a href='http://fr.cips-dive.com/' target='_blank'>CIPS</a> de Port de la Selva",
-	position: new google.maps.LatLng(42.338554, 3.203014),
-	date: "Septembre 2010",
-	cat: [catEspagne, catMediterranee]
-});
-locations.push({
-	id: "158",
-	alias: "2010-egypte",
-	title: "Egypte",
-	desc: "Croisière 'Odysée' dans le grand sud Egyptien",
-	position: new google.maps.LatLng(25.53253, 34.63388),
-	date: "Août 2010",
-	cat: [catRedSea, catEgypte]
-});
-locations.push({
-	id: "159",
-	alias: "2010-08-marseille",
-	title: "Marseille",
-	desc: "Week-end à Marseille",
-	position: new google.maps.LatLng(43.293747, 5.363297),
-	date: "Août 2010",
-	cat: [catFrance, catMediterranee]
-});
-locations.push({
-	id: "160",
-	alias: "2010-glenans",
-	title: "Les Glénans",
-	desc: "Séjour au <a href='http://www.cip-glenan.fr/' target='_blank'>CIP</a> des Glénans",
-	position: new google.maps.LatLng(47.723101, -4.00383),
-	date: "Juillet 2010",
-	cat: [catAtlantiqueNord, catFranceAtl]
-});
-locations.push({
-	id: "161",
-	alias: "2010-llafranc",
-	title: "Llafranc",
-	desc: "Séjour 'bio' avec Robert Oms",
-	position: new google.maps.LatLng(41.895178, 3.18566),
-	date: "Juin 2010",
-	cat: [catMediterranee, catEspagne]
-});
-locations.push({
-	id: "162",
-	alias: "2010-socorro",
-	title: "Socorro",
-	desc: "Croisière à bord du <a href='http://www.nautilusexplorer.com/' target='_blank'>Nautilus Explorer</a>",
-	position: new google.maps.LatLng(18.776, -110.978),
-	date: "Mars 2010",
-	cat: [catPacifiqueNord, catMexique]
-});
-locations.push({
-	id: "165",
-	alias: "2009-saint-raphael",
-	title: "Saint-Raphaël",
-	desc: "Séjour avec le <a href='http://www.clubsousleau.com/' target='_blank'>Club Sous l'Eau</a>",
-	position: new google.maps.LatLng(43.413282, 6.7805909),
-	date: "Octobre 2009",
-	cat: [catMediterranee, catFrance]
-});
-locations.push({
-	id: "166",
-	alias: "2009-egypte",
-	title: "Egypte",
-	desc: "Croisière Chercheurs d'Eau",
-	position: new google.maps.LatLng(27.2568, 33.818),
-	date: "Septembre 2009",
-	cat: [catRedSea, catEgypte]
-});
+function loadLocationsData()
+{
+  jQuery.getJSON(rootUrl + "data/locations.json", function(data) {
+	initializeLocationsData(data);
+    if (onLocationsDataLoaded) onLocationsDataLoaded();
+  });
+}
 
+function initializeLocationsData(data)
+{
+	// Data is coming from json data file data/locations.json
+	// which contains categories and locations
+	locations = data.locations;
+	cats = data.categories;
+	catsMap = [];
+	populateCategoryMap(cats);
+	
+	// Dynamically create year categories
+	dateCats = [];
+	var today = new Date();
+	var endYear = today.getFullYear();
+	
+	for (var year = startYear; year <= endYear; year++)
+	{
+		dateCats.push({
+			id: "" + year,
+			text: "" + year
+		});
+	}
+}
+
+function populateCategoryMap(catArray) {
+	if (catArray == null) return;
+
+	for (var i = 0; i < catArray.length; i++) {
+		var cat = catArray[i];
+		catsMap[cat.id] = cat;
+		populateCategoryMap(cat.children);
+	}
+}
 
 function buildLocationCloud()
 {
@@ -447,7 +60,8 @@ function buildLocationCloud()
 		var locCats = loc.cat;
 		for (var catIndex = 0; catIndex < locCats.length; catIndex++)
 		{
-			var locationCat = locCats[catIndex];
+			var catId = locCats[catIndex];
+			var locationCat = catsMap[catId];
 
 			if (catMap[locationCat.alias] == null)
 			{
@@ -689,16 +303,6 @@ function addSingleMarker(map, location) {
 	return marker;
 }
 
-function populateCategoryMap(catArray) {
-	if (catArray == null) return;
-
-	for (var i = 0; i < catArray.length; i++) {
-		var cat = catArray[i];
-		catsMap[cat.id] = cat;
-		populateCategoryMap(cat.children);
-	}
-}
-
 function addAllMarkers(map)
 {
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
@@ -709,10 +313,6 @@ function addAllMarkers(map)
 	}
 
 	markerCluster = new MarkerClusterer(map, markers, clusterOptions);
-
-	catsMap = [];
-	populateCategoryMap(cats);
-
 }
 
 function getMarkerDesc(marker) {
@@ -723,7 +323,7 @@ function getMarkerDesc(marker) {
 }
 
 function buildLocationDesc(location, single) {
-	var locationPosLiteral = "{lat:" + location.position.lat() + ", lng:" + location.position.lng() + "}";
+	var locationPosLiteral = "{lat:" + location.position.lat + ", lng:" + location.position.lng + "}";
 	var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
 	markerDesc += "<td style='text-align: left; padding-right: 20px;'>";
 	if (single == false) markerDesc += "<a href='javascript:routeArticle(" + location.id + ", 8, 101)'>";
@@ -783,7 +383,7 @@ function filterAreas(areaFilterCats, initialMarkers)
 			var areaFilterCatId = areaFilterCats[catIndex];
 			for (var locCatIndex = 0; locCatIndex < currentMarker.location.cat.length && markerMatch == false; locCatIndex++)
 			{
-				if (categoryMatchFilter(currentMarker.location.cat[locCatIndex], catsMap[areaFilterCatId]))
+				if (categoryMatchFilter(catsMap[currentMarker.location.cat[locCatIndex]], catsMap[areaFilterCatId]))
 				{
 					areaFilterMarkers.push(currentMarker);
 					markerMatch = true;

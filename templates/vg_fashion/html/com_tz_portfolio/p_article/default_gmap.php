@@ -27,7 +27,7 @@ if($params -> get('tz_show_gmap',1) == 1):
 
 var markerCluster = null;
 
-function initializeMap()
+function onLocationsDataLoaded()
 {
 	var locationId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
 	var articleLocations = GetLocations(locationId);
@@ -39,7 +39,7 @@ function initializeMap()
 		var loc = articleLocations[locIdx];
 		if (map == null)
 		{
-			map = createMap(loc.position.lat(), loc.position.lng(), <?php echo $params->get('tz_gmap_zoomlevel', 10); ?> , true);
+			map = createMap(loc.position.lat, loc.position.lng, <?php echo $params->get('tz_gmap_zoomlevel', 10); ?> , true);
 		}
 		var articleMarker = null;
 		if (useCluster)
@@ -67,7 +67,7 @@ function initializeMap()
 	
 }
 
-google.maps.event.addDomListener(window, 'load', initializeMap);
+google.maps.event.addDomListener(window, 'load', loadLocationsData);
 
 </script>
 
