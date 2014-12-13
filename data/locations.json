@@ -514,6 +514,14 @@
                 "lng": 33.818
             },
             "title": "Egypte"
-        }
+        },
+		{
+			"cat": ["red"],
+			"date": "Avril 2007",
+			"desc": "Croisière dans l'archipel des \"7 frères\"",
+			"position": { "lat": 12.462990, "lng": 43.416689 },
+			"title": "Djibouti",
+			"noGallery": true
+		}
     ]
 }

@@ -1,5 +1,5 @@
 
-var startYear = 2008;
+var startYear = 2006;
 var dateCats = null;
 var cats = null;
 var catsMap = null;
@@ -57,6 +57,7 @@ function buildLocationCloud()
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
 		var loc = locations[locIndex];
+		if (loc.noGallery) continue; // No Gallery for this location.
 		var locCats = loc.cat;
 		for (var catIndex = 0; catIndex < locCats.length; catIndex++)
 		{
@@ -325,10 +326,12 @@ function getMarkerDesc(marker) {
 function buildLocationDesc(location, single) {
 	var locationPosLiteral = "{lat:" + location.position.lat + ", lng:" + location.position.lng + "}";
 	var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
+	var addLink = (single == false && !location.noGallery);
+	
 	markerDesc += "<td style='text-align: left; padding-right: 20px;'>";
-	if (single == false) markerDesc += "<a href='javascript:routeArticle(" + location.id + ", 8, 101)'>";
+	if (addLink) markerDesc += "<a href='javascript:routeArticle(" + location.id + ", 8, 101)'>";
 	markerDesc += location.title;
-	if (single == false) markerDesc += "</a>";
+	if (addLink) markerDesc += "</a>";
 	markerDesc += "</td>";
 	markerDesc += "<td style='text-align: right;'>";
 	markerDesc += "<a href='javascript:map.panTo(" + locationPosLiteral + ")'><i class='icon-target' title='Centrer la carte sur ce lieu'></i></a>";
@@ -337,7 +340,7 @@ function buildLocationDesc(location, single) {
 	markerDesc += "</td><tr></table></h3>";
 	markerDesc += "<em><i class='icon-calendar'></i>" + location.date + "</em>"
 	markerDesc += "<p>" + location.desc + "</p>";
-	if (single == false)
+	if (addLink)
 	{
 		// no need to add the read more link inside the article itself... 
 		// routeArticle is defined in fashionCustom.js (fashion template js folder)
