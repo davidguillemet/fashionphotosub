@@ -236,13 +236,23 @@ locations["6"] = {
 };
 locations["7"] = {
 	id: "7",
-	alias: "2009-lembeh",
+	alias: "2009-lembeh-bunaken",
 	title: "Lembeh",
 	desc: "Séjour au <a href='http://www.diverslodgelembeh.com/' target='_blank'>Divers Lodge Lembeh</a>",
 	position: new google.maps.LatLng(1.40617, 125.17007),
 	date: "Novembre 2009",
 	cat: [catAsieSudEst, catIndonesie]
 };
+locations["7b"] = {
+	id: "7",
+	alias: "2009-lembeh-bunaken",
+	title: "Bunaken",
+	desc: "Séjour chez <a href='http://www.divefroggies.com/' target='_blank'>Froggies Divers</a>",
+	position: new google.maps.LatLng(1.61879, 124.76609),
+	date: "Novembre 2009",
+	cat: [catAsieSudEst, catIndonesie]
+};
+			
 locations["62"] = {
 	id: "62",
 	alias: "2013-capvert",
@@ -405,7 +415,24 @@ locations["162"] = {
 	date: "Mars 2010",
 	cat: [catPacifiqueNord, catMexique]
 };
-
+locations["165"] = {
+	id: "165",
+	alias: "2009-saint-raphael",
+	title: "Saint-Raphaël",
+	desc: "Séjour avec le <a href='http://www.clubsousleau.com/' target='_blank'>Club Sous l'Eau</a>",
+	position: new google.maps.LatLng(43.413282, 6.7805909),
+	date: "Octobre 2009",
+	cat: [catMediterranee, catFrance]
+};
+locations["166"] = {
+	id: "166",
+	alias: "2009-egypte",
+	title: "Egypte",
+	desc: "Croisière Chercheurs d'Eau",
+	position: new google.maps.LatLng(27.2568, 33.818),
+	date: "Septembre 2009",
+	cat: [catRedSea, catEgypte]
+};
 
 
 function buildLocationCloud()
@@ -446,6 +473,25 @@ function buildLocationCloud()
 	}
 	
 	return tagCloud;
+}
+
+function GetLocations(articleId)
+{
+	var articleLocations = [];
+	
+	for (var key in locations)
+	{
+		if (locations.hasOwnProperty(key))
+		{	
+			var loc = locations[key];
+			if (loc.id == articleId)
+			{
+				articleLocations.push(loc);
+			}
+		}
+	}
+	
+	return articleLocations;
 }
 
 var initialPosition = null;
@@ -500,6 +546,13 @@ function toggleFullScreen(controlFullScreen)
 	return false;
 }
 
+function SetOriginalPositionAndZoom(map)
+{
+	// Thi smethod is overwritten in deafult_gmap.php
+	map.panTo(initialPosition);
+	map.setZoom(initialZoomLevel);	
+}
+
 function HomeControl(controlDiv, map, single) {
 
 	// Set CSS styles for the DIV containing the control
@@ -521,8 +574,7 @@ function HomeControl(controlDiv, map, single) {
 	var controlHome = buildCustomControl(controlUI, "home", "Recentrer la carte sur le point de départ");
 	// Setup the click event listeners: simply set the map to the initial position and zoom level
 	google.maps.event.addDomListener(controlHome, 'click', function() {
-		map.panTo(initialPosition);
-		map.setZoom(initialZoomLevel);
+		SetOriginalPositionAndZoom(map);
 	});
 
 	if (single) {
@@ -558,6 +610,13 @@ var infowindow = null;
 var googleMapHeight = null;
 var googleMapZindex = null;
 var $mapCanvas = null;
+
+var clusterOptions = {
+	imagePath: rootTemplate + "images/map/m",
+	averageCenter: true,
+	gridSize: 20
+}
+
 
 function createMap(latitude, longitude, zoomValue, single) {
 	initialPosition = new google.maps.LatLng(latitude, longitude);
@@ -657,12 +716,6 @@ function addAllMarkers(map) {
 		}
 	}
 
-	var clusterOptions = {
-		imagePath: rootTemplate + "images/map/m",
-		averageCenter: true,
-		gridSize: 20
-	}
-
 	markerCluster = new MarkerClusterer(map, markers, clusterOptions);
 
 	catsMap = [];
@@ -678,16 +731,22 @@ function getMarkerDesc(marker) {
 }
 
 function buildLocationDesc(location, single) {
+	var locationPosLiteral = "{lat:" + location.position.lat() + ", lng:" + location.position.lng() + "}";
 	var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
-	markerDesc += "<td style='text-align: left; padding-right: 20px;'><a href='javascript:routeArticle(" + location.id + ", 8, 101)'>" + location.title + "</a></td>";
+	markerDesc += "<td style='text-align: left; padding-right: 20px;'>";
+	if (single == false) markerDesc += "<a href='javascript:routeArticle(" + location.id + ", 8, 101)'>";
+	markerDesc += location.title;
+	if (single == false) markerDesc += "</a>";
+	markerDesc += "</td>";
 	markerDesc += "<td style='text-align: right;'>";
-	markerDesc += "<a href='javascript:map.panTo(locations[\"" + location.id + "\"].position)'><i class='icon-target' title='Centrer la carte sur ce lieu'></i></a>";
-	markerDesc += "<a href='javascript:map.setCenter(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()+1)'><i class='icon-zoom-in' title='Zoom avant'></i></a>";
-	markerDesc += "<a href='javascript:map.setCenter(locations[\"" + location.id + "\"].position);map.setZoom(map.getZoom()-1)'><i class='icon-zoom-out' title='Zoom arrière'></i></a>";
+	markerDesc += "<a href='javascript:map.panTo(" + locationPosLiteral + ")'><i class='icon-target' title='Centrer la carte sur ce lieu'></i></a>";
+	markerDesc += "<a href='javascript:map.setCenter(" + locationPosLiteral + ");map.setZoom(map.getZoom()+1)'><i class='icon-zoom-in' title='Zoom avant'></i></a>";
+	markerDesc += "<a href='javascript:map.setCenter(" + locationPosLiteral + ");map.setZoom(map.getZoom()-1)'><i class='icon-zoom-out' title='Zoom arrière'></i></a>";
 	markerDesc += "</td><tr></table></h3>";
 	markerDesc += "<em><i class='icon-calendar'></i>" + location.date + "</em>"
 	markerDesc += "<p>" + location.desc + "</p>";
-	if (single == false) {
+	if (single == false)
+	{
 		// no need to add the read more link inside the article itself... 
 		// routeArticle is defined in fashionCustom.js (fashion template js folder)
 		markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(" + location.id + ", 8, 101)'>Lire la suite...</a></p></div>";

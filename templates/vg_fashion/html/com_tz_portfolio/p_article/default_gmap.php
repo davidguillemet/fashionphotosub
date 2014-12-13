@@ -25,13 +25,48 @@ if($params -> get('tz_show_gmap',1) == 1):
 
 <script type="text/javascript">
 
-function initializeMap() {
+var markerCluster = null;
 
-  var locationId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
-  var loc = locations[locationId];
-  var map = createMap(loc.position.lat(), loc.position.lng(), <?php echo $params -> get('tz_gmap_zoomlevel',10);?>, true);
+function SetOriginalPositionAndZoom(map)
+{
+	// This method overwrittes the original method from location.js
+	markerCluster.fitMapToMarkers();
+}
+
+function initializeMap()
+{
+	var locationId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
+	var articleLocations = GetLocations(locationId);
+	var articleMarkers = [];
+	var map = null;
+	var useCluster = (articleLocations.length > 1);
+	for (var locIdx = 0; locIdx < articleLocations.length; locIdx++)
+	{
+		var loc = articleLocations[locIdx];
+		if (map == null)
+		{
+			map = createMap(loc.position.lat(), loc.position.lng(), <?php echo $params->get('tz_gmap_zoomlevel', 10); ?> , true);
+		}
+		var articleMarker = null;
+		if (useCluster)
+		{
+			// several markers, add them to the cluster later...
+			articleMarker = createMarker(loc, true);
+			articleMarkers.push(articleMarker);
+		}
+		else
+		{
+			// Ony one marker, add it to the map right now
+			articleMarker = addSingleMarker(map, loc);			
+		}
+	}
 	
-  var articleMarker = addSingleMarker(map, loc);    
+	if (useCluster)
+	{
+		markerCluster = new MarkerClusterer(map, articleMarkers, clusterOptions);
+		markerCluster.fitMapToMarkers();
+	}
+	
 }
 
 google.maps.event.addDomListener(window, 'load', initializeMap);
@@ -42,4 +77,4 @@ google.maps.event.addDomListener(window, 'load', initializeMap);
 <h3 class="TzGoogleMapTitle"><?php echo JText::_('COM_TZ_PORTFOLIO_GOOGLE_MAP_TITLE');?></h3>
 <div id="map-canvas" style="width: 100%; height: 400px;">&nbsp;</div>
 </div>
-<?php endif;?>
+<?php endif; ?>
