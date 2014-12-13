@@ -98,7 +98,6 @@
     ],
     "locations": [
         {
-            "alias": "2014-anilao",
             "cat": [
                 "ase",
                 "phi"
@@ -113,7 +112,6 @@
             "title": "Anilao"
         },
         {
-            "alias": "2013-komodo",
             "cat": [
                 "ase",
                 "ind"
@@ -128,7 +126,6 @@
             "title": "Komodo"
         },
         {
-            "alias": "2013-egypte",
             "cat": [
                 "egy",
                 "red"
@@ -143,7 +140,6 @@
             "title": "Egypte"
         },
         {
-            "alias": "2013-ciotat",
             "cat": [
                 "fra",
                 "med"
@@ -158,7 +154,6 @@
             "title": "La Ciotat"
         },
         {
-            "alias": "2013-sipadan",
             "cat": [
                 "ase",
                 "mal"
@@ -173,7 +168,6 @@
             "title": "Sipadan"
         },
         {
-            "alias": "2013-mabul",
             "cat": [
                 "ase",
                 "mal"
@@ -188,7 +182,6 @@
             "title": "Mabul"
         },
         {
-            "alias": "2009-lembeh-bunaken",
             "cat": [
                 "ase",
                 "ind"
@@ -203,7 +196,6 @@
             "title": "Lembeh"
         },
         {
-            "alias": "2009-lembeh-bunaken",
             "cat": [
                 "ase",
                 "ind"
@@ -218,7 +210,6 @@
             "title": "Bunaken"
         },
         {
-            "alias": "2013-capvert",
             "cat": [
                 "atl",
                 "cab"
@@ -233,7 +224,6 @@
             "title": "Cap Vert"
         },
         {
-            "alias": "2012-acores",
             "cat": [
                 "atl",
                 "azo"
@@ -248,7 +238,6 @@
             "title": "Les A\u00e7ores"
         },
         {
-            "alias": "2012-weda",
             "cat": [
                 "ase",
                 "ind"
@@ -263,7 +252,6 @@
             "title": "Weda"
         },
         {
-            "alias": "2012-lembeh",
             "cat": [
                 "ase",
                 "ind"
@@ -278,7 +266,6 @@
             "title": "Lembeh"
         },
         {
-            "alias": "2011-bali",
             "cat": [
                 "ase",
                 "ind"
@@ -293,7 +280,6 @@
             "title": "Bali"
         },
         {
-            "alias": "2011-colombie",
             "cat": [
                 "pac",
                 "can"
@@ -308,7 +294,6 @@
             "title": "Colombie Britannique"
         },
         {
-            "alias": "2011-cerbere",
             "cat": [
                 "fra",
                 "med"
@@ -323,7 +308,6 @@
             "title": "Cerb\u00e8re"
         },
         {
-            "alias": "2011-marseille",
             "cat": [
                 "fra",
                 "med"
@@ -338,7 +322,6 @@
             "title": "Marseille"
         },
         {
-            "alias": "2011-martinique",
             "cat": [
                 "car"
             ],
@@ -352,7 +335,6 @@
             "title": "La Martinique"
         },
         {
-            "alias": "2011-dominique",
             "cat": [
                 "car"
             ],
@@ -366,7 +348,6 @@
             "title": "La Dominique"
         },
         {
-            "alias": "2010-11-marseille",
             "cat": [
                 "fra",
                 "med"
@@ -381,7 +362,6 @@
             "title": "Marseille"
         },
         {
-            "alias": "2010-challenge",
             "cat": [
                 "fra",
                 "med"
@@ -396,7 +376,6 @@
             "title": "Challenge de Marseille"
         },
         {
-            "alias": "2010-port-de-la-selva",
             "cat": [
                 "esp",
                 "med"
@@ -411,7 +390,6 @@
             "title": "Port de la Selva"
         },
         {
-            "alias": "2010-egypte",
             "cat": [
                 "red",
                 "egy"
@@ -426,7 +404,6 @@
             "title": "Egypte"
         },
         {
-            "alias": "2010-08-marseille",
             "cat": [
                 "fra",
                 "med"
@@ -441,7 +418,6 @@
             "title": "Marseille"
         },
         {
-            "alias": "2010-glenans",
             "cat": [
                 "atl",
                 "fra_atl"
@@ -456,7 +432,6 @@
             "title": "Les Gl\u00e9nans"
         },
         {
-            "alias": "2010-llafranc",
             "cat": [
                 "med",
                 "esp"
@@ -471,7 +446,6 @@
             "title": "Llafranc"
         },
         {
-            "alias": "2010-socorro",
             "cat": [
                 "pac",
                 "mex"
@@ -486,7 +460,6 @@
             "title": "Socorro"
         },
         {
-            "alias": "2009-saint-raphael",
             "cat": [
                 "med",
                 "fra"
@@ -501,7 +474,6 @@
             "title": "Saint-Rapha\u00ebl"
         },
         {
-            "alias": "2009-egypte",
             "cat": [
                 "red",
                 "egy"
