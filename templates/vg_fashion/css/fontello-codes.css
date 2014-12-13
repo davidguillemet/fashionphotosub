@@ -59,3 +59,7 @@
 .icon-right-big:before { content: '\e839'; } /* '' */
 .icon-right-hand:before { content: '\e83a'; } /* '' */
 .icon-ok:before { content: '\e83b'; } /* '' */
+.icon-check:before { content: '\e83c'; } /* '' */
+.icon-check-empty:before { content: '\e83d'; } /* '' */
+.icon-toggle-off:before { content: '\e83e'; } /* '' */
+.icon-toggle-on:before { content: '\e83f'; } /* '' */
