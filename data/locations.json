@@ -420,8 +420,8 @@
             "desc": "Croisi\u00e8re 'Odys\u00e9e' dans le grand sud Egyptien",
             "id": "158",
             "position": {
-                "lat": 25.53253,
-                "lng": 34.63388
+                "lat": 23.56896,
+                "lng": 36.245794
             },
             "title": "Egypte"
         },
@@ -510,18 +510,82 @@
             "desc": "Croisi\u00e8re Chercheurs d'Eau",
             "id": "166",
             "position": {
+                "lat": 27.690218,
+                "lng": 34.012796
+            },
+            "title": "Egypte"
+        },
+        {
+            "cat": [
+                "red"
+            ],
+            "date": "Avril 2007",
+            "desc": "Croisi\u00e8re dans l'archipel des \"7 fr\u00e8res\"",
+            "position": {
+                "lat": 12.46299,
+                "lng": 43.416689
+            },
+            "title": "Djibouti"
+        },
+        {
+            "cat": [
+                "car"
+            ],
+            "date": "Mars 2005",
+            "desc": "Passage du Niveau 1 au Marin",
+            "position": {
+                "lat": 14.46867,
+                "lng": -60.86829
+            },
+            "title": "La Martinique"
+        },
+        {
+            "cat": [
+                "car"
+            ],
+            "date": "Janvier 2006",
+            "desc": "Séjour au Club Med de Columbus Isle.<br>Là où tout a vraiment commencé...",
+            "position": {
+                "lat": 24.07,
+                "lng": -74.5347
+            },
+            "title": "Les Bahamas"
+        },
+        {
+            "cat": [
+                "fra", "med"
+            ],
+            "date": "Mai et septembre 2006",
+            "desc": "Deux séjours d'une semaine à Calvi,<br>en mai et septembre.",
+            "position": {
+                "lat": 42.56535,
+                "lng": 8.75846
+            },
+            "title": "Calvi"
+        },
+        {
+            "cat": [
+                "fra", "med"
+            ],
+            "date": "Juin 2006",
+            "desc": "Passage du niveau 2 au Centre de loisir des Goudes",
+            "position": {
+                "lat": 43.215709,
+                "lng": 5.345685
+            },
+            "title": "Les Goudes - Marseille"
+        },
+        {
+            "cat": [
+                "red", "egy"
+            ],
+            "date": "Mai 2007",
+            "desc": "Croisière Nord avec <a href='http://www.anthias-plongee.fr/' target='_blank'>Anthias Plongée</a>",
+            "position": {
                 "lat": 27.2568,
                 "lng": 33.818
             },
             "title": "Egypte"
-        },
-		{
-			"cat": ["red"],
-			"date": "Avril 2007",
-			"desc": "Croisière dans l'archipel des \"7 frères\"",
-			"position": { "lat": 12.462990, "lng": 43.416689 },
-			"title": "Djibouti",
-			"noGallery": true
-		}
+        }
     ]
 }

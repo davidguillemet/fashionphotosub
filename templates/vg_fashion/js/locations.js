@@ -1,10 +1,31 @@
 
-var startYear = 2006;
+var startYear = 2005;
 var dateCats = null;
 var cats = null;
 var catsMap = null;
 var locations = null;
 
+var initialPosition = null;
+var initialZoomLevel = null;
+
+// Filtre
+var displayAllLocations = false;
+var areaFilters = [];
+var dateFilters = [];
+
+var markers = [];
+var markerCluster = null;
+var map = null;
+var infowindow = null;
+var googleMapHeight = null;
+var googleMapZindex = null;
+var $mapCanvas = null;
+
+var clusterOptions = {
+	imagePath: rootTemplate + "images/map/m",
+	averageCenter: true,
+	gridSize: 20
+};
 
 function loadLocationsData()
 {
@@ -57,7 +78,7 @@ function buildLocationCloud()
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
 		var loc = locations[locIndex];
-		if (loc.noGallery) continue; // No Gallery for this location.
+		if (loc.id == null) continue; // No Gallery for this location.
 		var locCats = loc.cat;
 		for (var catIndex = 0; catIndex < locCats.length; catIndex++)
 		{
@@ -102,11 +123,10 @@ function GetLocations(articleId)
 	return articleLocations;
 }
 
-var initialPosition = null;
-var initialZoomLevel = null;
-
-function buildCustomControl(parentControl, icon, title) {
+function buildCustomControl(parentControl, icon, title)
+{
 	var newControl = document.createElement('span');
+	newControl.className = "GMapControl";
 	newControl.style.fontFamily = 'Arial,sans-serif';
 	newControl.style.fontSize = '18px';
 	newControl.style.cursor = 'pointer';
@@ -161,6 +181,23 @@ function SetOriginalPositionAndZoom(map)
 	map.setZoom(initialZoomLevel);	
 }
 
+function ToggleDisplayAllLocations(control)
+{
+	if (displayAllLocations == true)
+	{
+		// Turn off locations without pictures		
+		displayAllLocations = false;
+		control.innerHTML = '<i class="icon-toggle-off"></i>';
+	}
+	else
+	{
+		// Turn on locations without pictures
+		displayAllLocations = true;
+		control.innerHTML = '<i class="icon-toggle-on"></i>';
+	}
+	applyCatFiltering(areaFilters, dateFilters);
+}
+
 function HomeControl(controlDiv, map, single) {
 
 	// Set CSS styles for the DIV containing the control
@@ -200,6 +237,15 @@ function HomeControl(controlDiv, map, single) {
 		google.maps.event.addDomListener(controlClear, 'click', function() {
 			clearFilters();
 		});
+		
+		// Control pour afficher ou pas les lieux sans photos
+		controlToggleDisplay = buildCustomControl(controlUI, displayAllLocations ? "toggle-on" : "toggle-off", "Afficher les lieux sans photos");
+		// Display all By default:
+		controlToggleDisplay.displayAll = true;
+		// Setup the click event listeners: clear all filter
+		google.maps.event.addDomListener(controlToggleDisplay, 'click', function() {
+			ToggleDisplayAllLocations(this);
+		});
 	}
 	// A control to make the google map full screen
 	var controlFullScreen = buildCustomControl(controlUI, "resize-full", "Plein écran");
@@ -208,23 +254,17 @@ function HomeControl(controlDiv, map, single) {
 		toggleFullScreen(this);
 	});
 
+	// Call tipsy on all custom google map controls
+	var $customControls = jQuery(controlUI).find(".GMapControl");
+	$customControls.tipsy({
+		gravity: 'n',
+		delayIn: 0,
+		delayOut: 0,
+		opacity: 1,
+		fade: true
+	});
+	
 }
-
-
-var markers = [];
-var markerCluster = null;
-var map = null;
-var infowindow = null;
-var googleMapHeight = null;
-var googleMapZindex = null;
-var $mapCanvas = null;
-
-var clusterOptions = {
-	imagePath: rootTemplate + "images/map/m",
-	averageCenter: true,
-	gridSize: 20
-}
-
 
 function createMap(latitude, longitude, zoomValue, single) {
 	initialPosition = new google.maps.LatLng(latitude, longitude);
@@ -312,12 +352,16 @@ function addAllMarkers(map)
 		var marker = createMarker(loc, false);
 		markers.push(marker);
 	}
-
-	markerCluster = new MarkerClusterer(map, markers, clusterOptions);
+	
+	var filteredMarkers = getFilteredMarkers();
+	
+	markerCluster = new MarkerClusterer(map, filteredMarkers, clusterOptions);
 }
 
-function getMarkerDesc(marker) {
-	if (marker.html == null) {
+function getMarkerDesc(marker)
+{
+	if (marker.html == null)
+	{
 		marker.html = buildLocationDesc(marker.location, marker.single);
 	}
 	return marker.html;
@@ -326,7 +370,10 @@ function getMarkerDesc(marker) {
 function buildLocationDesc(location, single) {
 	var locationPosLiteral = "{lat:" + location.position.lat + ", lng:" + location.position.lng + "}";
 	var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
-	var addLink = (single == false && !location.noGallery);
+	
+	// In case of a single location (map inside article content), or if the id is null (no picture for the location),
+	// wedon't need to display a link...
+	var addLink = (single == false && location.id != null);
 	
 	markerDesc += "<td style='text-align: left; padding-right: 20px;'>";
 	if (addLink) markerDesc += "<a href='javascript:routeArticle(" + location.id + ", 8, 101)'>";
@@ -350,27 +397,26 @@ function buildLocationDesc(location, single) {
 }
 
 
-function categoryMatchFilter(cat, filterCat) {
+function categoryMatchFilter(cat, filterCat)
+{
 	// Check if the current category is the same as the filter category
 	if (cat.id == filterCat.id) return true;
-
-	// The current category is not the same as the filter category
-	// -> Check parent category  
-	// -> if The category has no parent, and since it is not the specified one, we return false
-	//if (cat.parent != null) {
-		// Recursively check parent category
-	//	return categoryMatchFilter(cat.parent, filterCat);
-	//}
-
 	return false;
 }
 
-function applyFilteredMarkers(filteredMarkers) {
+function applyFilteredMarkers(filteredMarkers)
+{
 	// Reset Markers from marker clusterer
 	markerCluster.clearMarkers();
 	// Add filtered MArkers and redraw the marker clusterer
 	markerCluster.addMarkers(filteredMarkers);
 	markerCluster.fitMapToMarkers();
+	markerCluster.repaint();
+	
+	if (filteredMarkers.length == 0)
+	{
+		SetOriginalPositionAndZoom(map);
+	}
 }
 
 function filterAreas(areaFilterCats, initialMarkers)
@@ -420,25 +466,58 @@ function filterDates(dateFilterCats, initialMarkers)
 	return dataFilterdMarkers;
 }
 
+// Locations without pictures have no id property...
+// -> the location id is the correspondig article id
+function removeLocationsWithoutPictures(initialMarkers)
+{
+	var markersWithPictures = new Array();
+	for (var markerIndex = 0; markerIndex < initialMarkers.length; markerIndex++)
+	{
+		var currentMarker = initialMarkers[markerIndex];
+		if (currentMarker.location.id != null)
+		{
+			markersWithPictures.push(currentMarker);
+		}
+	}
+	return markersWithPictures;
+}
+
 /////////
 // areaFilterCats is an array of area category identifers
 // dateFilterCats is an array of date identifers
 /////////
 
-function applyCatFiltering(areaFilterCats, dateFilterCats) {
+function getFilteredMarkers()
+{
 	var filteredMarkers = markers;
+	
+	if (displayAllLocations == false)
+	{
+		// Remove locations without pictures
+		filteredMarkers = removeLocationsWithoutPictures(filteredMarkers);
+	}
 
-	if (areaFilterCats != null && areaFilterCats.length > 0)
+	if (areaFilters != null && areaFilters.length > 0)
 	{
 		// Apply area filter first
-		filteredMarkers = filterAreas(areaFilterCats, filteredMarkers);
+		filteredMarkers = filterAreas(areaFilters, filteredMarkers);
 	}
 
-	if (dateFilterCats != null && dateFilterCats.length > 0)
+	if (dateFilters != null && dateFilters.length > 0)
 	{
 		// And then apply date filter
-		filteredMarkers = filterDates(dateFilterCats, filteredMarkers);
+		filteredMarkers = filterDates(dateFilters, filteredMarkers);
 	}
+	
+	return filteredMarkers;
+}
 
+function applyCatFiltering(areaFilterCats, dateFilterCats) 
+{
+	areaFilters = areaFilterCats;
+	dateFilters = dateFilterCats;
+	
+	var filteredMarkers = getFilteredMarkers();
+		
 	applyFilteredMarkers(filteredMarkers)
 }
