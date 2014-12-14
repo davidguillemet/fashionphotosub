@@ -4,9 +4,9 @@
             "alias": "asie-du-sud-est",
             "children": [
                 {
-                    "alias": "philippines",
-                    "id": "phi",
-                    "text": "Philippines"
+                    "alias": "indonesie",
+                    "id": "ind",
+                    "text": "Indon\u00e9sie"
                 },
                 {
                     "alias": "malaisie",
@@ -14,18 +14,57 @@
                     "text": "Malaisie"
                 },
                 {
-                    "alias": "indonesie",
-                    "id": "ind",
-                    "text": "Indon\u00e9sie"
+                    "alias": "philippines",
+                    "id": "phi",
+                    "text": "Philippines"
                 }
             ],
             "id": "ase",
             "text": "Asie du Sud-Est"
         },
         {
+            "alias": "atlantique-nord",
+            "children": [
+                {
+                    "alias": "acores",
+                    "id": "azo",
+                    "text": "A\u00e7ores"
+                },
+                {
+                    "alias": "cap-vert",
+                    "id": "cab",
+                    "text": "Cap Vert"
+                },
+                {
+                    "alias": "france",
+                    "id": "fra_atl",
+                    "text": "France"
+                }
+            ],
+            "id": "atl",
+            "text": "Atlantique Nord"
+        },
+        {
             "alias": "caraibes",
             "id": "car",
             "text": "Cara\u00efbes"
+        },
+        {
+            "alias": "mediterranee",
+            "children": [
+                {
+                    "alias": "espagne",
+                    "id": "esp",
+                    "text": "Espagne"
+                },
+                {
+                    "alias": "france",
+                    "id": "fra",
+                    "text": "France"
+                }
+            ],
+            "id": "med",
+            "text": "M\u00e9diterran\u00e9e"
         },
         {
             "alias": "mer-rouge",
@@ -38,45 +77,6 @@
             ],
             "id": "red",
             "text": "Mer Rouge"
-        },
-        {
-            "alias": "mediterranee",
-            "children": [
-                {
-                    "alias": "france",
-                    "id": "fra",
-                    "text": "France"
-                },
-                {
-                    "alias": "espagne",
-                    "id": "esp",
-                    "text": "Espagne"
-                }
-            ],
-            "id": "med",
-            "text": "M\u00e9diterran\u00e9e"
-        },
-        {
-            "alias": "atlantique-nord",
-            "children": [
-                {
-                    "alias": "cap-vert",
-                    "id": "cab",
-                    "text": "Cap Vert"
-                },
-                {
-                    "alias": "acores",
-                    "id": "azo",
-                    "text": "A\u00e7ores"
-                },
-                {
-                    "alias": "france",
-                    "id": "fra_atl",
-                    "text": "France"
-                }
-            ],
-            "id": "atl",
-            "text": "Atlantique Nord"
         },
         {
             "alias": "pacifique-nord",

@@ -1,5 +1,5 @@
 
-var startYear = 2005;
+var startYear = 2003;
 var dateCats = null;
 var cats = null;
 var catsMap = null;
@@ -49,7 +49,7 @@ function initializeLocationsData(data)
 	var today = new Date();
 	var endYear = today.getFullYear();
 	
-	for (var year = startYear; year <= endYear; year++)
+	for (var year = endYear; year >= startYear; year--)
 	{
 		dateCats.push({
 			id: "" + year,
@@ -239,7 +239,7 @@ function HomeControl(controlDiv, map, single) {
 		});
 		
 		// Control pour afficher ou pas les lieux sans photos
-		controlToggleDisplay = buildCustomControl(controlUI, displayAllLocations ? "toggle-on" : "toggle-off", "Afficher les lieux sans photos");
+		controlToggleDisplay = buildCustomControl(controlUI, displayAllLocations ? "toggle-on" : "toggle-off", "Afficher les destinations sans galerie");
 		// Display all By default:
 		controlToggleDisplay.displayAll = true;
 		// Setup the click event listeners: clear all filter
