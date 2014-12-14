@@ -1,4 +1,3 @@
-
 var startYear = 2003;
 var dateCats = null;
 var cats = null;
@@ -87,9 +86,18 @@ function buildLocationCloud()
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
 		var loc = locations[locIndex];
+		var galleryCount = 0;
+		for (var tripIndex = 0; tripIndex < loc.trips.length; tripIndex++)
+		{
+			var currentTrip = loc.trips[tripIndex];
+			if (currentTrip.id != null)
+			{
+				galleryCount++;
+			}
+		}
 		
-		// No Gallery for this location...just ignore it
-		if (loc.id == null) continue; 
+		// No gallery for this location...just ignore it
+		if (galleryCount == 0) continue;
 		
 		var locCats = loc.cat;
 		for (var catIndex = 0; catIndex < locCats.length; catIndex++)
@@ -100,7 +108,7 @@ function buildLocationCloud()
 			if (catMap[locationCat.alias] == null)
 			{
 				catMap[locationCat.alias] = locationCat;
-				locationCat.weight = singleWeight;
+				locationCat.weight = (singleWeight * galleryCount);
 				locationCat.link =
 				{
 					"data-option-value": "." + locationCat.alias,
@@ -111,7 +119,7 @@ function buildLocationCloud()
 			}
 			else
 			{
-				locationCat.weight += singleWeight;
+				locationCat.weight += (singleWeight * galleryCount);
 			}
 		}
 	}
@@ -124,9 +132,15 @@ function GetLocations(articleId)
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
 		var loc = locations[locIndex];
-		if (loc.id == articleId)
+		for (var tripIndex = 0; tripIndex < loc.trips.length; tripIndex++)
 		{
-			articleLocations.push(loc);
+			var currentTrip = loc.trips[tripIndex];
+			
+			if (currentTrip.id == articleId)
+			{
+				articleLocations.push(loc);
+				break;
+			}
 		}
 	}
 	
@@ -235,7 +249,7 @@ function ToggleDisplayAllLocations(control)
 	applyCatFiltering(areaFilters, dateFilters);
 }
 
-function HomeControl(controlDiv, map, single) {
+function HomeControl(controlDiv, map, insideArticle) {
 
 	// Set CSS styles for the DIV containing the control
 	// Setting padding to 5 px will offset the control
@@ -259,7 +273,7 @@ function HomeControl(controlDiv, map, single) {
 		SetOriginalPositionAndZoom(map);
 	});
 
-	if (single) {
+	if (insideArticle) {
 		// MAp dans un article -> lien vers la carte globale
 		var controlGlobe = buildCustomControl(controlUI, "globe", "Accéder à la carte des galeries");
 		// Navigate to the global google map (id = 60, catid = 17, itemid = 101 (celui du lenu parent))
@@ -303,7 +317,7 @@ function HomeControl(controlDiv, map, single) {
 	
 }
 
-function createMap(latitude, longitude, zoomValue, single) {
+function createMap(latitude, longitude, zoomValue, insideArticle) {
 	initialPosition = new google.maps.LatLng(latitude, longitude);
 	initialZoomLevel = zoomValue;
 
@@ -341,7 +355,7 @@ function createMap(latitude, longitude, zoomValue, single) {
 
 	// Create a Custo control to center the map on the initial position with initial zoom level 
 	var homeControlDiv = document.createElement('div');
-	var homeControl = new HomeControl(homeControlDiv, map, single);
+	var homeControl = new HomeControl(homeControlDiv, map, insideArticle);
 	homeControlDiv.index = 1;
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
 
@@ -354,15 +368,17 @@ function createMap(latitude, longitude, zoomValue, single) {
 }
 
 
-function createMarker(loc, single) {
+function createMarker(loc, articleId)
+{
 	// Create the marker object 
 	var marker = new google.maps.Marker({
 		position: loc.position,
 		title: loc.title,
 		icon: rootTemplate + "images/map/diver.png"
 	});
-
-	marker.single = single;
+	
+	// The articleId is not null in case we display the map inside an article
+	marker.articleId = articleId;
 	marker.location = loc;
 	marker.html = null;
 
@@ -375,18 +391,12 @@ function createMarker(loc, single) {
 	return marker;
 }
 
-function addSingleMarker(map, location) {
-	var marker = createMarker(location, true);
-	marker.setMap(map);
-	return marker;
-}
-
 function addAllMarkers(map)
 {
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
 		var loc = locations[locIndex];
-		var marker = createMarker(loc, false);
+		var marker = createMarker(loc, null);
 		markers.push(marker);
 	}
 	
@@ -398,39 +408,47 @@ function addAllMarkers(map)
 
 function getMarkerDesc(marker)
 {
-	if (marker.html == null)
-	{
-		marker.html = buildLocationDesc(marker.location, marker.single);
-	}
-	return marker.html;
-}
+	var location = marker.location;
+	var articleId = marker.articleId;
 
-function buildLocationDesc(location, single) {
 	var locationPosLiteral = "{lat:" + location.position.lat + ", lng:" + location.position.lng + "}";
 	var markerDesc = "<div id='mapinfocontainer'><h3 class='mapinfotitle'><table class='mapinfotitletable' style='width: 100%'><tr>";
-	
-	// In case of a single location (map inside article content), or if the id is null (no picture for the location),
-	// wedon't need to display a link...
-	var addLink = (single == false && location.id != null);
-	
-	markerDesc += "<td style='text-align: left; padding-right: 20px;'>";
-	if (addLink) markerDesc += "<a href='javascript:routeArticle(" + location.id + ", 8, 101)'>";
-	markerDesc += location.title;
-	if (addLink) markerDesc += "</a>";
-	markerDesc += "</td>";
+		
+	markerDesc += "<td style='text-align: left; padding-right: 20px;'>" + location.title + "</td>";
 	markerDesc += "<td style='text-align: right;'>";
 	markerDesc += "<a href='javascript:map.panTo(" + locationPosLiteral + ")'><i class='icon-target' title='Centrer la carte sur ce lieu'></i></a>";
 	markerDesc += "<a href='javascript:map.setCenter(" + locationPosLiteral + ");map.setZoom(map.getZoom()+1)'><i class='icon-zoom-in' title='Zoom avant'></i></a>";
 	markerDesc += "<a href='javascript:map.setCenter(" + locationPosLiteral + ");map.setZoom(map.getZoom()-1)'><i class='icon-zoom-out' title='Zoom arrière'></i></a>";
 	markerDesc += "</td><tr></table></h3>";
-	markerDesc += "<em><i class='icon-calendar'></i>" + location.date + "</em>"
 	markerDesc += "<p>" + location.desc + "</p>";
-	if (addLink)
+	
+	for (var tripIndex = 0; tripIndex < location.trips.length; tripIndex++)
 	{
-		// no need to add the read more link inside the article itself... 
-		// routeArticle is defined in fashionCustom.js (fashion template js folder)
-		markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(" + location.id + ", 8, 101)'>Lire la suite...</a></p></div>";
+		var currentTrip = location.trips[tripIndex];
+		
+		// Maybe the current trip should not be displayed
+		// -> a filter might have been applied.
+		if (currentTrip.display == false) continue;
+		
+		// Don't display a trip which is not related to the current article
+		if (articleId != null && articleId != currentTrip.id) continue;
+		
+		// In case of a map inside an article, or if the id is null (no picture for the location),
+		// we don't need to display a link...
+		if (articleId == null && currentTrip.id != null)
+		{
+			// no need to add the read more link inside the article itself... 
+			// routeArticle is defined in fashionCustom.js (fashion template js folder)
+			markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(" + currentTrip.id + ", 8, 101)'>" + currentTrip.date + "</a></p>";
+		}
+		else
+		{
+			markerDesc += "<p><i class='icon-calendar'></i>" + currentTrip.date + "</p>";
+		}
 	}
+	
+	markerDesc += "</div>";
+	
 	return markerDesc;
 }
 
@@ -483,7 +501,8 @@ function filterAreas(areaFilterCats, initialMarkers)
 
 function filterDates(dateFilterCats, initialMarkers)
 {
-	var dataFilterdMarkers = new Array();
+	var dateFilteredMarkers = [];
+	
 	for (var markerIndex = 0; markerIndex < initialMarkers.length; markerIndex++)
 	{
 		var currentMarker = initialMarkers[markerIndex];
@@ -492,16 +511,30 @@ function filterDates(dateFilterCats, initialMarkers)
 		for (var catIndex = 0; catIndex < dateFilterCats.length && markerMatch == false; catIndex++)
 		{
 			var filterYear = dateFilterCats[catIndex];
-			var markerDate = currentMarker.location.date;
-			var markerYear = markerDate.substring(markerDate.length - 4);
-			if (filterYear == markerYear)
+			
+			for (var tripIndex = 0; tripIndex < currentMarker.location.trips.length; tripIndex++)
 			{
-				dataFilterdMarkers.push(currentMarker);
-				markerMatch = true;
+				var currentTrip = currentMarker.location.trips[tripIndex];		
+				var tripDate = currentTrip.date;
+				var tripYear = tripDate.substring(tripDate.length - 4);
+				if (filterYear == tripYear)
+				{
+					markerMatch = true;
+				}
+				else
+				{
+					currentTrip.display = false;
+				}
 			}
 		}
+		
+		if (markerMatch == true)
+		{
+			dateFilteredMarkers.push(currentMarker);
+		}
 	}
-	return dataFilterdMarkers;
+	
+	return dateFilteredMarkers;
 }
 
 // Locations without pictures have no id property...
@@ -512,7 +545,22 @@ function removeLocationsWithoutPictures(initialMarkers)
 	for (var markerIndex = 0; markerIndex < initialMarkers.length; markerIndex++)
 	{
 		var currentMarker = initialMarkers[markerIndex];
-		if (currentMarker.location.id != null)
+		var markerMatch = false;
+		
+		for (var tripIndex = 0; tripIndex < currentMarker.location.trips.length; tripIndex++)
+		{
+			var currentTrip = currentMarker.location.trips[tripIndex];
+			if (currentTrip.id != null)
+			{
+				markerMatch = true;
+			}
+			else
+			{
+				currentTrip.display = false;
+			}		
+		}
+		
+		if (markerMatch == true)
 		{
 			markersWithPictures.push(currentMarker);
 		}
@@ -520,6 +568,17 @@ function removeLocationsWithoutPictures(initialMarkers)
 	return markersWithPictures;
 }
 
+function makeAllTripsVisible()
+{
+	for (var locIndex = 0; locIndex < locations.length; locIndex++)
+	{
+		var currentLocation = locations[locIndex];
+		for (var tripIndex = 0; tripIndex < currentLocation.trips.length; tripIndex++)
+		{
+			currentLocation.trips[tripIndex].display = true;
+		}
+	}
+}
 /////////
 // areaFilterCats is an array of area category identifers
 // dateFilterCats is an array of date identifers
@@ -527,6 +586,9 @@ function removeLocationsWithoutPictures(initialMarkers)
 
 function getFilteredMarkers()
 {
+	// Initializz all trips with display=true
+	makeAllTripsVisible();
+	
 	var filteredMarkers = markers;
 	
 	if (displayAllLocations == false)
@@ -552,6 +614,8 @@ function getFilteredMarkers()
 
 function applyCatFiltering(areaFilterCats, dateFilterCats) 
 {
+	infowindow.close();
+	
 	areaFilters = areaFilterCats;
 	dateFilters = dateFilterCats;
 	

@@ -29,8 +29,8 @@ var markerCluster = null;
 
 function onLocationsDataLoaded()
 {
-	var locationId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
-	var articleLocations = GetLocations(locationId);
+	var articleId = "<?php echo JFactory::getApplication()->input->get('id'); ?>";
+	var articleLocations = GetLocations(articleId);
 	var articleMarkers = [];
 	var map = null;
 	var useCluster = (articleLocations.length > 1);
@@ -41,17 +41,16 @@ function onLocationsDataLoaded()
 		{
 			map = createMap(loc.position.lat, loc.position.lng, <?php echo $params->get('tz_gmap_zoomlevel', 10); ?> , true);
 		}
-		var articleMarker = null;
+		var articleMarker = createMarker(loc, articleId);
 		if (useCluster)
 		{
 			// several markers, add them to the cluster later...
-			articleMarker = createMarker(loc, true);
 			articleMarkers.push(articleMarker);
 		}
 		else
 		{
 			// Ony one marker, add it to the map right now
-			articleMarker = addSingleMarker(map, loc);			
+			articleMarker.setMap(map);
 		}
 	}
 	
@@ -59,7 +58,8 @@ function onLocationsDataLoaded()
 	{
 		markerCluster = new MarkerClusterer(map, articleMarkers, clusterOptions);
 		markerCluster.fitMapToMarkers();
-		SetOriginalPositionAndZoom = function(map) {
+		SetOriginalPositionAndZoom = function(map)
+		{
 			// This method overwrittes the original method SetOriginalPositionAndZoom which is defined in location.js
 			markerCluster.fitMapToMarkers();			
 		}
