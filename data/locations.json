@@ -53,6 +53,18 @@
             "alias": "mediterranee",
             "children": [
                 {
+                    "alias": "adriatique",
+                    "id": "adri",
+                    "text": "Adriatique",
+					"children": [
+						{
+		                    "alias": "croatie",
+		                    "id": "cro",
+		                    "text": "Croatie"
+						}
+					]
+                },
+                {
                     "alias": "espagne",
                     "id": "esp",
                     "text": "Espagne"
@@ -92,8 +104,20 @@
                     "text": "Mexique"
                 }
             ],
-            "id": "pac",
+            "id": "pac_nord",
             "text": "Pacifique Nord"
+        },
+        {
+            "alias": "pacifique-sud",
+            "children": [
+                {
+                    "alias": "australie",
+                    "id": "aus",
+                    "text": "Australie"
+                }
+            ],
+            "id": "pac_sud",
+            "text": "Pacifique Sud"
         }
     ],
     "locations": [
@@ -281,7 +305,7 @@
         },
         {
             "cat": [
-                "pac",
+                "pac_nord",
                 "can"
             ],
             "date": "Novembre 2011",
@@ -447,7 +471,7 @@
         },
         {
             "cat": [
-                "pac",
+                "pac_nord",
                 "mex"
             ],
             "date": "Mars 2010",
@@ -558,6 +582,90 @@
                 "lng": 33.818
             },
             "title": "Egypte"
+        },
+        {
+            "cat": [
+                "pac_sud", "aus"
+            ],
+            "date": "Mars 2003",
+            "desc": "Premier baptême de plongée dans les Whitsundays Islands",
+            "position": {
+                "lat": -20.2674,
+                "lng": 148.9815
+            },
+            "title": "Australie"
+        },
+        {
+            "cat": [
+                "med", "adri", "cro"
+            ],
+            "date": "Août 2004",
+            "desc": "Deuxième baptême de plongée près de Dubrovnik",
+            "position": {
+                "lat": 42.64027,
+                "lng": 18.10925
+            },
+            "title": "Croatie"
+        },
+        {
+            "cat": [
+                "med", "fra"
+            ],
+            "date": "Juin 2007",
+            "desc": "Séjour à Bormes-Les-Mimosas avec Diderot12",
+            "position": {
+                "lat": 43.12128,
+                "lng": 6.36087
+            },
+            "title": "Bormes-Les-Mimosas"
+        },
+        {
+            "cat": [
+                "med", "fra"
+            ],
+            "date": "Août 2007",
+            "desc": "Validation de l'AFBS",
+            "position": {
+                "lat": 42.440403,
+                "lng": 3.167037
+            },
+            "title": "Cerbère"
+        },
+        {
+            "cat": [
+                "med", "fra"
+            ],
+            "date": "Octobre 2007",
+            "desc": "Séjour à Porquerolles avec Diderot12",
+            "position": {
+                "lat": 43.002635,
+                "lng": 6.205055
+            },
+            "title": "Porquerolles"
+        },
+        {
+            "cat": [
+                "med", "fra"
+            ],
+            "date": "Juin 2008",
+            "desc": "Stage final et validation N4",
+            "position": {
+                "lat": 43.338624,
+                "lng": 5.258819
+            },
+            "title": "Niolon"
+        },
+        {
+            "cat": [
+                "med", "esp"
+            ],
+            "date": "Octobre 2013",
+            "desc": "Séjour à Estartit avec Diderot12",
+            "position": {
+                "lat": 42.046504, 
+                "lng": 3.225555
+            },
+            "title": "Estartit - Îles Medes"
         }
     ]
 }

@@ -67,7 +67,7 @@ function onLocationsDataLoaded()
 	
 }
 
-google.maps.event.addDomListener(window, 'load', loadLocationsData);
+loadLocationsData(false);
 
 </script>
 

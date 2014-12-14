@@ -2,8 +2,9 @@
 var startYear = 2003;
 var dateCats = null;
 var cats = null;
-var catsMap = null;
+var categoriesMap = null;
 var locations = null;
+var tagCloud = null;
 
 var initialPosition = null;
 var initialZoomLevel = null;
@@ -27,22 +28,30 @@ var clusterOptions = {
 	gridSize: 20
 };
 
-function loadLocationsData()
+function loadLocationsData(buildTagCloud)
 {
   jQuery.getJSON(rootUrl + "data/locations.json", function(data) {
-	initializeLocationsData(data);
+	initializeLocationsData(data, buildTagCloud);
     if (onLocationsDataLoaded) onLocationsDataLoaded();
   });
 }
 
-function initializeLocationsData(data)
+function initializeLocationsData(data, buildTagCloud)
 {
 	// Data is coming from json data file data/locations.json
 	// which contains categories and locations
 	locations = data.locations;
 	cats = data.categories;
-	catsMap = [];
+	categoriesMap = [];
 	populateCategoryMap(cats);
+	
+	if (buildTagCloud)
+	{
+		// update weigth for each category
+		// and generate the categories flat list for TZ portfolio filter
+		buildLocationCloud();
+		updateCategoriesWithNoGallery(cats);
+	}
 	
 	// Dynamically create year categories
 	dateCats = [];
@@ -63,14 +72,14 @@ function populateCategoryMap(catArray) {
 
 	for (var i = 0; i < catArray.length; i++) {
 		var cat = catArray[i];
-		catsMap[cat.id] = cat;
+		categoriesMap[cat.id] = cat;
 		populateCategoryMap(cat.children);
 	}
 }
 
 function buildLocationCloud()
 {
-	var tagCloud = [];
+	tagCloud = [];
 	var catMap = [];
 	// Weight for a single trip
 	var singleWeight = 1;
@@ -78,12 +87,15 @@ function buildLocationCloud()
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
 		var loc = locations[locIndex];
-		if (loc.id == null) continue; // No Gallery for this location.
+		
+		// No Gallery for this location...just ignore it
+		if (loc.id == null) continue; 
+		
 		var locCats = loc.cat;
 		for (var catIndex = 0; catIndex < locCats.length; catIndex++)
 		{
 			var catId = locCats[catIndex];
-			var locationCat = catsMap[catId];
+			var locationCat = categoriesMap[catId];
 
 			if (catMap[locationCat.alias] == null)
 			{
@@ -103,8 +115,6 @@ function buildLocationCloud()
 			}
 		}
 	}
-	
-	return tagCloud;
 }
 
 function GetLocations(articleId)
@@ -181,6 +191,30 @@ function SetOriginalPositionAndZoom(map)
 	map.setZoom(initialZoomLevel);	
 }
 
+function updateCategoriesWithNoGallery(categories)
+{
+	for (var catIndex = 0; catIndex < categories.length; catIndex++)
+	{
+		var category = categories[catIndex];
+		if (category.weight == null)
+		{
+			// This categoy has no pictures...
+			if (displayAllLocations == true)
+			{
+				category.disabled = false;
+			}
+			else
+			{
+				category.disabled = true;
+			}
+		}
+		if (category.children != null)
+		{
+			updateCategoriesWithNoGallery(category.children);
+		}
+	}
+}
+
 function ToggleDisplayAllLocations(control)
 {
 	if (displayAllLocations == true)
@@ -188,13 +222,16 @@ function ToggleDisplayAllLocations(control)
 		// Turn off locations without pictures		
 		displayAllLocations = false;
 		control.innerHTML = '<i class="icon-toggle-off"></i>';
+		updateCategoriesWithNoGallery(cats);
 	}
 	else
 	{
 		// Turn on locations without pictures
 		displayAllLocations = true;
 		control.innerHTML = '<i class="icon-toggle-on"></i>';
+		updateCategoriesWithNoGallery(cats);
 	}
+	updateCategoriesWithNoGallery(cats);
 	applyCatFiltering(areaFilters, dateFilters);
 }
 
@@ -356,6 +393,7 @@ function addAllMarkers(map)
 	var filteredMarkers = getFilteredMarkers();
 	
 	markerCluster = new MarkerClusterer(map, filteredMarkers, clusterOptions);
+	markerCluster.fitMapToMarkers();
 }
 
 function getMarkerDesc(marker)
@@ -432,7 +470,7 @@ function filterAreas(areaFilterCats, initialMarkers)
 			var areaFilterCatId = areaFilterCats[catIndex];
 			for (var locCatIndex = 0; locCatIndex < currentMarker.location.cat.length && markerMatch == false; locCatIndex++)
 			{
-				if (categoryMatchFilter(catsMap[currentMarker.location.cat[locCatIndex]], catsMap[areaFilterCatId]))
+				if (categoryMatchFilter(categoriesMap[currentMarker.location.cat[locCatIndex]], categoriesMap[areaFilterCatId]))
 				{
 					areaFilterMarkers.push(currentMarker);
 					markerMatch = true;
