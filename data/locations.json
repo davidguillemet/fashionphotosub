@@ -54,15 +54,15 @@
             "children": [
                 {
                     "alias": "adriatique",
+                    "children": [
+                        {
+                            "alias": "croatie",
+                            "id": "cro",
+                            "text": "Croatie"
+                        }
+                    ],
                     "id": "adri",
-                    "text": "Adriatique",
-					"children": [
-						{
-		                    "alias": "croatie",
-		                    "id": "cro",
-		                    "text": "Croatie"
-						}
-					]
+                    "text": "Adriatique"
                 },
                 {
                     "alias": "espagne",
@@ -89,6 +89,18 @@
             ],
             "id": "red",
             "text": "Mer Rouge"
+        },
+        {
+            "alias": "ocean-indien",
+            "id": "indien",
+            "children": [
+                {
+                    "alias": "maldives",
+                    "id": "mald",
+                    "text": "Maldives"
+                }
+            ],
+            "text": "Oc\u00e9an Indien"
         },
         {
             "alias": "pacifique-nord",
@@ -127,681 +139,891 @@
                 "phi"
             ],
             "desc": "Une semaine de Muck Dive chez <a href='http://www.clubocellaris.com/' target='_blank'>Ocellaris</a>",
-			"trips": [
-				{
-		            "date": "Janvier 2014",
-		            "id": "1"
-				}
-			],
             "position": {
                 "lat": 13.75598,
                 "lng": 120.918013
             },
-            "title": "Anilao"
+            "title": "Anilao",
+            "trips": [
+                {
+                    "date": "Janvier 2014",
+                    "id": "1"
+                }
+            ]
         },
         {
             "cat": [
                 "ase",
                 "ind"
             ],
-			"trips": [
-				{
-		            "date": "Octobre 2013",
-		            "id": "2"
-				}
-			],
             "desc": "Croisi\u00e8re sur le Tidak Apa'Apa (<a href='http://komodosailing.com/' target='_blank'>Komodo Sailing</a>)",
             "position": {
                 "lat": -8.576795,
                 "lng": 119.658441
             },
-            "title": "Komodo"
+            "title": "Komodo",
+            "trips": [
+                {
+                    "date": "Octobre 2013",
+                    "id": "2"
+                }
+            ]
         },
         {
             "cat": [
                 "egy",
                 "red"
             ],
-			"trips": [
-				{
-		            "date": "Ao\u00fbt 2013",
-		            "id": "3"
-				}
-			],
             "desc": "Croisi\u00e8re BDE avec <a href='http://www.sharkeducation.com/' target='_blank'>Shark Education</a>",
             "position": {
                 "lat": 24.91917,
                 "lng": 35.86944
             },
-            "title": "Egypte"
+            "title": "Egypte",
+            "trips": [
+                {
+                    "date": "Ao\u00fbt 2013",
+                    "id": "3"
+                }
+            ]
         },
         {
             "cat": [
                 "fra",
                 "med"
             ],
-			"trips": [
-				{
-		            "date": "Juin 2013",
-		            "id": "4"
-				}	
-			],
             "desc": "Participation au stage bio de l'ASD12",
             "position": {
                 "lat": 43.174996,
                 "lng": 5.610905
             },
-            "title": "La Ciotat"
+            "title": "La Ciotat",
+            "trips": [
+                {
+                    "date": "Juin 2013",
+                    "id": "4"
+                }
+            ]
         },
         {
             "cat": [
                 "ase",
                 "mal"
             ],
-			"trips": [
-				{
-		            "date": "Mai 2013",
-		            "id": "5"
-				}
-			],
             "desc": "Croisi\u00e8re Sipadan \u00e0 bord du Celebes Explorer",
             "position": {
                 "lat": 4.115236,
                 "lng": 118.628458
             },
-            "title": "Sipadan"
+            "title": "Sipadan",
+            "trips": [
+                {
+                    "date": "Mai 2013",
+                    "id": "5"
+                }
+            ]
         },
         {
             "cat": [
                 "ase",
                 "mal"
             ],
-			"trips": [
-				{
-		            "date": "Mai 2013",
-		            "id": "6"
-				}
-			],
             "desc": "S\u00e9jour au <a href='http://www.sipadanmabulresort.com/' target='_blank'>Sipadan MAbul ResorT</a>",
             "position": {
                 "lat": 4.243302,
                 "lng": 118.63154
             },
-            "title": "Mabul"
+            "title": "Mabul",
+            "trips": [
+                {
+                    "date": "Mai 2013",
+                    "id": "6"
+                }
+            ]
         },
         {
             "cat": [
                 "ase",
                 "ind"
             ],
-			"trips": [
-				{
-		            "date": "Novembre 2009",
-		            "id": "7"
-				},
-				{
-		            "date": "Mars 2012",
-		            "id": "65"
-				}
-			],
             "desc": "S\u00e9jour au <a href='http://www.diverslodgelembeh.com/' target='_blank'>Divers Lodge Lembeh</a>",
             "position": {
                 "lat": 1.40617,
                 "lng": 125.17007
             },
-            "title": "Lembeh"
+            "title": "Lembeh",
+            "trips": [
+                {
+                    "date": "Novembre 2009",
+                    "id": "7"
+                },
+                {
+                    "date": "Mars 2012",
+                    "id": "65"
+                }
+            ]
         },
         {
             "cat": [
                 "ase",
                 "ind"
             ],
-			"trips": [
-				{
-		            "date": "Novembre 2009",
-		            "id": "7"
-				}
-			],
             "desc": "S\u00e9jour chez <a href='http://www.divefroggies.com/' target='_blank'>Froggies Divers</a>",
             "position": {
                 "lat": 1.61879,
                 "lng": 124.76609
             },
-            "title": "Bunaken"
+            "title": "Bunaken",
+            "trips": [
+                {
+                    "date": "Novembre 2009",
+                    "id": "7"
+                }
+            ]
         },
         {
             "cat": [
                 "atl",
                 "cab"
             ],
-			"trips": [
-				{
-		            "date": "Mars 2013",
-		            "id": "62"
-				}
-			],
             "desc": "S\u00e9jour au Cap Vert, \u00cele de Sal",
             "position": {
                 "lat": 16.597557,
                 "lng": -22.908165
             },
-            "title": "Cap Vert"
+            "title": "Cap Vert",
+            "trips": [
+                {
+                    "date": "Mars 2013",
+                    "id": "62"
+                }
+            ]
         },
         {
             "cat": [
                 "atl",
                 "azo"
             ],
-			"trips": [
-				{
-		            "date": "Septembre 2013",
-		            "id": "63"
-				}
-			],
             "desc": "S\u00e9jour aux A\u00e7ores (Pico et Fa\u00eeal)",
             "position": {
                 "lat": 38.539841,
                 "lng": -28.576521
             },
-            "title": "Les A\u00e7ores"
+            "title": "Les A\u00e7ores",
+            "trips": [
+                {
+                    "date": "Septembre 2012",
+                    "id": "63"
+                }
+            ]
         },
         {
             "cat": [
                 "ase",
                 "ind"
             ],
-			"trips": [
-				{
-		            "date": "Mars 2012",
-		            "id": "64"
-				}
-			],
             "desc": "S\u00e9jour au <a href='http://www.wedaresort.com/' target='_blank'>Weda Reef & Rainforest Resort</a><br>Halmahera, archipel des Moluques",
             "position": {
                 "lat": 0.41958,
                 "lng": 127.905836
             },
-            "title": "Weda"
+            "title": "Weda",
+            "trips": [
+                {
+                    "date": "Mars 2012",
+                    "id": "64"
+                }
+            ]
         },
         {
             "cat": [
                 "ase",
                 "ind"
             ],
-			"trips": [
-				{
-		            "date": "Novembre 2011",
-		            "id": "66"
-				}
-			],
             "desc": "Safari avec <a href='http://www.ikandive.com/' target='_blank'>Ikandive</a>",
             "position": {
                 "lat": -8.529796,
                 "lng": 115.508977
             },
-            "title": "Bali"
+            "title": "Bali",
+            "trips": [
+                {
+                    "date": "Novembre 2011",
+                    "id": "66"
+                }
+            ]
         },
         {
             "cat": [
                 "pac_nord",
                 "can"
             ],
-			"trips": [
-				{
-		            "date": "Novembre 2011",
-		            "id": "67"
-				}
-			],
             "desc": "S\u00e9jour au <a href='http://www.godspocket.com/' target='_blank'>God's Pocket Resort</a>",
             "position": {
                 "lat": 50.840275,
                 "lng": -127.592334
             },
-            "title": "Colombie Britannique"
+            "title": "Colombie Britannique",
+            "trips": [
+                {
+                    "date": "Novembre 2011",
+                    "id": "67"
+                }
+            ]
         },
         {
             "cat": [
                 "fra",
                 "med"
             ],
-			"trips": [
-				{
-		            "date": "Juillet 2011",
-		            "id": "68"
-				}
-			],
             "desc": "Stage 'Limaces de r\u00eave' au centre <a href='http://www.capcerbere.com/' target='_blank'>Cap Cerb\u00e8re</a>",
             "position": {
                 "lat": 42.440418,
                 "lng": 3.167233
             },
-            "title": "Cerb\u00e8re"
+            "title": "Cerb\u00e8re",
+            "trips": [
+                {
+                    "date": "Juillet 2011",
+                    "id": "68"
+                }
+            ]
         },
         {
             "cat": [
                 "fra",
                 "med"
             ],
-			"trips": [
-				{
-		            "date": "Juin 2011",
-		            "id": "69"
-				}
-			],
             "desc": "Week-end sur l'\u00eele du Frioul",
             "position": {
                 "lat": 43.281941,
                 "lng": 5.309277
             },
-            "title": "Marseille"
+            "title": "Marseille",
+            "trips": [
+                {
+                    "date": "Juin 2011",
+                    "id": "69"
+                }
+            ]
         },
         {
             "cat": [
                 "car"
             ],
-			"trips": [
-				{
-		            "date": "Janvier 2011",
-		            "id": "78"
-				}
-			],
             "desc": "S\u00e9jour au centre UCPA de Saint-Pierre",
             "position": {
                 "lat": 14.747452,
                 "lng": -61.177325
             },
-            "title": "La Martinique"
+            "title": "La Martinique",
+            "trips": [
+                {
+                    "date": "Janvier 2011",
+                    "id": "78"
+                }
+            ]
         },
         {
             "cat": [
                 "car"
             ],
-			"trips": [
-				{
-		            "date": "Janvier 2011",
-		            "id": "79"
-				}
-			],
             "desc": "S\u00e9jour chez <a href='http://www.east-carib-dive.com/' target='_blank'>La Doudou</a>",
             "position": {
                 "lat": 15.445076,
                 "lng": -61.446619
             },
-            "title": "La Dominique"
+            "title": "La Dominique",
+            "trips": [
+                {
+                    "date": "Janvier 2011",
+                    "id": "79"
+                }
+            ]
         },
         {
             "cat": [
                 "fra",
                 "med"
             ],
-			"trips": [
-				{
-		            "date": "Octobre 2010",
-		            "id": "156"
-				}
-			],
             "desc": "Participation au <a href='http://www.challenge-de-marseille.com/' target='_blank'>Challenge de Photo Sous-Marine de Marseille</a>",
             "position": {
                 "lat": 43.26615,
                 "lng": 5.371403
             },
-            "title": "Challenge de Marseille"
+            "title": "Challenge de Marseille",
+            "trips": [
+                {
+                    "date": "Octobre 2010",
+                    "id": "156"
+                }
+            ]
         },
         {
             "cat": [
                 "esp",
                 "med"
             ],
-			"trips": [
-				{
-		            "date": "Septembre 2010",
-		            "id": "157"
-				}
-			],
             "desc": "S\u00e9jour au <a href='http://fr.cips-dive.com/' target='_blank'>CIPS</a> de Port de la Selva",
             "position": {
                 "lat": 42.338554,
                 "lng": 3.203014
             },
-            "title": "Port de la Selva"
+            "title": "Port de la Selva",
+            "trips": [
+                {
+                    "date": "Septembre 2010",
+                    "id": "157"
+                }
+            ]
         },
         {
             "cat": [
                 "red",
                 "egy"
             ],
-			"trips": [
-				{
-		            "date": "Ao\u00fbt 2010",
-		            "id": "158"
-				}
-			],
             "desc": "Croisi\u00e8re 'Odys\u00e9e' dans le grand sud Egyptien",
             "position": {
                 "lat": 23.56896,
                 "lng": 36.245794
             },
-            "title": "Egypte"
+            "title": "Egypte",
+            "trips": [
+                {
+                    "date": "Ao\u00fbt 2010",
+                    "id": "158"
+                }
+            ]
         },
         {
             "cat": [
                 "fra",
                 "med"
             ],
-			"trips": [
-				{
-		            "date": "Novembre 2010",
-		            "id": "155"
-				},
-				{
-		            "date": "Ao\u00fbt 2010",
-		            "id": "159"
-				}
-			],
             "desc": "Week-End avec <a href='http://mcmplongee.fr/' target='_blank'>Les Plaisirs De La Mer</a>",
             "position": {
                 "lat": 43.293747,
                 "lng": 5.363297
             },
-            "title": "Marseille"
+            "title": "Marseille",
+            "trips": [
+                {
+                    "date": "Novembre 2010",
+                    "id": "155"
+                },
+                {
+                    "date": "Ao\u00fbt 2010",
+                    "id": "159"
+                },
+                {
+                    "date": "Ao\u00fbt 2009",
+                    "id": "170"
+                },
+                {
+                    "date": "Ao\u00fbt 2008",
+                    "id": "174"
+                },
+                {
+                    "date": "Juillet 2008",
+                    "id": "175"
+                }
+            ]
         },
         {
             "cat": [
                 "atl",
                 "fra_atl"
             ],
-			"trips": [
-				{
-		            "date": "Juillet 2010",
-		            "id": "160"
-				}
-			],
             "desc": "S\u00e9jour au <a href='http://www.cip-glenan.fr/' target='_blank'>CIP</a> des Gl\u00e9nans",
             "position": {
                 "lat": 47.723101,
                 "lng": -4.00383
             },
-            "title": "Les Gl\u00e9nans"
+            "title": "Les Gl\u00e9nans",
+            "trips": [
+                {
+                    "date": "Juillet 2010",
+                    "id": "160"
+                }
+            ]
         },
         {
             "cat": [
                 "med",
                 "esp"
             ],
-			"trips": [
-				{
-		            "date": "Juin 2010",
-		            "id": "161"
-				}
-			],
             "desc": "S\u00e9jour 'bio' avec Robert Oms",
             "position": {
                 "lat": 41.895178,
                 "lng": 3.18566
             },
-            "title": "Llafranc"
+            "title": "Llafranc",
+            "trips": [
+                {
+                    "date": "Juin 2010",
+                    "id": "161"
+                }
+            ]
         },
         {
             "cat": [
                 "pac_nord",
                 "mex"
             ],
-			"trips": [
-				{
-		            "date": "Mars 2010",
-		            "id": "162"
-				}
-			],
             "desc": "Croisi\u00e8re \u00e0 bord du <a href='http://www.nautilusexplorer.com/' target='_blank'>Nautilus Explorer</a>",
             "position": {
                 "lat": 18.776,
                 "lng": -110.978
             },
-            "title": "Socorro"
+            "title": "Socorro",
+            "trips": [
+                {
+                    "date": "Mars 2010",
+                    "id": "162"
+                }
+            ]
         },
         {
             "cat": [
                 "med",
                 "fra"
             ],
-			"trips": [
-				{
-		            "date": "Octobre 2009",
-		            "id": "165"
-				}
-			],
             "desc": "S\u00e9jour avec le <a href='http://www.clubsousleau.com/' target='_blank'>Club Sous l'Eau</a>",
             "position": {
                 "lat": 43.413282,
                 "lng": 6.7805909
             },
-            "title": "Saint-Rapha\u00ebl"
+            "title": "Saint-Rapha\u00ebl",
+            "trips": [
+                {
+                    "date": "Octobre 2009",
+                    "id": "165"
+                },
+                {
+                    "date": "Octobre 2008",
+                    "id": "173"
+                }
+            ]
         },
         {
             "cat": [
                 "red",
                 "egy"
             ],
-			"trips": [
-				{
-		            "date": "Septembre 2009",
-		            "id": "166"
-				}
-			],
             "desc": "Croisi\u00e8re Chercheurs d'Eau",
             "position": {
                 "lat": 27.690218,
                 "lng": 34.012796
             },
-            "title": "Egypte"
+            "title": "Egypte",
+            "trips": [
+                {
+                    "date": "Septembre 2009",
+                    "id": "166"
+                }
+            ]
         },
         {
             "cat": [
                 "red"
             ],
-			"trips": [
-				{
-		            "date": "Avril 2007"
-				}
-			],
             "desc": "Croisi\u00e8re dans l'archipel des \"7 fr\u00e8res\"",
             "position": {
                 "lat": 12.46299,
                 "lng": 43.416689
             },
-            "title": "Djibouti"
+            "title": "Djibouti",
+            "trips": [
+                {
+                    "date": "Avril 2007"
+                }
+            ]
         },
         {
             "cat": [
                 "car"
             ],
-			"trips": [
-				{
-		            "date": "Mars 2005"
-				}
-			],
             "desc": "Passage du Niveau 1 au Marin",
             "position": {
                 "lat": 14.46867,
                 "lng": -60.86829
             },
-            "title": "La Martinique"
+            "title": "La Martinique",
+            "trips": [
+                {
+                    "date": "Mars 2005"
+                }
+            ]
         },
         {
             "cat": [
                 "car"
             ],
-			"trips": [
-				{
-		            "date": "Janvier 2006"
-				}
-			],
-            "desc": "Séjour au Club Med de Columbus Isle.<br>Là où tout a vraiment commencé...",
+            "desc": "S\u00e9jour au Club Med de Columbus Isle.<br>L\u00e0 o\u00f9 tout a vraiment commenc\u00e9...",
             "position": {
                 "lat": 24.07,
                 "lng": -74.5347
             },
-            "title": "Les Bahamas"
+            "title": "Les Bahamas",
+            "trips": [
+                {
+                    "date": "Janvier 2006"
+                }
+            ]
         },
         {
             "cat": [
-                "fra", "med"
+                "fra",
+                "med"
             ],
-			"trips": [
-				{
-		            "date": "Mai et septembre 2006"
-				}
-			],
-            "desc": "Deux séjours d'une semaine à Calvi,<br>en mai et septembre.",
+            "desc": "Deux s\u00e9jours d'une semaine \u00e0 Calvi,<br>en mai et septembre.",
             "position": {
                 "lat": 42.56535,
                 "lng": 8.75846
             },
-            "title": "Calvi"
+            "title": "Calvi",
+            "trips": [
+                {
+                    "date": "Mai et septembre 2006"
+                }
+            ]
         },
         {
             "cat": [
-                "fra", "med"
+                "fra",
+                "med"
             ],
-			"trips": [
-				{
-		            "date": "Juin 2006"
-				}
-			],
             "desc": "Passage du niveau 2 au Centre de loisir des Goudes",
             "position": {
                 "lat": 43.215709,
                 "lng": 5.345685
             },
-            "title": "Les Goudes - Marseille"
+            "title": "Les Goudes - Marseille",
+            "trips": [
+                {
+                    "date": "Juin 2006"
+                }
+            ]
         },
         {
             "cat": [
-                "red", "egy"
+                "red",
+                "egy"
             ],
-			"trips": [
-				{
-		            "date": "Mai 2007"
-				}
-			],
-            "desc": "Croisière Nord avec <a href='http://www.anthias-plongee.fr/' target='_blank'>Anthias Plongée</a>",
+            "desc": "Croisi\u00e8re Nord avec <a href='http://www.anthias-plongee.fr/' target='_blank'>Anthias Plong\u00e9e</a>",
             "position": {
                 "lat": 27.2568,
                 "lng": 33.818
             },
-            "title": "Egypte"
+            "title": "Egypte",
+            "trips": [
+                {
+                    "date": "Mai 2007"
+                }
+            ]
         },
         {
             "cat": [
-                "pac_sud", "aus"
+                "pac_sud",
+                "aus"
             ],
-			"trips": [
-				{
-		            "date": "Mars 2003"
-				}
-			],
-            "desc": "Premier baptême de plongée dans les Whitsundays Islands",
+            "desc": "Premier bapt\u00eame de plong\u00e9e dans les Whitsundays Islands",
             "position": {
                 "lat": -20.2674,
                 "lng": 148.9815
             },
-            "title": "Australie"
+            "title": "Australie",
+            "trips": [
+                {
+                    "date": "Mars 2003"
+                }
+            ]
         },
         {
             "cat": [
-                "med", "adri", "cro"
+                "med",
+                "adri",
+                "cro"
             ],
-			"trips": [
-				{
-		            "date": "Août 2004"
-				}
-			],
-            "desc": "Deuxième baptême de plongée près de Dubrovnik",
+            "desc": "Deuxi\u00e8me bapt\u00eame de plong\u00e9e pr\u00e8s de Dubrovnik",
             "position": {
                 "lat": 42.64027,
                 "lng": 18.10925
             },
-            "title": "Croatie"
+            "title": "Croatie",
+            "trips": [
+                {
+                    "date": "Ao\u00fbt 2004"
+                }
+            ]
         },
         {
             "cat": [
-                "med", "fra"
+                "med",
+                "fra"
             ],
-			"trips": [
-				{
-		            "date": "Juin 2007"
-				}
-			],
-            "desc": "Séjour à Bormes-Les-Mimosas avec Diderot12",
+            "desc": "S\u00e9jour \u00e0 Bormes-Les-Mimosas avec Diderot12",
             "position": {
                 "lat": 43.12128,
                 "lng": 6.36087
             },
-            "title": "Bormes-Les-Mimosas"
+            "title": "Bormes-Les-Mimosas",
+            "trips": [
+                {
+                    "date": "Juin 2007"
+                }
+            ]
         },
         {
             "cat": [
-                "med", "fra"
+                "med",
+                "fra"
             ],
-			"trips": [
-				{
-		            "date": "Août 2007"
-				}
-			],
             "desc": "Validation de l'AFBS",
             "position": {
                 "lat": 42.440403,
                 "lng": 3.167037
             },
-            "title": "Cerbère"
+            "title": "Cerb\u00e8re",
+            "trips": [
+                {
+                    "date": "Ao\u00fbt 2007"
+                }
+            ]
         },
         {
             "cat": [
-                "med", "fra"
+                "med",
+                "fra"
             ],
-			"trips": [
-				{
-		            "date": "Octobre 2007"
-				}
-			],
-            "desc": "Séjour à Porquerolles avec Diderot12",
+            "desc": "S\u00e9jour \u00e0 Porquerolles avec Diderot12",
             "position": {
                 "lat": 43.002635,
                 "lng": 6.205055
             },
-            "title": "Porquerolles"
+            "title": "Porquerolles",
+            "trips": [
+                {
+                    "date": "Octobre 2007"
+                }
+            ]
         },
         {
             "cat": [
-                "med", "fra"
+                "med",
+                "fra"
             ],
-			"trips": [
-				{
-		            "date": "Juin 2008"
-				}
-			],
             "desc": "Stage final et validation N4",
             "position": {
                 "lat": 43.338624,
                 "lng": 5.258819
             },
-            "title": "Niolon"
+            "title": "Niolon",
+            "trips": [
+                {
+                    "date": "Juin 2008"
+                }
+            ]
         },
         {
             "cat": [
-                "med", "esp"
+                "med",
+                "esp"
             ],
-			"trips": [
-				{
-		            "date": "Octobre 2013"
-				}
-			],
-            "desc": "Séjour à Estartit avec Diderot12",
+            "desc": "S\u00e9jour \u00e0 Estartit avec Diderot12",
             "position": {
-                "lat": 42.046504, 
+                "lat": 42.046504,
                 "lng": 3.225555
             },
-            "title": "Estartit - Îles Medes"
+            "title": "Estartit - \u00celes Medes",
+            "trips": [
+                {
+                    "date": "Octobre 2013"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "atl",
+                "fra_atl"
+            ],
+            "desc": "S\u00e9jour chez <a target='_blank' href='http://pagesperso-orange.fr/subagrec/'>Subagrec</a>",
+            "position": {
+                "lat": 47.6443,
+                "lng": -3.4467
+            },
+            "title": "Groix",
+            "trips": [
+                {
+                    "date": "Juillet 2009",
+                    "id": 167
+                }
+            ]
+        },
+        {
+            "cat": [
+                "med",
+                "fra"
+            ],
+            "desc": "Stage de Validation N2 bio",
+            "position": {
+                "lat": 43.395681,
+                "lng": 3.6957
+            },
+            "title": "Etang de Thau",
+            "trips": [
+                {
+                    "date": "Juin 2009",
+                    "id": 168
+                }
+            ]
+        },
+        {
+            "cat": [
+                "med",
+                "fra"
+            ],
+            "desc": "S\u00e9jour \u00e0 la Pointe Rouge",
+            "position": {
+                "lat": 43.244527,
+                "lng": 5.363356
+            },
+            "title": "Marseille",
+            "trips": [
+                {
+                    "date": "Mai 2009",
+                    "id": 169
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "phi"
+            ],
+            "desc": "Safari Magellan avec <a href='_blank' target='http://www.abyssworld.com/'>Abyss</a>",
+            "position": {
+                "lat": 10.310111,
+                "lng": 124.025372
+            },
+            "title": "Philippines",
+            "trips": [
+                {
+                    "date": "F\u00e9vrier 2009",
+                    "id": 171
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "phi"
+            ],
+            "desc": "Safari Magellan avec <a href='_blank' target='http://www.abyssworld.com/'>Abyss</a>",
+            "position": {
+                "lat": 11.326639,
+                "lng": 124.115789
+            },
+            "title": "Malapascua",
+            "trips": [
+                {
+                    "date": "F\u00e9vrier 2009",
+                    "id": 171
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "phi"
+            ],
+            "desc": "Safari Magellan avec <a href='_blank' target='http://www.abyssworld.com/'>Abyss</a>",
+            "position": {
+                "lat": 9.078132,
+                "lng": 123.26818
+            },
+            "title": "Apo Island",
+            "trips": [
+                {
+                    "date": "F\u00e9vrier 2009",
+                    "id": 171
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "phi"
+            ],
+            "desc": "Safari Magellan avec <a href='_blank' target='http://www.abyssworld.com/'>Abyss</a>",
+            "position": {
+                "lat": 9.183772,
+                "lng": 123.260684
+            },
+            "title": "Dauin",
+            "trips": [
+                {
+                    "date": "F\u00e9vrier 2009",
+                    "id": 171
+                }
+            ]
+        },
+        {
+            "cat": [
+                "red",
+                "egy"
+            ],
+            "desc": "Croisi\u00e8re St John sur le <a href='http://www.anthias-plongee.fr/' target='_blank'>Nautile</a>",
+            "position": {
+                "lat": 25.079079,
+                "lng": 34.892364
+            },
+            "title": "Egypte",
+            "trips": [
+                {
+                    "date": "Octobre 2008",
+                    "id": 172
+                }
+            ]
+        },
+        {
+            "cat": [
+                "med",
+                "fra"
+            ],
+            "desc": "Croisi\u00e8re \u00e9paves \u00e0 bord de l'Espadon",
+            "position": {
+                "lat": 43.17231,
+                "lng": 6.53577
+            },
+            "title": "Cavalaire",
+            "trips": [
+                {
+                    "date": "Mai 2008",
+                    "id": 176
+                },
+                {
+                    "date": "Juillet 2007"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "indien",
+				"mald"
+            ],
+            "desc": "Croisi\u00e8re avec <a href='http://www.plongee-okmaldives.com/' target='_blank'>OK Maldives</a>",
+            "position": {
+                "lat": 4.17317,
+                "lng": 73.50922
+            },
+            "title": "Les Maldives",
+            "trips": [
+                {
+                    "date": "F\u00e9vrier 2008",
+                    "id": 177
+                }
+            ]
         }
     ]
 }

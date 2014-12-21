@@ -1,4 +1,3 @@
-var startYear = 2003;
 var dateCats = null;
 var cats = null;
 var categoriesMap = null;
@@ -50,19 +49,11 @@ function initializeLocationsData(data, buildTagCloud)
 		// and generate the categories flat list for TZ portfolio filter
 		buildLocationCloud();
 		updateCategoriesWithNoGallery(cats);
-	}
-	
-	// Dynamically create year categories
-	dateCats = [];
-	var today = new Date();
-	var endYear = today.getFullYear();
-	
-	for (var year = endYear; year >= startYear; year--)
-	{
-		dateCats.push({
-			id: "" + year,
-			text: "" + year
-		});
+		updateDateCategoriesWithNoGallery(dateCats);
+		// Sort data categories - decreasing order
+		dateCats.sort(function(d1, d2) {
+			return d2.text.localeCompare(d1.text);
+		})
 	}
 }
 
@@ -79,20 +70,49 @@ function populateCategoryMap(catArray) {
 function buildLocationCloud()
 {
 	tagCloud = [];
-	var catMap = [];
+	dateCats = [];
+	
+	var mapAliasToCategory = [];
+	var mapYearToDateCategory = [];
 	// Weight for a single trip
 	var singleWeight = 1;
+	
+	// A map used to check that a trip is only taken into account once
+	var tripIdentifiers = [];
 	
 	for (var locIndex = 0; locIndex < locations.length; locIndex++)
 	{
 		var loc = locations[locIndex];
 		var galleryCount = 0;
+		// For each location, check if a trip exixts which is linked to a gallery...
 		for (var tripIndex = 0; tripIndex < loc.trips.length; tripIndex++)
 		{
 			var currentTrip = loc.trips[tripIndex];
-			if (currentTrip.id != null)
+			
+			// get the date of the trip to dynamically build the date categories
+			var tripDate = currentTrip.date;
+			var tripYear = tripDate.substring(tripDate.length - 4);
+			var dateCategory = mapYearToDateCategory[tripYear];
+			if (dateCategory == null)
 			{
+				// create a new date category
+				// -> by default, it has no gallery
+				dateCategory = {
+					"id": tripYear,
+					"text": tripYear,
+					"gallery": false
+				};
+				mapYearToDateCategory[tripYear] = dateCategory;
+				dateCats.push(dateCategory);
+			}
+			
+			if (currentTrip.id != null && tripIdentifiers[currentTrip.id] == null)
+			{
+				// just add a value for the trip Id key
+				tripIdentifiers[currentTrip.id] = "y";
 				galleryCount++;
+				// finally, the date category has at least one gallery 
+				dateCategory.gallery = true;
 			}
 		}
 		
@@ -105,9 +125,9 @@ function buildLocationCloud()
 			var catId = locCats[catIndex];
 			var locationCat = categoriesMap[catId];
 
-			if (catMap[locationCat.alias] == null)
+			if (mapAliasToCategory[locationCat.alias] == null)
 			{
-				catMap[locationCat.alias] = locationCat;
+				mapAliasToCategory[locationCat.alias] = locationCat;
 				locationCat.weight = (singleWeight * galleryCount);
 				locationCat.link =
 				{
@@ -205,11 +225,12 @@ function SetOriginalPositionAndZoom(map)
 	map.setZoom(initialZoomLevel);	
 }
 
-function updateCategoriesWithNoGallery(categories)
+function updateCategoriesWithNoGallery(areaCategories)
 {
-	for (var catIndex = 0; catIndex < categories.length; catIndex++)
+	// Update area categories
+	for (var catIndex = 0; catIndex < areaCategories.length; catIndex++)
 	{
-		var category = categories[catIndex];
+		var category = areaCategories[catIndex];
 		if (category.weight == null)
 		{
 			// This categoy has no pictures...
@@ -229,6 +250,25 @@ function updateCategoriesWithNoGallery(categories)
 	}
 }
 
+function updateDateCategoriesWithNoGallery(dateCategories)
+{
+	for (var dateIndex = 0; dateIndex < dateCategories.length; dateIndex++)
+	{
+		var dateCategory = dateCategories[dateIndex];
+		if (dateCategory.gallery == false)
+		{
+			if (displayAllLocations == true)
+			{
+				dateCategory.disabled = false;
+			}
+			else
+			{
+				dateCategory.disabled = true;
+			}			
+		}
+	}
+}
+
 function ToggleDisplayAllLocations(control)
 {
 	if (displayAllLocations == true)
@@ -236,16 +276,15 @@ function ToggleDisplayAllLocations(control)
 		// Turn off locations without pictures		
 		displayAllLocations = false;
 		control.innerHTML = '<i class="icon-toggle-off"></i>';
-		updateCategoriesWithNoGallery(cats);
 	}
 	else
 	{
 		// Turn on locations without pictures
 		displayAllLocations = true;
 		control.innerHTML = '<i class="icon-toggle-on"></i>';
-		updateCategoriesWithNoGallery(cats);
 	}
 	updateCategoriesWithNoGallery(cats);
+	updateDateCategoriesWithNoGallery(dateCats);
 	applyCatFiltering(areaFilters, dateFilters);
 }
 
@@ -439,7 +478,7 @@ function getMarkerDesc(marker)
 		{
 			// no need to add the read more link inside the article itself... 
 			// routeArticle is defined in fashionCustom.js (fashion template js folder)
-			markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(" + currentTrip.id + ", 8, 101)'>" + currentTrip.date + "</a></p>";
+			markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(" + currentTrip.id + ", 8, 101)'><i class='icon-camera-alt'></i>&nbsp;" + currentTrip.date + "</a></p>";
 		}
 		else
 		{
