@@ -478,7 +478,7 @@ function getMarkerDesc(marker)
 		{
 			// no need to add the read more link inside the article itself... 
 			// routeArticle is defined in fashionCustom.js (fashion template js folder)
-			markerDesc += "<p><a class='TzReadmore' href='javascript:routeArticle(" + currentTrip.id + ", 8, 101)'><i class='icon-camera-alt'></i>&nbsp;" + currentTrip.date + "</a></p>";
+			markerDesc += "<p><a href='javascript:routeArticle(" + currentTrip.id + ", 8, 101)' style='font-weight: 600'><i class='icon-camera-alt'></i>&nbsp;" + currentTrip.date + "</a></p>";
 		}
 		else
 		{
