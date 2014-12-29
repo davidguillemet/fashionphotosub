@@ -1327,6 +1327,7 @@ ul.check > li
 #mod_improved_ajax_login-106
 {
 	height: 100%;
+	float: right;
 }
 .selectBtn, .logout
 {
@@ -1999,6 +2000,21 @@ word-wrap: break-word;
 {
 	width: 50%;
 	float: right;
+}
+
+/* Acy mailing */
+div.acymailing_module, .acymailing_module div
+{
+	height: 100%;
+	float: right;
+}
+
+a.acymailing_togglemodule
+{
+	font-size: 20px;
+	padding: 10px;
+	border-left: 1px solid #333;
+	display: inline-block;
 }
 
 /* iFrame responsives pour les vidéos */
