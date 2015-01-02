@@ -3,7 +3,7 @@
  * List Model
  *
  * @package         Snippets
- * @version         3.5.3
+ * @version         3.5.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -110,7 +110,7 @@ class SnippetsModelList extends JModelList
 		{
 			$query->where('a.published = ' . ( int ) $state);
 		}
-		else if ($state === '')
+		else if ($state == '')
 		{
 			$query->where('( a.published IN ( 0,1,2 ) )');
 		}
@@ -193,7 +193,7 @@ class SnippetsModelList extends JModelList
 			{
 				foreach ($items[$i] as $key => $val)
 				{
-					if (is_string($val))
+					if (is_string($val) && $key != 'content')
 					{
 						$items[$i]->$key = stripslashes($val);
 					}

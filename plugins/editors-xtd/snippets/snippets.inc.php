@@ -4,7 +4,7 @@
  * Used for the editor button (template xml)
  *
  * @package         Snippets
- * @version         3.5.3
+ * @version         3.5.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -68,12 +68,12 @@ class plgButtonSnippetsPopup
 		require_once JPATH_ADMINISTRATOR . '/components/com_snippets/models/list.php';
 		$list = new SnippetsModelList;
 
-		$list->setState('state', $filter_state);
-		$list->setState('filter_search', $filter_search);
-		$list->setState('limit', $limit);
-		$list->setState('limitstart', $limitstart);
-		$list->setState('order', $filter_order);
-		$list->setState('order_Dir', $filter_order_Dir);
+		$list->setState('filter.state', $filter_state);
+		$list->setState('filter.search', $filter_search);
+		$list->setState('filter.limit', $limit);
+		$list->setState('filter.limitstart', $limitstart);
+		$list->setState('list.ordering', $filter_order);
+		$list->setState('list.direction', $filter_order_Dir);
 
 		$items = $list->getItems();
 

@@ -2,7 +2,7 @@
  * Main JavaScript file
  *
  * @package         Tabs
- * @version         4.0.6
+ * @version         4.0.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -172,7 +172,6 @@
 					continue;
 				}
 
-				alert(keyval.join('='));
 				this.openParents(decodeURIComponent(keyval.join('=')), 0);
 			}
 		},
@@ -204,6 +203,11 @@
 			// hash is a tab
 			if (!nn_tabs_use_hash) {
 				return;
+			}
+
+			if (!nn_tabs_urlscroll) {
+				// Prevent scrolling to anchor
+				$('html,body').animate({scrollTop: 0});
 			}
 
 			this.showByID(id);

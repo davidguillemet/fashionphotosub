@@ -4,7 +4,7 @@
  * Displays a block with optionally a title and description
  *
  * @package         NoNumber Framework
- * @version         14.11.8
+ * @version         14.12.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,61 +21,61 @@ class JFormFieldNN_Block extends JFormField
 	public $type = 'Block';
 	private $params = null;
 
-  protected function getLabel()
+	protected function getLabel()
 	{
 		return '';
 	}
 
-protected function getInput()
+	protected function getInput()
 	{
 		$this->params = $this->element->attributes();
 
-	 JHtml::stylesheet('nnframework/style.min.css', false, true);
+		JHtml::stylesheet('nnframework/style.min.css', false, true);
 
 		$title = $this->get('label');
-     	$description = $this->get('description');
-  	$class = $this->get('class');
+		$description = $this->get('description');
+		$class = $this->get('class');
 
-	$start = $this->get('start', 0);
+		$start = $this->get('start', 0);
 		$end = $this->get('end', 0);
 
 		$html = array();
 
 		if ($start || !$end)
-  	{
+		{
 			$html[] = '</div>';
 			if (strpos($class, 'alert') !== false)
 			{
-		 $html[] = '<div class="alert ' . $class . '">';
-		     }
+				$html[] = '<div class="alert ' . $class . '">';
+			}
 			else
-	  	{
-			$html[] = '<div class="well well-small ' . $class . '">';
-	  	}
+			{
+				$html[] = '<div class="well well-small ' . $class . '">';
+			}
 			if ($title)
-		{
-		 	$title = nnText::html_entity_decoder(JText::_($title));
-	     		$html[] = '<h4>' . $title . '</h4>';
-		  }
+			{
+				$title = nnText::html_entity_decoder(JText::_($title));
+				$html[] = '<h4>' . $title . '</h4>';
+			}
 			if ($description)
-		{
-	  		// variables
-			$v1 = JText::_($this->get('var1'));
- 	     	$v2 = JText::_($this->get('var2'));
-  		$v3 = JText::_($this->get('var3'));
-  		$v4 = JText::_($this->get('var4'));
- 	     	$v5 = JText::_($this->get('var5'));
+			{
+				// variables
+				$v1 = JText::_($this->get('var1'));
+				$v2 = JText::_($this->get('var2'));
+				$v3 = JText::_($this->get('var3'));
+				$v4 = JText::_($this->get('var4'));
+				$v5 = JText::_($this->get('var5'));
 
 				$description = nnText::html_entity_decoder(trim(JText::sprintf($description, $v1, $v2, $v3, $v4, $v5)));
-  		$description = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $description);
+				$description = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $description);
 				$html[] = '<div>' . $description . '</div>';
-	  	}
+			}
 			$html[] = '<div><div>';
 		}
-	if (!$start && !$end)
+		if (!$start && !$end)
 		{
-	 	$html[] = '</div>';
-     	}
+			$html[] = '</div>';
+		}
 
 		return '</div>' . implode('', $html);
 	}

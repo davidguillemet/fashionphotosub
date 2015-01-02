@@ -3,7 +3,7 @@
  * List View Template: Default
  *
  * @package         Snippets
- * @version         3.5.3
+ * @version         3.5.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -170,7 +170,7 @@ require_once JPATH_PLUGINS . '/system/nnframework/helpers/licenses.php';
 echo nnLicenses::getInstance()->getMessage('SNIPPETS', 0);
 
 // Copyright
-echo nnVersions::getInstance()->getCopyright('SNIPPETS', '', 13003, 'snippets', 'component');
+echo nnVersions::getInstance()->getCopyright('SNIPPETS', '', 0, 'snippets', 'component');
 
 function makeTooltipSafe($str)
 {

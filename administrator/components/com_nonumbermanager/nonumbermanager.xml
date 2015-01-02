@@ -2,8 +2,8 @@
 <extension version="3.2" type="component" method="upgrade">
 	<name>COM_NONUMBERMANAGER</name>
 	<description>COM_NONUMBERMANAGER_DESC</description>
-	<version>4.6.4</version>
-	<creationDate>November 2014</creationDate>
+	<version>4.6.5</version>
+	<creationDate>December 2014</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>

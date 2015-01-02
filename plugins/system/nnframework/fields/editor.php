@@ -4,7 +4,7 @@
  * Displays an HTML editor text field
  *
  * @package         NoNumber Framework
- * @version         14.11.8
+ * @version         14.12.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -20,28 +20,28 @@ class JFormFieldNN_Editor extends JFormField
 	private $params = null;
 
 	protected function getLabel()
-{
+	{
 		return '';
 	}
 
 	protected function getInput()
- {
+	{
 		$this->params = $this->element->attributes();
 
-	     $width = $this->get('width', '100%');
-	  $height = $this->get('height', 400);
+		$width = $this->get('width', '100%');
+		$height = $this->get('height', 400);
 
 		$this->value = htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8');
 
 		// Get an editor object.
 		$editor = JFactory::getEditor();
-	$html = $editor->display($this->name, $this->value, $width, $height, true, $this->id);
+		$html = $editor->display($this->name, $this->value, $width, $height, true, $this->id);
 
 		return '</div><div>' . $html;
-  }
+	}
 
 	private function get($val, $default = '')
 	{
-	return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
- }
+		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
+	}
 }

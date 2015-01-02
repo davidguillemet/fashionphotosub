@@ -2,7 +2,7 @@
  * Main stylesheet
  *
  * @package         NoNumber Framework
- * @version         14.11.8
+ * @version         14.12.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -13,7 +13,7 @@
  * Stylesheet for font faces
  *
  * @package         NoNumber Framework
- * @version         14.11.8
+ * @version         14.12.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -500,6 +500,10 @@ input.nn_keyfield,
 div.nn_keycode {
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
   font-size: 1.4em !important;
+}
+input.nn_codefield,
+input.nn_keyfield {
+  font-size: 14px !important;
 }
 .nn_keycode {
   color: #999999;

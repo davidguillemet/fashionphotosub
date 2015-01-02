@@ -3,7 +3,7 @@
  * Plugin Helper File: Head
  *
  * @package         Tabs
- * @version         4.0.6
+ * @version         4.0.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -19,96 +19,96 @@ class plgSystemTabsHelperHead
 	var $params = null;
 
 	public function __construct()
-	{
-		require_once __DIR__ . '/helpers.php';
+  {
+	require_once __DIR__ . '/helpers.php';
 		$this->helpers = plgSystemTabsHelpers::getInstance();
 		$this->params = $this->helpers->getParams();
 	}
 
 	public function addHeadStuff()
-	{
-		// do not load scripts/styles on feeds or print pages
+ {
+	     // do not load scripts/styles on feeds or print pages
 		if (JFactory::getDocument()->getType() == 'feed' || JFactory::getApplication()->input->getInt('print', 0))
 		{
 			return;
 		}
 
 		if ($this->params->load_bootstrap_framework)
-		{
-			JHtml::_('bootstrap.framework');
+  	{
+		JHtml::_('bootstrap.framework');
 		}
 
-		if ($this->params->use_cookies || $this->params->set_cookies)
+	  if ($this->params->use_cookies || $this->params->set_cookies)
 		{
-			JHtml::script('nnframework/jquery.cookie.min.js', false, true);
+		JHtml::script('nnframework/jquery.cookie.min.js', false, true);
 		}
 
 		$script = '
-			var nn_tabs_mode = \'' . $this->params->mode . '\';
-			var nn_tabs_use_cookies = ' . (int) $this->params->use_cookies . ';
+		 var nn_tabs_mode = \'' . $this->params->mode . '\';
+		     var nn_tabs_use_cookies = ' . (int) $this->params->use_cookies . ';
 			var nn_tabs_set_cookies = ' . (int) $this->params->set_cookies . ';
-			var nn_tabs_cookie_name = \'' . $this->params->cookie_name . '\';
+  		var nn_tabs_cookie_name = \'' . $this->params->cookie_name . '\';
 			var nn_tabs_scroll = ' . (int) $this->params->scroll . ';
-			var nn_tabs_urlscroll = ' . (int) $this->params->urlscroll . ';
-			var nn_tabs_use_hash = ' . (int) $this->params->use_hash . ';
+		var nn_tabs_urlscroll = ' . (int) $this->params->urlscroll . ';
+  	var nn_tabs_use_hash = ' . (int) $this->params->use_hash . ';
 		';
-		JFactory::getDocument()->addScriptDeclaration('/* START: Tabs scripts */ ' . preg_replace('#\n\s*#s', ' ', trim($script)) . ' /* END: Tabs scripts */');
+ 	JFactory::getDocument()->addScriptDeclaration('/* START: Tabs scripts */ ' . preg_replace('#\n\s*#s', ' ', trim($script)) . ' /* END: Tabs scripts */');
 
-		JHtml::script('tabs/script.min.js', false, true);
+     	JHtml::script('tabs/script.min.js', false, true);
 
-		switch ($this->params->load_stylesheet)
+	  switch ($this->params->load_stylesheet)
 		{
 			case 2:
-				JHtml::stylesheet('tabs/old.min.css', false, true);
-				break;
+	  	JHtml::stylesheet('tabs/old.min.css', false, true);
+			break;
 
-			case 1:
+	 	case 1:
 				JHtml::stylesheet('tabs/style.min.css', false, true);
-				break;
+		     	break;
 
-			case 0:
-			default:
+  		case 0:
+		default:
 				// Do not load styles
-				break;
-		}
+  		break;
+	 }
 
 		$style = '';
-		if ($this->params->scrolloffset)
+     	if ($this->params->scrolloffset)
 		{
-			$style .= '
-				.nn_tabs-scroll {
-					top: ' . $this->params->scrolloffset . 'px;
-				}
+		  $style .= '
+			.nn_tabs-scroll {
+  				top: ' . $this->params->scrolloffset . 'px;
+			}
 			';
-		}
-		if ($this->params->scrolloffset_sm)
+ 	}
+	     if ($this->params->scrolloffset_sm)
 		{
-			$style .= '
-				.nn_tabs-sm-scroll {
+	  	$style .= '
+		  .nn_tabs-sm-scroll {
 					top: ' . $this->params->scrolloffset_sm . 'px;
-				}
-			';
-		}
+			}
+	 	';
+	     }
 
 		if (!$style)
-		{
-			return;
-		}
+  	{
+		return;
+	  }
 
-		JFactory::getDocument()->addStyleDeclaration('/* START: Tabs styles */ ' . preg_replace('#\n\s*#s', ' ', trim($style)) . ' /* END: Tabs styles */');
+	JFactory::getDocument()->addStyleDeclaration('/* START: Tabs styles */ ' . preg_replace('#\n\s*#s', ' ', trim($style)) . ' /* END: Tabs styles */');
 	}
 
-	public function removeHeadStuff(&$html)
+ public function removeHeadStuff(&$html)
 	{
-		// Don't remove if tabs class is found
+     	// Don't remove if tabs class is found
 		if (strpos($html, 'class="nn_tabs-tab') !== false)
-		{
-			return;
+  	{
+	  return;
 		}
 
-		// remove style and script if no items are found
-		$html = preg_replace('#\s*<' . 'link [^>]*href="[^"]*/(tabs/css|css/tabs)/[^"]*\.css[^"]*"[^>]* />#s', '', $html);
-		$html = preg_replace('#\s*<' . 'script [^>]*src="[^"]*/(tabs/js|js/tabs)/[^"]*\.js[^"]*"[^>]*></script>#s', '', $html);
+	// remove style and script if no items are found
+ 	$html = preg_replace('#\s*<' . 'link [^>]*href="[^"]*/(tabs/css|css/tabs)/[^"]*\.css[^"]*"[^>]* />#s', '', $html);
+	     $html = preg_replace('#\s*<' . 'script [^>]*src="[^"]*/(tabs/js|js/tabs)/[^"]*\.js[^"]*"[^>]*></script>#s', '', $html);
 		$html = preg_replace('#/\* START: Tabs .*?/\* END: Tabs [a-z]* \*/\s*#s', '', $html);
-	}
+  }
 }

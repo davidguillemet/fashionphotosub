@@ -4,7 +4,7 @@
  * Element to display the date and time
  *
  * @package         NoNumber Framework
- * @version         14.11.8
+ * @version         14.12.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,49 +17,49 @@ defined('_JEXEC') or die;
 class JFormFieldNN_DateTime extends JFormField
 {
 	public $type = 'DateTime';
-  private $params = null;
+	private $params = null;
 
 	protected function getLabel()
-{
+	{
 		return '';
 	}
 
 	protected function getInput()
- {
+	{
 		$this->params = $this->element->attributes();
 
 		$label = $this->get('label');
-     	$format = $this->get('format');
+		$format = $this->get('format');
 
-  	$date = JFactory::getDate();
+		$date = JFactory::getDate();
 
 		$tz = new DateTimeZone(JFactory::getApplication()->getCfg('offset'));
-	$date->setTimeZone($tz);
+		$date->setTimeZone($tz);
 
-  	if ($format)
-	{
- 		if (strpos($format, '%') !== false)
+		if ($format)
+		{
+			if (strpos($format, '%') !== false)
 			{
-     	  	require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
-			$format = nnText::dateToDateFormat($format);
+				require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
+				$format = nnText::dateToDateFormat($format);
 			}
-  		$html = $date->format($format, 1);
-	}
+			$html = $date->format($format, 1);
+		}
 		else
 		{
-	 	$html = $date->format('', 1);
-	     }
-
-	  if ($label)
-		{
-		$html = JText::sprintf($label, $html);
+			$html = $date->format('', 1);
 		}
 
-  	return '</div><div>' . $html;
+		if ($label)
+		{
+			$html = JText::sprintf($label, $html);
+		}
+
+		return '</div><div>' . $html;
 	}
 
-private function get($val, $default = '')
+	private function get($val, $default = '')
 	{
- 	return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
+		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
 	}
 }

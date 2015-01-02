@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         NoNumber Extension Manager
- * @version         4.6.4
+ * @version         4.6.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

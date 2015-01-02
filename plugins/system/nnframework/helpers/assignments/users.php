@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Users
  *
  * @package         NoNumber Framework
- * @version         14.11.8
+ * @version         14.12.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -20,22 +20,22 @@ class nnFrameworkAssignmentsUsers
 {
 	function passUserGroupLevels(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
-	$user = JFactory::getUser();
+		$user = JFactory::getUser();
 
-	 if (isset($user->groups) && !empty($user->groups))
+		if (isset($user->groups) && !empty($user->groups))
 		{
 			$groups = array_values($user->groups);
 		}
-	     else
-	  {
+		else
+		{
 			$groups = $user->getAuthorisedGroups();
-	}
+		}
 
-  	return $parent->passSimple($groups, $selection, $assignment);
+		return $parent->passSimple($groups, $selection, $assignment);
 	}
 
 	function passUsers(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
-	return $parent->passSimple(JFactory::getUser()->get('id'), $selection, $assignment);
+		return $parent->passSimple(JFactory::getUser()->get('id'), $selection, $assignment);
 	}
 }
