@@ -23,3 +23,5 @@ modules/mod_improved_ajax_login/cache/106/*.png
 logs/*
 
 administrator/components/com_akeeba/backup/*.sql
+
+administrator/cache/sh404sef_analytics/*.php

@@ -9,6 +9,7 @@ require_once ( JPATH_BASE .'/includes/framework.php' );
 
 /* Create the Application */
 $app = JFactory::getApplication('site');
+$app->initialise();
 
 require_once (__ROOT__ . '/libraries/import.php');
 
@@ -25,7 +26,11 @@ function GetArticleRoute($articleId, $itemId, $catid)
 		// ItemId = 101 = "Galeries"
 		// id = 1 = "Anilao"
 		// catid = 8 = "Galeries"
-		$link = 'index.php?option=com_tz_portfolio&amp;view=p_article&amp;id=' . $articleId . '&amp;catid=' . $catid . '&amp;Itemid='. $itemId;
+		$link = 'index.php?option=com_tz_portfolio';
+		$link .= '&amp;Itemid='. $itemId;
+		$link .= '&amp;catid=' . $catid;
+		$link .= '&amp;id=' . $articleId;
+		$link .= '&amp;view=p_article';
 		$routedUrl = JRoute::_($link);		
 		return $routedUrl;
 	}
