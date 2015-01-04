@@ -63,3 +63,6 @@
 .icon-check-empty:before { content: '\e83d'; } /* '' */
 .icon-toggle-off:before { content: '\e83e'; } /* '' */
 .icon-toggle-on:before { content: '\e83f'; } /* '' */
+.icon-th-large:before { content: '\e840'; } /* '' */
+.icon-th:before { content: '\e841'; } /* '' */
+.icon-user:before { content: '\e842'; } /* '' */

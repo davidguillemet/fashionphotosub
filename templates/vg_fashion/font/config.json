@@ -79,6 +79,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "8b80d36d4ef43889db10bc1f0dc9a862",
+      "css": "user",
+      "code": 59458,
+      "src": "fontawesome"
+    },
+    {
       "uid": "dc3f1d5b1d006f7f7b3b6295eccab9da",
       "css": "camera",
       "code": 59422,
@@ -88,6 +94,18 @@
       "uid": "9d3d9d6ce1ec63eaa26281e6162853c9",
       "css": "camera-alt",
       "code": 59423,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dd492243d64e21dfe16a92452f7861cb",
+      "css": "th-large",
+      "code": 59456,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b1887b423d2fd15c345e090320c91ca0",
+      "css": "th",
+      "code": 59457,
       "src": "fontawesome"
     },
     {
