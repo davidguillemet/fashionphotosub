@@ -22,6 +22,51 @@ div.jqcloud span.w3 { font-size: 150%; }
 div.jqcloud span.w2 { font-size: 125%; }
 div.jqcloud span.w1 { font-size: 100%; }
 
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+
+	div.jqcloud span.w10 { font-size: 235%; }
+	div.jqcloud span.w9 { font-size: 220%; }
+	div.jqcloud span.w8 { font-size: 205%; }
+	div.jqcloud span.w7 { font-size: 190%; }
+	div.jqcloud span.w6 { font-size: 175%; }
+	div.jqcloud span.w5 { font-size: 160%; }
+	div.jqcloud span.w4 { font-size: 145%; }
+	div.jqcloud span.w3 { font-size: 130%; }
+	div.jqcloud span.w2 { font-size: 115%; }
+	div.jqcloud span.w1 { font-size: 100%; }
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+	div.jqcloud span.w10 { font-size: 190%; }
+	div.jqcloud span.w9 { font-size: 180%; }
+	div.jqcloud span.w8 { font-size: 170%; }
+	div.jqcloud span.w7 { font-size: 160%; }
+	div.jqcloud span.w6 { font-size: 150%; }
+	div.jqcloud span.w5 { font-size: 140%; }
+	div.jqcloud span.w4 { font-size: 130%; }
+	div.jqcloud span.w3 { font-size: 120%; }
+	div.jqcloud span.w2 { font-size: 110%; }
+	div.jqcloud span.w1 { font-size: 100%; }
+
+}
+
+@media only screen and (min-width: 200px) and (max-width: 479px) {
+
+	div.jqcloud span.w10 { font-size: 145%; }
+	div.jqcloud span.w9 { font-size: 140%; }
+	div.jqcloud span.w8 { font-size: 135%; }
+	div.jqcloud span.w7 { font-size: 130%; }
+	div.jqcloud span.w6 { font-size: 125%; }
+	div.jqcloud span.w5 { font-size: 120%; }
+	div.jqcloud span.w4 { font-size: 115%; }
+	div.jqcloud span.w3 { font-size: 110%; }
+	div.jqcloud span.w2 { font-size: 105%; }
+	div.jqcloud span.w1 { font-size: 100%; }
+
+}
+
 /* colors */
 
 div.jqcloud { color: #09f; }

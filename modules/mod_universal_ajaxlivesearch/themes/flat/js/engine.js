@@ -411,6 +411,7 @@ dojo.declare("AJAXSearchflat", AJAXSearchBase, {
                 }
                 this.searchResultsInner.innerHTML="";
                 dojo.removeClass(this.searchResults, "hidde");
+		        dojo.style(this.searchResults,"display","none");
               }),250);
          
   },
@@ -425,9 +426,14 @@ dojo.declare("AJAXSearchflat", AJAXSearchBase, {
       size = maxsize;
     
     if (fix)
+	{
       dojo.style(this.searchResults,"height","0px");
+    }
     else
+	{
       dojo.style(this.searchResults,"height",size+"px");
+      dojo.style(this.searchResults,"display","block");
+  	}
   },
   
   actualiseResultWidth : function(){

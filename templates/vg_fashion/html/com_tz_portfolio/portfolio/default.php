@@ -279,17 +279,43 @@ $doc->addStyleDeclaration('
 
     }
 
-//    loadPortfolio();
+	var previousContentWidth = null;
+	
 	function onLocationsDataLoaded()
 	{
-		jQuery("#filter").jQCloud(tagCloud, {
-			delayedMode: true,
-			removeOverflowing: false,
-			afterCloudRender: loadPortfolio
-		});
+		previousContentWidth = getContentWidth();
+		updateCloud(true);
 	}
 	
+	function updateCloud(pageIsLoading)
+	{
+		var $filterContainer = jQuery("#filter");
+		var newContentWidth = getContentWidth();
+
+		if (pageIsLoading != true && newContentWidth != previousContentWidth)
+		{
+			// Called from onResize event
+			// -> clear the filter container and resize it
+			$filterContainer.empty();
+			$filterContainer.css("width", newContentWidth);
+		}
+		
+		// Display jQCloud on page loading or when the content has been resized
+		if (pageIsLoading == true || newContentWidth != previousContentWidth)
+		{
+			$filterContainer.jQCloud(tagCloud, {
+				delayedMode: true,
+				removeOverflowing: false,
+				afterCloudRender: loadPortfolio
+			});
+		}
+		
+		previousContentWidth = newContentWidth;
+	}
+		
 	loadLocationsData(true);
+
+	jQuery( window ).resize(updateCloud);
 
       </script>
 

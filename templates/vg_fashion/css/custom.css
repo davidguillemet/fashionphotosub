@@ -83,6 +83,13 @@ h3
 	text-transform: uppercase;
 }
 
+.title-block h3
+{
+	display: block;
+	font-size: 45px;
+	margin: 13px 0 0 20px;
+}
+
 .footer
 {
 	z-index: 998; /* 1 less than shadowbox */
@@ -119,7 +126,8 @@ ul#slide-list
 
 #offlajn-ajax-tile-results
 {
-	margin: 0 10px 30px 10px;
+	display: none;
+	margin: 0 10px 20px 10px;
 }
 
 #offlajn-ajax-tile-results .search-result-card .search-result-title > span
@@ -2048,7 +2056,12 @@ a.acymailing_togglemodule
 		width: 50%;
 		float: right;
 	}
-
+	.title-block h3
+	{
+		display: block;
+		font-size: 30px;
+		margin: 20px 0 0 20px;
+	}
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
@@ -2072,6 +2085,11 @@ a.acymailing_togglemodule
 	.navigationicon
 	{
 		font-size: 35px;
+	}
+	
+	.title-block h3
+	{
+		display: none;
 	}
 
 }
@@ -2097,6 +2115,11 @@ a.acymailing_togglemodule
 	.navigationicon
 	{
 		font-size: 35px;
+	}
+	
+	.title-block h3
+	{
+		display: none;
 	}
 
 }

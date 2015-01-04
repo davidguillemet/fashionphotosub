@@ -197,6 +197,51 @@ $f(function($){
 	
 });
 
+// column-1 width = 100% (300px) -> 460px -> 730px -> 940px
+var responsiveData = [
+	{ thumbWidth: 210, chart: false },
+	{ thumbWidth: 184, chart: false },
+	{ thumbWidth: 210, chart: false },
+	{ thumbWidth: 210, chart: true }
+];
+
+function getContentWidth()
+{
+	var contentWidthCssValue = $f(".column-1").css('width');
+	var contentWidth = parseInt(contentWidthCssValue.substr(0, contentWidthCssValue.length - 2));
+	return contentWidth;
+}
+
+function getResponsiveData(width)
+{
+	var contentWidth = width == null ? getContentWidth() : width;
+	var dataIndex = -1;
+	if (contentWidth < 460)
+	{
+		dataIndex = 0;
+	}
+	else if (contentWidth < 730)
+	{
+		dataIndex = 1;
+	}
+	else if (contentWidth < 940)
+	{
+		dataIndex = 2;
+	}
+	else
+	{
+		dataIndex = 3;
+	}
+	
+	if (dataIndex != -1)
+	{
+		return responsiveData[dataIndex];
+	}
+	else
+	{
+		return null;
+	}
+}
 
 var isCallingRouter = false;
 function routeArticle(id, catid, itemid)
