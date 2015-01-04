@@ -15,6 +15,6 @@ defined('_JEXEC') or die('Restricted access');
 		 	$link = "rel=\"{handler: 'iframe', size: {x: ".$params->get('boxwidth',250).", y: ".$params->get('boxheight',200)."}}\" class=\"modal acymailing_togglemodule\"";
 		 	$href=acymailing_completeLink('sub&task=display&formid='.$module->id,true);
 		?>
-		<p><a <?php echo $link; ?> id="acymailing_togglemodule_<?php echo $formName; ?>" href="<?php echo $href;?>"><i class="icon-mail"></i></a></p>
+		<p><a <?php echo $link; ?> id="acymailing_togglemodule_<?php echo $formName; ?>" href="<?php echo $href;?>" title="S'abooner à la Newletter"><i class="icon-mail-alt"></i></a></p>
 	</div>
 </div>

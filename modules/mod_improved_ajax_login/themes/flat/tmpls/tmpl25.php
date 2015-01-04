@@ -14,7 +14,7 @@
   <?php if (@$module->view != 'reg'): ?>
     <?php if ($loginpopup): ?>
       <a class="logBtn selectBtn" onclick="return false" href="<?php echo JRoute::_('index.php?option=com_users&view=login') ?>">
-        <i class="icon-lock"></i>
+        <i class="icon-user" title="S'identifier"></i>
       </a>
     	<div class="ial-window">
         <div class="loginWndInside">
@@ -50,7 +50,7 @@
 
 <?php else: // LOGOUT ?>
 	<a class="logout selectBtn" href="javascript:;">
-		<i class="icon-lock-open" title="<?php echo $params->get('name')? $user->get('name') : $user->get('username')?>"></i>
+		<i class="icon-user" style="color: green" title="<?php echo $params->get('name')? $user->get('name') : $user->get('username')?>"></i>
 	</a>
 	<div class="ial-usermenu">
     <div class="loginWndInside">
