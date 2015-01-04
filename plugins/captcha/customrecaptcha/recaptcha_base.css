@@ -1,0 +1,29 @@
+/* 
+Copyright (C) 2011 Simplify Your Web, Inc. All rights reserved.
+GNU General Public License version 3 or later; see LICENSE.txt
+*/
+
+#recaptcha_widget {}
+.recaptcha_isnot_showing_audio {} /* when in visual mode */
+.recaptcha_is_showing_audio {} /* when in audio mode */
+
+	#recaptcha_response_field {}
+	span.recaptcha_only_if_image {} /* when in visual mode */
+	span.recaptcha_only_if_audio {} /* when in audio mode */
+	#recaptcha_image {}
+		#recaptcha_image img {} /* when in visual mode */
+		#recaptcha_image br:first-of-type { display: none; /* will get rid of the first br tag when in audio mode */ }
+		a#recaptcha_audio_play_again {} /* when in audio mode */
+		a#recaptcha_audio_download {} /* when in audio mode */
+		.recaptcha_audio_cant_hear_link {} /* when in audio mode */
+	.recaptcha_reload {}
+		.recaptcha_reload a {}
+	.recaptcha_only_if_image {} /* when in visual mode */
+		.recaptcha_only_if_image a {} /* when in visual mode */
+	.recaptcha_only_if_audio {} /* when in audio mode */
+		.recaptcha_only_if_audio a {} /* when in audio mode */
+	.recaptcha_help {}
+		.recaptcha_help a {}
+	#recaptcha_privacy {}
+	.recaptcha_only_if_privacy {}
+		#recaptcha_privacy a {}

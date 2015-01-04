@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="captcha" method="upgrade">
+	<name>plg_captcha_customrecaptcha</name>
+	<version>1.0.2</version>
+	<creationDate>July 2013</creationDate>
+	<copyright>Copyright (C) 2011 Simplify Your Web. All rights reserved.</copyright>
+	<license>GNU General Public License version 3 or later</license>
+	<author>Olivier Buisard</author>
+	<authorEmail>olivier.buisard@simplifyyourweb.com</authorEmail>
+	<authorUrl>www.simplifyyourweb.com</authorUrl>
+	<description>PLG_CAPTCHA_CUSTOMRECAPTCHA_XML_DESCRIPTION</description>
+	<scriptfile>installer.php</scriptfile>
+	<files>
+		<filename plugin="customrecaptcha">customrecaptcha.php</filename>
+		<filename>index.html</filename>
+		<filename>license.txt</filename>
+		<filename>recaptcha_base.css</filename>
+		<folder>fields</folder>
+		<folder>images</folder>
+	</files>
+	<languages>
+		<language tag="da-DK">language/da-DK/da-DK.plg_captcha_customrecaptcha.ini</language>
+		<language tag="da-DK">language/da-DK/da-DK.plg_captcha_customrecaptcha.sys.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_captcha_customrecaptcha.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_captcha_customrecaptcha.sys.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_captcha_customrecaptcha.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_captcha_customrecaptcha.sys.ini</language>
+		<language tag="es-ES">language/es-ES/es-ES.plg_captcha_customrecaptcha.ini</language>
+		<language tag="es-ES">language/es-ES/es-ES.plg_captcha_customrecaptcha.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_captcha_customrecaptcha.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_captcha_customrecaptcha.sys.ini</language>
+		<language tag="it-IT">language/it-IT/it-IT.plg_captcha_customrecaptcha.ini</language>
+		<language tag="it-IT">language/it-IT/it-IT.plg_captcha_customrecaptcha.sys.ini</language>
+		<language tag="nl-NL">language/nl-NL/nl-NL.plg_captcha_customrecaptcha.ini</language>
+		<language tag="nl-NL">language/nl-NL/nl-NL.plg_captcha_customrecaptcha.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+		
+			<fieldset name="basic" addfieldpath="/plugins/captcha/customrecaptcha/fields">
+				<field type="extensionlink" linktype="doc" link="http://www.simplifyyourweb.com/index.php/downloads/category/27-custom-recaptcha#downloads" />
+				<field type="extensionlink" linktype="forum" link="http://www.simplifyyourweb.com/index.php/forum/41-custom-recaptcha" /> 
+	            <field type="extensionlink" linktype="demo" link="http://demo.simplifyyourweb.com/contact" />
+				<!-- <field type="extensionlink" linktype="review" link="http://extensions.joomla.org/extensions/access-a-security/site-security/captcha/24878" /> -->
+	            <field type="extensionlink" linktype="review" link="http://extensions.joomla.org/extensions/extension/access-a-security/site-security/custom-recaptcha" />
+	            <field type="extensionlink" linktype="donate" link="http://www.simplifyyourweb.com/index.php/downloads" />
+<!-- 			</fieldset>		 -->
+		
+<!-- 			<fieldset name="basic_custom" label="PLG_CAPTCHA_CUSTOMRECAPTCHA_BASIC_FIELDSET_LABEL" addfieldpath="/plugins/captcha/customrecaptcha/fields"> -->
+				
+				<field type="title" title="PLG_CUSTOMRECAPTCHA_KEYS_LABEL" />
+					
+				<field type="message" text="PLG_CUSTOMRECAPTCHA_INFO_DOWNLOADKEYS" style="info" />
+				
+				<field name="public_key" type="text" default="" required="true" filter="string" size="50"
+					label="PLG_CUSTOMRECAPTCHA_PUBLIC_KEY_LABEL"
+					description="PLG_CUSTOMRECAPTCHA_PUBLIC_KEY_DESC" />
+
+				<field name="private_key" type="text" default="" required="true" filter="string" size="50"
+					label="PLG_CUSTOMRECAPTCHA_PRIVATE_KEY_LABEL"
+					description="PLG_CUSTOMRECAPTCHA_PRIVATE_KEY_DESC" />
+					
+				<!-- 
+				<field type="title" title="PLG_CUSTOMRECAPTCHA_WIDGETPARAMS_LABEL" />
+				
+				<field name="override_language" type="radio" default="0" class="btn-group" 
+					label="PLG_CUSTOMRECAPTCHA_OVERRIDELANGUAGE_LABEL" 
+					description="PLG_CUSTOMRECAPTCHA_OVERRIDELANGUAGE_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>	
+				</field>
+				
+				<field name="default_language" type="list" default="en" 
+					label="PLG_CUSTOMRECAPTCHA_DEFAULTLANGUAGE_LABEL" 
+					description="PLG_CUSTOMRECAPTCHA_DEFAULTLANGUAGE_DESC">
+					<option value="en">PLG_CUSTOMRECAPTCHA_VALUE_ENGLISH</option>
+					<option value="nl">PLG_CUSTOMRECAPTCHA_VALUE_DUTCH</option>
+					<option value="fr">PLG_CUSTOMRECAPTCHA_VALUE_FRENCH</option>
+					<option value="de">PLG_CUSTOMRECAPTCHA_VALUE_GERMAN</option>
+					<option value="pt">PLG_CUSTOMRECAPTCHA_VALUE_PORTUGUESE</option>
+					<option value="ru">PLG_CUSTOMRECAPTCHA_VALUE_RUSSIAN</option>
+					<option value="es">PLG_CUSTOMRECAPTCHA_VALUE_SPANISH</option>
+					<option value="tr">PLG_CUSTOMRECAPTCHA_VALUE_TURKISH</option>
+			  	</field>
+			  	 -->
+			  	<!-- add tabindex -->
+			</fieldset>
+		</fields>
+	</config>
+</extension>
