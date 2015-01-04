@@ -309,12 +309,13 @@ function HomeControl(controlDiv, map, insideArticle) {
 	var controlHome = buildCustomControl(controlUI, "home", "Recentrer la carte sur le point de départ");
 	// Setup the click event listeners: simply set the map to the initial position and zoom level
 	google.maps.event.addDomListener(controlHome, 'click', function() {
-		SetOriginalPositionAndZoom(map);
+		markerCluster.fitMapToMarkers();
+		markerCluster.repaint();
 	});
 
 	if (insideArticle) {
 		// MAp dans un article -> lien vers la carte globale
-		var controlGlobe = buildCustomControl(controlUI, "globe", "Accéder à la carte des galeries");
+		var controlGlobe = buildCustomControl(controlUI, "globe", "Accéder à la carte globale des galeries");
 		// Navigate to the global google map (id = 60, catid = 17, itemid = 101 (celui du lenu parent))
 		// index.php?option=com_tz_portfolio&amp;view=p_article&amp;id=60:map&amp;catid=17&amp;Itemid=101
 		google.maps.event.addDomListener(controlGlobe, 'click', function() {
@@ -478,7 +479,7 @@ function getMarkerDesc(marker)
 		{
 			// no need to add the read more link inside the article itself... 
 			// routeArticle is defined in fashionCustom.js (fashion template js folder)
-			markerDesc += "<p><a href='javascript:routeArticle(" + currentTrip.id + ", 8, 101)' style='font-weight: 600'><i class='icon-camera-alt'></i>&nbsp;" + currentTrip.date + "</a></p>";
+			markerDesc += "<p><a href='javascript:routeArticle(" + currentTrip.id + ", 8, 101)' style='font-weight: 600'><i class='icon-camera'></i>&nbsp;" + currentTrip.date + "</a></p>";
 		}
 		else
 		{
