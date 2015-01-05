@@ -66,3 +66,6 @@
 .icon-th-large:before { content: '\e840'; } /* '' */
 .icon-th:before { content: '\e841'; } /* '' */
 .icon-user:before { content: '\e842'; } /* '' */
+.icon-chat:before { content: '\e843'; } /* '' */
+.icon-tags:before { content: '\e844'; } /* '' */
+.icon-tag:before { content: '\e845'; } /* '' */

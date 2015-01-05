@@ -25,7 +25,7 @@ $params = $this -> item -> params;
 
 <?php if($params -> get('tz_show_count_comment',1) == 1):?>
     <span class="TZCommentCount">
-		
+		<i class="icon-chat"></i>
         <?php if($params -> get('comment_function_type','js') == 'js'):?>
             <?php if($params -> get('tz_comment_type') == 'disqus'): ?>
                 <a href="<?php echo $this -> item ->link;?>#disqus_thread"><?php echo $this -> item -> commentCount;?></a>

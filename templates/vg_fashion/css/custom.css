@@ -989,26 +989,20 @@ font-weight: 400;
 text-shadow: none;
 }
 
-span.date, span.p_tag, span.TZCommentCount, span.TzPortfolioCommentCount, span.TzArticleTag {
-background-image: url(../images/icon-info.png);
-background-repeat: no-repeat;
-padding: 0px 0 3px 25px;
-line-height: 20px;
-font-size: 14px;
-color: #a5a5a5;
-text-transform: uppercase;
+span.date, span.p_tag, span.TZCommentCount, span.TzPortfolioCommentCount, span.TzArticleTag
+{
+	line-height: 20px;
+	font-size: 12px;
+	color: #a5a5a5;
+	text-transform: uppercase;
+	font-style: italic;
 }
 
-span.TzArticleTag, .TZCommentCount, .TzPortfolioCommentCount{
-background: url(../images/icon-info.png) no-repeat scroll left -42px transparent;
-margin: 0 0 0 20px;
-padding-bottom: 2px;
-padding-left: 20px;
-padding-top: 2px;
-}
-
-.TZCommentCount, .TzPortfolioCommentCount{
-background-position: left -21px;
+span.TzArticleTag, .TZCommentCount, .TzPortfolioCommentCount
+{
+	margin: 0 0 0 15px;
+	padding-bottom: 2px;
+	padding-top: 2px;
 }
 
 .TzArticleInfoBottom span {
@@ -1069,7 +1063,7 @@ margin-bottom: 30px;
 	color: #ff5b0a;
 }
 
-/* Blog Vategory */
+/* Blog Category */
 .TzItemsRow .column-1 {
 width: 860px;
 float: none;
@@ -2046,6 +2040,21 @@ a.acymailing_togglemodule
 
 @media only screen and (min-width: 768px) and (max-width: 959px) {
 
+	.TzBlog h3.TzBlogTitle a
+	{
+		font-size: 20px;
+	}
+	.TzBlog h3.TzBlogTitle a.TzReadmore
+	{
+		font-size: 18px;
+		width: 100px;
+	}
+	
+	.TzItemsRow .column-1
+	{
+		width: 650px;
+	}
+	
 	#area-filter-container
 	{
 		width: 50%;
@@ -2062,10 +2071,30 @@ a.acymailing_togglemodule
 		font-size: 30px;
 		margin: 20px 0 0 20px;
 	}
+	
+	div.infobox_v3, div.boite-a-droite, div.tright, div.floatright, table.floatright
+	{
+		clear: none;
+		float: none;
+	}
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 
+	.TzBlog h3.TzBlogTitle a
+	{
+		font-size: 18px;
+	}
+	.TzBlog h3.TzBlogTitle a.TzReadmore
+	{
+		display: none;
+	}
+
+	.TzItemsRow .column-1
+	{
+		width: 370px;
+	}
+	
 	#area-filter-container
 	{
 		width: 100%;
@@ -2092,10 +2121,29 @@ a.acymailing_togglemodule
 		display: none;
 	}
 
+	div.infobox_v3, div.boite-a-droite, div.tright, div.floatright, table.floatright
+	{
+		clear: none;
+		float: none;
+	}
 }
 
 @media only screen and (min-width: 200px) and (max-width: 479px) {
 
+	.TzBlog h3.TzBlogTitle a
+	{
+		font-size: 16px;
+	}
+	.TzBlog h3.TzBlogTitle a.TzReadmore
+	{
+		display: none;
+	}
+
+	.TzItemsRow .column-1
+	{
+		width: 200px;
+	}
+
 	#area-filter-container
 	{
 		width: 100%;
@@ -2122,6 +2170,11 @@ a.acymailing_togglemodule
 		display: none;
 	}
 
+	div.infobox_v3, div.boite-a-droite, div.tright, div.floatright, table.floatright
+	{
+		clear: none;
+		float: none;
+	}
 }
 
 

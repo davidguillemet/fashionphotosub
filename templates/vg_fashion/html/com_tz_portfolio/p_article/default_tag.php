@@ -28,7 +28,7 @@ $tmpl           = JRequest::getString('tmpl');
     <?php if($this -> listTags):?>
 
         <span class="TzArticleTag">
-<!--            <h3>--><?php //echo JText::_('COM_TZ_PORTFOLIO_TAG_TITLE');?><!--</h3>-->
+			<i class="icon-tags"></i>
                 <?php $count = count($this -> listTags); $i=1;  foreach($this -> listTags as $row):?>
                 <?php $link = JRoute::_('index.php?option=com_tz_portfolio&view=tags&id='.$row -> id.'&Itemid='.JRequest::getCmd('Itemid'));?>
                   <span class="label">

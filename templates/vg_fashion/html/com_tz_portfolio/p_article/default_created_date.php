@@ -23,7 +23,7 @@ defined('_JEXEC') or die;
 $params = $this -> item -> params;
 ?>
 <?php if ($params->get('show_create_date',1)) : ?>
-	<span class="TzCreate date" itemprop="dateCreated">
+	<span class="TzCreate date" itemprop="dateCreated"><i class="icon-calendar"></i>
 		<?php setlocale(LC_TIME, "fr_FR"); echo strftime("%e %B %Y", strtotime($this->item->created)); ?>
 	</span>
 <?php endif; ?>

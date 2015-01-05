@@ -120,85 +120,16 @@ else{
 
     <?php if ($params->get('show_create_date')) : ?>
     <span class="TzBlogCreate">
-      <span class="date"><?php setlocale(LC_TIME, "fr_FR"); echo strftime("%e %B %Y", strtotime($this->item->created)); ?></span>
+      <span class="date"><i class="icon-calendar"></i><?php setlocale(LC_TIME, "fr_FR"); echo strftime("%e %B %Y", strtotime($this->item->created)); ?></span>
     </span>
     <?php endif; ?>
 
-    <?php if($params -> get('show_vote',1)):?>
-        <span class="TzVote">
-            <span class="TzLine"><?php echo JText::_('COM_TZ_PORTFOLIO_BLOG_SPACE');?></span>
-            <span><?php echo JText::_('COM_TZ_PORTFOLIO_RATING');?></span>
-            <?php echo $this->item->event->beforeDisplayContent; ?>
-        </span>
-    <?php endif;?>
-
-    <?php if ($params->get('show_author',1) && !empty($this->item->author )) : ?>
-<!--	<span class="TzBlogCreatedby">-->
-<!--        <span class="TzLine">--><?php //echo JText::_('COM_TZ_PORTFOLIO_BLOG_SPACE');?><!--</span>-->
-<!--		--><?php //$author =  $this->item->author; ?>
-<!--		--><?php //$author = ($this->item->created_by_alias ? $this->item->created_by_alias : $author);?>
-<!---->
-<!--			--><?php //if ($params->get('link_author') == true):?>
-<!--				--><?php //	echo JText::sprintf('COM_CONTENT_WRITTEN_BY' ,
-//				 JHtml::_('link', JRoute::_('index.php?option=com_tz_portfolio&amp;view=users&amp;created_by='.$this -> item -> created_by), $author)); ?>
-<!---->
-<!--			--><?php //else :?>
-<!--				--><?php //echo JText::sprintf('COM_CONTENT_WRITTEN_BY', $author); ?>
-<!--			--><?php //endif; ?>
-<!--	</span>-->
-<?php endif; ?>
-
-<!--    --><?php //if ($params->get('show_hits')) : ?>
-<!--        <span class="TzLine">--><?php //echo JText::_('COM_TZ_PORTFOLIO_BLOG_SPACE');?><!--</span>-->
-<!--        <span class="TzBlogHits">-->
-<!--            <span class="numbers">--><?php //echo  $this->item->hits; ?><!--</span>-->
-<!--            <span class="hits">--><?php //echo JText::_('ARTICLE_HITS'); ?><!--</span>-->
-<!--        </span>-->
-<!--    --><?php //endif; ?>
-
-<?php if ($params->get('show_parent_category') && $this->item->parent_id != 1) : ?>
-        <span class="TzLine"><?php echo JText::_('COM_TZ_PORTFOLIO_BLOG_SPACE');?></span>
-		<span class="TzParentCategoryName">
-			<?php $title = $this->escape($this->item->parent_title);
-				$url = '<a href="' . JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($this->item->parent_id)) . '">' . $title . '</a>'; ?>
-			<?php if ($params->get('link_parent_category')) : ?>
-				<?php echo JText::sprintf('COM_CONTENT_PARENT', $url); ?>
-				<?php else : ?>
-				<?php echo JText::sprintf('COM_CONTENT_PARENT', $title); ?>
-			<?php endif; ?>
-		</span>
-<?php endif; ?>
-
-<?php if ($params->get('show_category',1)) : ?>
-		<span class="TzBlogCategory">
-			<?php $title = $this->escape($this->item->category_title);
-					$url = '<a href="' . JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($this->item->catid)) . '">' . $title . '</a>'; ?>
-			<?php if ($params->get('link_category',1)) : ?>
-				<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $url); ?>
-				<?php else : ?>
-				<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $title); ?>
-			<?php endif; ?>
-		</span>
-<?php endif; ?>
-
-<?php //if ($params->get('show_modify_date',1)) : ?>
-<!--    <span class="TzLine">--><?php //echo JText::_('COM_TZ_PORTFOLIO_BLOG_SPACE');?><!--</span>-->
-<!--    <span class="TzBlogModified">-->
-<!--    --><?php //echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?>
-<!--    </span>-->
-<!--  --><?php //endif; ?>
-<?php if ($params->get('show_publish_date',1)) : ?>
-		<span class="TzBlogPublished">
-		<?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE_ON', JHtml::_('date', $this->item->publish_up, JText::_('DATE_FORMAT_LC2'))); ?>
-		</span>
-<?php endif; ?>
-
 <?php if($params -> get('tz_show_count_comment',1) == 1):?>
     <span class="TzPortfolioCommentCount">
-        <?php echo JText::_('COM_TZ_PORTFOLIO_COMMENT_COUNT_TPL');?>
+		<i class="icon-chat"></i>
         <?php if($params -> get('tz_comment_type') == 'facebook'):?>
             <?php if(isset($this -> item -> commentCount)):?>
-                (<?php echo $this -> item -> commentCount;?>)
+                <?php echo $this -> item -> commentCount;?>
             <?php endif;?>
         <?php endif;?>
         <?php if($params -> get('tz_comment_type') == 'jcomment'):?>
@@ -215,9 +146,10 @@ else{
         
         <?php if($params -> get('tz_comment_type') == 'disqus'):?>
             <?php if(isset($this -> item -> commentCount)):?>
-                (<?php echo $this -> item -> commentCount;?>)
+                <?php echo $this -> item -> commentCount;?>
             <?php endif;?>
         <?php endif;?>
+        <?php echo JText::_('COM_TZ_PORTFOLIO_COMMENT_COUNT_TPL');?>
     </span>
 <?php endif;?>
 
