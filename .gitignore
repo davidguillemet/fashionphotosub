@@ -25,3 +25,5 @@ logs/*
 administrator/components/com_akeeba/backup/*.sql
 
 administrator/cache/sh404sef_analytics/*.php
+
+administrator/components/com_sh404sef/security/sh404SEF_AntiFlood_Data.dat
