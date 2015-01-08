@@ -94,10 +94,11 @@ $doc->addStyleDeclaration('
                     <?php echo $this->escape($this->params->get('page_heading')); ?>
                 </h1>
                 <?php endif; ?>
-
-                <div id="filter" class="option-set clearfix" data-option-key="filter" style="width: 100%; height: 240px;">
-
-                </div>
+				
+				<div id="filter-wrapper" style="padding: 5px; width: 100%">
+                	<div id="filter" class="option-set clearfix" data-option-key="filter" style="width: 100%; height: 240px; overflow: visible">
+                	</div>
+				</div>
             </div>
             <?php endif;?>
 
