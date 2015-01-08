@@ -108,7 +108,7 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <jdoc:include type="head" />
 
 <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/favicon.png" />
-<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/ddsmoothmenu.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/bootstrap/css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/columns.css" type="text/css" />
 
 <!-- supersized -->
@@ -130,13 +130,12 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.jplayer.min.js"></script>
 
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/ddsmoothmenu.js"></script>
-
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.imagesloaded.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.wookmark.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.tipsy.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jqcloud-1.0.4.min.js"></script>
 
+<!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/bootstrap/js/bootstrap.min.js"></script-->
 
 <!-- supersized -->
 <?php if( $vg_slide_status == 1 ){ ?>
@@ -226,21 +225,33 @@ Shadowbox.init({
         <!-- Header -->
         <div class="header">
         	<div class="header-hidden-content">
-            	<div class="logo"><a href="index.php"><img src="<?php echo $vg_logo ; ?>" alt="<?php echo $sitename; ?>" /></a></div>
                 
                 <!-- Navigation -->
-                <div id="smoothmenu1" class="ddsmoothmenu">
-                <a href="#main-nav-menu" class="mobile-menu-button button"><?php echo JText::_('VG_FS_NAV') ?></a>
-					
-					<jdoc:include type="modules" name="fashion-menu" style="menu" />
-					
-                </div>
-            </div>
-            <!-- /Navigation -->
-            <div class="header-hider">
+    			<div id="smoothmenu1" class="navbar navbar-inverse">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="index.php"><img src="<?php echo $vg_logo ; ?>" alt="<?php echo $sitename; ?>" /></a>
+						</div>
+						<div id="navbar" class="navbar-collapse collapse">
+							<jdoc:include type="modules" name="fashion-menu" style="none" />
+						</div><!--/.nav-collapse -->
+					</div><!--/.container-fluid -->
+				</div>
+			<!-- /Navigation -->
+
+			</div>
+            
+			<div class="header-hider">
             	<a href="#" class="hider"></a>
                 <a href="#" class="opener"></a>
             </div>
+			
         </div>
         <!-- /Header -->
         
@@ -439,6 +450,7 @@ pageTracker._trackPageview();
 	}
 	
 	});
+		
 	</script>
 	
 	<div id="video-wrap"></div>

@@ -1,15 +1,5 @@
 var $f = jQuery.noConflict();
 
-
-/* :::::::::::::: SMOOTHMENU ::::::::::::: */
-ddsmoothmenu.init({
-	mainmenuid: "smoothmenu1", //menu DIV id
-	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
-	classname: 'ddsmoothmenu', //class added to menu's outer DIV
-	//customtheme: ["#1c5a80", "#18374a"],
-	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
-})
-
 $f(document).ready(function(){ 
 	
 	/* :::::::::::::: HEADER HIDER ::::::::::::: */
@@ -40,9 +30,6 @@ $f(document).ready(function(){
     	
     });
 	var currentWindowWidth = $f(window).width();
-	if(currentWindowWidth <= 767){
-		$f("#smoothmenu1").removeClass('ddsmoothmenu');	
-	}else{$f("#smoothmenu1").addClass('ddsmoothmenu')}
 	
 	/* :::::::::::::: CONTENT HIDER ::::::::::::: */
 	$f('.c-hider').click(function(event){
@@ -71,53 +58,14 @@ $f(document).ready(function(){
 		});
 		
 	});
-	
-	/* :::::::::::::: SOCIAL ICONS QTIP ::::::::::::: */
-	/*$f('.social-icons a[href][title]').qtip({
-		content: {
-			text: false // Use each elements title attribute
-		},
-		position: {
-			corner: {
-				target: 'topMiddle',
-				tooltip: 'bottomMiddle'
-		  	}
-		},
-		show: { effect: { type: 'slide', length:150}},
-		hide: { effect: { type: 'slide', length:350}},
-		style: { 
-			width: 'auto',
-			background: '#090909',
-			color: '#eee',
-			textAlign: 'center',
-			border: {
-				width: 2,
-				color: '#111'
-			},
-			name: 'dark',
-			'font-size': 11,
-			'font-family': 'Arial'
-		}
-	});*/
-	
+		
 	/* :::::::::::::: MOBILE SOCIAL ICONS ::::::::::::: */
 	$f('.social-mobile').click(function(e){
     	e.preventDefault();
     	$f(".social-icons").toggleClass('open-social'); //toggle()
     	
     });
-	
-	/* :::::::::::::: FLEXSLIDER ::::::::::::: */
-	/*$f(window).load(function() {
-		$f('.flexslider').flexslider({
-			animation: 'fade',
-			controlNav: false,
-			slideshowSpeed: 4000,
-			animationDuration: 300
-		});
 		
-	});*/
-	
 	/* :::::::::::::: PORTFOLIO HOVER EFFECT ::::::::::::: */
 	var currentWindowWidth = $f(window).width();
 	if(currentWindowWidth >= 775){
@@ -179,23 +127,6 @@ $f(document).ready(function(){
 	});
 });
 
-
-
-$f(function($){
-	
-	/*:::::::::: GRID NAVIGATION EFFECTS ::::::::::::*/
-	/*$f('#tj_container').gridnav({
-		rows	: 3,
-		type	: {
-			mode		: 'seqfade', 	// use def | fade | seqfade | updown | sequpdown | showhide | disperse | rows
-			speed		: 500,			// for fade, seqfade, updown, sequpdown, showhide, disperse, rows
-			easing		: '',			// for fade, seqfade, updown, sequpdown, showhide, disperse, rows	
-			factor		: 100,			// for seqfade, sequpdown, rows
-			reverse		: ''			// for sequpdown
-		}
-	});*/
-	
-});
 
 // column-1 width = 100% (300px) -> 460px -> 730px -> 940px
 var responsiveData = [

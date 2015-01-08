@@ -19,4 +19,4 @@ if ($item->menu_image) {
 else { $linktype = $item->title;
 }
 
-?><span class="separator"<?php echo $title; ?>><?php echo $linktype; ?></span>
+?><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" <?php echo $title; ?>><?php echo $linktype; ?> <span class="caret"></span></a>

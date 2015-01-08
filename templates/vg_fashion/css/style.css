@@ -65,7 +65,7 @@ h3{
 }
 .header{
 	width:100%;	
-	height:80px;	
+	/*height:80px; The height is driven by the bootstrap navbar height */	
 	float:left;	
 	margin:0;	
 	padding:0;
@@ -79,49 +79,15 @@ h3{
 
 /*:::::::::: NAVIGATION (MENU) ::::::::::*/
 #smoothmenu1{
-	width:660px;
-	height:80px;
+	width:900px;
+	/*height:80px; The height is driven by the bootstrap navbar height */
 	float:left;
 	margin:0 0 0 10px;
 	background:url('../images/img/blackBG.png') repeat;
 	z-index:99;
 	position:relative;
-}
-#smoothmenu1 ul{
-	list-style-type:none;
-}
-ul.nav{
-	margin:0;
-	list-style-type:none;
-	padding:0;
-	width:100%;
-}
-ul.nav li{
-	float:left;
-	margin:25px 15px 0 30px;
-	font-family:'Gnuolane';
-	font-weight:normal;
-	font-size:20px;
-}
-.ddsmoothmenu ul li{
-    position: relative;
-    display: inline;
-    z-index: 9999 !important;
-}
-.ddsmoothmenu ul li ul{
-    position: absolute;
-    left: 0;
-    display: none; /*collapse all sub menus to begin with*/
-    visibility: hidden;
-    background:url('../images/img/blackBG.png') repeat;
-}
-ul.nav li a{
-	text-decoration:none;
-	color:#eee;
-}
-ul.nav li ul li a{
-	font-family:Arial;
-	font-size:13px;
+	font-weight: 600;
+	font-size: 16px;
 }
 a.mobile-menu-button{
 	display:none;
@@ -772,15 +738,15 @@ a.img{
 }
 
 #smoothmenu1{
-	width:460px;
-	margin:0;
+	width:690px;
+	margin: 0 0 0 10px;
 }
-ul.nav li{
+/*ul.nav li{
 	margin:25px 15px 0 15px;
 	font-family:'Gnuolane';
 	font-weight:normal;
 	font-size:20px;
-}
+}*/
 .title-block{
 	width:730px;
 }
@@ -862,47 +828,11 @@ span.bottom-line{
 	margin:0;
 }
 #smoothmenu1{
-	width:200px;
-	margin:0 0 0 10px;
-	height:80px;
+	width:420px;
+	margin:0 0 0 0px;
+	/*height:80px; The height is driven by the bootstrap navbar height */
 	text-align:center;
 }
-#smoothmenu1 ul.nav{
-	display:none;
-	text-align:left;
-	width:460px;
-	background:url('../images/img/blackBG.png') repeat;
-}
-#smoothmenu1 ul.menu-open, #smoothmenu1 ul.menu-open ul, #smoothmenu1 ul.menu-open ul ul{
-	display:block;
-}
-#smoothmenu1 ul.menu-open{
-	margin:-6px 0 0 -230px;
-}
-#smoothmenu1 ul.menu-open ul{
-	background:none;
-	margin:4px 0 0 0;
-}
-ul.nav{
-	padding:10px 0 10px 0;
-}
-ul.nav li{
-	margin:5px 15px 0 15px;
-	float:none;
-	display:block;
-}
-ul.nav li a{
-	width:auto;
-	display:block;
-}
-ul.nav li a:hover{
-	text-decoration:underline;
-}
-ul.nav li ul{width:440px;}
-ul.nav li ul ul{width:420px;}
-ul.nav li ul ul ul{width:400px;}
-ul.nav li ul ul ul ul{width:380px;}
-
 a.mobile-menu-button{
 	display:block;
 	font-family:'Gnuolane';
@@ -1035,44 +965,9 @@ span.bottom-line{
 	margin:0;
 }
 #smoothmenu1{
-	width:50px;
+	width:270px;
 	margin:0;
 }
-#smoothmenu1 ul.nav{
-	display:none;
-	width:300px;
-	background:url('../images/img/blackBG.png') repeat;
-}
-#smoothmenu1 ul.menu-open, #smoothmenu1 ul.menu-open ul, #smoothmenu1 ul.menu-open ul ul{
-	display:block;
-}
-#smoothmenu1 ul.menu-open{
-	margin:-6px 0 0 -220px;
-	padding:10px 0;
-}
-#smoothmenu1 ul.menu-open ul{
-	background:none;
-}
-#smoothmenu1 ul li{
-	float:none;
-}
-ul.nav li{
-	margin:5px 0 0 0;
-	padding:0 15px;
-	display:block;
-}
-ul.nav li a{
-	width:auto;
-	display:block;
-}
-ul.nav li a:hover{
-	text-decoration:underline;
-}
-ul.nav li ul{width:280px;}
-ul.nav li ul ul{width:260px;}
-ul.nav li ul ul ul{width:240px;}
-ul.nav li ul ul ul ul{width:220px;}
-
 a.mobile-menu-button{
 	display:block;
 	font-family:'Gnuolane';

@@ -432,7 +432,7 @@ dojo.declare("AJAXSearchflat", AJAXSearchBase, {
     else
 	{
       dojo.style(this.searchResults,"height",size+"px");
-      dojo.style(this.searchResults,"display","block");
+      dojo.style(this.searchResults,"display", size > 0 ? "block" : "none");
   	}
   },
   

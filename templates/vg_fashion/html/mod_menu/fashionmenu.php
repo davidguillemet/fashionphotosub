@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 // Note. It is important to remove spaces between elements.
 ?>
 <?php // The menu class is deprecated. Use nav instead. ?>
-<ul class="nav menu <?php echo $class_sfx;?>"<?php
+<ul class="nav navbar-nav <?php echo $class_sfx;?>"<?php
 	$tag = '';
 	if ($params->get('tag_id') != null)
 	{
@@ -22,11 +22,12 @@ defined('_JEXEC') or die;
 ?>>
 <?php
 foreach ($list as $i => &$item) :
-	$class = 'item-'.$item->id;
-	if ($item->id == $active_id) {
-		$class .= ' current';
-	}
-
+	$class = '';
+	//$class = 'item-'.$item->id;
+	//if ($item->id == $active_id) {
+	//	$class .= ' current';
+	//}
+	/*
 	if (in_array($item->id, $path)) {
 		$class .= ' active';
 	}
@@ -38,8 +39,8 @@ foreach ($list as $i => &$item) :
 		elseif (in_array($aliasToId, $path)) {
 			$class .= ' alias-parent-active';
 		}
-	}
-
+	}*/
+	/*
 	if ($item->type == 'separator') {
 		$class .= ' divider';
 	}
@@ -50,12 +51,16 @@ foreach ($list as $i => &$item) :
 
 	if ($item->parent) {
 		$class .= ' parent';
+	}*/
+
+	if ($item->deeper) {
+		$class .= ' dropdown';
 	}
 
 	if (!empty($class)) {
 		$class = ' class="'.trim($class) .'"';
 	}
-
+	
 	echo '<li'.$class.'>';
 
 	// Render the menu item.
@@ -74,7 +79,7 @@ foreach ($list as $i => &$item) :
 
 	// The next item is deeper.
 	if ($item->deeper) {
-		echo '<ul class="nav-child unstyled small">';
+		echo '<ul class="dropdown-menu" role="menu">';
 	}
 	// The next item is shallower.
 	elseif ($item->shallower) {
