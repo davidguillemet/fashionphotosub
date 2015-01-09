@@ -94,7 +94,7 @@ else{
     endif;
     ?>
     <?php if($params -> get('show_readmore',1) == 1):?>
-    <a class="TzReadmore<?php if($params -> get('tz_use_lightbox') == 1) echo ' fancybox fancybox.iframe';?>" href="<?php echo $link; ?>"> <i class="icon-chevron-right"></i>
+    <a class="TzReadmore<?php if($params -> get('tz_use_lightbox') == 1) echo ' fancybox fancybox.iframe';?>" href="<?php echo $link; ?>"> <i class="icon-angle-right"></i>
         <?php if (!$params->get('access-view')) :
             echo JText::_('COM_CONTENT_REGISTER_TO_READ_MORE');
         elseif ($readmore = $this->item->alternative_readmore) :

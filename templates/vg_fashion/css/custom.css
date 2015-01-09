@@ -1122,18 +1122,19 @@ margin: 0 0 17px 0;
 
 .TzBlog h3.TzBlogTitle a.TzReadmore, #mapinfocontainer a.TzReadmore
 {
-width: 110px;
 height: auto;
 display: inline-block;
 font-size: 20px;
 float: right;
-border-left: 1px solid #444444;
-background: url('../images/img/icon-permalink.png') no-repeat 20px center;
+border: 1px solid #444444;
 color: #999;
-margin: 5px 10px 5px 0px;
-padding: 0 0 0 40px;
+margin: 0;
+padding: 5px 15px 5px 5px;
 text-transform: none;
 font-weight: 600;
+-moz-transition: all 200ms linear 0s;
+-webkit-transition: all 200ms linear 0s;
+-o-transition: all 200ms linear 0s;
 }
 
 #mapinfocontainer a.TzReadmore
@@ -1152,6 +1153,7 @@ font-weight: 600;
 .TzBlog h3.TzBlogTitle a.TzReadmore:hover, #mapinfocontainer a.TzReadmore:hover
 {
 	color: #ff5b0a;
+	border: 1px solid #ff5b0a;
 }
 
 .TzBlogInner .TzCategoryDesc hr.line-hr {
@@ -1229,7 +1231,7 @@ div.TzPagination
 {
 	text-indent: 999px;
 	display: inline-block;
-	width: 8px;
+	width: 39px;
 	overflow: hidden;
 }
 
@@ -1266,6 +1268,9 @@ div.TzPagination ul li
 .TzPagination ul.pagination-list li a
 {
 	border-color: #a9a9a9;
+    -moz-transition: background-color 200ms linear 0ms;
+    -webkit-transition: background-color 200ms linear 0ms;
+    -o-transition: background-color 200ms linear 0ms;
 }
 
 .TzPagination ul.pagination-list li.active a:hover
@@ -2058,12 +2063,11 @@ a.acymailing_togglemodule
 
 	.TzBlog h3.TzBlogTitle a
 	{
-		font-size: 20px;
+		font-size: 18px;
 	}
 	.TzBlog h3.TzBlogTitle a.TzReadmore
 	{
-		font-size: 18px;
-		width: 100px;
+		font-size: 15px;
 	}
 	
 	.TzItemsRow .column-1
