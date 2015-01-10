@@ -170,3 +170,14 @@ $this->_urlCache['fc374c47bee64e2eaf6680f1b8d8d65e']='index.php?option=com_tz_po
 $this->_urlCache['e22a23fa18d19dd1acff40d3396a4fbf']='index.php?option=com_tz_portfolio&amp;Itemid=178&amp;catid=25&amp;id=58&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/cephalaspides/chelidonura-varians#0';
 $this->_urlCache['255c6ffcd6a9f1ed51fc98b85d207063']='index.php?option=com_tz_portfolio&amp;Itemid=178&amp;id=25&amp;lang=fr&amp;layout=blog&amp;view=category#biologie/mollusques/gasteropodes/opistobranches/cephalaspides#0';
 $shURLCacheCreationDate=1420493032;
+$this->_urlCache['15fb46a0d55832c422532b2ca270c54b']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=80&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/sepia-latimanus#0';
+$shURLCacheCreationDate=1420846549;
+$this->_urlCache['065e980f3fdff7d9a10f132f400ee06a']='index.php?option=com_tz_portfolio&amp;Itemid=183&amp;id=34&amp;lang=fr&amp;view=category#biologie/mollusques/cephalopodes/dibranchiaux#0';
+$this->_urlCache['773431de1f4807569cdc2d793aeb6d8d']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;id=37&amp;lang=fr&amp;view=category#biologie/mollusques/cephalopodes/dibranchiaux/decapodes#0';
+$this->_urlCache['eda507a2dd6c6bd5b84caf5f02fce5e7']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=51&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/metasepia-pfefferi#0';
+$this->_urlCache['408e74167885a8c7cb12e3d3e362d693']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=71&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/sepia-officinalis#0';
+$this->_urlCache['9d0f3b3b40e281b11eed04397d4672b3']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=52&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/sepioteuthis-lessoniana#0';
+$this->_urlCache['47e7470815375a4df742e3e38ab1e5bf']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=75&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/euprymna-berryi#0';
+$this->_urlCache['fe694068fcc1ab0276354fc93ac87b2e']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=77&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/sepiadarium-kochi#0';
+$this->_urlCache['7ea8019cfc848309297ab5bced0a327c']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;id=37&amp;lang=fr&amp;layout=blog&amp;view=category#biologie/mollusques/cephalopodes/dibranchiaux/decapodes#0';
+$shURLCacheCreationDate=1420846550;

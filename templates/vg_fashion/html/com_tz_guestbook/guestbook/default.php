@@ -301,12 +301,13 @@ jQuery(document).ready(function () {
         }
         <?php if(isset($this->fweb) && $this->fweb ==1 ):?>
         if (websi != "" && websi != webSiteLabel) {
-            if (srt3.test(websi) == false) {
+			/* Web site regex to restrictive... */
+            /*if (srt3.test(websi) == false) {
                 jQuery(".tz_input_website").css("display", "block");
                 p_website.innerHTML = "<?php echo JText::_("COM_TZ_GUESTBOOK_WEBSITE_IS_INVALID"); ?>";
                 loiwebsite.focus();
                 return false;
-            }
+            }*/
         }
         <?php endif; ?>
         <?php if($this->tit ==1):?>
@@ -385,7 +386,7 @@ jQuery(document).ready(function () {
 
                     jQuery('#warp-input3').attr('value', '<?php echo JText::_("COM_TZ_GUESTBOOK_TITLE"); ?>');
                     jQuery('#text-ra').attr('value', '<?PHP echo JText::_("COM_TZ_GUESTBOOK_YOUR_GUESTBOOK"); ?>');
-                    jQuery('#warp-fom').hide();
+					closeAllSliders(); // DGUI Close NoNumber sliders
                     jQuery('#tz-Guestbook-seccess').slideDown(1200);
                     jQuery("#tz-Guestbook-seccess").animate({
                         "opacity": "hide"

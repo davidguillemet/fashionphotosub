@@ -24,46 +24,22 @@ body a:hover
     text-decoration: none;
 }
 
+/* Override bootstrap focus style */
+body a:focus
+{
+	color: #a0afe8;
+	text-decoration: none;
+}
+
 h3 
 {
 	font-family: 'Open Sans Condensed';
 	font-weight: 600;
 	line-height: 1.2;
 }
-
-/* Lien de menu aved des enfants à afficher -> mettre un petit + */
-.ddsmoothmenu > ul.menu > li.deeper > span:after,
-.ddsmoothmenu > ul.menu > li.deeper > a:after
+label /* because of boostrap bold label */
 {
-    font-family: "fontello";
-	font-size: 14px;
-    font-style: normal;
-    font-weight: normal;
-    speak: none;
- 
-    display: inline-block;
-    text-decoration: inherit;
-    width: 1em;
-    margin-right: .2em;
-    text-align: center;
-    /* opacity: .8; */
- 
-    /* For safety - reset parent styles, that can break glyph codes*/
-    font-variant: normal;
-    text-transform: none;
-     
-    /* fix buttons height, for twitter bootstrap */
-    line-height: 1em;
- 
-    /* Animation center compensation - margins should be symmetric */
-    /* remove if not needed */
-    margin-left: .2em;
-	content: '\e834';
-}
-
-.ddsmoothmenu ul li ul li a
-{
-	width: 180px;
+	font-weight: inherit;
 }
 
 .content
@@ -213,7 +189,52 @@ ul#slide-list
 	background-color: #0081c2;
 }
 
+/* Nonumber slider */ 
+.panel
+{
+	/* conflicts with bootstrap */
+	background: transparent;
+}
+.nn_sliders.accordion>.accordion-group
+{
+	border: 1px solid #bbb;
+}
+.nn_sliders.accordion>.guestbook
+{
+	border: none;
+	border-radius: 0px;
+}
+.guestbook
+{
+	background: url('../images/img/blackBG.png') repeat;
+}
+
+
 /* Pour le livre d'or TZ Guestbook */
+.guestbook-col1
+{
+	float: left;
+	width: 50%;
+}
+.guestbook-col2
+{
+	float: left;
+	width: 50%;
+	height: 190px;
+}
+.guestbook-form-container
+{
+	overflow: hidden;
+}
+.guestbook-form-container .warp-in
+{
+	height: 100%;
+}
+.guestbook-warning
+{
+	margin: 5px 0px;
+}
+
 #TZGuestBook
 {
 	border-radius: 0px;
@@ -266,7 +287,7 @@ ul#slide-list
 {
 	background: url('../images/img/blackBG.png') repeat;
 	border: none;
-	margin: 10px 10px 0 0;
+	margin: 0px 10px 10px 0;
 }
 
 [class^="nnt-warl-comment-li"] > span, [class^="nnt-warl-comment-li"] > p
@@ -360,18 +381,11 @@ ul#slide-list
 
 #warp-fom
 {
-	width: 550px;
-	height: 570px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin-left: -275px;
-	margin-top: -300px;
-	
+	position: static;
+	width: 100%;
+	height: auto;
 	border: none;
-	border-radius: 0px;
-	background: #fff;
-	border-bottom: 3px solid #4b91b5;
+	background: none;
 	color: inherit;
 	text-align: initial;
 	overflow: visible;
@@ -415,7 +429,7 @@ ul#slide-list
 	border: 1px solid #d8d8d8;
 	background: #ffffaa no-repeat;
 	color: #a1a1a1;
-	font-size: 20px;
+	/*font-size: 15px;*/
 	font-weight: 300;
 	line-height: 1.2;
 	resize: none;
@@ -429,7 +443,7 @@ ul#slide-list
 
 .guestbook-warning
 {
-	height: 15px;
+	/*height: 15px;*/
 }
 .guestbook-warning > span
 {
@@ -442,34 +456,36 @@ ul#slide-list
 	padding-left: 2px;
 }
 
+.conten-input
+{
+	width: 100%;
+}
+#text-ra
+{
+	width: 100%;
+	height: 100%;
+}
+
 .warp-in2
 {
-	position: absolute;
-	left: 20px;
-	bottom: 20px;
-	width: 92%;
+	margin: 0 20px;
 }
 
-.warp-in:first-child
+.warp-in, .warp-in:first-child
 {
-	margin-top: 30px;
-}
-
-.warp-in
-{
-	margin-top: 10px;
+	margin: 10px 20px 0 20px;
 }
 
 #nnt_com1
 {
 	margin-top: 0px;
-	height: 30px;
-	min-height: 30px;
 }
 #warp-label
 {
 	float: none;
 	padding-left: 0px;
+	color: inherit;
+	margin-bottom: 0px;
 }
 #warp-check
 {
@@ -481,7 +497,8 @@ ul#slide-list
 #warp-input-sub
 {
 	background-color: #4b91b5;
-	border-radius: 0px;
+	border: none;
+	border-radius: 1px;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
@@ -489,8 +506,9 @@ ul#slide-list
 	text-shadow: none;
 	font-size: 20px;
 	height: 45px;
-	width: 92%;
-	margin-bottom: 0px;
+	width: 100%;
+	margin: 0px;
+	margin-top: 15px;
 }
 #warp-input-sub:hover
 {
@@ -1520,6 +1538,7 @@ div#foxcontainer_c149 .fox_form input[type="text"]:focus
 {
 	background-color: transparent;
 	color: #a5a5a5;
+	border-width: 2px;
 }
 
 div#foxcontainer_c149 .fox_form textarea
@@ -2146,6 +2165,16 @@ a.acymailing_togglemodule
 		clear: none;
 		float: none;
 	}
+	.guestbook-col1
+	{
+		float: none;
+		width: 100%;
+	}
+	.guestbook-col2
+	{
+		float: left;
+		width: 100%;
+	}
 }
 
 @media only screen and (min-width: 200px) and (max-width: 479px) {
@@ -2194,6 +2223,16 @@ a.acymailing_togglemodule
 	{
 		clear: none;
 		float: none;
+	}
+	.guestbook-col1
+	{
+		float: none;
+		width: 100%;
+	}
+	.guestbook-col2
+	{
+		float: left;
+		width: 100%;
 	}
 }
 
