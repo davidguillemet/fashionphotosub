@@ -160,6 +160,8 @@ ul#slide-list
 /* Pour les menus */
 .navbar
 {
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
 	border-radius: 0px;
 	border: none;
 }
@@ -193,6 +195,40 @@ ul#slide-list
 	color: #fff;
 	background-color: #0081c2;
 }
+.navbar-inverse .navbar-nav > li > a
+{
+	color: #9d9d9d;
+	text-transform: uppercase;
+	font-family: 'Open Sans Condensed';
+	font-weight: 700;
+	font-size: 20px;
+}
+.dropdown-menu > li > a
+{
+	text-transform: uppercase;
+}
+.navbar-nav > li > .dropdown-menu
+{
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+@media screen and (min-width: 960px) {
+
+	.navbar .nav > li > .dropdown-menu:after
+	{
+		content: '';
+		display: inline-block;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-bottom: 6px solid #fff;
+		position: absolute;
+		top: -6px;
+		left: 10px;
+	}
+	
+}
 
 /* Nonumber slider */ 
 .panel
@@ -207,6 +243,8 @@ ul#slide-list
 .nn_sliders.accordion>.guestbook
 {
 	border: none;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
 	border-radius: 0px;
 }
 .guestbook
@@ -242,6 +280,8 @@ ul#slide-list
 
 #TZGuestBook
 {
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
 	border-radius: 0px;
 	background: none;
 }
@@ -503,6 +543,8 @@ ul#slide-list
 {
 	background-color: #4b91b5;
 	border: none;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
 	border-radius: 1px;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
@@ -534,7 +576,6 @@ ul#slide-list
 	padding: 5px 10px 5px 10px;
 	text-transform: capitalize;
 	text-decoration: none;
-	border-radius: 0;
 	-moz-transition: all 200ms linear 0s;
 	-webkit-transition: all 200ms linear 0s;
 	-o-transition: all 200ms linear 0s;
@@ -1018,7 +1059,9 @@ padding: 0;
 .TzArticleInfo span
 {
 background: none;
-border-radius: 0;
+-moz-border-radius: 0px;
+-webkit-border-radius: 0px;
+border-radius: 0px;
 padding: 0;
 color: #757575;
 font-size: 11px;
@@ -1090,7 +1133,9 @@ margin-bottom: 30px;
 	border-color: #757575;
 	border-style: solid;
 	border-width: 0 0 8px 0;
-	border-radius: 0 0 0 0;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
 	padding: 0 0 5px 0;
 }
 

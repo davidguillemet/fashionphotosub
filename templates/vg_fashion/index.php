@@ -94,7 +94,7 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,600,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin-ext' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,600&subset=latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
 var rootUrl = "<?php echo $this->baseurl; ?>/";
 var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
