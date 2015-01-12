@@ -843,10 +843,6 @@ a.mobile-menu-button{
 	padding:25px 0 31px 0;
 	width:100%;
 }
-.header-hider{
-	position:absolute;
-	margin:0 0 0 420px;
-}
 .title-block{
 	width:460px;
 	margin:0 0 20px 0;
@@ -980,9 +976,8 @@ a.mobile-menu-button{
 	text-align:center;
 }
 .header-hider{
-	position:absolute;
-	margin:0 0 0 270px;
-	width:30px;
+	margin: 0;
+	width: 30px;
 }
 .title-block{
 	width:300px;

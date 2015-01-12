@@ -20,7 +20,7 @@ defined("_JEXEC") or die;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 ?>
 
-{slider <p style="text-align:center; margin-bottom: 0px; font-size: 20px;"><i class="icon-edit"></i>&nbsp;<?php echo JText::_("COM_TZ_GUESTBOOK_SING_GUESTBOOK"); ?></p>|closed|guestbook}
+{slider <p style="text-align:center; margin-bottom: 0px; font-size: 24px;"><i class="icon-edit"></i>&nbsp;<?php echo JText::_("COM_TZ_GUESTBOOK_SING_GUESTBOOK"); ?></p>|closed|guestbook}
 <div id="warp-fom">
 	<form ACTION="" method="POST">
 		

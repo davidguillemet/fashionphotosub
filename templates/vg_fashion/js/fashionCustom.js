@@ -1,16 +1,38 @@
 var $f = jQuery.noConflict();
 
+
 $f(document).ready(function(){ 
 	
-	/* :::::::::::::: HEADER HIDER ::::::::::::: */
-	$f('.hider').click(function(event){
-		event.preventDefault;
+	function HideMenuBar(hiderElement)
+	{
 		var contentHeight = 80;
-		$f(this).css('display', 'none');
+		$f(hiderElement).css('display', 'none');
 		$f('.opener').css('display', 'block');
 		$f('.header-hidden-content').css('position', 'fixed');
 		$f("ul.nav").removeClass('menu-open');
 		$f('.header-hidden-content').animate({ top: '-80px' }, 300,'linear' );		
+	}
+
+	/* :::::::::::::: HEADER HIDER ::::::::::::: */
+	$f('.hider').click(function(event){
+		var hiderElement = this;
+		event.preventDefault;
+		/* collapse Bootstrap menu */
+		var navbar = $f('#navbar');
+		var expanded = navbar.attr('aria-expanded');
+		if (expanded == 'true')
+		{
+			$f('.dropdown-toggle').dropdown();
+			$f('#navbar').collapse('hide');
+			$f('#navbar').on('hidden.bs.collapse', function () {
+				HideMenuBar(hiderElement);
+				$f('#navbar').unbind('hidden.bs.collapse');
+			})
+		}
+		else
+		{
+			HideMenuBar(hiderElement);
+		}
 	});
 	
 	/* :::::::::::::: HEADER OPENER ::::::::::::: */
@@ -79,10 +101,7 @@ $f(document).ready(function(){
 			$f(this).children('span').removeClass('dark-background');
 		});
 	}
-	
-	/* :::::::::::::: FANCYBOX ::::::::::::: */
-	/*$f('.fancybox').fancybox({});*/
-	
+		
 	/* :::::::::::::: PORTFOLIO FILTER (ISOTOPE) ::::::::::::: */
 	// Needed variables
 	var $container	 	= $f("#portfolio-list");

@@ -135,8 +135,6 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.tipsy.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jqcloud-1.0.4.min.js"></script>
 
-<!--script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/bootstrap/js/bootstrap.min.js"></script-->
-
 <!-- supersized -->
 <?php if( $vg_slide_status == 1 ){ ?>
 	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.3.2.7.js"></script>
@@ -149,7 +147,6 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/select2/select2_locale_fr.js"></script>
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/select2/select2.css" type="text/css" />
 
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/fashionCustom.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/markerclusterer.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/locations.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/fashionCustom.js"></script>
