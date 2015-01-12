@@ -79,7 +79,7 @@ h3{
 
 /*:::::::::: NAVIGATION (MENU) ::::::::::*/
 #smoothmenu1{
-	width:900px;
+	width:940px;
 	/*height:80px; The height is driven by the bootstrap navbar height */
 	float:left;
 	margin:0 0 0 10px;
@@ -95,10 +95,11 @@ a.mobile-menu-button{
 .header-hider{
 	width:40px;
 	height:80px;
-	float:right;
-	margin:0 10px 0 0;
+	/*float:right;
+	margin:0 10px 0 0;*/
 	position:relative;
 	z-index:99;
+	left: 910px;
 }
 .header-hider a.hider{
 	background:url('../images/img/controllers.png') no-repeat left top;
@@ -738,15 +739,13 @@ a.img{
 }
 
 #smoothmenu1{
-	width:690px;
+	width:730px;
 	margin: 0 0 0 10px;
 }
-/*ul.nav li{
-	margin:25px 15px 0 15px;
-	font-family:'Gnuolane';
-	font-weight:normal;
-	font-size:20px;
-}*/
+.header-hider
+{
+	left: 700px;
+}
 .title-block{
 	width:730px;
 }
@@ -765,15 +764,6 @@ a.img{
 	margin:0;
 	padding:5px 0 0 0;
 	background-position:center;
-}
-#play-button{
-	/*width:20px;
-	height:30px;
-	padding:12px 3px 0 12px;
-	margin:0;*/
-}
-#controls{
-	/*width:100px;*/
 }
 .jp-play, .jp-pause{
 	width:20px;
@@ -828,10 +818,14 @@ span.bottom-line{
 	margin:0;
 }
 #smoothmenu1{
-	width:420px;
+	width:460px;
 	margin:0 0 0 0px;
 	/*height:80px; The height is driven by the bootstrap navbar height */
 	text-align:center;
+}
+.header-hider
+{
+	left: 420px;
 }
 a.mobile-menu-button{
 	display:block;
@@ -961,7 +955,7 @@ span.bottom-line{
 	margin:0;
 }
 #smoothmenu1{
-	width:270px;
+	width:300px;
 	margin:0;
 }
 a.mobile-menu-button{
@@ -978,6 +972,7 @@ a.mobile-menu-button{
 .header-hider{
 	margin: 0;
 	width: 30px;
+	left: 270px;
 }
 .title-block{
 	width:300px;
