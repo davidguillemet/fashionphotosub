@@ -380,7 +380,7 @@ dojo.declare("AJAXSearchflat", AJAXSearchBase, {
   
   getCategoryLeftPosition: function(){
     var categorySize = dojo.marginBox(this.searchCategories);
-    return this.textBoxPosition.x+this.textBoxPosition.w-categorySize.w + 1;
+    return this.textBoxPosition.x;//+this.textBoxPosition.w-categorySize.w + 1;
   },
   
   closeResults : function(e){
