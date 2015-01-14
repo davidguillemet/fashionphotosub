@@ -1,11 +1,11 @@
 <?php
 /**
  * @package         NoNumber Extension Manager
- * @version         4.6.5
+ * @version         4.6.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -27,9 +27,12 @@ class NoNumberManagerViewDefault extends JViewLegacy
 	{
 		$this->items = $this->get('Items');
 
-		if (JFactory::getApplication()->input->get('task') == 'update') {
+		if (JFactory::getApplication()->input->get('task') == 'update')
+		{
 			$tpl = 'update';
-		} else {
+		}
+		else
+		{
 			$this->addToolbar();
 		}
 		// Include the component HTML helpers.
@@ -42,11 +45,13 @@ class NoNumberManagerViewDefault extends JViewLegacy
 	 */
 	protected function getConfig()
 	{
-		if (!isset($this->config)) {
+		if (!isset($this->config))
+		{
 			require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
 			$parameters = nnParameters::getInstance();
 			$this->config = $parameters->getComponentParams('nonumbermanager');
 		}
+
 		return $this->config;
 	}
 
@@ -63,7 +68,8 @@ class NoNumberManagerViewDefault extends JViewLegacy
 
 		NoNumberManagerToolbarHelper::addButtons();
 
-		if ($canDo->get('core.admin')) {
+		if ($canDo->get('core.admin'))
+		{
 			JToolbarHelper::preferences('com_nonumbermanager', '400');
 		}
 	}
@@ -81,7 +87,8 @@ class NoNumberManagerViewDefault extends JViewLegacy
 			'core.admin', 'core.manage'
 		);
 
-		foreach ($actions as $action) {
+		foreach ($actions as $action)
+		{
 			$result->set($action, $user->authorise($action, $assetName));
 		}
 

@@ -4,11 +4,11 @@
  * Displays a protected key field with option to update it
  *
  * @package         NoNumber Framework
- * @version         14.12.3
+ * @version         15.1.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -55,6 +55,9 @@ class JFormFieldNN_Key extends JFormField
 
 			. '<div id="' . $this->id . '_field" class="btn-wrapper input-append clearfix" style="display:none;">'
 			. '<input type="text" class="nn_codefield" name="" id="' . $this->id . '" autocomplete="off" value="" />'
+			. '<button href="#" class="btn btn-success btn" title="' . JText::_('JAPPLY') . '" onclick="Joomla.submitbutton(\'config.save.component.apply\');">'
+			. '<span class="icon-checkmark"></span>'
+			. '</button>'
 			. '<button href="#" class="btn btn-danger btn" title="' . JText::_('JCANCEL') . '" onclick="' . $hide . ';return false;">'
 			. '<span class="icon-cancel-2"></span>'
 			. '</button>'
@@ -63,3 +66,4 @@ class JFormFieldNN_Key extends JFormField
 			. '<input type="hidden" name="' . $this->name . '" id="' . $this->id . '_hidden" value="' . $this->value . '" />';
 	}
 }
+

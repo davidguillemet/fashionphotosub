@@ -2,12 +2,12 @@
 <extension version="3.2" type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_SNIPPETS</name>
 	<description>PLG_SYSTEM_SNIPPETS_DESC</description>
-	<version>3.5.5FREE</version>
-	<creationDate>December 2014</creationDate>
+	<version>3.5.6FREE</version>
+	<creationDate>January 2015</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
 	<authorUrl>http://www.nonumber.nl</authorUrl>
-	<copyright>Copyright © 2014 NoNumber All Rights Reserved</copyright>
+	<copyright>Copyright © 2015 NoNumber All Rights Reserved</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 
 	<files>

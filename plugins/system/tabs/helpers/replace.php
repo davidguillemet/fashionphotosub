@@ -3,11 +3,11 @@
  * Plugin Helper File: Replace
  *
  * @package         Tabs
- * @version         4.0.7
+ * @version         4.0.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -24,7 +24,7 @@ class plgSystemTabsHelperReplace
 		$this->helpers = plgSystemTabsHelpers::getInstance();
 		$this->params = $this->helpers->getParams();
 
-		$this->params->tag_delimiter = ($this->params->tag_delimiter == 'space') ? '(?:\s|&nbsp;|&\#160;)' : '=';
+		$this->params->tag_delimiter = ($this->params->tag_delimiter == 'space') ? '(?:\s|&nbsp;|&\#160;)+' : '=';
 
 		$bts = '((?:<[a-zA-Z][^>]*>\s*){0,3})'; // break tags start
 		$bte = '((?:\s*<(?:/[a-zA-Z]|br|BR)[^>]*>){0,3})'; // break tags end

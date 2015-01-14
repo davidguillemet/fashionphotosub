@@ -3,11 +3,11 @@
  * Plugin Helper File
  *
  * @package         Tooltips
- * @version         3.7.7
+ * @version         3.7.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -38,7 +38,7 @@ class plgButtonTooltipsHelper
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/functions.php';
-		NNFrameworkFunctions::loadLanguage('plg_editors-xtd_tooltips');
+		nnFrameworkFunctions::loadLanguage('plg_editors-xtd_tooltips');
 
 		JHtml::stylesheet('nnframework/style.min.css', false, true);
 

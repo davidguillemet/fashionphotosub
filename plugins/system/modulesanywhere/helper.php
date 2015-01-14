@@ -3,11 +3,11 @@
  * Plugin Helper File
  *
  * @package         Modules Anywhere
- * @version         3.6.1
+ * @version         3.6.3
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -48,7 +48,7 @@ class plgSystemModulesAnywhereHelper
 		$bts = '((?:<p(?: [^>]*)?>)?)((?:\s*<br ?/?>)?\s*)';
 		$bte = '(\s*(?:<br ?/?>\s*)?)((?:</p>)?)';
 		$regex = '((?:\{div(?: [^\}]*)\})?)(\s*)'
-			. '\{(' . implode('|', $tags) . ')(?:\s|&nbsp;|&\#160;)((?:[^\}]*?\{[^\}]*?\})*[^\}]*?)\}'
+			. '\{(' . implode('|', $tags) . ')(?:\s|&nbsp;|&\#160;)+((?:[^\}]*?\{[^\}]*?\})*[^\}]*?)\}'
 			. '(\s*)((?:\{/div\})?)';
 		$this->params->regex = '#' . $bts . $regex . $bte . '#s';
 		$this->params->regex2 = '#' . $regex . '#s';
@@ -141,7 +141,19 @@ class plgSystemModulesAnywhereHelper
 			&& in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components)
 		)
 		{
-			$this->protectTags($string);
+			if (!$this->params->disable_components_remove)
+			{
+
+				$this->protectTags($string);
+
+				return;
+			}
+
+			$this->protect($string);
+
+			$this->removeAll($string, $area);
+
+			nnProtect::unprotect($string);
 
 			return;
 		}
@@ -208,6 +220,12 @@ class plgSystemModulesAnywhereHelper
 		}
 
 		return $matches;
+	}
+
+	public function removeAll(&$string, $area = 'articles')
+	{
+		$this->params->message = JText::_('MA_OUTPUT_REMOVED_NOT_ENABLED');
+		$this->processModules($string, $area);
 	}
 
 	function processModules(&$string, $area = 'articles')

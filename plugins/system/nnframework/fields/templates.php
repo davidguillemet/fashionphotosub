@@ -4,11 +4,11 @@
  * Displays a select box of templates
  *
  * @package         NoNumber Framework
- * @version         14.12.3
+ * @version         15.1.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -50,7 +50,7 @@ class JFormFieldNN_Templates extends JFormField
 		// fix old '::' separator and change it to '--'
 		$value = json_encode($this->value);
 		$value = str_replace('::', '--', $value);
-		$value = (array) json_decode($value);
+		$value = (array) json_decode($value, true);
 
 		return nnHtml::selectlist($options, $this->name, $value, $this->id, $size, $multiple, $attribs);
 	}

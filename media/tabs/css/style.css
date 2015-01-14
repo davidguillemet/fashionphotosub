@@ -2,11 +2,11 @@
  * NoNumber Page stylesheet
  *
  * @package         Tabs
- * @version         4.0.7
+ * @version         4.0.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 /*
@@ -855,7 +855,7 @@
 .nn_tabs.left > .nav-tabs > li > a,
 .nn_tabs.right > .nav-tabs > li > a {
   min-width: 74px;
-  margin-right: 0;
+  margin-right: 0 !important;
   margin-bottom: 3px;
 }
 .nn_tabs.left.outline_content > .tab-content,

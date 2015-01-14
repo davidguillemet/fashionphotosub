@@ -3,11 +3,11 @@
  * Main Plugin File
  *
  * @package         Tooltips
- * @version         3.7.7
+ * @version         3.7.8
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
@@ -93,23 +93,23 @@ class plgSystemTooltips extends JPlugin
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (NNProtect::isProtectedPage($this->_alias, 1))
+		if (nnProtect::isProtectedPage($this->_alias, 1))
 		{
 			return false;
 		}
 
 		// Load plugin parameters
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
-		$params = NNParameters::getInstance()->getPluginParams($this->_name);
+		$params = nnParameters::getInstance()->getPluginParams($this->_name);
 
 		// allow in admin?
-		if (!$params->enable_admin && NNProtect::isAdmin())
+		if (!$params->enable_admin && nnProtect::isAdmin())
 		{
 			return false;
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-		$this->_helper = NNFrameworkHelper::getPluginHelper($this, $params);
+		$this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
 
 		return $this->_helper;
 	}

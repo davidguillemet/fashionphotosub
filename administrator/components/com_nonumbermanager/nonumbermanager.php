@@ -3,11 +3,11 @@
  * Main Admin file
  *
  * @package         NoNumber Extension Manager
- * @version         4.6.5
+ * @version         4.6.7
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
- * @copyright       Copyright © 2014 NoNumber All Rights Reserved
+ * @copyright       Copyright © 2015 NoNumber All Rights Reserved
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
  */
 
