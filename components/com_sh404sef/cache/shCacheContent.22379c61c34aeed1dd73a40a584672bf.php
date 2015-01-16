@@ -181,3 +181,16 @@ $this->_urlCache['47e7470815375a4df742e3e38ab1e5bf']='index.php?option=com_tz_po
 $this->_urlCache['fe694068fcc1ab0276354fc93ac87b2e']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=77&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/sepiadarium-kochi#0';
 $this->_urlCache['7ea8019cfc848309297ab5bced0a327c']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;id=37&amp;lang=fr&amp;layout=blog&amp;view=category#biologie/mollusques/cephalopodes/dibranchiaux/decapodes#0';
 $shURLCacheCreationDate=1420846550;
+$this->_urlCache['ca21cfc9c354fbda4c32d16d9afbd9a6']='index.php?option=com_tz_portfolio&amp;Itemid=176&amp;catid=33&amp;id=116&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/nudibranches/doridiens/ceratosoma-tenue#0';
+$shURLCacheCreationDate=1421447476;
+$this->_urlCache['eb27eae9ae7b3b62aa4c15cdc9b4f6e7']='index.php?option=com_tz_portfolio&amp;Itemid=176&amp;catid=33&amp;id=54&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/nudibranches/doridiens/chromodoris-annae#0';
+$shURLCacheCreationDate=1421447477;
+$this->_urlCache['7b02423828016fcb609c67732c98e1e2']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;catid=36&amp;id=70&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/octopodes/hapalochlaena-lunulata#0';
+$shURLCacheCreationDate=1421447705;
+$this->_urlCache['ced8cec43f974e5235fa3106bbfc6ef5']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;id=36&amp;lang=fr&amp;view=category#biologie/mollusques/cephalopodes/dibranchiaux/octopodes#0';
+$this->_urlCache['43ec598e8f36bdfb2ab4212be77faa1a']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;catid=36&amp;id=74&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/octopodes/amphioctopus-marginatus#0';
+$this->_urlCache['ef213f18507acd1d5d38e857fbc3072f']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;catid=36&amp;id=72&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/octopodes/octopus-vulgaris#0';
+$this->_urlCache['afc62e6395d18407a22c79290dbe83de']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;catid=36&amp;id=59&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/octopodes/wunderpus-photogenicus#0';
+$this->_urlCache['1d6ef0357d6e7748163ae9a2bbc0bfcb']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;catid=36&amp;id=73&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/octopodes/thaumoctopus-mimicus#0';
+$this->_urlCache['a391731e54b248621331a0c3f63eb3eb']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;id=36&amp;lang=fr&amp;layout=blog&amp;view=category#biologie/mollusques/cephalopodes/dibranchiaux/octopodes#0';
+$shURLCacheCreationDate=1421447706;
