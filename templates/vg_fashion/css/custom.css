@@ -2131,10 +2131,31 @@ word-wrap: break-word;
 }
 
 /* Acy mailing */
-div.acymailing_module, .acymailing_module div
+#sbox-window
 {
-	height: 100%;
+	padding: 0px;
+}
+div.acymailing_fulldiv
+{
+	padding: 10px;
+}
+
+.acymailing_module div
+{
+	height: 100%;	
+}
+#footer-toolbar div.acymailing_module
+{
 	float: right;
+}
+#newslettermodal div.acymailing_module
+{
+	float: none;
+}
+
+.acymailing_module_form
+{
+	overflow: hidden;
 }
 
 a.acymailing_togglemodule
@@ -2143,6 +2164,12 @@ a.acymailing_togglemodule
 	padding: 10px;
 	border-left: 1px solid #333;
 	display: inline-block;
+}
+
+.modal-header
+{
+	text-align: center;
+	text-transform: uppercase;
 }
 
 /* iFrame responsives pour les vidéos */

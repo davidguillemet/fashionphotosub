@@ -150,6 +150,8 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/markerclusterer.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/locations.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/fashionCustom.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/media/com_acymailing/js/acymailing_module.js"></script>
+
 
 <?php if( $vg_slide_status == 1 ){//<--A2. ?>
 
