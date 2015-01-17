@@ -194,3 +194,11 @@ $this->_urlCache['afc62e6395d18407a22c79290dbe83de']='index.php?option=com_tz_po
 $this->_urlCache['1d6ef0357d6e7748163ae9a2bbc0bfcb']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;catid=36&amp;id=73&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/octopodes/thaumoctopus-mimicus#0';
 $this->_urlCache['a391731e54b248621331a0c3f63eb3eb']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;id=36&amp;lang=fr&amp;layout=blog&amp;view=category#biologie/mollusques/cephalopodes/dibranchiaux/octopodes#0';
 $shURLCacheCreationDate=1421447706;
+$this->_urlCache['e0733ca548d3473a6686319205a6e839']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;catid=28&amp;id=84&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/sacoglosses/elysia-timida#0';
+$shURLCacheCreationDate=1421490672;
+$this->_urlCache['50eaff81e91d0dd7de9f21ad0936b1c7']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;id=28&amp;lang=fr&amp;view=category#biologie/mollusques/gasteropodes/opistobranches/sacoglosses#0';
+$this->_urlCache['f2efb9a4f029f32e0cf2fc5a850e1036']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;catid=28&amp;id=85&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/sacoglosses/elysia-ornata#0';
+$this->_urlCache['4d2248b3878f1d5a9c55c495957f5a51']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;catid=28&amp;id=83&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/sacoglosses/thuridilla-hopei#0';
+$this->_urlCache['28fcfc4ed94a05b5e7ec30884cda20d7']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;catid=28&amp;id=53&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/sacoglosses/elysia-gordanae#0';
+$this->_urlCache['f66d1290369eb1b5059c161c6f8b3bc6']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;id=28&amp;lang=fr&amp;layout=blog&amp;view=category#biologie/mollusques/gasteropodes/opistobranches/sacoglosses#0';
+$shURLCacheCreationDate=1421490673;

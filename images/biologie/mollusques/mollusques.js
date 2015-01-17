@@ -161,32 +161,37 @@
 				var categoryAndItem = image.cat.split('|');
 				var category = categoryAndItem[0];
 				var item = categoryAndItem[1];
-
-				var articleLink = '<a class=\'artlink\' href=\'javascript:routeArticle(' + image.id + ',' + category + ',' + item + ')\'>';
+				
+				var articleRef = 'javascript:routeArticle(' + image.id + ',' + category + ',' + item + ')';
+				var articleLink = '<a class=\'artlink\' href=\'' + articleRef + '\'>';
 				var articleLinkEncoded = articleLink.replace('"', '\\"').replace('<', '&lt;').replace('>','&gt;');
 				
 				var imgLinkId = "imgLink" + i;
 				
 				html += "<li data-name='" + image.desc + "' data-filter-class='[\"" + image.desc.charAt(0) + "\"]'>";
 				html += '<div class="wmcontainer">';
-				html += '<div class="wmdesc">' + image.desc + '</div>';
-				html += '<div class="wmbg"><div class="wmlinks">';
+				html += '<a class="wmbg" href="' + articleRef + '">';
+				html += '</a>'; // wmbg
+				html += '<div class="wmdesc">';
+				html += '<div class="wmlinks">';
 				html += '<a class="sblink" rel="shadowbox[mollusques]" href="' + imageFilePath + '"';
 				html += ' id="' + imgLinkId + '" data-name="' + image.desc + '"';
 				html += ' title="' + articleLinkEncoded + image.desc + '&lt;/a&gt;">';
-				html += '<i class="icon-search" style="font-size: 30px;"></i>';
+				html += '<i class="icon-search"></i>';
 				html += '</a>';
 				if (image.id.length > 0)
 				{
-					html += '&nbsp;&nbsp;&nbsp;';
+					html += '&nbsp;&nbsp;&nbsp;&nbsp;';
 					html += articleLink;
-					html += '<i class="icon-link-ext" style="font-size: 30px"></i>';
+					html += '<i class="icon-info-circled"></i>';
 					html += '</a>';
 				}
-				html += '</div></div>';
+				html += '</div>'; // wmlinks
+				html += articleLink + image.desc + '</a>';
+				html += '</div>'; // wmdesc
 				html += '<img src="' + rootUrl + wPlugin + imageFilePath;
 				html += '&amp;w=' + thumbnailWith + '&amp;q=100" width="' + thumbnailWith + '" height="' + image.height + '">';
-				html += '</div>';
+				html += '</div>'; // wmcontainer
 				html += '</li>';
 				
 				// Update alphabetical data

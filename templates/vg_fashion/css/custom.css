@@ -769,7 +769,7 @@ div#TzContent .tz_item .tz_portfolio_video{
 }
 .element .TzInner:hover .bg-item{
     opacity: 0.5;
-    filter:alpha(opacity=50);
+    filter:alpha(opacity=5);
 }
 .element .TzPortfolioMedia img{
     min-height: 100%;
@@ -1516,23 +1516,26 @@ ul.check > li
 .wmdesc
 {
 	position: absolute;
-	height: 25px;
 	bottom: 1px;
 	right: 1px;
 	left: 1px;
-	font-style: italic;
-	font-size: 13px;
-	background-color: #000;
+	font-size: 14px;
 	text-align: center;
 	vertical-align: middle;
-    opacity: 0.75;
-    filter:alpha(opacity=75);
+	color: #FFF;
+	font-weight: 700;
+	padding-bottom: 5px;
+}
+
+.wmdesc a
+{
+	color: #fff;
 }
 
 .wmbg
 {
 	position: absolute;
-	bottom: 26px;
+	bottom: 1px;
 	right: 1px;
 	left: 1px;
 	top: 1px;
@@ -1546,17 +1549,14 @@ ul.check > li
 
 .wmlinks
 {
-	position: absolute;
-	top: 40%;
-	right: 0;
-	left: 0;
+	font-size: 20px;
 	text-align: center;
 }
 
 .tiles li:hover .wmbg
 {
-    opacity: 0.75;
-    filter:alpha(opacity=0.75);
+    opacity: 0.5;
+    filter:alpha(opacity=0.5);
 }
 
 
