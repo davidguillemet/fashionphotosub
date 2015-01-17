@@ -202,3 +202,5 @@ $this->_urlCache['4d2248b3878f1d5a9c55c495957f5a51']='index.php?option=com_tz_po
 $this->_urlCache['28fcfc4ed94a05b5e7ec30884cda20d7']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;catid=28&amp;id=53&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opistobranches/sacoglosses/elysia-gordanae#0';
 $this->_urlCache['f66d1290369eb1b5059c161c6f8b3bc6']='index.php?option=com_tz_portfolio&amp;Itemid=181&amp;id=28&amp;lang=fr&amp;layout=blog&amp;view=category#biologie/mollusques/gasteropodes/opistobranches/sacoglosses#0';
 $shURLCacheCreationDate=1421490673;
+$this->_urlCache['93e28c5ead195f33da38a98955cfe9ee']='index.php?option=com_tz_portfolio&amp;Itemid=185&amp;catid=36&amp;id=76&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/octopodes/abdopus-sp#0';
+$shURLCacheCreationDate=1421493850;
