@@ -100,6 +100,23 @@ ul#slide-list
 	position: relative;
 }
 
+#offlajn-ajax-search103
+{
+	width: auto;
+}
+
+input#search-area103
+{
+	width: 230px;
+    -moz-transition: all 200ms linear 0s;
+    -webkit-transition: all 200ms linear 0s;
+    -o-transition: all 200ms linear 0s;
+}
+input#search-area103:focus
+{
+	width: 300px;
+}
+
 #offlajn-ajax-tile-results
 {
 	display: none;
@@ -1656,6 +1673,11 @@ div#foxcontainer_c149 .btn
 	border-radius: 0px;
 }
 
+div#foxcontainer_c149 .controls > .btn
+{
+	float: left;
+}
+
 div#foxcontainer_c149 .submit-button span,
 div#foxcontainer_c149 .reset-button span
 {
@@ -1664,8 +1686,8 @@ div#foxcontainer_c149 .reset-button span
 
 div#foxcontainer_c149 .fcaptchafieldcontainer
 {
-	background-color: #fff;
-	padding: 5px;
+	background-color: transparent;
+	padding: 5px 0 5px 0;
 }
 
 div#foxcontainer_c149 .fox_captcha_img
@@ -1688,7 +1710,13 @@ div#foxcontainer_c149 .alert
 
 div#foxcontainer_c149 .foxform-extended .control-label
 {
-	text-align: right;
+	text-align: left;
+}
+#cid_149-buttons
+{
+	margin-top: 40px;
+	padding-top: 20px;
+	border-top: 1px solid #e5e5e5;
 }
 
 /** Pour la bio **/
@@ -2268,7 +2296,7 @@ div.acymailing_fulldiv
 	{
 		width: 460px;
 	}
-	
+
 	#area-filter-container
 	{
 		width: 100%;
@@ -2309,6 +2337,14 @@ div.acymailing_fulldiv
 	{
 		float: left;
 		width: 100%;
+	}
+	input#search-area103
+	{
+		width: 385px;
+	}
+	input#search-area103:focus
+	{
+		width: 385px;
 	}
 }
 
@@ -2368,6 +2404,10 @@ div.acymailing_fulldiv
 	{
 		float: left;
 		width: 100%;
+	}
+	input#search-area103:focus
+	{
+		width: 230px;
 	}
 }
 
