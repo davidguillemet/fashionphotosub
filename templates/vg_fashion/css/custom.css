@@ -2208,6 +2208,11 @@ div.acymailing_fulldiv
 	overflow: hidden;
 }
 
+.acymailing_module_form input.inputbox
+{
+	padding: 3px 10px;
+}
+
 .acymailing_mootoolsbutton a.acymailing_togglemodule
 {
 	font-size: 20px;
