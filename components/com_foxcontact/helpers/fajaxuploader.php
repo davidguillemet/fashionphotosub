@@ -47,12 +47,12 @@ class FAjaxUploader extends FDataPump
 		$id = $this->GetId();
 
 		JFactory::getDocument()->addScriptDeclaration(
-				"jQuery(document).ready(function () {" .
+				"jQuery(document).ready(function () { try { " .
 					"CreateUploadButton('foxupload_$id'," .
 					"'" . $this->Application->owner . "'," .
 					$this->Application->oid . "," .
 					"'" . JRoute::_("index.php?option=com_foxcontact&view=loader&root=none&filename=none&type=uploader&owner=" . $this->Application->owner . "&id=" . $this->Application->oid) . "');" .
-				"});" . PHP_EOL
+				"} catch(err) { /* blank page after send */ } });" . PHP_EOL
 		);
 
 		$label = "";
