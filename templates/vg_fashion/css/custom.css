@@ -927,6 +927,14 @@ span.tagName{
 {
 	margin-bottom: 50px;
 }
+#controls-wrapper
+{
+	z-index: 6;
+}
+#controls
+{
+	z-index: auto;
+}
 
 /* DGUI Horizontal Related Articles */
 /* dgui_gallery_item = paramètre "classe de page" du menu "Galeries"*/
@@ -999,6 +1007,7 @@ li.TzItem a {
 	bottom: 0px;
 	color: #fff;
 	font-weight: 400;
+	text-shadow: 0px 2px 3px #000;
 }
 
 .TzRelatedImageDesc a, .TzRelatedImageDesc a:hover
@@ -1532,9 +1541,10 @@ ul.check > li
 	color: #FFF;
 	font-weight: 700;
 	padding-bottom: 5px;
+	text-shadow: 0px 2px 3px #000;
 }
 
-.wmdesc a
+.wmdesc a, .wmdesc a:hover
 {
 	color: #fff;
 }
@@ -2147,6 +2157,11 @@ div.acymailing_fulldiv
 	padding: 10px;
 }
 
+.acymailing_module_form .acymailing_introtext
+{
+	margin-bottom: 10px;
+}
+
 .acymailing_module div
 {
 	height: 100%;	
@@ -2165,7 +2180,7 @@ div.acymailing_fulldiv
 	overflow: hidden;
 }
 
-a.acymailing_togglemodule
+.acymailing_mootoolsbutton a.acymailing_togglemodule
 {
 	font-size: 20px;
 	padding: 10px;
