@@ -73,7 +73,7 @@
 					html: true,
 					delayIn: 0,
 					delayOut: 0,
-					offset: 8,
+					offset: 0,
 					opacity: 1,
 					fade: true,
 					title: function() { return "Agrandir l'image"; }
@@ -85,7 +85,7 @@
 					html: true,
 					delayIn: 0,
 					delayOut: 0,
-					offset: 8,
+					offset: 0,
 					opacity: 1,
 					fade: true,
 					title: function() { return "Voir les détails"; }
@@ -162,7 +162,9 @@
 				var category = categoryAndItem[0];
 				var item = categoryAndItem[1];
 				
-				var articleRef = 'javascript:routeArticle(' + image.id + ',' + category + ',' + item + ')';
+				var addArticleLink = image.id.length > 0;
+				
+				var articleRef = (addArticleLink) ? 'javascript:routeArticle(' + image.id + ',' + category + ',' + item + ')' : '';
 				var articleLink = '<a class=\'artlink\' href=\'' + articleRef + '\'>';
 				var articleLinkEncoded = articleLink.replace('"', '\\"').replace('<', '&lt;').replace('>','&gt;');
 				
@@ -170,16 +172,21 @@
 				
 				html += "<li data-name='" + image.desc + "' data-filter-class='[\"" + image.desc.charAt(0) + "\"]'>";
 				html += '<div class="wmcontainer">';
-				html += '<a class="wmbg" href="' + articleRef + '">';
-				html += '</a>'; // wmbg
 				html += '<div class="wmdesc">';
 				html += '<div class="wmlinks">';
 				html += '<a class="sblink" rel="shadowbox[mollusques]" href="' + imageFilePath + '"';
 				html += ' id="' + imgLinkId + '" data-name="' + image.desc + '"';
-				html += ' title="' + articleLinkEncoded + image.desc + '&lt;/a&gt;">';
+				if (addArticleLink)
+				{
+					html += ' title="' + articleLinkEncoded + image.desc + '&lt;/a&gt;">';
+				}
+				else
+				{
+					html += ' title="' + image.desc + '">';
+				}
 				html += '<i class="icon-search"></i>';
 				html += '</a>';
-				if (image.id.length > 0)
+				if (addArticleLink)
 				{
 					html += '&nbsp;&nbsp;&nbsp;&nbsp;';
 					html += articleLink;
@@ -191,6 +198,7 @@
 				html += '</div>'; // wmdesc
 				html += '<img src="' + rootUrl + wPlugin + imageFilePath;
 				html += '&amp;w=' + thumbnailWith + '&amp;q=100" width="' + thumbnailWith + '" height="' + image.height + '">';
+				html += '<div class="wmbg"></div>'; // wmbg
 				html += '</div>'; // wmcontainer
 				html += '</li>';
 				
