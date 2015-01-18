@@ -55,6 +55,17 @@ RewriteRule .* index.php [F]
 
 RewriteBase /fashion
 
+## Redirect biologie articles 
+# 1. All previous category pages (aéolidiens, doridiens, etc) are mapped to the new single gallery page 
+RewriteRule ^biologie/galeries/(.*)/(aeolidiens|arminaces|dendronotaces|doridiens|cephalopodes|gasteropodes|opisthobranches|prosobranches|nudibranches|cephalaspides|sacoglosses)$ biologie/galerie-mollusques [R=301,L]
+# 2. Redirect all other articles...
+#  --> needs all articles SEF Uris to be already generated!
+RewriteRule ^biologie/galeries/mollusques/(.*)$ biologie/mollusques/$1 [R=301,L]
+
+## Redirect Shark news
+RewriteRule ^environnement/requins/(.*)$ requins/actualite/$1 [R=301,L]
+
+
 ## Begin - Joomla! core SEF Section.
 #
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
