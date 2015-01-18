@@ -4452,7 +4452,7 @@ dojo.addOnLoad(function(){
           root: "/fashion",
           uploadurl: "index.php?option=offlajnupload",
           imgs: ["ptrn1.png","ptrn2.png","ptrn3.png","ptrn4.png","ptrn5.png","ptrn6.png"],
-          active: "http://localhost:8888/fashionphotosub//modules/mod_improved_ajax_login/themes/flat/images/samples/ptrn1.png",
+          active: "http://localhost/fashion/http://localhost:8888/fashionphotosub//modules/mod_improved_ajax_login/themes/flat/images/samples/ptrn1.png",
           identifier: "28f73c7075ea9526d45d05de0a926096",
           description: "",
           siteurl: "http://localhost/fashion/"

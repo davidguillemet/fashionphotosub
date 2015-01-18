@@ -18,7 +18,7 @@
 
 <?php if (@$oauth_list && $socialpos=='top') require dirname(__FILE__).'/social.php' // TOP SOCIALPOS ?>
 
-<form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')) ?>" method="post" name="ialLogin" class="ial-login <?php if (!$loginpopup) echo 'fullWidth' ?>">
+<form action="<?php echo '' ?>" method="post" name="ialLogin" class="ial-login <?php if (!$loginpopup) echo 'fullWidth' ?>">
   <?php if (!$module->showtitle && !$loginpopup || $loginpopup): ?>
   <div class="gi-elem gi-wide">
     <h3 class="loginH3"><?php echo $params->get('header', 'Login to your account') ?></h3>

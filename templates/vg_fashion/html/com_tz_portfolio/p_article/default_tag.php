@@ -30,7 +30,6 @@ $tmpl           = JRequest::getString('tmpl');
         <span class="TzArticleTag">
 			<i class="icon-tags"></i>
                 <?php $count = count($this -> listTags); $i=1;  foreach($this -> listTags as $row):?>
-                <?php $link = JRoute::_('index.php?option=com_tz_portfolio&view=tags&id='.$row -> id.'&Itemid='.JRequest::getCmd('Itemid'));?>
                   <span>
                       <?php echo $row -> name;?><?php if($i != $count){ echo JText::_('TAG-SPACE-PORTFOLIO');} ?>
                     </span>
