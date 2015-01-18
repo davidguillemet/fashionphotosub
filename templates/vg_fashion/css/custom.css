@@ -111,6 +111,8 @@ input#search-area103
     -moz-transition: all 200ms linear 0s;
     -webkit-transition: all 200ms linear 0s;
     -o-transition: all 200ms linear 0s;
+	font-weight: 300;
+	font-size: inherit;
 }
 input#search-area103:focus
 {
@@ -238,7 +240,7 @@ input#search-area103:focus
 {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	border-radius: 5px;
+	border-radius: 0px;
 }
 
 @media screen and (min-width: 960px) {
@@ -759,7 +761,7 @@ div#TzContent .tz_item .tz_portfolio_video{
     width: 100%;
     text-align:center;
     opacity: 1;
-    filter:alpha(opacity=1);
+    filter:alpha(opacity=100);
     z-index: 10;
     padding: 0px;
 	margin-bottom: 5px;
@@ -786,7 +788,7 @@ div#TzContent .tz_item .tz_portfolio_video{
 }
 .element .TzInner:hover .bg-item{
     opacity: 0.5;
-    filter:alpha(opacity=5);
+    filter:alpha(opacity=50);
 }
 .element .TzPortfolioMedia img{
     min-height: 100%;
@@ -885,10 +887,10 @@ span.tagName{
 .tz_portfolio_image_gallery span.icon_gallery,
 .tz_portfolio_video span.icon_video{
     position: absolute;
-    bottom:0;
+    top:0;
     right:0;
     opacity: 1;
-    filter:alpha(opacity=1);
+    filter:alpha(opacity=100);
     z-index: 10;
     height: 51px;
     width: 51px;
@@ -1569,9 +1571,9 @@ ul.check > li
 	text-align: center;
 	vertical-align: middle;
 	color: #FFF;
-	font-weight: 700;
 	padding-bottom: 5px;
 	text-shadow: 0px 2px 3px #000;
+	z-index:2;
 }
 
 .wmdesc a, .wmdesc a:hover
@@ -1588,6 +1590,7 @@ ul.check > li
 	top: 0px;
 	background-color: #000;
     opacity: 0;
+	z-index:1;
     filter:alpha(opacity=0);
     -moz-transition: all 200ms linear 0ms;
     -webkit-transition: all 200ms linear 0ms;
@@ -1596,8 +1599,9 @@ ul.check > li
 
 .wmlinks
 {
-	font-size: 20px;
+	font-size: 22px;
 	text-align: center;
+	margin-bottom: 20px;
 }
 
 .tiles li:hover .wmbg
@@ -2200,7 +2204,7 @@ div.acymailing_fulldiv
 
 .acymailing_module_form .acymailing_introtext
 {
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 }
 
 .acymailing_module div
@@ -2224,6 +2228,7 @@ div.acymailing_fulldiv
 .acymailing_module_form input.inputbox
 {
 	padding: 3px 10px;
+	margin-top: 10px;
 }
 
 .acymailing_mootoolsbutton a.acymailing_togglemodule
