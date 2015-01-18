@@ -1459,6 +1459,12 @@ ul
 	margin: 15px 0;
 }
 
+ul#supersized
+{
+	padding: 0;
+	margin: 0;	
+}
+
 ul.list
 {
 	display: block;
