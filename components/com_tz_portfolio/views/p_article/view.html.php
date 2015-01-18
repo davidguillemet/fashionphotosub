@@ -156,8 +156,10 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
         $item ->link        = JRoute::_(TZ_PortfolioHelperRoute::getPortfolioArticleRoute($item -> slug,$item -> catid).$tmpl,true,-1);
         $item -> fullLink   = JRoute::_(TZ_PortfolioHelperRoute::getPortfolioArticleRoute($item -> slug,$item -> catid),true,-1);
 
-        $item -> parent_link    = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->parent_slug));
-        $item -> category_link  = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->catslug));
+        // DGUI - remove parent category link generation
+        //$item -> parent_link    = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->parent_slug));
+        // DGUI - remove category link generation
+		//$item -> category_link  = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->catslug));
 
         if($item -> params -> get('tz_portfolio_redirect') == 'article'){
             $configLink =JRoute::_(TZ_PortfolioHelperRoute::getArticleRoute($item -> slug,$item -> catid).$tmpl, true ,-1);
