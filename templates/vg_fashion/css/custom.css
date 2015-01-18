@@ -133,9 +133,13 @@ input#search-area103:focus
 }
 
 /* Navigation entre articles */
-#tz-portfolio-template-navigation
+#tz-portfolio-template-navigation-bottom
 {
 	border-top: 4px solid #212121;
+}
+#tz-portfolio-template-navigation-top
+{
+	border-bottom: 4px solid #212121;
 }
 .TzNavigationItem
 {
@@ -167,11 +171,11 @@ input#search-area103:focus
 	color: #ff5b0a;
 	background-color: #212121;
 }
-#tz-portfolio-template-navigation .next
+#tz-portfolio-template-navigation-bottom .next, #tz-portfolio-template-navigation-top .next
 {
 	border-left: 2px solid #212121;	
 }
-#tz-portfolio-template-navigation .previous
+#tz-portfolio-template-navigation-bottom .previous, #tz-portfolio-template-navigation-top .previous
 {
 	border-right: 2px solid #212121;	
 }
@@ -294,6 +298,9 @@ input#search-area103:focus
 .nn_sliders.accordion>.accordion-group
 {
 	border: 1px solid #bbb;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
 }
 .nn_sliders.accordion>.guestbook
 {

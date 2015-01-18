@@ -360,13 +360,18 @@ class plgContentTZ_Portfolio extends JPlugin
 			// Output.
 			if ($row->prev || $row->next) {
 				$html = '';
-				if ($row->prev) {
+				
+				// DGUI : Next and previous are switched in order to have:
+				// - prev on the left
+				// - next on the right 
+				
+				if ($row->next) {
 					$html .= '
-						<a href="'. $row->prev .'" rel="prev">
+						<a href="'. $row->next .'" rel="prev">
 						<div class="previous TzNavigationItem"'
-						. ' title="'. $prevTitle .'"' .
+						. ' title="'. $nextTitle .'"' .
 						'><i class="icon-left navigationicon"></i>&nbsp;'
-						. '<span class="navigationcpation">' . $prevShortTitle . '</span>' .
+						. '<span class="navigationcpation">' . $nextShortTitle . '</span>' .
 						'</div></a>'
 					;
 				}
@@ -377,12 +382,12 @@ class plgContentTZ_Portfolio extends JPlugin
 
 
 
-				if ($row->next) {
+				if ($row->prev) {
 					$html .= '
-						<a href="'. $row->next .'" rel="next">
+						<a href="'. $row->prev .'" rel="next">
 						<div class="next TzNavigationItem"'
-						. ' title="'. $nextTitle .'"' .
-						'><span class="navigationcpation">'	. $nextShortTitle .'</span>&nbsp;<i class="icon-right navigationicon"></i>
+						. ' title="'. $prevTitle .'"' .
+						'><span class="navigationcpation">'	. $prevShortTitle .'</span>&nbsp;<i class="icon-right navigationicon"></i>
 						</div></a>'
 					;
 				}
