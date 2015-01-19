@@ -135,12 +135,18 @@
 		
 	};
 
+	function getAlphabeticalFilterType()
+	{
+		return $("#alphabeticalcriteria").val();
+	}
 	/**
 	 * Receives data from the API, creates HTML for images and updates the layout
 	 */
 
 	function onLoadData(response) {
 		isLoading = false;
+		
+		var filterType = getAlphabeticalFilterType();
 
 		// Create HTML for the images.
 		var html = '';
@@ -148,7 +154,10 @@
 		var length = data.length;
 		var image, opacity;
 
-		alphabeticalData = buildInitiaAlphabeticalData();
+		alphabeticalData = [];
+		alphabeticalData['genius'] = buildInitiaAlphabeticalData();
+		alphabeticalData['species'] = buildInitiaAlphabeticalData();
+		
 		var thumbnailWith = getWookmarkThumbnailWidth();
 		
 		if (length > 0)
@@ -169,8 +178,25 @@
 				var articleLinkEncoded = articleLink.replace('"', '\\"').replace('<', '&lt;').replace('>','&gt;');
 				
 				var imgLinkId = "imgLink" + i;
+
+				// Update alphabetical data for genius
+				var geniusFirstChar = image.desc.charAt(0);
+				var geniusPos = alphabet.indexOf(geniusFirstChar);
+				alphabeticalData['genius'][geniusPos]++;
+
+				// Update alphabetical data for species
+				var speciesFirstChar = '';
+				var species = image.desc.split(" ")[1];
+				if (species != "sp")
+				{
+					speciesFirstChar = species.toUpperCase().charAt(0);
+					var speciesPos = alphabet.indexOf(speciesFirstChar);
+					alphabeticalData['species'][speciesPos]++;
+				}
 				
-				html += "<li data-name='" + image.desc + "' data-filter-class='[\"" + image.desc.charAt(0) + "\"]'>";
+				var filterValue = filterType == 'genius' ? geniusFirstChar : speciesFirstChar;
+				
+				html += "<li data-name='" + image.desc + "' data-filter-class='[\"" + filterValue + "\"]'>";
 				html += '<div class="wmcontainer">';
 				html += '<div class="wmdesc">';
 				html += '<div class="wmlinks">';
@@ -200,11 +226,7 @@
 				html += '&amp;w=' + thumbnailWith + '&amp;q=100" width="' + thumbnailWith + '" height="' + image.height + '">';
 				html += '<div class="wmbg"></div>'; // wmbg
 				html += '</div>'; // wmcontainer
-				html += '</li>';
-				
-				// Update alphabetical data
-				var alphabetPos = alphabet.indexOf(image.desc.charAt(0));
-				alphabeticalData[alphabetPos]++;
+				html += '</li>';				
 			}
 		}
 		else
@@ -221,7 +243,7 @@
 		applyLayout($newImages, (length > 0));
 		
 		// Update Alhabetical Filter
-		updateAlphabeticalFilter(alphabeticalData);
+		updateAlphabeticalFilter(alphabeticalData[filterType]);
 		
 	};
 
@@ -436,18 +458,18 @@
 		// We don't switch if the page is just loading
 		var switching = loading == true ? false : true;
 		var reloadData = currentFilter != null && prevThumbWidth != newThumbWidth;
-		
+				
 		// Redraw chart if needed
 		if (loading == true || prevIsChart != newIsChart)
 		{
 			if (newIsChart)
 			{
 				configureChart(switching);
-				if (!reloadData)
+				if (!reloadData && alphabeticalData != null)
 				{
 					// updateAlphabeticalFilter is called in onLoadData
 					// Update Alhabetical Filter
-					updateAlphabeticalFilter(alphabeticalData);
+					updateAlphabeticalFilter(alphabeticalData[getAlphabeticalFilterType()]);
 				}
 			}
 			else
@@ -623,6 +645,13 @@
 		$( window ).resize(onResize);
 		
 		onResize(true);
+		
+		$("#alphabeticalcriteria").change(function () {
+			if (currentFilter != null)
+			{
+				loadData('filter', currentFilter);
+			}
+		});
 	}
 
 	function updateAlphabeticalFilter(alphabeticalData)
