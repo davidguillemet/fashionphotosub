@@ -115,3 +115,7 @@ DSC_2323.jpg|Phyllodesmium jacobsenae|200|gasteropode|opistobranche|nudibranche|
 DSC_2599.jpg|Chromodoris gemina|201|gasteropode|opistobranche|nudibranche|doridien
 DSC_2600.jpg|Chromodoris strigata|202|gasteropode|opistobranche|nudibranche|doridien
 DSC_2611.jpg|Aphelodoris sp|203|gasteropode|opistobranche|nudibranche|doridien
+DSC_2673.jpg|Glossodoris rufomarginata|205|gasteropode|opistobranche|nudibranche|doridien
+DSC_2694.jpg|Okenia brunneomacutata|206|gasteropode|opistobranche|nudibranche|doridien
+DSC_2862.jpg|Glossodoris sp|207|gasteropode|opistobranche|nudibranche|doridien
+DSC_2779.jpg|Discodoris boholiensis|208|gasteropode|opistobranche|nudibranche|doridien

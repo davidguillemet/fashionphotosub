@@ -253,3 +253,11 @@ $this->_urlCache['ff25fd69397d04fe2bdfde551449fd0d']='index.php?option=com_tz_po
 $this->_urlCache['994c34ec1520f914493681e1e6f4523d']='index.php?option=com_tz_portfolio&amp;Itemid=175&amp;catid=32&amp;id=107&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/dendronotaces/doto-sp#0';
 $this->_urlCache['9ba33c066788e9fb95fbcff560c8e7c5']='index.php?option=com_tz_portfolio&amp;Itemid=175&amp;catid=32&amp;id=109&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/dendronotaces/tochuina-tetraquetra#0';
 $shURLCacheCreationDate=1421612336;
+$this->_urlCache['5a31e1dd0910391e47eeccc307016d30']='index.php?option=com_tz_portfolio&amp;Itemid=176&amp;catid=33&amp;id=205&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/doridiens/glossodoris-rufomarginata#0';
+$shURLCacheCreationDate=1421620952;
+$this->_urlCache['06670cab9d99f4668bf00c2e1d441c88']='index.php?option=com_tz_portfolio&amp;Itemid=176&amp;catid=33&amp;id=206&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/doridiens/okenia-brunneomacutata#0';
+$shURLCacheCreationDate=1421621211;
+$this->_urlCache['e4aba172f142f00fe23d1814da2ae17d']='index.php?option=com_tz_portfolio&amp;Itemid=176&amp;catid=33&amp;id=207&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/doridiens/glossodoris-sp#0';
+$shURLCacheCreationDate=1421651475;
+$this->_urlCache['f7fa7c4c6ce8ab768b34fcf62ef3012c']='index.php?option=com_tz_portfolio&amp;Itemid=176&amp;catid=33&amp;id=208&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/doridiens/discodoris-boholiensis#0';
+$shURLCacheCreationDate=1421651735;
