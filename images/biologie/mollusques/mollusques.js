@@ -139,6 +139,25 @@
 	{
 		return $("#alphabeticalcriteria").val();
 	}
+	
+	function IsUndescribedSpecies(species)
+	{
+		if (species == "sp")
+		{
+			return true;
+		}
+		if (species.indexOf("sp") == 0)
+		{
+			// Species contains "spxxxx"
+			// -> check xxxx are, only digits
+			var thirdChar = species.charAt(2);
+			if (thirdChar >= '0' && thirdChar <= '9')
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	/**
 	 * Receives data from the API, creates HTML for images and updates the layout
 	 */
@@ -187,7 +206,7 @@
 				// Update alphabetical data for species
 				var speciesFirstChar = '';
 				var species = image.desc.split(" ")[1];
-				if (species != "sp")
+				if (!IsUndescribedSpecies(species))
 				{
 					speciesFirstChar = species.toUpperCase().charAt(0);
 					var speciesPos = alphabet.indexOf(speciesFirstChar);
