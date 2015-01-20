@@ -285,3 +285,5 @@ $this->_urlCache['ddf95ddf4baea164b04f83e698500518']='index.php?option=com_tz_po
 $shURLCacheCreationDate=1421790926;
 $this->_urlCache['ed43ecbcbf868ecb7983c47dfee93ac3']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=219&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/flabellina-exoptata#0';
 $shURLCacheCreationDate=1421791864;
+$this->_urlCache['409e8c745ad9ad7f22b40fb61c8c2a13']='index.php?option=com_tz_portfolio&amp;Itemid=171&amp;catid=22&amp;id=220&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/prosobranches/strombus-vomer#0';
+$shURLCacheCreationDate=1421793257;

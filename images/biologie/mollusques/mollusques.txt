@@ -131,3 +131,4 @@ DSC_3475.jpg|Chromodoris trimarginata|216|gasteropode|opistobranche|nudibranche|
 DSC_3468.jpg|Chromodoris fidelis|217|gasteropode|opistobranche|nudibranche|doridien
 DSC_3496.jpg|Baeolidia major|218|gasteropode|opistobranche|nudibranche|aeolidien
 DSC_3278.jpg|Flabellina exoptata|219|gasteropode|opistobranche|nudibranche|aeolidien
+DSC_3511.jpg|Strombus vomer|220|gasteropode|prosobranche
