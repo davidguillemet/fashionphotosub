@@ -85,7 +85,14 @@
 		// Put the wiki content in the container
 		$wikiContent.empty();
 		$wikiContent.append($wikiHtml);
-		if (pageFound) $("#wikimessage").show();
+		if (pageFound)
+		{
+			var $sourceLink = $("#sourceArticleLink");
+			var sourceRef = $sourceLink.attr("href");
+			$sourceLink.attr("href", sourceRef.replace("{0}", mollusqueType.replace(" ", "_")));
+			$sourceLink.text(mollusqueType);
+			$("#wikimessage").show();
+		}
 	}
 	$articleTitle.css('text-transform', 'none');
 	loadData();
