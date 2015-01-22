@@ -62,6 +62,7 @@ $f(document).ready(function(){
 		$f(this).css('display', 'none');
 		$f('.c-opener').css('display', 'block');
 		$f('.content').animate({ top: contentHeight+'px' }, 400, function(){
+			$f('.content').css("top", "100%");
 			$f('.content-hider').animate({ top: '-150px' }, 400);	
 		});										  
 	});
