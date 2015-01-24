@@ -1,0 +1,293 @@
+/*  Wikipedia */
+#wikimessage
+{
+	margin-top: 40px;
+}
+#wikicontent
+{
+	margin-top: 20px;
+	padding-top: 20px;
+}
+
+#wikicontent img {
+border: none;
+vertical-align: middle;
+}
+
+#wikicontent ul
+{
+	margin: 5px 0px;
+}
+
+#wikicontent h2, #wikicontent h3, #wikicontent h4
+{
+	margin-top: 25px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+	overflow: hidden;
+}
+
+#toctitle h2
+{
+	margin-top: 0px;
+	margin-left: 5px;
+	font-size: 120%;
+	border: none;
+}
+
+#toc, .toc {
+display: -moz-inline-block;
+display: inline-block;
+display: table;
+zoom: 1;
+padding: 7px;
+border: 1px solid #aaa;
+margin-top: 25px;
+}
+#toc ul, .toc ul {
+list-style-type: none;
+list-style-image: none;
+margin: 5px;
+padding: 0;
+text-align: left;
+}
+#wikicontent .toc ul ul, #wikicontent #toc ul ul, #wikicontent .toc ul ul, #wikicontent #toc ul ul {
+margin: 0 0 0 2em;
+}
+
+.bandeau {
+text-align: left;
+margin: 10px 0 20px 0;
+border-style: solid;
+border-width: 1px 1px 1px 10px;
+padding: 2px 10px;
+}
+.bandeau-niveau-ebauche, .bandeau-niveau-information {
+border-color: #77ccff;
+}
+.bandeau-icone {
+vertical-align: middle;
+text-align: center;
+min-width: 45px;
+padding-right: 10px;
+}
+.bandeau-titre {
+font-size: 1em;
+line-height: 1.4em;
+margin-bottom: 0.5em;
+}
+.bandeau-texte {
+font-size: 0.9em;
+line-height: 1.2em;
+}
+
+div.boite-a-droite {
+display: table;
+clear: right;
+float: right;
+margin: 5px 0px 1em 1em;
+position: relative;
+border-style: solid;
+border-width: 1px;
+padding: 4px 15px;
+text-align: left;
+}
+
+div.infobox_v3 {
+padding: 5px;
+width: 25em;
+border: 1px solid #AAA;
+clear: right;
+float: right;
+font-size: 0.9em;
+line-height: 1.4em;
+margin: 0 0 0.5em 1em;
+max-width: 325px;
+word-wrap: break-word;
+}
+.taxobox_v3 {
+font-size: 0.99em !important;
+padding: 1px;
+}
+div.taxobox_v3 .entete, .taxobox_v3 caption, .taxobox_v3 p.bloc {
+font-style: normal;
+}
+.infobox_v3 .entete {
+font-weight: bold;
+text-align: center;
+font-size: 1.4em;
+line-height: 1.1em;
+margin: 0 0 10px 0 !important;
+padding: 3px 0;
+background-color: #757575;
+border: 2px solid #757575;
+color: #eee;
+}
+.infobox_v3 .images {
+text-align: center;
+display: flex;
+justify-content: space-around;
+align-items: center;
+}
+.infobox_v3 .images img {
+max-width: 99%;
+height: auto;
+}
+.infobox_v3 .legend {
+font-size: 0.9em;
+text-align: center;
+margin: 5px 0 8px 0;
+}
+div.taxobox_v3 .taxobox_classification {
+font-style: italic;
+}
+.infobox_v3 table {
+width: 100%;
+margin: 5px 0;
+table-layout: fixed;
+border-collapse: collapse;
+}
+div.taxobox_v3 .entete, .taxobox_v3 caption, .taxobox_v3 p.bloc {
+font-style: normal;
+}
+.infobox_v3 p.bloc {
+margin: 5px 0;
+}
+.infobox_v3 caption, .infobox_v3 p.bloc {
+background: #757575;
+}
+.infobox_v3 p.bloc, .infobox_v3 p.bordered, .infobox_v3 caption {
+font-weight: bold;
+text-align: center;
+line-height: 1.1em;
+margin: 0 0 5px 0;
+padding: 4px 10px 4px 5px;
+color: #eee;
+}
+div.taxobox_v3 .taxobox_classification .rnormal {
+font-style: normal;
+}
+div.taxobox_v3.zoologie .taxobox_classification .normal, div.taxobox_v3 th[scope="row"] {
+font-style: normal;
+padding-right: 5px;
+}
+.infobox_v3 th[scope=row], .infobox_v3 td {
+padding-top: 4px;
+vertical-align: super;
+}
+.infobox_v3 th[scope=row] {
+text-align: left;
+vertical-align: super;
+padding-right: 10px;
+width: 8em;
+}
+.infobox_v3 th[scope="row"] {
+max-width: 140px;
+word-wrap: normal;
+}
+.taxobox_v3 th {
+font-weight: normal;
+}
+.center {
+width: 100%;
+text-align: center;
+}
+*.center * {
+margin-left: auto;
+margin-right: auto;
+}
+div.thumbinner {
+border: 1px solid #aaa;
+padding: 3px;
+font-size: 94%;
+text-align: center;
+overflow: hidden;
+}
+div.tright {
+margin: .5em 0 1.3em 1.4em;
+}
+div.thumb {
+margin-bottom: .5em;
+width: auto;
+background-color: transparent;
+}
+div.tright, div.floatright, table.floatright {
+clear: right;
+float: right;
+}
+.references-small.decimal ol {
+list-style-type: decimal;
+}
+.references-small ol, ol.references {
+margin-top: 0;
+margin-left: 35px;
+}
+ol.references > li {
+text-align: left;
+}
+
+#wikicontent ul#bandeau-portail {
+border: solid #AAAAAA 1px;
+padding: 10px;
+text-align: center;
+margin-top: 20px;
+margin-left: 0;
+clear: both;
+}
+#bandeau-portail li {
+display: inline;
+}
+.bandeau-portail-element {
+white-space: nowrap;
+margin: auto 1.5em;
+}
+.bandeau-portail-icone {
+margin-right: 0.5em;
+}
+.bandeau-portail-texte {
+font-weight: bold;
+}
+
+#wikicontent ul.gallery {
+margin: 2px auto;
+text-align: center;
+}
+
+#wikicontent ul.gallery {
+margin: 2px;
+padding: 2px;
+display: block;
+}
+
+#wikicontent ul.gallery, #wikicontent li.gallerybox {
+zoom: 1;
+}
+
+#wikicontent li.gallerybox {
+vertical-align: top;
+display: -moz-inline-box;
+display: inline-block;
+}
+
+li.gallerybox div.thumb {
+text-align: center;
+margin: 2px;
+}
+
+div.thumb {
+margin-bottom: .5em;
+width: auto;
+background-color: transparent;
+}
+
+div.gallerytext {
+text-align: left;
+font-size: 89%;
+}
+
+div.gallerytext {
+overflow: hidden;
+font-size: 94%;
+padding: 2px 4px;
+word-wrap: break-word;
+}
