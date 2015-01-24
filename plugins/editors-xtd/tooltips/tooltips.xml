@@ -2,7 +2,7 @@
 <extension version="3.2" type="plugin" group="editors-xtd" method="upgrade">
 	<name>PLG_EDITORS-XTD_TOOLTIPS</name>
 	<description>PLG_EDITORS-XTD_TOOLTIPS_DESC</description>
-	<version>3.7.8PRO</version>
+	<version>3.7.9PRO</version>
 	<creationDate>January 2015</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>

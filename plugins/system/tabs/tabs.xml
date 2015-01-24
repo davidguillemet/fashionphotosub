@@ -2,7 +2,7 @@
 <extension version="3.2" type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_TABS</name>
 	<description>PLG_SYSTEM_TABS_DESC</description>
-	<version>4.0.8PRO</version>
+	<version>4.0.9PRO</version>
 	<creationDate>January 2015</creationDate>
 	<author>NoNumber (Peter van Westen)</author>
 	<authorEmail>peter@nonumber.nl</authorEmail>
@@ -135,6 +135,10 @@
 				<field name="@toggler_set_cookies_b" type="nn_toggler" />
 				
 				<field name="disabled_components" type="nn_components" default="" admin="0" label="NN_DISABLE_ON_COMPONENTS" description="NN_DISABLE_ON_COMPONENTS_DESC" />
+				<field name="disable_components_remove" type="radio" class="btn-group" default="1" label="NN_REMOVE_IN_DISABLED_COMPONENTS" description="NN_REMOVE_IN_DISABLED_COMPONENTS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
 				<field name="enable_admin" type="radio" class="btn-group" default="0" label="NN_ENABLE_IN_ADMIN" description="NN_ENABLE_IN_ADMIN_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>

@@ -4,7 +4,7 @@
  * Displays a block with optionally a title and description
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

@@ -2,7 +2,7 @@
  * Main JavaScript file
  *
  * @package         NoNumber Extension Manager
- * @version         4.6.7
+ * @version         4.7.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -96,7 +96,7 @@
 				toolbar = $('div#toolbar');
 
 				// reset stuff
-				toolbar.removeClass('has_install').removeClass('has_update');
+				toolbar.removeClass('has_install').removeClass('has_reinstall').removeClass('has_update');
 
 				for (var i = 0; i < NNEM_IDS.length; i++) {
 					var extension = NNEM_IDS[i];
@@ -165,7 +165,13 @@
 									nnManager.show('selectable', tr);
 									nnManager.show('install', tr);
 								} else if (pro_available && pro_installed && !pro_access) {
-									nnManager.show('pro_no_access', tr);
+									if ($('#key_hidden').val()) {
+										$('#nnkey').show();
+										$('#nnkey_text_empty').hide();
+										$('#nnkey_text_invalid').show();
+										$('#nnkey .well').addClass('well-danger');
+										nnManager.show('pro_key_invalid', tr);
+									}
 								} else {
 									compare = nnScripts.compareVersions(v_old, v_new);
 									if (compare == '<' || (!pro_installed && pro_access)) {
@@ -179,6 +185,7 @@
 										tr.find('.changelog, .changelog > span').addClass('disabled');
 										nnManager.show('uptodate', tr);
 										nnManager.show('reinstall', tr);
+										toolbar.addClass('has_reinstall');
 									}
 								}
 							}
@@ -230,25 +237,33 @@
 				var urls = [];
 
 				switch (task) {
+					case 'reinstallall':
+						type = 'reinstall';
+						msg = NNEM_NOUPDATE;
+						clss = 'reinstall';
+						break;
 					case 'updateall':
 						type = 'update';
 						msg = NNEM_NOUPDATE;
+						clss = 'selectable.update';
 						break;
 					default:
 						type = 'install';
 						msg = NNEM_NONESELECTED;
+						clss = 'selectable';
 						break;
 				}
 
-				$('div#nnem tr.selectable').each(function() {
+				$('div#nnem tr.' + clss).each(function() {
 					tr = $(this);
 					var el = tr.find('td.ext_checkbox input');
 					id = el.val();
 					if (id) {
 						var pass = 0;
 						switch (task) {
+							case 'reinstallall':
 							case 'updateall':
-								pass = tr.hasClass('update');
+								pass = true;
 								break;
 							default:
 								pass = el.is(':checked');
@@ -342,6 +357,7 @@ function nnem_function(task, id) {
 		case 'refresh':
 			nnManager.refreshData(1);
 			break;
+		case 'reinstallall':
 		case 'updateall':
 		case 'installselected':
 			nnManager.installMultiple(task);

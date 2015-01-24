@@ -4,7 +4,7 @@
  * Displays a multiselectbox of available K2 categories / tags / items
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -37,10 +37,13 @@ class JFormFieldNN_K2 extends JFormField
 
 		$group = $this->get('group', 'categories');
 
-		$tables = $this->db->getTableList();
-		if (!in_array($this->db->getPrefix() . 'k2_' . $group, $tables))
+		if (in_array($group, array('categories', 'items', 'tags')))
 		{
-			return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_TABLE_NOT_FOUND', JText::_('NN_K2')) . '</fieldset>';
+			$tables = $this->db->getTableList();
+			if (!in_array($this->db->getPrefix() . 'k2_' . $group, $tables))
+			{
+				return '<fieldset class="alert alert-danger">' . JText::_('ERROR') . ': ' . JText::sprintf('NN_TABLE_NOT_FOUND', JText::_('NN_K2')) . '</fieldset>';
+			}
 		}
 
 		$parameters = nnParameters::getInstance();
@@ -160,10 +163,20 @@ class JFormFieldNN_K2 extends JFormField
 	function getItems()
 	{
 		$query = $this->db->getQuery(true)
-			->select('i.id, i.title as name, c.name as cat, i.published')
+			->select('COUNT(*)')
 			->from('#__k2_items AS i')
+			->where('i.published > -1');
+		$this->db->setQuery($query);
+		$total = $this->db->loadResult();
+
+		if ($total > $this->max_list_count)
+		{
+			return -1;
+		}
+
+		$query->clear('select')
+			->select('i.id, i.title as name, c.name as cat, i.published')
 			->join('LEFT', '#__k2_categories AS c ON c.id = i.catid')
-			->where('i.published > -1')
 			->order('i.title, i.ordering, i.id');
 		$this->db->setQuery($query);
 		$list = $this->db->loadObjectList();
@@ -174,6 +187,40 @@ class JFormFieldNN_K2 extends JFormField
 		{
 			$item->name = $item->name . ' [' . $item->id . ']' . ($item->cat ? ' [' . $item->cat . ']' : '');
 			$item->name = nnText::prepareSelectItem($item->name, $item->published);
+			$options[] = JHtml::_('select.option', $item->id, $item->name, 'value', 'text', 0);
+		}
+
+		return $options;
+	}
+
+	function getAuthors()
+	{
+		$query = $this->db->getQuery(true)
+			->select('COUNT(*)')
+			->from('#__k2_items AS i')
+			->where('i.published > -1')
+			->group('i.created_by');
+		$this->db->setQuery($query);
+		$total = $this->db->loadResult();
+
+		if ($total > $this->max_list_count)
+		{
+			return -1;
+		}
+
+		$query->clear('select')
+			->select('u.name, u.id')
+			->join('LEFT', '#__users AS u ON u.id = i.created_by')
+			->order('name');
+		$this->db->setQuery($query);
+		$list = $this->db->loadObjectList();
+
+		// assemble items to the array
+		$options = array();
+		foreach ($list as $item)
+		{
+			$item->name .= ' [' . $item->id . ']';
+			$item->name = nnText::prepareSelectItem($item->name);
 			$options[] = JHtml::_('select.option', $item->id, $item->name, 'value', 'text', 0);
 		}
 

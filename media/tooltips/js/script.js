@@ -2,7 +2,7 @@
  * Main JavaScript file
  *
  * @package         Tooltips
- * @version         3.7.8
+ * @version         3.7.9
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

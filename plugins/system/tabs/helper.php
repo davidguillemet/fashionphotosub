@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Tabs
- * @version         4.0.8
+ * @version         4.0.9
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -39,7 +39,7 @@ class plgSystemTabsHelper
 		$this->params->tag_close = preg_replace('#[^a-z0-9-_]#si', '', $this->params->tag_close);
 		$this->params->tag_link = preg_replace('#[^a-z0-9-_]#si', '', $this->params->tag_link);
 
-		$disabled_components = is_array($this->params->disabled_components) ? $this->params->disabled_components : array(explode('|', $this->params->disabled_components));
+		$disabled_components = is_array($this->params->disabled_components) ? $this->params->disabled_components : explode('|', $this->params->disabled_components);
 		$this->params->disabled_components = array('com_acymailing');
 		$this->params->disabled_components = array_merge($disabled_components, $this->params->disabled_components);
 

@@ -2,7 +2,7 @@
  * NoNumber Extension Manager Admin CSS
  *
  * @package         NoNumber Extension Manager
- * @version         4.6.7
+ * @version         4.7.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -53,16 +53,29 @@ table.hide_not_installed tbody tr.not_installed {
 }
 
 .installselected,
-.installselected,
 .updateall,
+.reinstallall,
 div.has_install .installselected_disabled,
 div.has_update .installselected_disabled,
-div.has_update .updateall_disabled {
+div.has_update .updateall_disabled,
+div.has_reinstall .reinstallall_disabled {
 	display: none !important;
 }
 
 div.has_install .installselected,
 div.has_update .installselected,
-div.has_update .updateall {
+div.has_update .updateall,
+div.has_reinstall .reinstallall {
 	display: inline-block !important;
+}
+
+.well {
+	&.well-danger {
+		background-color: #f2dede;
+		border-color: #eed3d7;
+		color: #b94a48;
+	}
+	> h4 {
+		margin-top: 0;
+	}
 }

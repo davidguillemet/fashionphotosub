@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         NoNumber Extension Manager
- * @version         4.6.7
+ * @version         4.7.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -48,6 +48,8 @@ JFactory::getDocument()->addScriptVersion(JURI::root(true) . '/media/nonumberman
 					<?php echo JText::_('NNEM_TITLE_RETRY'); ?>
 				</span>
 			</h2>
+
+			<div class="alert alert-danger"><?php echo JText::_('NNEM_MEET_REQUIREMENTS'); ?></div>
 		</div>
 		<div class="title processing hide">
 			<h2><?php echo JText::sprintf('NNEM_PROCESS_' . strtoupper($task), '...'); ?></h2>

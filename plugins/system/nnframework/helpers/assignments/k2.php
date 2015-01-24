@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: K2
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,12 +18,12 @@ defined('_JEXEC') or die;
  */
 class nnFrameworkAssignmentsK2
 {
-	function passPageTypes(&$parent, &$params, $selection = array(), $assignment = 'all')
+	public function passPageTypes(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
 		return $parent->passPageTypes('com_k2', $selection, $assignment);
 	}
 
-	function passCategories(&$parent, &$params, $selection = array(), $assignment = 'all', $article = 0)
+	public function passCategories(&$parent, &$params, $selection = array(), $assignment = 'all', $article = 0)
 	{
 		if ($parent->params->option != 'com_k2')
 		{
@@ -103,7 +103,7 @@ class nnFrameworkAssignmentsK2
 		return $parent->db->loadResult();
 	}
 
-	function passTags(&$parent, &$params, $selection = array(), $assignment = 'all')
+	public function passTags(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
 		if ($parent->params->option != 'com_k2')
 		{
@@ -140,17 +140,58 @@ class nnFrameworkAssignmentsK2
 		return $parent->passSimple($tags, $selection, $assignment, 1);
 	}
 
-	function passItems(&$parent, &$params, $selection = array(), $assignment = 'all')
+	public function passItems(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
 		if (!$parent->params->id || $parent->params->option != 'com_k2' || $parent->params->view != 'item')
 		{
 			return $parent->pass(0, $assignment);
 		}
 
-		return $parent->passSimple($parent->params->id, $selection, $assignment);
+		$pass = false;
+
+		if (!empty($selection))
+		{
+			$pass = in_array($parent->params->id, $selection);
+		}
+
+		// Pass Authors
+		$pass_authors = $this->passAuthors($parent, $params, $parent->params->id);
+		if ($pass_authors != null)
+		{
+			$pass = $pass_authors;
+		}
+
+		return $parent->pass($pass, $assignment);
 	}
 
-	function getCatParentIds(&$parent, $id = 0)
+	private function passAuthors($parent, &$params, $article_id = 0)
+	{
+		if ($params->authors && !is_array($params->authors))
+		{
+			$params->authors = explode(',', $params->authors);
+		}
+
+		if (empty($params->authors))
+		{
+			return null;
+		}
+
+		if (!$article_id)
+		{
+			return null;
+		}
+
+		$query = $parent->db->getQuery(true)
+			->select('created_by')
+			->from('#__k2_items AS i')
+			->where('i.id = ' . (int) $article_id);
+		$parent->db->setQuery($query);
+		$created_by = $parent->db->loadResult();
+
+		return in_array($created_by, $params->authors);
+	}
+
+	private function getCatParentIds(&$parent, $id = 0)
 	{
 		return $parent->getParentIds($id, 'k2_categories', 'parent');
 	}

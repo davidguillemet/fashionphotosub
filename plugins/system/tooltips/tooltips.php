@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Tooltips
- * @version         3.7.8
+ * @version         3.7.9
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,43 +18,43 @@ defined('_JEXEC') or die;
  */
 class plgSystemTooltips extends JPlugin
 {
-	private $_alias = 'tooltips';
+  private $_alias = 'tooltips';
 	private $_title = 'TOOLTIPS';
-	private $_lang_prefix = 'TT';
+private $_lang_prefix = 'TT';
 
 	private $_init = false;
 	private $_helper = null;
 
 	public function onAfterRoute()
 	{
-		$this->getHelper();
-	}
+ 	$this->getHelper();
+     }
 
 	public function onContentPrepare($context, &$article)
-	{
+  {
 		if (!$this->getHelper())
-		{
+	{
 			return;
-		}
+	  }
 
 		$this->_helper->onContentPrepare($article, $context);
 	}
 
 	public function onAfterDispatch()
-	{
+{
 		if (!$this->getHelper())
 		{
-			return;
+ 	     return;
 		}
 
 		$this->_helper->onAfterDispatch();
 	}
 
-	public function onAfterRender()
+  public function onAfterRender()
 	{
-		if (!$this->getHelper())
-		{
-			return;
+	if (!$this->getHelper())
+	  {
+		return;
 		}
 
 		$this->_helper->onAfterRender();
@@ -62,15 +62,15 @@ class plgSystemTooltips extends JPlugin
 
 	/*
 	 * Below methods are general functions used in most of the NoNumber extensions
-	 * The reason these are not placed in the NoNumber Framework files is that they also
+ * The reason these are not placed in the NoNumber Framework files is that they also
 	 * need to be used when the NoNumber Framework is not installed
 	 */
 
 	/**
 	 * Create the helper object
-	 *
+     *
 	 * @return object The plugins helper object
-	 */
+  */
 	private function getHelper()
 	{
 		// Already initialized, so return
@@ -79,82 +79,82 @@ class plgSystemTooltips extends JPlugin
 			return $this->_helper;
 		}
 
-		$this->_init = true;
+	$this->_init = true;
 
-		if (!$this->isFrameworkEnabled())
+	  if (!$this->isFrameworkEnabled())
 		{
 			return false;
-		}
+	}
 
-		if (JFactory::getApplication()->input->get('option') == 'com_plugins')
+	 if (JFactory::getApplication()->input->get('option') == 'com_plugins')
 		{
-			return false;
-		}
+     		return false;
+	  }
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
-		if (nnProtect::isProtectedPage($this->_alias, 1))
+	if (nnProtect::isProtectedPage($this->_alias, 1))
 		{
-			return false;
-		}
+  		return false;
+	}
 
-		// Load plugin parameters
-		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
+ 	// Load plugin parameters
+     	require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
 		$params = nnParameters::getInstance()->getPluginParams($this->_name);
 
-		// allow in admin?
-		if (!$params->enable_admin && nnProtect::isAdmin())
+  	// allow in admin?
+	if (!$params->enable_admin && nnProtect::isAdmin())
 		{
-			return false;
+  	return false;
 		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
 		$this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
 
 		return $this->_helper;
-	}
+ }
 
 	/**
 	 * Check if the NoNumber Framework is enabled
 	 *
 	 * @return bool
-	 */
+     */
 	private function isFrameworkEnabled()
-	{
+  {
 		// Return false if NoNumber Framework is not installed
 		if (!$this->isFrameworkInstalled())
-		{
+	{
 			return false;
 		}
 
-		$nnframework = JPluginHelper::getPlugin('system', 'nnframework');
+	  $nnframework = JPluginHelper::getPlugin('system', 'nnframework');
 		if (!isset($nnframework->name))
-		{
+	{
 			$this->throwError($this->_lang_prefix . '_NONUMBER_FRAMEWORK_NOT_ENABLED');
 
 			return false;
 		}
 
-		return true;
+	 return true;
 	}
 
-	/**
+     /**
 	 * Check if the NoNumber Framework is installed
 	 *
-	 * @return bool
+  * @return bool
 	 */
 	private function isFrameworkInstalled()
-	{
+{
 		jimport('joomla.filesystem.file');
 
-		if (!JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php'))
-		{
+	  if (!JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php'))
+	{
 			$this->throwError($this->_lang_prefix . '_NONUMBER_FRAMEWORK_NOT_INSTALLED');
 
-			return false;
+	 	return false;
 		}
 
-		return true;
+	     return true;
 	}
 
 	/**
@@ -162,29 +162,29 @@ class plgSystemTooltips extends JPlugin
 	 */
 	private function throwError($text)
 	{
-		// Return if page is not an admin page or the admin login page
-		if (
-			!JFactory::getApplication()->isAdmin()
-			|| JFactory::getUser()->get('guest')
+  	// Return if page is not an admin page or the admin login page
+	if (
+  	!JFactory::getApplication()->isAdmin()
+		 || JFactory::getUser()->get('guest')
 		)
 		{
-			return;
+     	  return;
 		}
 
-		// load the admin language file
+	// load the admin language file
 		JFactory::getLanguage()->load('plg_' . $this->_type . '_' . $this->_name, JPATH_ADMINISTRATOR);
 
-		$text = JText::_($text) . ' ' . JText::sprintf($this->_lang_prefix . '_EXTENSION_CAN_NOT_FUNCTION', JText::_($this->_title));
+	  $text = JText::_($text) . ' ' . JText::sprintf($this->_lang_prefix . '_EXTENSION_CAN_NOT_FUNCTION', JText::_($this->_title));
 
 		// Check if message is not already in queue
 		$messagequeue = JFactory::getApplication()->getMessageQueue();
 		foreach ($messagequeue as $message)
 		{
 			if ($message['message'] == $text)
-			{
-				return;
-			}
+	 {
+	     	  return;
 		}
+  	}
 
 		JFactory::getApplication()->enqueueMessage($text, 'error');
 	}

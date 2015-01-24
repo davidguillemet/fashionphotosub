@@ -4,7 +4,7 @@
  * Displays a multiselectbox of geo locations
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -707,6 +707,27 @@ class JFormFieldNN_Geo extends JFormField
 		'NG-43' => 'Nigeria: Taraba',
 		'NG-44' => 'Nigeria: Yobe',
 		'NG-57' => 'Nigeria: Zamfara',
+
+		'--NO'  => '', '-NO' => 'Norway',
+		'NO-01' => 'Norway: Akershus',
+		'NO-02' => 'Norway: Aust-Agder',
+		'NO-04' => 'Norway: Buskerud',
+		'NO-05' => 'Norway: Finnmark',
+		'NO-06' => 'Norway: Hedmark',
+		'NO-07' => 'Norway: Hordaland',
+		'NO-08' => 'Norway: More og Romsdal',
+		'NO-09' => 'Norway: Nordland',
+		'NO-10' => 'Norway: Nord-Trondelag',
+		'NO-11' => 'Norway: Oppland',
+		'NO-12' => 'Norway: Oslo',
+		'NO-13' => 'Norway: Ostfold',
+		'NO-14' => 'Norway: Rogaland',
+		'NO-15' => 'Norway: Sogn og Fjordane',
+		'NO-16' => 'Norway: Sor-Trondelag',
+		'NO-17' => 'Norway: Telemark',
+		'NO-18' => 'Norway: Troms',
+		'NO-19' => 'Norway: Vest-Agder',
+		'NO-20' => 'Norway: Vestfold',
 
 		'--PH'  => '', '-PH' => 'Philippines',
 		'PH-01' => 'Philippines: Abra',

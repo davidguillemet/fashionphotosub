@@ -1,7 +1,7 @@
 <?php
 /**
  * @package         NoNumber Extension Manager
- * @version         4.6.7
+ * @version         4.7.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -27,13 +27,20 @@ class NoNumberManagerViewDefault extends JViewLegacy
 	{
 		$this->items = $this->get('Items');
 
-		if (JFactory::getApplication()->input->get('task') == 'update')
+		switch (JFactory::getApplication()->input->get('task'))
 		{
-			$tpl = 'update';
-		}
-		else
-		{
-			$this->addToolbar();
+			case 'update':
+				$tpl = 'update';
+				break;
+
+			case 'storekey':
+				$this->getModel()->storeKey();
+				JFactory::getApplication()->redirect('index.php?option=com_nonumbermanager', '', 'message', true);
+
+				return;
+
+			default:
+				$this->addToolbar();
 		}
 		// Include the component HTML helpers.
 		JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
@@ -66,7 +73,8 @@ class NoNumberManagerViewDefault extends JViewLegacy
 
 		JToolbarHelper::title(JText::_('NONUMBER_EXTENSION_MANAGER'), 'nonumbermanager icon-nonumber');
 
-		NoNumberManagerToolbarHelper::addButtons();
+		$config = $this->getConfig();
+		NoNumberManagerToolbarHelper::addButtons($config);
 
 		if ($canDo->get('core.admin'))
 		{
@@ -98,7 +106,7 @@ class NoNumberManagerViewDefault extends JViewLegacy
 
 class NoNumberManagerToolbarHelper extends JToolbarHelper
 {
-	public static function addButtons()
+	public static function addButtons($config)
 	{
 		$bar = JToolbar::getInstance('toolbar');
 
@@ -131,6 +139,24 @@ class NoNumberManagerToolbarHelper extends JToolbarHelper
 					<span class="icon-upload"></span> ' . JText::_('NNEM_UPDATE_ALL') . '
 				</span>
 		';
+
+		if ($config->show_reinstall_all)
+		{
+			$html .= '
+			</div>
+
+			<div class="btn-wrapper reinstallall_disabled" id="toolbar-reinstallall_disabled">
+				<span class="btn btn-small disabled">
+					' . JText::_('NNEM_REINSTALL_ALL') . '
+				</span>
+			</div>
+			<div class="btn-wrapper reinstallall" id="toolbar-reinstallall">
+				<span class="btn btn-small btn-default" onclick="nnem_function(\'reinstallall\');" rel="tooltip" title="' . JText::_('NNEM_reinstall_ALL_DESC') . '">
+					' . JText::_('NNEM_REINSTALL_ALL') . '
+				</span>
+			';
+		}
+
 		$bar->appendButton('Custom', $html);
 	}
 }

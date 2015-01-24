@@ -3,7 +3,7 @@
  * Plugin Helper File: Replace
  *
  * @package         Tabs
- * @version         4.0.8
+ * @version         4.0.9
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -104,15 +104,25 @@ class plgSystemTabsHelperReplace
 			return;
 		}
 
-		if ($area == 'component')
+		// allow in component?
+		if (((($area == 'article' && JFactory::getApplication()->input->get('option') == 'com_content') || $area == 'component'))
+			&& in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components)
+		)
 		{
-			// allow in component?
-			if (in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components))
+			if (!$this->params->disable_components_remove)
 			{
 				$this->helpers->get('protect')->protectTags($string);
 
 				return;
 			}
+
+			$this->helpers->get('protect')->protect($string);
+
+			$this->handlePrintPage($string);
+
+			nnProtect::unprotect($string);
+
+			return;
 		}
 
 		if (

@@ -3,7 +3,7 @@
  * Plugin Helper File: Replace
  *
  * @package         Modals
- * @version         5.1.1
+ * @version         5.1.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -62,6 +62,11 @@ class plgSystemModalsHelperReplace
 
 	public function replace(&$string, $area = 'article')
 	{
+		if ($area == 'article' )
+		{
+			return;
+		}
+
 		if (!is_string($string) || $string == '')
 		{
 			return;
@@ -76,7 +81,18 @@ class plgSystemModalsHelperReplace
 		// allow in component?
 		if ($area == 'component' && in_array(JFactory::getApplication()->input->get('option'), $this->params->disabled_components))
 		{
-			$this->helpers->get('protect')->protectTags($string);
+			if (!$this->params->disable_components_remove)
+			{
+				$this->helpers->get('protect')->protectTags($string);
+
+				return;
+			}
+
+			$this->helpers->get('protect')->protect($string);
+
+			$string = preg_replace($this->params->regex, '\4', $string);
+
+			nnProtect::unprotect($string);
 
 			return;
 		}

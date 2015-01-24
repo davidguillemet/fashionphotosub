@@ -4,7 +4,7 @@
  * Displays a protected key field with option to update it
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -22,10 +22,19 @@ class JFormFieldNN_Key extends JFormField
 
 	protected function getInput()
 	{
-		$key = $this->value;
+		$this->params = $this->element->attributes();
+		$action = $this->get('action', 'Joomla.submitbutton(\'config.save.component.apply\')');
+
+		$key = trim($this->value);
+
 		if (!$key)
 		{
-			return '<input type="text" class="nn_codefield" name="' . $this->name . '" id="' . $this->id . '" autocomplete="off" value="" />';
+			return '<div id="' . $this->id . '_field" class="btn-wrapper input-append clearfix">'
+			. '<input type="text" class="nn_codefield" name="' . $this->name . '" id="' . $this->id . '" autocomplete="off" value="" />'
+			. '<button href="#" class="btn btn-success btn" title="' . JText::_('JAPPLY') . '" onclick="' . $action . '">'
+			. '<span class="icon-checkmark"></span>'
+			. '</button>'
+			. '</div>';
 		}
 
 		$cloak_length = max(0, strlen($key) - 4);
@@ -55,7 +64,7 @@ class JFormFieldNN_Key extends JFormField
 
 			. '<div id="' . $this->id . '_field" class="btn-wrapper input-append clearfix" style="display:none;">'
 			. '<input type="text" class="nn_codefield" name="" id="' . $this->id . '" autocomplete="off" value="" />'
-			. '<button href="#" class="btn btn-success btn" title="' . JText::_('JAPPLY') . '" onclick="Joomla.submitbutton(\'config.save.component.apply\');">'
+			. '<button href="#" class="btn btn-success btn" title="' . JText::_('JAPPLY') . '" onclick="' . $action . '">'
 			. '<span class="icon-checkmark"></span>'
 			. '</button>'
 			. '<button href="#" class="btn btn-danger btn" title="' . JText::_('JCANCEL') . '" onclick="' . $hide . ';return false;">'
@@ -64,6 +73,11 @@ class JFormFieldNN_Key extends JFormField
 			. '</div>'
 
 			. '<input type="hidden" name="' . $this->name . '" id="' . $this->id . '_hidden" value="' . $this->value . '" />';
+	}
+
+	private function get($val, $default = '')
+	{
+		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
 	}
 }
 

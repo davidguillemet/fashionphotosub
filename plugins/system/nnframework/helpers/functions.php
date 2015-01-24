@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Functions
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -20,7 +20,7 @@ require_once __DIR__ . '/cache.php';
  */
 class nnFrameworkFunctions
 {
-	var $_version = '15.1.2';
+	var $_version = '15.1.5';
 
 	public function getByUrl($url)
 	{

@@ -3,7 +3,7 @@
  * Plugin Helper File: Data
  *
  * @package         Modals
- * @version         5.1.1
+ * @version         5.1.2
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -108,8 +108,7 @@ class plgSystemModalsHelperData
 		$key = $key == 'externalWidth' ? 'width' : $key;
 		$key = $key == 'externalHeight' ? 'height' : $key;
 
-		if ($key != 'title'
-			&& $key != 'iframe'
+		if (!in_array($key, array('title', 'iframe', 'class', 'classname'))
 			&& strpos($key, 'width') === false
 			&& strpos($key, 'height') === false
 		)

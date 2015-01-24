@@ -3,7 +3,7 @@
  * Adds slide in and out functionality to elements based on an elements value
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

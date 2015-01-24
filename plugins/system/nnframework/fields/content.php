@@ -4,7 +4,7 @@
  * Displays a multiselectbox of available categories / items
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -113,7 +113,6 @@ class JFormFieldNN_Content extends JFormField
 		$query = $this->db->getQuery(true)
 			->select('COUNT(*)')
 			->from('#__content AS i')
-			->join('LEFT', '#__categories AS c ON c.id = i.catid')
 			->where('i.access > -1');
 		$this->db->setQuery($query);
 		$total = $this->db->loadResult();
@@ -125,6 +124,7 @@ class JFormFieldNN_Content extends JFormField
 
 		$query->clear('select')
 			->select('i.id, i.title as name, i.language, c.title as cat, i.access as published')
+			->join('LEFT', '#__categories AS c ON c.id = i.catid')
 			->order('i.title, i.ordering, i.id');
 		$this->db->setQuery($query);
 		$list = $this->db->loadObjectList();
@@ -140,6 +140,40 @@ class JFormFieldNN_Content extends JFormField
 			}
 			$item->name .= ($item->cat ? ' [' . $item->cat . ']' : '');
 			$item->name = nnText::prepareSelectItem($item->name, $item->published);
+			$options[] = JHtml::_('select.option', $item->id, $item->name, 'value', 'text', 0);
+		}
+
+		return $options;
+	}
+
+	function getAuthors()
+	{
+		$query = $this->db->getQuery(true)
+			->select('COUNT(*)')
+			->from('#__content AS i')
+			->where('i.access > -1')
+			->group('i.created_by');
+		$this->db->setQuery($query);
+		$total = $this->db->loadResult();
+
+		if ($total > $this->max_list_count)
+		{
+			return -1;
+		}
+
+		$query->clear('select')
+			->select('u.name, u.id')
+			->join('LEFT', '#__users AS u ON u.id = i.created_by')
+			->order('name');
+		$this->db->setQuery($query);
+		$list = $this->db->loadObjectList();
+
+		// assemble items to the array
+		$options = array();
+		foreach ($list as $item)
+		{
+			$item->name .= ' [' . $item->id . ']';
+			$item->name = nnText::prepareSelectItem($item->name);
 			$options[] = JHtml::_('select.option', $item->id, $item->name, 'value', 'text', 0);
 		}
 

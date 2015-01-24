@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Content
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  */
 class nnFrameworkAssignmentsContent
 {
-	function passPageTypes(&$parent, &$params, $selection = array(), $assignment = 'all')
+	public function passPageTypes(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
 		$components = array('com_content', 'com_contentsubmit');
 		if (!in_array($parent->params->option, $components))
@@ -37,7 +37,7 @@ class nnFrameworkAssignmentsContent
 		return $parent->passSimple($view, $selection, $assignment);
 	}
 
-	function passCategories(&$parent, &$params, $selection = array(), $assignment = 'all', $article = 0)
+	public function passCategories(&$parent, &$params, $selection = array(), $assignment = 'all', $article = 0)
 	{
 		// components that use the com_content secs/cats
 		$components = array('com_content', 'com_flexicontent', 'com_contentsubmit');
@@ -53,7 +53,7 @@ class nnFrameworkAssignmentsContent
 			return $parent->pass(0, $assignment);
 		}
 
-		$pass = 0;
+		$pass = false;
 
 		$is_content = in_array($parent->params->option, array('com_content', 'com_flexicontent'));
 		$is_category = in_array($parent->params->view, array('category'));
@@ -74,7 +74,7 @@ class nnFrameworkAssignmentsContent
 				$contentsubmit_params = new ContentsubmitModelArticle;
 				if (in_array($contentsubmit_params->_id, $selection))
 				{
-					$pass = 1;
+					$pass = true;
 				}
 			}
 			else
@@ -135,7 +135,7 @@ class nnFrameworkAssignmentsContent
 						$pass = in_array($catid, $selection);
 						if ($pass && $params->inc_children == 2)
 						{
-							$pass = 0;
+							$pass = false;
 						}
 						else if (!$pass && $params->inc_children)
 						{
@@ -145,7 +145,7 @@ class nnFrameworkAssignmentsContent
 							{
 								if (in_array($id, $selection))
 								{
-									$pass = 1;
+									$pass = true;
 									break;
 								}
 							}
@@ -159,7 +159,7 @@ class nnFrameworkAssignmentsContent
 		return $parent->pass($pass, $assignment);
 	}
 
-	function passArticles($parent, &$params, $selection = array(), $assignment = 'all', $article = 0)
+	public function passArticles($parent, &$params, $selection = array(), $assignment = 'all', $article = 0)
 	{
 		if (!$parent->params->id
 			|| !(($parent->params->option == 'com_content' && $parent->params->view == 'article')
@@ -167,10 +167,10 @@ class nnFrameworkAssignmentsContent
 			)
 		)
 		{
-			return $parent->pass(0, $assignment);
+			return $parent->pass(false, $assignment);
 		}
 
-		$pass = 0;
+		$pass = false;
 
 		if ($selection && !is_array($selection))
 		{
@@ -183,54 +183,100 @@ class nnFrameworkAssignmentsContent
 				$selection = explode(',', $selection);
 			}
 		}
+
 		if (!empty($selection))
 		{
 			$pass = in_array($parent->params->id, $selection);
 		}
 
-		if ($params->keywords && !is_array($params->keywords))
+		// Pass Keywords
+		$pass_keywords = $this->passKeywords($parent, $params, $article);
+		if ($pass_keywords != null)
 		{
-			$params->keywords = explode(',', $params->keywords);
+			$pass = $pass_keywords;
 		}
-		if (!empty($params->keywords))
+
+		// Pass Authors
+		$pass_authors = $this->passAuthors($parent, $params, $article);
+		if ($pass_authors != null)
 		{
-			$pass = 0;
-			if (!$article)
-			{
-				require_once JPATH_SITE . '/components/com_content/models/article.php';
-				$model = JModelLegacy::getInstance('article', 'contentModel');
-				$article = $model->getItem($parent->params->id);
-			}
-			if (isset($article->metakey) && $article->metakey)
-			{
-				$keywords = explode(',', $article->metakey);
-				foreach ($keywords as $keyword)
-				{
-					if ($keyword && in_array(trim($keyword), $params->keywords))
-					{
-						$pass = 1;
-						break;
-					}
-				}
-				if (!$pass)
-				{
-					$keywords = explode(',', str_replace(' ', ',', $article->metakey));
-					foreach ($keywords as $keyword)
-					{
-						if ($keyword && in_array(trim($keyword), $params->keywords))
-						{
-							$pass = 1;
-							break;
-						}
-					}
-				}
-			}
+			$pass = $pass_authors;
 		}
 
 		return $parent->pass($pass, $assignment);
 	}
 
-	function getParentIds(&$parent, $id = 0)
+	private function passKeywords($parent, &$params, $article = 0)
+	{
+		if ($params->keywords && !is_array($params->keywords))
+		{
+			$params->keywords = explode(',', $params->keywords);
+		}
+
+		if (empty($params->keywords))
+		{
+			return null;
+		}
+
+		if (!$article)
+		{
+			require_once JPATH_SITE . '/components/com_content/models/article.php';
+			$model = JModelLegacy::getInstance('article', 'contentModel');
+			$article = $model->getItem($parent->params->id);
+		}
+
+		if (isset($article->metakey) && $article->metakey)
+		{
+			$keywords = explode(',', $article->metakey);
+			foreach ($keywords as $keyword)
+			{
+				if ($keyword && in_array(trim($keyword), $params->keywords))
+				{
+					return true;
+				}
+			}
+
+			$keywords = explode(',', str_replace(' ', ',', $article->metakey));
+			foreach ($keywords as $keyword)
+			{
+				if ($keyword && in_array(trim($keyword), $params->keywords))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private function passAuthors($parent, &$params, $article = 0)
+	{
+		if ($params->authors && !is_array($params->authors))
+		{
+			$params->authors = explode(',', $params->authors);
+		}
+
+		if (empty($params->authors))
+		{
+			return null;
+		}
+
+		if (!$article)
+		{
+			require_once JPATH_SITE . '/components/com_content/models/article.php';
+			$model = JModelLegacy::getInstance('article', 'contentModel');
+			$article = $model->getItem($parent->params->id);
+		}
+
+		if (!isset($article->created_by))
+		{
+			return false;
+		}
+
+		return in_array($article->created_by, $params->authors);
+	}
+
+	private function getParentIds(&$parent, $id = 0)
 	{
 		return $parent->getParentIds($id, 'categories');
 	}

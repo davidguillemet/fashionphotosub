@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments
  *
  * @package         NoNumber Framework
- * @version         15.1.2
+ * @version         15.1.5
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -669,6 +669,7 @@ class nnFrameworkAssignmentsHelper
 		if ($id)
 		{
 			$assignments[$name]->params->keywords = $params->{'assignto_' . $id . '_keywords'};
+			$assignments[$name]->params->authors = isset($params->{'assignto_' . $id . '_authors'}) ? $params->{'assignto_' . $id . '_authors'} : array();
 		}
 
 		if ($this->has['flexicontent'])
@@ -707,7 +708,11 @@ class nnFrameworkAssignmentsHelper
 				$assignments[$name]->params->inc_items = in_array('inc_items', $incs);
 			}
 
-			$this->setAssignmentParams($assignments, $params, 'k2', 'items', 1);
+			list($id, $name) = $this->setAssignmentParams($assignments, $params, 'k2', 'items', 1);
+			if ($id)
+			{
+				$assignments[$name]->params->authors = isset($params->{'assignto_' . $id . '_authors'}) ? $params->{'assignto_' . $id . '_authors'} : array();
+			}
 		}
 
 		if ($this->has['zoo'])

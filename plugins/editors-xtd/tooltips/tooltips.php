@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         Tooltips
- * @version         3.7.8
+ * @version         3.7.9
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -20,110 +20,110 @@ class plgButtonTooltips extends JPlugin
 {
 	private $_alias = 'tooltips';
 
-  private $_init = false;
+	private $_init = false;
 	private $_helper = null;
 
 	/**
-* Display the button
+	 * Display the button
 	 *
 	 * @return array  A two element array of ( imageName, textToInsert )
- */
+	 */
 	function onDisplay($name)
 	{
 		if (!$this->getHelper())
-     	{
-		  return;
-	}
+		{
+			return;
+		}
 
 		return $this->_helper->render($name);
-  }
+	}
 
 	/*
-* Below methods are general functions used in most of the NoNumber extensions
+	 * Below methods are general functions used in most of the NoNumber extensions
 	 * The reason these are not placed in the NoNumber Framework files is that they also
 	 * need to be used when the NoNumber Framework is not installed
 	 */
 
- /**
+	/**
 	 * Create the helper object
 	 *
 	 * @return object The plugins helper object
 	 */
 	private function getHelper()
-     {
+	{
 		// Already initialized, so return
 		if ($this->_init)
-	  {
+		{
 			return $this->_helper;
 		}
 
-	$this->_init = true;
+		$this->_init = true;
 
 		if (!$this->isFrameworkEnabled())
 		{
 			return false;
-  	}
+		}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/protect.php';
 
 		if (!nnProtect::isSystemPluginInstalled($this->_alias))
 		{
-	 return false;
+			return false;
 		}
 
-	     // Load plugin parameters
+		// Load plugin parameters
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/parameters.php';
 		$parameters = nnParameters::getInstance();
 		$params = $parameters->getPluginParams($this->_name);
 
 		// allow in component?
 		if (
-  		(!is_array($params->disabled_components) && JFactory::getApplication()->input->get('option') == $params->disabled_components)
-		|| (is_array($params->disabled_components) && in_array(JFactory::getApplication()->input->get('option'), $params->disabled_components))
+			(!is_array($params->disabled_components) && JFactory::getApplication()->input->get('option') == $params->disabled_components)
+			|| (is_array($params->disabled_components) && in_array(JFactory::getApplication()->input->get('option'), $params->disabled_components))
 		)
-	  {
-		return false;
- 	}
-
-     	// allow in frontend?
-  	if (!$params->enable_frontend && JFactory::getApplication()->isSite())
 		{
-		return false;
-  	}
+			return false;
+		}
 
-	require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
-	 $this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
+		// allow in frontend?
+		if (!$params->enable_frontend && JFactory::getApplication()->isSite())
+		{
+			return false;
+		}
+
+		require_once JPATH_PLUGINS . '/system/nnframework/helpers/helper.php';
+		$this->_helper = nnFrameworkHelper::getPluginHelper($this, $params);
 
 		return $this->_helper;
 	}
 
-     /**
+	/**
 	 * Check if the NoNumber Framework is enabled
 	 *
 	 * @return bool
 	 */
 	private function isFrameworkEnabled()
 	{
-	  // Return false if NoNumber Framework is not installed
-	if (!$this->isFrameworkInstalled())
+		// Return false if NoNumber Framework is not installed
+		if (!$this->isFrameworkInstalled())
 		{
-	  	return false;
+			return false;
 		}
 
 		$nnframework = JPluginHelper::getPlugin('system', 'nnframework');
 
-	return isset($nnframework->name);
+		return isset($nnframework->name);
 	}
 
- /**
+	/**
 	 * Check if the NoNumber Framework is installed
 	 *
-     * @return bool
+	 * @return bool
 	 */
 	private function isFrameworkInstalled()
 	{
-  	jimport('joomla.filesystem.file');
+		jimport('joomla.filesystem.file');
 
-	return JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php');
+		return JFile::exists(JPATH_PLUGINS . '/system/nnframework/nnframework.php');
 	}
 }
