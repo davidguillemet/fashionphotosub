@@ -209,23 +209,9 @@ class plgContentWookmark_Gallery extends JPlugin
 		else
 		{
 			$absolute_path = JPATH_SITE;		
-			$captions_lang = $absolute_path.$imageFolder.'/captions-'.$this->_params['lang'].'.txt';
-			$captions_txtfile = $absolute_path.$imageFolder.'/captions.txt';
+			$captions_txtfile = $absolute_path.'/'.$imageFolder.'captions.txt';
 
-			if(file_exists($captions_lang))
-			{
-				$captions_file = array_map('trim', file($captions_lang));
-
-				foreach($captions_file as $value)
-				{
-					if(!empty($value))
-					{
-						$captions_line = explode('|', $value);
-						$file_info[$captions_line[0]] = $captions_line[1];
-					}
-				}
-			}
-			else if (file_exists($captions_txtfile) AND !file_exists($captions_lang))
+			if (file_exists($captions_txtfile))
 			{
 				$captions_file = array_map('trim', file($captions_txtfile));
 
