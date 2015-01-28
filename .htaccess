@@ -55,6 +55,10 @@ RewriteRule .* index.php [F]
 
 RewriteBase /fashion
 
+## Redirect Forum image links
+# new/images/phocagallery/2011/bali/thumbs/phoca_thumb_l_DSC_6757.jpg -> images/phocagallery/2011/bali/DSC_6757.jpg
+RewriteRule ^new/images/phocagallery/(.*)/thumbs/phoca_thumb_l_(.*).jpg$ images/phocagallery/$1/$2.jpg [R=301,L]
+
 ## Redirect biologie articles 
 # 1. All previous category pages (aéolidiens, doridiens, etc) are mapped to the new single gallery page 
 RewriteRule ^biologie/galeries/(.*)/(aeolidiens|arminaces|dendronotaces|doridiens|cephalopodes|gasteropodes|opisthobranches|prosobranches|nudibranches|cephalaspides|sacoglosses)$ biologie/galerie-mollusques [R=301,L]
