@@ -346,6 +346,7 @@ Shadowbox.init({
 						<div id="slidecaption"></div>
 						<a id="tray-button"><img id="tray-arrow" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/img/button-tray-up.png"/></a>
 						<div id="footer-toolbar">
+							<img src='http://imu351.infomaniak.ch/compteur2.php?url=www.davidphotosub.com/1' border='0' alt='' class="compteur"/>
 							<jdoc:include type="modules" name="fashion-login" style="none" />
 						</div>
 						<ul id="slide-list"></ul>

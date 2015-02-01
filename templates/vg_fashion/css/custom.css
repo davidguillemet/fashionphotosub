@@ -71,6 +71,12 @@ label /* because of boostrap bold label */
 	z-index: 998; /* 1 less than shadowbox */
 }
 
+.compteur
+{
+	margin-right: 10px;
+	margin-top: 9px;
+}
+
 .lead
 {
 	font-weight: 400;
