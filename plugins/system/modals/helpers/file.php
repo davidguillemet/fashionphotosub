@@ -3,7 +3,7 @@
  * Plugin Helper File: File
  *
  * @package         Modals
- * @version         5.1.2
+ * @version         5.2.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

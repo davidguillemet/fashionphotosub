@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Templates
  *
  * @package         NoNumber Framework
- * @version         15.1.5
+ * @version         15.1.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,12 +21,12 @@ class nnFrameworkAssignmentsTemplates
 	function passTemplates(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
 		$template = JFactory::getApplication()->getTemplate();
-		$template = JFactory::getApplication()->getTemplate($template);
+	$template = JFactory::getApplication()->getTemplate($template);
 
-		// Put template name and name + style id into array
+	 // Put template name and name + style id into array
 		// The '::' separator was used in pre Joomla 3.3
 		$template = array($template->template, $template->template . '--' . $template->id, $template->template . '::' . $template->id);
 
-		return $parent->passSimple($template, $selection, $assignment, 1);
+     	return $parent->passSimple($template, $selection, $assignment, 1);
 	}
 }

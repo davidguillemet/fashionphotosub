@@ -3,7 +3,7 @@
  * Plugin Helper File
  *
  * @package         Modals
- * @version         5.1.2
+ * @version         5.2.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -38,7 +38,7 @@ class plgSystemModalsHelper
 		$this->params->tag = preg_replace('#[^a-z0-9-_]#si', '', $this->params->tag);
 
 		$this->params->paramNamesCamelcase = array(
-			'innerWidth', 'innerHeight', 'initialWidth', 'initialHeight', 'maxWidth', 'maxHeight',
+			'innerWidth', 'innerHeight', 'initialWidth', 'initialHeight', 'maxWidth', 'maxHeight', 'className',
 		);
 		$this->params->paramNamesLowercase = array_map('strtolower', $this->params->paramNamesCamelcase);
 		$this->params->paramNamesBooleans = array(

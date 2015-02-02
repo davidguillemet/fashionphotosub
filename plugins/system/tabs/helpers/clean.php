@@ -3,7 +3,7 @@
  * Plugin Helper File: Clean
  *
  * @package         Tabs
- * @version         4.0.9
+ * @version         4.0.10
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -18,21 +18,21 @@ class plgSystemTabsHelperClean
 	var $helpers = array();
 	var $params = null;
 
-	public function __construct()
+  public function __construct()
 	{
-		require_once __DIR__ . '/helpers.php';
-		$this->helpers = plgSystemTabsHelpers::getInstance();
-		$this->params = $this->helpers->getParams();
+	require_once __DIR__ . '/helpers.php';
+	 $this->helpers = plgSystemTabsHelpers::getInstance();
+	     $this->params = $this->helpers->getParams();
 	}
 
-	/**
+  /**
 	 * Just in case you can't figure the method name out: this cleans the left-over junk
 	 */
-	public function cleanLeftoverJunk(&$string)
+public function cleanLeftoverJunk(&$string)
 	{
-		$this->helpers->get('protect')->unprotectTags($string);
+  	$this->helpers->get('protect')->unprotectTags($string);
 
-		nnProtect::removeFromHtmlTagContent($string, $this->params->protected_tags);
-		nnProtect::removeInlineComments($string, 'Tabs');
+	nnProtect::removeFromHtmlTagContent($string, $this->params->protected_tags);
+ 	nnProtect::removeInlineComments($string, 'Tabs');
 	}
 }

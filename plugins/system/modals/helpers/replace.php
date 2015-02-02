@@ -3,7 +3,7 @@
  * Plugin Helper File: Replace
  *
  * @package         Modals
- * @version         5.1.2
+ * @version         5.2.1
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -22,6 +22,8 @@ class plgSystemModalsHelperReplace
 		require_once __DIR__ . '/helpers.php';
 		$this->helpers = plgSystemModalsHelpers::getInstance();
 		$this->params = $this->helpers->getParams();
+
+		$this->params->tag = trim($this->params->tag);
 
 		$bts = '((?:<(?:p|span|div)(?:(?:\s|&nbsp;)[^>]*)?>\s*){0,3})'; // break tags start
 		$bte = '((?:\s*</(?:p|span|div)>){0,3})'; // break tags end

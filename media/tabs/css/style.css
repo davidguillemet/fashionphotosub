@@ -2,7 +2,7 @@
  * NoNumber Page stylesheet
  *
  * @package         Tabs
- * @version         4.0.9
+ * @version         4.0.10
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -152,6 +152,12 @@
   -moz-border-radius-bottomleft: 4px;
   border-bottom-left-radius: 4px;
 }
+span.nn_tabs-title-inactive {
+  display: inherit;
+}
+span.nn_tabs-title-active {
+  display: none;
+}
 .nn_tabs {
   *zoom: 1;
 }
@@ -196,12 +202,6 @@
 .nn_tabs > ul.nav-tabs > li.active > a:focus {
   outline: none;
   border-color: #eab03f;
-}
-.nn_tabs > ul.nav-tabs > li span.nn_tabs-title-inactive {
-  display: inherit;
-}
-.nn_tabs > ul.nav-tabs > li span.nn_tabs-title-active {
-  display: none;
 }
 .nn_tabs > ul.nav-tabs > li.active span.nn_tabs-title-inactive {
   display: none;

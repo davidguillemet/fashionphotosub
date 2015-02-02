@@ -2,7 +2,7 @@
  * Main JavaScript file
  *
  * @package         Tabs
- * @version         4.0.9
+ * @version         4.0.10
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -156,7 +156,7 @@
 			return $('#' + id + '.nn_sliders-body');
 		},
 
-		showByCookies: function() {
+		showByCookies   : function() {
 			var cookies = $.cookie(nn_tabs_cookie_name);
 			if (!cookies) {
 				return;
@@ -432,7 +432,7 @@
 		initHoverMode: function(el) {
 			$('body').on('hover.tab.data-api', 'a.nn_tabs-toggle', function(e) {
 				e.preventDefault();
-				nnTabs.show(this.id);
+				nnTabs.show($(this).attr('data-id'));
 			});
 		},
 

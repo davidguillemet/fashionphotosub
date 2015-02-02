@@ -3,7 +3,7 @@
  * Main Plugin File
  *
  * @package         NoNumber Framework
- * @version         15.1.5
+ * @version         15.1.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl

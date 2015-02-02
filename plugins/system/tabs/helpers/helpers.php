@@ -3,7 +3,7 @@
  * Plugin Helper File: Helpers
  *
  * @package         Tabs
- * @version         4.0.9
+ * @version         4.0.10
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -17,7 +17,7 @@ class plgSystemTabsHelpers
 {
 	protected static $instance = null;
 	protected static $params = null;
-var $helpers = array();
+	var $helpers = array();
 
 	public static function getInstance($params = 0)
 	{
@@ -26,30 +26,30 @@ var $helpers = array();
 			self::$instance = new static;
 		}
 
- 	if ($params)
+		if ($params)
 		{
-		     self::$params = $params;
+			self::$params = $params;
 		}
 
 		return self::$instance;
 	}
 
-  public function getParams()
+	public function getParams()
 	{
-	return self::$params;
-  }
+		return self::$params;
+	}
 
 	public function get($name)
 	{
-	if (isset($this->helpers[$name]))
- 	{
-	     	return $this->helpers[$name];
-  	}
+		if (isset($this->helpers[$name]))
+		{
+			return $this->helpers[$name];
+		}
 
 		require_once __DIR__ . '/' . $name . '.php';
-	$class = rtrim(__CLASS__, 's') . ucfirst($name);
+		$class = rtrim(__CLASS__, 's') . ucfirst($name);
 		$this->helpers[$name] = new $class;
 
-	  return $this->helpers[$name];
+		return $this->helpers[$name];
 	}
 }

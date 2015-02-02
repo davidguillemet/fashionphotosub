@@ -4,7 +4,7 @@
  * Displays plain text as element
  *
  * @package         NoNumber Framework
- * @version         15.1.5
+ * @version         15.1.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -26,9 +26,9 @@ class JFormFieldNN_PlainText extends JFormField
 
 	protected function getLabel()
 	{
-		JHtml::stylesheet('nnframework/style.min.css', false, true);
+	JHtml::stylesheet('nnframework/style.min.css', false, true);
 
-		$this->params = $this->element->attributes();
+ 	$this->params = $this->element->attributes();
 
 		$label = $this->prepareText($this->get('label'));
 		$tooltip = $this->prepareText(trim($this->get('description')));
@@ -36,60 +36,60 @@ class JFormFieldNN_PlainText extends JFormField
 		if (!$label && !$tooltip)
 		{
 			return '';
-		}
+     	}
 
-		if (!$label)
-		{
-			return '<div>' . $tooltip . '</div>';
-		}
+  	if (!$label)
+	{
+	  	return '<div>' . $tooltip . '</div>';
+	}
 
 		if (!$tooltip)
 		{
-			return '<div>' . $label . '</div>';
+	 	return '<div>' . $label . '</div>';
 		}
 
-		return '<label class="hasTooltip" title="<strong>' . $label . '</strong><br />' . htmlentities($tooltip) . '">'
-		. $label . '</label>';
-	}
+     	return '<label class="hasTooltip" title="<strong>' . $label . '</strong><br />' . htmlentities($tooltip) . '">'
+  	. $label . '</label>';
+}
 
 	protected function getInput()
 	{
-		$this->params = $this->element->attributes();
+	  $this->params = $this->element->attributes();
 
-		$text = $this->prepareText(trim($this->value));
+	$text = $this->prepareText(trim($this->value));
 
-		if (!$text)
-		{
+	 if (!$text)
+	     {
 			return '';
-		}
+  	}
 
-		return '<fieldset class="nn_plaintext">' . $text . '</fieldset>';
+	return '<fieldset class="nn_plaintext">' . $text . '</fieldset>';
 	}
 
 	private function prepareText($string = '')
 	{
-		if ($string == '')
+  	if ($string == '')
 		{
-			return '';
+		return '';
 		}
 
 		// variables
 		$var1 = JText::_($this->get('var1'));
 		$var2 = JText::_($this->get('var2'));
-		$var3 = JText::_($this->get('var3'));
+	 $var3 = JText::_($this->get('var3'));
 		$var4 = JText::_($this->get('var4'));
 		$var5 = JText::_($this->get('var5'));
 
-		$string = JText::sprintf(JText::_($string), $var1, $var2, $var3, $var4, $var5);
+	     $string = JText::sprintf(JText::_($string), $var1, $var2, $var3, $var4, $var5);
 		$string = trim(nnText::html_entity_decoder($string));
-		$string = str_replace('&quot;', '"', $string);
+  	$string = str_replace('&quot;', '"', $string);
 		$string = str_replace('span style="font-family:monospace;"', 'span class="nn_code"', $string);
 
-		return $string;
-	}
+	return $string;
+  }
 
 	private function get($val, $default = '')
 	{
-		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
+	return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
 	}
 }

@@ -4,7 +4,7 @@
  * Displays a select box of languages
  *
  * @package         NoNumber Framework
- * @version         15.1.5
+ * @version         15.1.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,33 +21,33 @@ class JFormFieldNN_Languages extends JFormField
 
 	protected function getInput()
 	{
-		$this->params = $this->element->attributes();
+	$this->params = $this->element->attributes();
 
-		$size = (int) $this->get('size');
+	 $size = (int) $this->get('size');
 		$multiple = $this->get('multiple');
 		$client = $this->get('client', 'SITE');
 
-		jimport('joomla.language.helper');
+     	jimport('joomla.language.helper');
 		$langs = JLanguageHelper::createLanguageList($this->value, constant('JPATH_' . strtoupper($client)), true);
 		$options = array();
 		foreach ($langs as $lang)
 		{
 			if ($lang['value'])
-			{
-				$option = new stdClass;
-				$option->value = $lang['value'];
-				$option->text = $lang['text'] . ' [' . $lang['value'] . ']';
-				$options[] = $option;
-			}
-		}
+		  {
+			$option = new stdClass;
+	  		$option->value = $lang['value'];
+		 $option->text = $lang['text'] . ' [' . $lang['value'] . ']';
+		     	$options[] = $option;
+  		}
+	}
 
 		require_once JPATH_PLUGINS . '/system/nnframework/helpers/html.php';
 
-		return nnHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
-	}
+  	return nnHtml::selectlistsimple($options, $this->name, $this->value, $this->id, $size, $multiple);
+}
 
 	private function get($val, $default = '')
 	{
-		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
+	 return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
 	}
 }

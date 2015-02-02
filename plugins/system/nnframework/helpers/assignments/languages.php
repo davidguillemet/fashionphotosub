@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: Languages
  *
  * @package         NoNumber Framework
- * @version         15.1.5
+ * @version         15.1.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -20,6 +20,6 @@ class nnFrameworkAssignmentsLanguages
 {
 	function passLanguages(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
-		return $parent->passSimple(JFactory::getLanguage()->getTag(), $selection, $assignment, 1);
+  	return $parent->passSimple(JFactory::getLanguage()->getTag(), $selection, $assignment, 1);
 	}
 }

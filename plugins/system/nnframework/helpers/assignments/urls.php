@@ -3,7 +3,7 @@
  * NoNumber Framework Helper File: Assignments: URLs
  *
  * @package         NoNumber Framework
- * @version         15.1.5
+ * @version         15.1.6
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -20,55 +20,55 @@ class nnFrameworkAssignmentsURLs
 {
 	function passURLs(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
-		$regex = isset($params->regex) ? $params->regex : 0;
+	  $regex = isset($params->regex) ? $params->regex : 0;
 
-		if (!is_array($selection))
+	if (!is_array($selection))
 		{
-			$selection = explode("\n", $selection);
+ 	     $selection = explode("\n", $selection);
 		}
 
-		$url = JURI::getInstance();
+	  $url = JURI::getInstance();
 		$url = $url->toString();
 
 		$urls = array(
-			html_entity_decode(urldecode($url), ENT_COMPAT, 'UTF-8'),
+		html_entity_decode(urldecode($url), ENT_COMPAT, 'UTF-8'),
 			urldecode($url),
-			html_entity_decode($url, ENT_COMPAT, 'UTF-8'),
-			$url
+	  	html_entity_decode($url, ENT_COMPAT, 'UTF-8'),
+		$url
 		);
 		$urls = array_unique($urls);
 
 		$pass = 0;
 		foreach ($urls as $url)
-		{
+ 	{
 			foreach ($selection as $s)
-			{
+	     	{
 				$s = trim($s);
-				if ($s != '')
-				{
-					if ($regex)
-					{
+	  	if ($s != '')
+			  {
+			 if ($regex)
+	     			{
 						$url_part = str_replace(array('#', '&amp;'), array('\#', '(&amp;|&)'), $s);
-						$s = '#' . $url_part . '#si';
-						if (@preg_match($s . 'u', $url) || @preg_match($s, $url))
-						{
-							$pass = 1;
-							break;
-						}
-					}
-					else
+  		  	$s = '#' . $url_part . '#si';
+					if (@preg_match($s . 'u', $url) || @preg_match($s, $url))
+				 	{
+     		  		$pass = 1;
+	  					break;
+			 	}
+				     }
+				  else
 					{
-						if (strpos($url, $s) !== false)
-						{
-							$pass = 1;
-							break;
-						}
-					}
-				}
-			}
+			  	if (strpos($url, $s) !== false)
+					{
+	 				     $pass = 1;
+	  				break;
+  				}
+	 			}
+     	  	}
+		}
 			if ($pass)
-			{
-				break;
+  		{
+			break;
 			}
 		}
 

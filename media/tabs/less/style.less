@@ -2,7 +2,7 @@
  * NoNumber Page stylesheet
  *
  * @package         Tabs
- * @version         4.0.9
+ * @version         4.0.10
  *
  * @author          Peter van Westen <peter@nonumber.nl>
  * @link            http://www.nonumber.nl
@@ -21,8 +21,17 @@
 @border-color: #ddd;
 @border-color-focus: #eab03f;
 
+span.nn_tabs-title-inactive {
+	display: inherit;
+}
+
+span.nn_tabs-title-active {
+	display: none;
+}
+
 .nn_tabs {
 	.clearfix();
+
 	> ul.nav-tabs {
 		> li {
 			/* Reset styles to prevent templates li styles from messing stuff up */
@@ -54,12 +63,6 @@
 				border-color: @border-color-focus;
 			}
 
-			span.nn_tabs-title-inactive {
-				display: inherit;
-			}
-			span.nn_tabs-title-active {
-				display: none;
-			}
 			&.active {
 				span.nn_tabs-title-inactive {
 					display: none;
