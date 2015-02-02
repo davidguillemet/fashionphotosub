@@ -74,6 +74,7 @@ acymailing['NO_LIST_SELECTED'] = 'Veuillez sélectionner les listes auxquelles v
         <h3 id="termsLabel" class="modal-title">Newsletter</h3>
       </div>
       <div class="modal-body">
+		  <div style="width: 100%"><p style="font-size: 40px; text-align: center; margin: 10px;"><i class="icon-spin5 animate-spin"></i></p></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
