@@ -84,6 +84,13 @@ label /* because of boostrap bold label */
 	color: #e5e5e5;
 }
 
+.st_fblike_large > span > div > span,
+.st_fblike_large > span > div > span > iframe
+{
+	width: 110px !important;
+	height: 24px !important;
+}
+
 ul#slide-list
 {
 	padding: 0px;
