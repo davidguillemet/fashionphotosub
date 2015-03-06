@@ -309,8 +309,15 @@ function HomeControl(controlDiv, map, insideArticle) {
 	var controlHome = buildCustomControl(controlUI, "home", "Recentrer la carte sur le point de départ");
 	// Setup the click event listeners: simply set the map to the initial position and zoom level
 	google.maps.event.addDomListener(controlHome, 'click', function() {
-		markerCluster.fitMapToMarkers();
-		markerCluster.repaint();
+		if (markerCluster != null)
+		{
+			markerCluster.fitMapToMarkers();
+			markerCluster.repaint();
+		}
+		else
+		{
+			SetOriginalPositionAndZoom(map);
+		}
 	});
 
 	if (insideArticle) {
