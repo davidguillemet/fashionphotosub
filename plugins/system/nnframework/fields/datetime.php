@@ -19,46 +19,46 @@ class JFormFieldNN_DateTime extends JFormField
 	public $type = 'DateTime';
 	private $params = null;
 
-	protected function getLabel()
+  protected function getLabel()
 	{
 		return '';
-	}
+}
 
 	protected function getInput()
 	{
 		$this->params = $this->element->attributes();
 
 		$label = $this->get('label');
-		$format = $this->get('format');
+	 $format = $this->get('format');
 
-		$date = JFactory::getDate();
+	     $date = JFactory::getDate();
 
-		$tz = new DateTimeZone(JFactory::getApplication()->getCfg('offset'));
+	  $tz = new DateTimeZone(JFactory::getApplication()->getCfg('offset'));
 		$date->setTimeZone($tz);
 
 		if ($format)
-		{
-			if (strpos($format, '%') !== false)
+	{
+  		if (strpos($format, '%') !== false)
 			{
-				require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
-				$format = nnText::dateToDateFormat($format);
-			}
-			$html = $date->format($format, 1);
+		 require_once JPATH_PLUGINS . '/system/nnframework/helpers/text.php';
+		     	$format = nnText::dateToDateFormat($format);
+  	}
+		  $html = $date->format($format, 1);
 		}
-		else
+	else
 		{
 			$html = $date->format('', 1);
 		}
 
-		if ($label)
+ 	if ($label)
 		{
 			$html = JText::sprintf($label, $html);
 		}
 
-		return '</div><div>' . $html;
+	     return '</div><div>' . $html;
 	}
 
-	private function get($val, $default = '')
+  private function get($val, $default = '')
 	{
 		return (isset($this->params[$val]) && (string) $this->params[$val] != '') ? (string) $this->params[$val] : $default;
 	}

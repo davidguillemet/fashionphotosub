@@ -1,0 +1,61 @@
+body{background-color:#ffffff} 
+h1 { font-size:20px;   margin:0px;   margin-bottom:5px;   padding:0px;   font-weight:bold;   color:#3b3b3b !important; } 
+h2 { font-size:13px; font-weight:bold; color:#353535 !important; margin:5px 0px; padding:0px; } 
+h3 { color:#3b3b3b !important; font-weight:bold; font-size:16px; margin:0px; padding:0px; } 
+a { cursor:pointer;   color:#09bbeb;   text-decoration:none;   border:none; } 
+.acymailing_unsub {color:#d2d1d1 !important;   cursor:pointer;} 
+.acymailing_readmore {cursor:pointer; font-weight:bold; color:#949494;} 
+.acymailing_online {color:#d2d1d1 !important;   cursor:pointer;} 
+a img{ border:0px; text-decoration:none;} 
+body {
+	
+	color:#e5e5e5;
+}
+table, div {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+
+
+
+
+
+
+
+	
+
+
+
+
+
+p{margin:0px; padding:0px}
+
+
+/*responsive template*/
+
+@media (max-width:480px){
+.w600 { width:320px !important;}
+.w540 { width:260px !important;}
+.w30 { width:30px !important;}
+.w600 img {max-width:320px !important; height:auto !important;}
+.w540 img {max-width:260px !important; height:auto !important;}
+}
+
+@media (min-width: 480px) and (max-width: 600px){
+.w600 { width:480px !important;}
+.w540 { width:420px !important;}
+.w30 { width:30px !important;}
+.w600 img {max-width:480px !important; height:auto !important;}
+.w540 img {max-width:420px !important; height:auto !important;}
+        }
+
+@media (min-width:600px){
+.w600 { width:600px !important;}
+.w540 { width:540px !important;}
+.w30 { width:30px !important;}
+.w600 img {max-width:600px !important; height:auto !important;}
+.w540 img {max-width:540px !important; height:auto !important;}
+}
+
+
+

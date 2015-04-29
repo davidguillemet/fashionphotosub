@@ -1024,6 +1024,24 @@
                     "id": 177
                 }
             ]
+        },
+        {
+            "cat": [
+                "ase",
+                "phi"
+            ],
+            "desc": "Plongées sur épaves avec <a href='http://cortodivers.com/' target='_blank'>Corto Divers</a>",
+            "position": {
+                "lat": 12.000921,
+                "lng": 120.199816
+            },
+            "title": "Coron",
+            "trips": [
+                {
+                    "date": "F\u00e9vrier 2014",
+                    "id": 221
+                }
+            ]
         }
     ]
 }

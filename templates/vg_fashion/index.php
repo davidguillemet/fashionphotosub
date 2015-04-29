@@ -107,8 +107,7 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 
   ga('create', 'UA-27250055-1', 'auto');
   ga('send', 'pageview');
-</script>
-  
+</script>  
 <!-- Share This -->
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>

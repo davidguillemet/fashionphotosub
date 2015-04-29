@@ -18,17 +18,17 @@ defined('_JEXEC') or die;
  */
 class nnFrameworkAssignmentsUsers
 {
-  function passUserGroupLevels(&$parent, &$params, $selection = array(), $assignment = 'all')
+	function passUserGroupLevels(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
-	$user = JFactory::getUser();
+		$user = JFactory::getUser();
 
 		if (isset($user->groups) && !empty($user->groups))
 		{
-		 $groups = array_values($user->groups);
-	     }
+			$groups = array_values($user->groups);
+		}
 		else
-	  {
-		$groups = $user->getAuthorisedGroups();
+		{
+			$groups = $user->getAuthorisedGroups();
 		}
 
 		return $parent->passSimple($groups, $selection, $assignment);
@@ -37,5 +37,5 @@ class nnFrameworkAssignmentsUsers
 	function passUsers(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
 		return $parent->passSimple(JFactory::getUser()->get('id'), $selection, $assignment);
-  }
+	}
 }

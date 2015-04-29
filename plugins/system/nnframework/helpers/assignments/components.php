@@ -20,6 +20,6 @@ class nnFrameworkAssignmentsComponents
 {
 	function passComponents(&$parent, &$params, $selection = array(), $assignment = 'all')
 	{
-		return $parent->passSimple(strtolower($parent->params->option), $selection, $assignment);
+	return $parent->passSimple(strtolower($parent->params->option), $selection, $assignment);
 	}
 }

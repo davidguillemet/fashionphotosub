@@ -1,0 +1,67 @@
+body{background-color:#ffffff} 
+h1 { font-size:24px;   font-weight:bold;   margin:0px;   padding:0px;   color:#1267ff !important; } 
+h2 { font-size:14px; font-weight:bold; color:#1267ff !important; text-transform:uppercase; margin:0px; margin-bottom:15px; padding:0px; padding-bottom:4px; border-bottom:1px solid #b1b1b1 } 
+h3 { color:#343538 !important; font-weight:normal; font-size:20px; margin:0px; padding:0px; } 
+a { cursor:pointer;   color:##a0afe8;   font-style:italic;   font-weight:bold;   text-decoration:none;   border:none; } 
+.acymailing_unsub {color:#858585 !important;   cursor:pointer;   background-color:#eae8e9;   padding:2px 5px;} 
+.acymailing_readmore {cursor:pointer; font-weight:bold; color:#fff; background-color:#2c2c2c; padding:3px 6px;} 
+.acymailing_online {color:#858585 !important;   cursor:pointer;   background-color:#eae8e9;   padding:2px 5px;} 
+a img{ border:0px; text-decoration:none;} 
+body {
+	
+}
+table, div {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+p{margin:0px; padding:0px}
+.footer_links a{color:#fff; font-weight:normal; font-style:normal}
+
+/*responsive template*/
+
+@media (max-width:480px){
+.w600{width:320px !important;}
+.w25{ width:10px !important;}
+.w550{width:300px !important;}
+.w465{width:200px !important;}
+.w110{width:110px !important;}
+.w600 img {max-width:320px !important;  height:auto !important;}
+.w550 img {max-width:300px !important;  height:auto !important;}
+}
+
+
+@media (min-width: 480px) and (max-width: 600px){
+.w600{width:480px !important;}
+.w25{ width:10px !important;}
+.w550{width:460px !important;}
+.w465{width:360px !important;}
+.w110{width:110px !important;}
+.w600 img {max-width:480px !important;  height:auto !important;}
+.w550 img {max-width:460px !important;  height:auto !important;}
+}
+
+@media (min-width:600px){
+.w600{width:600px !important;}
+.w25{ width:25px !important;}
+.w550{width:550px !important;}
+.w465{width:465px !important;}
+.w110{width:110px !important;}
+.w600 img {max-width:600px !important;  height:auto !important;}
+.w550 img {max-width:550px !important;  height:auto !important;}
+}
+
+

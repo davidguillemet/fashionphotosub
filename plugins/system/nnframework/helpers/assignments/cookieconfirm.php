@@ -19,10 +19,10 @@ defined('_JEXEC') or die;
 class nnFrameworkAssignmentsCookieConfirm
 {
 	function passCookieConfirm(&$parent, &$params, $selection = array(), $assignment = 'all')
-  {
-	require_once JPATH_PLUGINS . '/system/cookieconfirm/core.php';
-	 $pass = plgSystemCookieconfirmCore::getInstance()->isCookiesAllowed();
+	{
+		require_once JPATH_PLUGINS . '/system/cookieconfirm/core.php';
+		$pass = plgSystemCookieconfirmCore::getInstance()->isCookiesAllowed();
 
 		return $parent->pass($pass, $assignment);
-     }
+	}
 }
