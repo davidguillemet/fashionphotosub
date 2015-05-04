@@ -64,3 +64,13 @@ $this->_urlCache['e52b6d065176c05e15c7c354ccb72280']='index.php?option=com_conte
 $this->_urlCache['7ea70011bf2da8875ee0315dcb5aea27']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;catid=10&amp;id=35&amp;lang=fr&amp;view=p_article#requins/actualite/le-commerce-des-ailerons-hors-la-loi-aux-iles-mariannes#0';
 $this->_urlCache['21c69b236c966c4008628f9a0b679d24']='index.php?option=com_content&amp;Itemid=101&amp;catid=31&amp;id=106&amp;lang=fr&amp;view=article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/arminaces/janolus-sp#0';
 $shURLCacheCreationDate=1430350564;
+$this->_urlCache['e649fb8ab21a3c70e99d482884354acc']='index.php?option=com_tz_portfolio&amp;Itemid=193&amp;catid=38&amp;id=179&amp;lang=fr&amp;view=p_article#divers/liens#0';
+$this->_urlCache['734d3343cb9b583ba166d17e9b645a6d']='index.php?option=com_tz_portfolio&amp;Itemid=192&amp;catid=38&amp;id=178&amp;lang=fr&amp;view=p_article#divers/a-propos#0';
+$this->_urlCache['261a3f7e8f63433ca4d9be752746bb53']='index.php?option=com_tz_portfolio&amp;Itemid=188&amp;catid=38&amp;id=163&amp;lang=fr&amp;view=p_article#divers/bibliographie#0';
+$this->_urlCache['eaf6e640c118764f2e96679907b0dd27']='index.php?option=com_tz_portfolio&amp;Itemid=194&amp;id=180&amp;lang=fr&amp;view=article#requins/liens#0';
+$shURLCacheCreationDate=1430775193;
+$this->_urlCache['f45c87537577ae75b0c431b1c1bee04a']='index.php?option=com_tz_portfolio&amp;Itemid=151&amp;catid=12&amp;id=48&amp;lang=fr&amp;view=p_article#biologie/mollusques#0';
+$this->_urlCache['20f73f31d4009e56a3b6a0e26120e6ce']='index.php?option=com_tz_portfolio&amp;Itemid=152&amp;catid=12&amp;id=49&amp;lang=fr&amp;view=p_article#biologie/generalites#0';
+$this->_urlCache['023f9fbc983a9e0d163fe2fcb1158d87']='index.php?option=com_tz_portfolio&amp;Itemid=153&amp;catid=12&amp;id=50&amp;lang=fr&amp;view=p_article#biologie/galerie-mollusques#0';
+$this->_urlCache['54b54b6751c5e54976d553cbfa9d42d1']='index.php?option=com_tz_portfolio&amp;Itemid=221&amp;catid=12&amp;id=204&amp;lang=fr&amp;view=p_article#biologie/tuniciers#0';
+$shURLCacheCreationDate=1430775212;

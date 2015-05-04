@@ -932,3 +932,7 @@ $this->_urlCache['feba1520ef22a76e3643019270fd10fc']='index.php?option=com_conte
 $this->_urlCache['65c98b6e6077cedd906e2421c5e0e2b9']='index.php?option=com_content&amp;Itemid=101&amp;catid=28&amp;id=53&amp;lang=fr&amp;layout=default&amp;page=&amp;print=1&amp;tmpl=component&amp;view=article#biologie/mollusques/gasteropodes/opisthobranches/sacoglosses/elysia-gordanae/print#0';
 $this->_urlCache['727a4d27c8a69bc4aff688b1e35db344']='index.php?option=com_content&amp;Itemid=101&amp;catid=28&amp;id=83&amp;lang=fr&amp;layout=default&amp;page=&amp;print=1&amp;tmpl=component&amp;view=article#biologie/mollusques/gasteropodes/opisthobranches/sacoglosses/thuridilla-hopei/print#0';
 $shURLCacheCreationDate=1430209180;
+$this->_urlCache['1b70a1b0463c250fa9777834baf4dc49']='index.php?option=com_content&amp;Itemid=314&amp;id=156&amp;lang=fr&amp;view=article#galeries/2010-challenge#0';
+$shURLCacheCreationDate=1430451611;
+$this->_urlCache['18507e7500433bd58926cd811959d056']='index.php?option=com_content&amp;Itemid=101&amp;catid=33&amp;id=114&amp;lang=fr&amp;view=article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/doridiens/aporodoris-merria#0';
+$shURLCacheCreationDate=1430516111;
