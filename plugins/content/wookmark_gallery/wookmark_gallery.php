@@ -193,10 +193,17 @@ class plgContentWookmark_Gallery extends JPlugin
 					if(isset($info['APP13']))
 					{
 					    $iptc = iptcparse($info['APP13']);
-						if (isset($iptc['2#005']))
+						
+						if (isset($iptc['2#120'])) // try caption first
+						{
+							$imgData[$file]['title'] = $iptc['2#120'][0];
+						}
+						else if (isset($iptc['2#005'])) // Or title if no cpation
 						{
 							$imgData[$file]['title'] = $iptc['2#005'][0];
 						}	
+						
+						// Keywords
 						if (isset($iptc['2#025']))
 						{
 							$imgData[$file]['keywords'] = implode('|', $iptc['2#025']);
