@@ -936,3 +936,9 @@ $this->_urlCache['1b70a1b0463c250fa9777834baf4dc49']='index.php?option=com_conte
 $shURLCacheCreationDate=1430451611;
 $this->_urlCache['18507e7500433bd58926cd811959d056']='index.php?option=com_content&amp;Itemid=101&amp;catid=33&amp;id=114&amp;lang=fr&amp;view=article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/doridiens/aporodoris-merria#0';
 $shURLCacheCreationDate=1430516111;
+$this->_urlCache['15b4d6d8d77ac60a6bc015946aeaf365']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;lang=fr&amp;limit=10&amp;limitstart=10&amp;view=portfolio#page-2#0';
+$this->_urlCache['1fba1ff5db4dad24d6c9536eb6d2033b']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;lang=fr&amp;limit=10&amp;limitstart=30&amp;view=portfolio#page-4#0';
+$this->_urlCache['8c092fd190449e24b1d663ccbf646d50']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;lang=fr&amp;limit=10&amp;limitstart=20&amp;view=portfolio#page-3#0';
+$shURLCacheCreationDate=1430909936;
+$this->_urlCache['55032caa838c7708cc0f5ba8a75ff286']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;lang=fr&amp;limit=10&amp;view=portfolio#page-1#0';
+$shURLCacheCreationDate=1430909938;

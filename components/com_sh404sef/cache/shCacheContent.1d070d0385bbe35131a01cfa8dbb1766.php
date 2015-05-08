@@ -74,3 +74,7 @@ $this->_urlCache['20f73f31d4009e56a3b6a0e26120e6ce']='index.php?option=com_tz_po
 $this->_urlCache['023f9fbc983a9e0d163fe2fcb1158d87']='index.php?option=com_tz_portfolio&amp;Itemid=153&amp;catid=12&amp;id=50&amp;lang=fr&amp;view=p_article#biologie/galerie-mollusques#0';
 $this->_urlCache['54b54b6751c5e54976d553cbfa9d42d1']='index.php?option=com_tz_portfolio&amp;Itemid=221&amp;catid=12&amp;id=204&amp;lang=fr&amp;view=p_article#biologie/tuniciers#0';
 $shURLCacheCreationDate=1430775212;
+$this->_urlCache['6ca665c54ded2460ef38b49a0559a7ad']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=222&amp;lang=fr&amp;view=p_article#galeries/2014/ambon#0';
+$shURLCacheCreationDate=1431038714;
+$this->_urlCache['6f413df8c5c2fdb9a01cfd32ebccefbf']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;catid=41&amp;id=60&amp;lang=fr&amp;view=p_article#galeries/map#0';
+$shURLCacheCreationDate=1431076066;
