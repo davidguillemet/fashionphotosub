@@ -942,3 +942,7 @@ $this->_urlCache['8c092fd190449e24b1d663ccbf646d50']='index.php?option=com_tz_po
 $shURLCacheCreationDate=1430909936;
 $this->_urlCache['55032caa838c7708cc0f5ba8a75ff286']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;lang=fr&amp;limit=10&amp;view=portfolio#page-1#0';
 $shURLCacheCreationDate=1430909938;
+$this->_urlCache['408e74167885a8c7cb12e3d3e362d693']='index.php?option=com_tz_portfolio&amp;Itemid=186&amp;catid=37&amp;id=71&amp;lang=fr&amp;view=p_article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/sepia-officinalis#0';
+$shURLCacheCreationDate=1431054015;
+$this->_urlCache['6ca665c54ded2460ef38b49a0559a7ad']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=222&amp;lang=fr&amp;view=p_article#galeries/2014/ambon#0';
+$shURLCacheCreationDate=1431114914;
