@@ -92,7 +92,6 @@
         },
         {
             "alias": "ocean-indien",
-            "id": "indien",
             "children": [
                 {
                     "alias": "maldives",
@@ -100,6 +99,7 @@
                     "text": "Maldives"
                 }
             ],
+            "id": "indien",
             "text": "Oc\u00e9an Indien"
         },
         {
@@ -133,6 +133,24 @@
         }
     ],
     "locations": [
+        {
+            "cat": [
+                "ase",
+                "ind"
+            ],
+            "desc": "Quelques plong\u00e9es Muck avec <a href='http://www.muckdivingindonesia.com/' target='_blank'>Maluku Divers</a><br>en attendant la coiri\u00e8re sur le Lambo...",
+            "position": {
+                "lat": -3.714527,
+                "lng": 128.096474
+            },
+            "title": "Ambon",
+            "trips": [
+                {
+                    "date": "Septembre 2014",
+                    "id": "222"
+                }
+            ]
+        },
         {
             "cat": [
                 "ase",
@@ -1010,7 +1028,7 @@
         {
             "cat": [
                 "indien",
-				"mald"
+                "mald"
             ],
             "desc": "Croisi\u00e8re avec <a href='http://www.plongee-okmaldives.com/' target='_blank'>OK Maldives</a>",
             "position": {
@@ -1030,7 +1048,7 @@
                 "ase",
                 "phi"
             ],
-            "desc": "Plongées sur épaves avec <a href='http://cortodivers.com/' target='_blank'>Corto Divers</a>",
+            "desc": "Plong\u00e9es sur \u00e9paves avec <a href='http://cortodivers.com/' target='_blank'>Corto Divers</a>",
             "position": {
                 "lat": 12.000921,
                 "lng": 120.199816
