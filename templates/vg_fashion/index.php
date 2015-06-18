@@ -142,6 +142,7 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.wookmark.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.tipsy.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jqcloud-1.0.4.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.mobile.swipe.min.js"></script>
 
 <!-- supersized -->
 <?php if( $vg_slide_status == 1 ){ ?>
@@ -206,13 +207,37 @@ $f(function($){
 <link rel="stylesheet" type="text/css" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/shadowbox/shadowbox.css">
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/shadowbox/shadowbox.js"></script>
 <script type="text/javascript">
+var myApp = {
+    SBAdjust: function() {
+	    
+	    Shadowbox.play();
+	    Shadowbox.pause();
+	  
+        if (Shadowbox.hasNext())
+            jQuery('#sb-body').addClass('sb-touch');
+
+        jQuery(document).on('swipeleft', '.sb-touch', function (e) {
+            e.preventDefault();
+            Shadowbox.next();
+        });
+        jQuery(document).on('swiperight', '.sb-touch', function (e) {
+            e.preventDefault();
+            Shadowbox.previous();
+        });
+    }
+}
+</script> 
+<script type="text/javascript">
 Shadowbox.init({
     modal: true,
 	displayNav: true,
 	slideshowDelay: 5,
 	overlayOpacity: 0.8,
 	handleOversize: 'resize',
-	onOpen: function (image) { Shadowbox.play(); Shadowbox.pause(); }
+	onOpen: myApp.SBAdjust,
+    onClose: function() {
+        jQuery('.sb-touch').removeClass('sb-touch');
+    }
 });
 </script>
 
