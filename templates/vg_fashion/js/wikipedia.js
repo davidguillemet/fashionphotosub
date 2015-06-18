@@ -27,6 +27,14 @@
 			success: onLoadData
 		});
 	};
+  
+    function missingArticle()
+    {
+		var errorMsg = '<p style="text-align: center; font-size: 24px;">';
+		errorMsg += '<i class="icon-emo-displeased" style="font-size: 50px;  vertical-align: middle;"></i>&nbsp;&nbsp;';
+		errorMsg += 'Oups...L\'article "' + mollusqueType + '" n\'existe pas sur Wikipedia...</p>';
+		return errorMsg;
+    }
 
 	function onLoadData(response) {
 		var $wikiHtml = "";
@@ -38,14 +46,11 @@
 				loadData();
 				return;
 			} else {
-				var errorMsg = '<p style="text-align: center; font-size: 24px;">';
-				errorMsg += '<i class="icon-emo-displeased" style="font-size: 50px;  vertical-align: middle;"></i>&nbsp;&nbsp;';
-				errorMsg += 'Oups...L\'article "' + mollusqueType + '" n\'existe pas sur Wikipedia...</p>';
-				$wikiHtml = $(errorMsg);
+				$wikiHtml = $(missingArticle());
 				pageFound = false;
 			}
 		} else {
-			// Build Jquery HTML Fro wiki response
+			// Build Jquery HTML From wiki response
 			// -> Emebed response in div container in order for jQuery.find to work as expected
 			var content = "<div>" + response.parse.text['*'] + "</div>";
 			$wikiHtml = $(content);
@@ -85,7 +90,8 @@
 		// Put the wiki content in the container
 		$wikiContent.empty();
 		$wikiContent.append($wikiHtml);
-		if (pageFound)
+		
+	    if (pageFound)
 		{
 			var $sourceLink = $("#sourceArticleLink");
 			var sourceRef = $sourceLink.attr("href");
@@ -94,9 +100,11 @@
 			$("#wikimessage").show();
 		}
 	}
-	$articleTitle.css('text-transform', 'none');
+	
+    $articleTitle.css('text-transform', 'none');
 	loadData();
 	$(window).load(function() {
 		$(".TzNavigationItem").css('text-transform', 'none');
 	});
+  
 })(jQuery);
