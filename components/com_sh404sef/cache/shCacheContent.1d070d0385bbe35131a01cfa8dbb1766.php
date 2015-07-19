@@ -1,8 +1,9 @@
 <?php // shCache : URL cache file for sh404SEF
   // version 4.4.6.2271
   if (!defined('_JEXEC')) die('Direct Access to this location is not allowed.');
-  $shURLCacheCreationDate = 1430350559;
+  $shURLCacheCreationDate = 1437333903;
   
+$this->_urlCache['6ca665c54ded2460ef38b49a0559a7ad']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=222&amp;lang=fr&amp;view=p_article#galeries/2014/ambon#0';
 $this->_urlCache['b70aeff8ed1fe0e297f9375d19a05001']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=221&amp;lang=fr&amp;view=p_article#galeries/2014/coron#0';
 $this->_urlCache['d83132d4d5bf84a5f5b6ae606362fa53']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=1&amp;lang=fr&amp;view=p_article#galeries/2014/anilao#0';
 $this->_urlCache['fdc34c64db36037591fe195b183fdaf2']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=2&amp;lang=fr&amp;view=p_article#galeries/2013/komodo#0';
@@ -55,26 +56,30 @@ $this->_urlCache['dd4b25eb5c00db28274a58725db14da1']='index.php?option=com_tz_po
 $this->_urlCache['e0e4a33c2779d8ded7feb0d9e8b93b77']='index.php?option=com_tz_portfolio&amp;Itemid=193&amp;id=179&amp;lang=fr&amp;view=p_article#divers/liens#0';
 $this->_urlCache['46d2db94b845faddb4ced7d4ce2ac463']='index.php?option=com_tz_guestbook&amp;Itemid=141&amp;lang=fr&amp;view=guestbook#guestbook#0';
 $this->_urlCache['fc062347e21a32d1a7e811f3f87e9d53']='index.php?option=com_foxcontact&amp;Itemid=149&amp;lang=fr&amp;view=foxcontact#contact#0';
-$shURLCacheCreationDate=1430350563;
+$shURLCacheCreationDate=1437333910;
 $this->_urlCache['2c181d4aa0e80753e4db24f35e2a7436']='index.php?option=com_content&amp;Itemid=217&amp;id=182&amp;lang=fr&amp;view=article#sh404sef-custom-content/404#0';
 $this->_urlCache['4da4bd51cbdc3f3d1521172c49324e32']='index.php?option=com_content&amp;Itemid=101&amp;catid=40&amp;id=182&amp;lang=fr&amp;view=article#sh404sef-custom-content/404#0';
 $this->_urlCache['3a589778f5672f5dd1e35afef18d6ed5']='index.php?option=com_tz_portfolio&amp;Itemid=176&amp;catid=33&amp;id=201&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/doridiens/chromodoris-gemina#0';
 $this->_urlCache['9705c0c3a6865d09df7eaad8b2c77c70']='index.php?option=com_content&amp;Itemid=101&amp;catid=25&amp;id=215&amp;lang=fr&amp;view=article#biologie/mollusques/gasteropodes/opisthobranches/cephalaspides/sagaminopteron-ornatum#0';
 $this->_urlCache['e52b6d065176c05e15c7c354ccb72280']='index.php?option=com_content&amp;Itemid=101&amp;catid=37&amp;id=52&amp;lang=fr&amp;view=article#biologie/mollusques/cephalopodes/dibranchiaux/decapodes/sepioteuthis-lessoniana#0';
+$this->_urlCache['548e8193c699d64ddcfb4a5ed40097cb']='index.php?option=com_content&amp;Itemid=101&amp;catid=22&amp;id=232&amp;lang=fr&amp;layout=default&amp;page=&amp;tmpl=component&amp;view=article#biologie/mollusques/gasteropodes/prosobranches/diminovula-culmen#0';
 $this->_urlCache['7ea70011bf2da8875ee0315dcb5aea27']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;catid=10&amp;id=35&amp;lang=fr&amp;view=p_article#requins/actualite/le-commerce-des-ailerons-hors-la-loi-aux-iles-mariannes#0';
-$this->_urlCache['21c69b236c966c4008628f9a0b679d24']='index.php?option=com_content&amp;Itemid=101&amp;catid=31&amp;id=106&amp;lang=fr&amp;view=article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/arminaces/janolus-sp#0';
-$shURLCacheCreationDate=1430350564;
-$this->_urlCache['e649fb8ab21a3c70e99d482884354acc']='index.php?option=com_tz_portfolio&amp;Itemid=193&amp;catid=38&amp;id=179&amp;lang=fr&amp;view=p_article#divers/liens#0';
-$this->_urlCache['734d3343cb9b583ba166d17e9b645a6d']='index.php?option=com_tz_portfolio&amp;Itemid=192&amp;catid=38&amp;id=178&amp;lang=fr&amp;view=p_article#divers/a-propos#0';
-$this->_urlCache['261a3f7e8f63433ca4d9be752746bb53']='index.php?option=com_tz_portfolio&amp;Itemid=188&amp;catid=38&amp;id=163&amp;lang=fr&amp;view=p_article#divers/bibliographie#0';
-$this->_urlCache['eaf6e640c118764f2e96679907b0dd27']='index.php?option=com_tz_portfolio&amp;Itemid=194&amp;id=180&amp;lang=fr&amp;view=article#requins/liens#0';
-$shURLCacheCreationDate=1430775193;
-$this->_urlCache['f45c87537577ae75b0c431b1c1bee04a']='index.php?option=com_tz_portfolio&amp;Itemid=151&amp;catid=12&amp;id=48&amp;lang=fr&amp;view=p_article#biologie/mollusques#0';
-$this->_urlCache['20f73f31d4009e56a3b6a0e26120e6ce']='index.php?option=com_tz_portfolio&amp;Itemid=152&amp;catid=12&amp;id=49&amp;lang=fr&amp;view=p_article#biologie/generalites#0';
+$shURLCacheCreationDate=1437334067;
+$this->_urlCache['55403ffc33ff135350f44c44aa48ef64']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=235&amp;lang=fr&amp;view=p_article#galeries/2014/misool#0';
+$shURLCacheCreationDate=1437335231;
 $this->_urlCache['023f9fbc983a9e0d163fe2fcb1158d87']='index.php?option=com_tz_portfolio&amp;Itemid=153&amp;catid=12&amp;id=50&amp;lang=fr&amp;view=p_article#biologie/galerie-mollusques#0';
 $this->_urlCache['54b54b6751c5e54976d553cbfa9d42d1']='index.php?option=com_tz_portfolio&amp;Itemid=221&amp;catid=12&amp;id=204&amp;lang=fr&amp;view=p_article#biologie/tuniciers#0';
-$shURLCacheCreationDate=1430775212;
-$this->_urlCache['6ca665c54ded2460ef38b49a0559a7ad']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=222&amp;lang=fr&amp;view=p_article#galeries/2014/ambon#0';
-$shURLCacheCreationDate=1431038714;
+$this->_urlCache['20f73f31d4009e56a3b6a0e26120e6ce']='index.php?option=com_tz_portfolio&amp;Itemid=152&amp;catid=12&amp;id=49&amp;lang=fr&amp;view=p_article#biologie/generalites#0';
+$this->_urlCache['f45c87537577ae75b0c431b1c1bee04a']='index.php?option=com_tz_portfolio&amp;Itemid=151&amp;catid=12&amp;id=48&amp;lang=fr&amp;view=p_article#biologie/mollusques#0';
+$shURLCacheCreationDate=1437335294;
+$this->_urlCache['85ec28f460d1515eeaebcf23fecf1d44']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=226&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/phyllodesmium-magnum#0';
+$shURLCacheCreationDate=1437335305;
+$this->_urlCache['de06c98a13159a13c07524d844b1b70c']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=100&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/phyllodesmium-longicirrum#0';
+$this->_urlCache['29148a87c2658dbe86d9a2b7337155f4']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=102&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/phyllodesmium-sp#0';
+$this->_urlCache['d700f877e9e7ae3677ef2bc3377fb94b']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=89&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/cratena-peregrina#0';
+$this->_urlCache['e169c8f7c37c76f453b300062b7b6d0e']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=99&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/phyllodesmium-briareum#0';
+$this->_urlCache['5462368af2410adfae07bd5cb2ea5bf0']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=98&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/hermissenda-crassicornis#0';
+$this->_urlCache['a995420669673d35a26914811d2acd61']='index.php?option=com_tz_portfolio&amp;Itemid=173&amp;catid=30&amp;id=97&amp;lang=fr&amp;view=p_article#biologie/mollusques/gasteropodes/opisthobranches/nudibranches/aeolidiens/flabellina-rubrolineata#0';
+$shURLCacheCreationDate=1437335307;
 $this->_urlCache['6f413df8c5c2fdb9a01cfd32ebccefbf']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;catid=41&amp;id=60&amp;lang=fr&amp;view=p_article#galeries/map#0';
-$shURLCacheCreationDate=1431076066;
+$shURLCacheCreationDate=1437335322;
