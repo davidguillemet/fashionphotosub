@@ -21,7 +21,7 @@
 defined('_JEXEC') or die;
 
 // Create a shortcut for params.
-$params = &$this->item->params;
+$params = $this->item->params;
 $blogItemParams = $params;
 $blogItemParams -> merge(new JRegistry($this -> item -> attribs));
 $images = json_decode($this->item->images);
@@ -54,7 +54,7 @@ else{
     ?>
         <?php
 
-            $media          = &JModelLegacy::getInstance('Media','TZ_PortfolioModel');
+            $media          = JModelLegacy::getInstance('Media','TZ_PortfolioModel');
             $media -> setParams($this -> mediaParams);
             $listMedia      = $media -> getMedia($this -> item -> id);
             $this -> assign('listMedia',$listMedia);
@@ -222,7 +222,7 @@ else{
 <?php // to do not that elegant would be nice to group the params ?>
 
 <?php
-    $extraFields    = &JModelLegacy::getInstance('ExtraFields','TZ_PortfolioModel',array('ignore_request' => true));
+    $extraFields    = JModelLegacy::getInstance('ExtraFields','TZ_PortfolioModel',array('ignore_request' => true));
     $extraFields -> setState('article.id',$this -> item -> id);
     $extraFields -> setState('category.id',$this -> item -> catid);
     $extraFields -> setState('orderby',$params -> get('fields_order'));
