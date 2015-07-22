@@ -19,7 +19,7 @@
 
 defined('_JEXEC') or die();
 
-$doc    = &JFactory::getDocument();
+$doc    = JFactory::getDocument();
  JFactory::getLanguage()->load('com_content');
 JFactory::getLanguage()->load('com_tz_portfolio');
 
@@ -28,7 +28,7 @@ JFactory::getLanguage()->load('com_tz_portfolio');
 <?php if($this -> listsArticle):?>
 
     <?php
-    $params = &$this -> params;
+    $params = $this -> params;
     ?>
             <?php $i=0;?>
             <?php foreach($this -> listsArticle as $row):  ?>
@@ -101,7 +101,7 @@ JFactory::getLanguage()->load('com_tz_portfolio');
                         ?>
 
                         <?php
-                            $media          = &JModelLegacy::getInstance('Media','TZ_PortfolioModel');
+                            $media          = JModelLegacy::getInstance('Media','TZ_PortfolioModel');
                             $mediaParams    = $this -> mediaParams;
                             $mediaParams -> merge($media -> getCatParams($row -> catid));
 
@@ -168,7 +168,7 @@ JFactory::getLanguage()->load('com_tz_portfolio');
                         <?php endif; ?>
 
                         <?php
-                            $extraFields    = &JModelLegacy::getInstance('ExtraFields','TZ_PortfolioModel',array('ignore_request' => true));
+                            $extraFields    = JModelLegacy::getInstance('ExtraFields','TZ_PortfolioModel',array('ignore_request' => true));
                             $extraFields -> setState('article.id',$row -> id);
                             $extraFields -> setState('category.id',$row -> catid);
                             $extraFields -> setState('orderby',$params -> get('fields_order'));

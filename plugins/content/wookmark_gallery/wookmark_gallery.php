@@ -247,12 +247,11 @@ class plgContentWookmark_Gallery extends JPlugin
 						$fileName = $string1[$c];
 						$caption = str_replace("'", "&apos;", $fileInfo[$fileName]);
 			
-						$tag.="<li>
-							<a rel='shadowbox[gallery]' href='$base_url$folder_path$string1[$c]' title='$caption'>
-						<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$folder_path$string1[$c]&w=$th_img_width&q=100'>
-						</a>
-						</li>";
-		
+						$tag .= "<li>
+								<a rel='shadowbox[gallery]' href='$base_url$folder_path$string1[$c]' title='$caption'>
+								<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$folder_path$string1[$c]&w=$th_img_width&q=100'>
+								</a>
+								</li>";	
 					}
 					return $tag;
 				}
@@ -292,7 +291,7 @@ class plgContentWookmark_Gallery extends JPlugin
 				{
 					$file_info = false;
 
-					$db =& JFactory::getDBO();
+					$db = JFactory::getDBO();
 					$query = 'SELECT title, filename, filepath FROM `#__phocagallery` p WHERE p.filepath ="'. trim(substr($imageFolder, 7), '/') .'"';
 					$db->setQuery($query);
 					$data = $db->loadObjectList(); 

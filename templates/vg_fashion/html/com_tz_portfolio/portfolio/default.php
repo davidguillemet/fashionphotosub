@@ -20,7 +20,7 @@
 //no direct access
 defined('_JEXEC') or die();
 
-$doc    = &JFactory::getDocument();
+$doc    = JFactory::getDocument();
 $doc->addStyleDeclaration('
     body .ja-mainbody{ background:none;}
     body > .container{
@@ -30,7 +30,7 @@ $doc->addStyleDeclaration('
 
 ?>
 <?php if($this -> listsArticle):?>
-    <?php $params = &$this -> params; ?>
+    <?php $params = $this -> params; ?>
     <link rel="stylesheet/less" type="text/css" href="components/com_tz_portfolio/css/tz_lib_style.less">
     <script src="components/com_tz_portfolio/js/less-1.0.21.min.js" type="text/javascript"></script>
 
