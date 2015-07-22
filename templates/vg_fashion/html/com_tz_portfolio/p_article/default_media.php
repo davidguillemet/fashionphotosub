@@ -181,7 +181,7 @@ endif;
                         ';
                 }
 
-                $doc    = &JFactory::getDocument();
+                $doc    = JFactory::getDocument();
                 if($thumbslide==1){
                 $doc -> addScriptDeclaration('
                     jQuery(window).bind(\'load resize\', function(){

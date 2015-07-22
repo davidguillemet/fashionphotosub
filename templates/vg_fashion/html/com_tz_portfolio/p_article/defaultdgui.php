@@ -31,7 +31,7 @@ $urls       = json_decode($this->item->urls);
 $canEdit	= $this->item->params->get('access-edit');
 JHtml::_('behavior.caption');
 $user		= JFactory::getUser();
-$doc        = &JFactory::getDocument();
+$doc        = JFactory::getDocument();
 
 $tmpl   = JRequest::getString('tmpl');
 
