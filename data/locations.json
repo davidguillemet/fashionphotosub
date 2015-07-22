@@ -138,6 +138,78 @@
                 "ase",
                 "ind"
             ],
+            "desc": "Croisière à bord du <a href='http://www.piratesbaycroisiere.fr/bateaux/categorie-basique/lambo.html' target='_blank'>Lambo</a> de Ambon à Misool",
+            "position": {
+                "lat": -3.675165,
+                "lng": 128.744240
+            },
+            "title": "Nusa Laut",
+            "trips": [
+                {
+                    "date": "Octobre 2014",
+                    "id": "235"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "ind"
+            ],
+            "desc": "Croisière à bord du <a href='http://www.piratesbaycroisiere.fr/bateaux/categorie-basique/lambo.html' target='_blank'>Lambo</a> de Ambon à Misool",
+            "position": {
+                "lat": -4.527883,
+                "lng": 129.895002
+            },
+            "title": "Les Îles Banda",
+            "trips": [
+                {
+                    "date": "Octobre 2014",
+                    "id": "235"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "ind"
+            ],
+            "desc": "Croisière à bord du <a href='http://www.piratesbaycroisiere.fr/bateaux/categorie-basique/lambo.html' target='_blank'>Lambo</a> de Ambon à Misool",
+            "position": {
+                "lat": -3.923913,
+                "lng": 131.070510
+            },
+            "title": "Koon",
+            "trips": [
+                {
+                    "date": "Octobre 2014",
+                    "id": "235"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "ind"
+            ],
+            "desc": "Croisière à bord du <a href='http://www.piratesbaycroisiere.fr/bateaux/categorie-basique/lambo.html' target='_blank'>Lambo</a> de Ambon à Misool",
+            "position": {
+                "lat": -2.125195,
+                "lng": 130.596230
+            },
+            "title": "Misool",
+            "trips": [
+                {
+                    "date": "Octobre 2014",
+                    "id": "235"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "ind"
+            ],
             "desc": "Quelques plong\u00e9es Muck avec <a href='http://www.muckdivingindonesia.com/' target='_blank'>Maluku Divers</a><br>en attendant la coiri\u00e8re sur le <a href='http://www.piratesbaycroisiere.fr/bateaux/categorie-basique/lambo.html' target='_blank'>Lambo</a>...",
             "position": {
                 "lat": -3.714527,
