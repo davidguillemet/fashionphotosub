@@ -1,0 +1,1 @@
+<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:120:"stLight.options({publisher:"23fa9369-ba77-499c-9e23-6f1e82eb5516",doNotHash:false,doNotCopy:false,hashAddressBar:true});";}

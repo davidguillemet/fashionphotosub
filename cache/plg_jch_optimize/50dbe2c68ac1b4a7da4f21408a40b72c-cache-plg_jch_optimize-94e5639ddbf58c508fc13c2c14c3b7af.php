@@ -1,0 +1,14 @@
+<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:2796:"var resizeTimer=null;function getFilterOptions(){var tags=[];jQuery('#filter a').each(function(index){tags.push(jQuery(this).attr('data-option-value').replace('.',''));});return tags;}
+jQuery(window).bind('load resize',function(){if(resizeTimer)clearTimeout(resizeTimer);resizeTimer=setTimeout("tz_init("+"300)",100);});var $container=jQuery('#portfolio');$items=$container.children('.element');$container.imagesLoaded(function(){$container.isotope({itemSelector:'.element',layoutMode:'masonry',sortBy:'order',sortAscending:false,getSortData:{name:function($elem){var name=$elem.find('.name'),itemText=name.length?name:$elem;return itemText.text();},date:function($elem){var number=$elem.hasClass('element')?$elem.find('.create').text():$elem.attr('data-date');return number;},order:function($elem){var _order=$elem.hasClass('element')?$elem.attr('data-order'):$elem.find('.order').text();return parseInt(_order);}}},function($elem){var $elem=$container.find('.element'),max_order=$container.find('.element:first').attr('data-order');if($elem.length){$elem.each(function(index){if(parseInt(max_order)<parseInt(jQuery(this).attr('data-order'))){max_order=parseInt(jQuery(this).attr('data-order'))+1;}})}
+jQuery('#tz_append').attr('data-order',max_order);var $opClass=getFilterOptions(),$b_class=jQuery('#tz_append').attr('class').split(' ');if($opClass.length){jQuery.each($opClass,function(i,el){if(jQuery.inArray(el,$b_class)===-1){jQuery('#tz_append').addClass(el);}});}});tz_init('300');});function loadPortfolio(){var $optionSets=jQuery('#tz_options .option-set');var $optionLinks=$optionSets.find('a');$optionLinks.click(function(event){event.preventDefault();var $this=jQuery(this);if($this.hasClass('selected')){return false;}
+var $optionSet=$this.parents('.option-set');$optionSet.find('.selected').removeClass('selected');$this.addClass('selected');var options={},key=$optionSet.attr('data-option-key'),value=$this.attr('data-option-value');value=value==='false'?false:value;options[key]=value;if(key==='layoutMode'&&typeof changeLayoutMode==='function'){changeLayoutMode($this,options)}else{$container.isotope(options);}
+return false;});}
+var previousContentWidth=null;function onLocationsDataLoaded()
+{previousContentWidth=getContentWidth();updateCloud(true);}
+function updateCloud(pageIsLoading)
+{var $filterContainer=jQuery("#filter");var newContentWidth=getContentWidth();if(pageIsLoading!=true&&newContentWidth!=previousContentWidth)
+{$filterContainer.empty();$filterContainer.css("width",newContentWidth);}
+if(pageIsLoading==true||newContentWidth!=previousContentWidth)
+{$filterContainer.jQCloud(tagCloud,{delayedMode:true,removeOverflowing:false,afterCloudRender:loadPortfolio});}
+previousContentWidth=newContentWidth;}
+loadLocationsData(true);jQuery(window).resize(updateCloud);";}

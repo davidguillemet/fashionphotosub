@@ -1,0 +1,2 @@
+<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:328:"var myApp={SBAdjust:function(){Shadowbox.play();Shadowbox.pause();if(Shadowbox.hasNext())
+jQuery('#sb-body').addClass('sb-touch');jQuery(document).on('swipeleft','.sb-touch',function(e){e.preventDefault();Shadowbox.next();});jQuery(document).on('swiperight','.sb-touch',function(e){e.preventDefault();Shadowbox.previous();});}};";}
