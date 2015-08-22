@@ -19,7 +19,7 @@ class JConfig {
 	public $dbprefix = 'vqliz_';
 	public $live_site = '';
 	public $secret = 'lw7FlVjC8O2aqOvQ';
-	public $gzip = '0';
+	public $gzip = '1';
 	public $error_reporting = 'default';
 	public $helpurl = 'http://help.joomla.fr/3/index.php?option=com_help&keyref=Help{major}{minor}:{keyref}';
 	public $ftp_host = '';
