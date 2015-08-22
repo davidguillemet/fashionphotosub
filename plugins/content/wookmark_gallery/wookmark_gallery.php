@@ -102,6 +102,7 @@ class plgContentWookmark_Gallery extends JPlugin
 					else
 					{
 						$insertDB = false;
+						$generateFile = false;
 						// On peut avoir des paramètres du type "folder/folder|param1=value;param2=value;..."
 						// ici, $arr_folder_path vaut "folder/folder|param1=value;param2=value;..."
 						$parameters = explode("|", $arr_folder_path);
@@ -121,17 +122,17 @@ class plgContentWookmark_Gallery extends JPlugin
 										$paramName = $pair[0];
 										if ($paramName == "insert")
 										{
-											$paramValue = $pair[1];
-											if ($paramValue == "y" || $paramValue == "Y")
-											{
-												$insertDB = true;
-											}
+											$insertDB = $this->readBooleanParameter($pair);
+										}
+										else if ($paramName == "new")
+										{
+											$generateFile = $this->readBooleanParameter($pair);
 										}
 									}
 								}
 							}
 						}
-						$returned = $this->fetchImgFold($arr_folder_path, $insertDB);
+						$returned = $this->fetchImgFold($arr_folder_path, $insertDB, $generateFile);
 						$string= str_replace($arr_org,"<div class='myapp' id='myapp$containerCount'><ul class='tiles' id='tiles$containerCount'>$returned</ul></div>",$string);
 						$containerCount++;
 					}
@@ -186,6 +187,17 @@ class plgContentWookmark_Gallery extends JPlugin
 					}
 				}
 
+				function readBooleanParameter($pair)
+				{
+					$boolValue = false;
+					$paramValue = $pair[1];
+					if ($paramValue == "y" || $paramValue == "Y")
+					{
+						$boolValue = true;
+					}
+					return $boolValue;
+				}
+				
 				function readIptcData($file, $folder_path, &$imgData)
 				{
 					$imgData[$file] = array();
@@ -211,8 +223,20 @@ class plgContentWookmark_Gallery extends JPlugin
 					}					
 				}
 
-				function fetchImgFold($folder_path, $insertInDatabase)
+				function fetchImgFold($folder_path, $insertInDatabase, $generateFile)
 				{
+					$cacheFilePath = $folder_path . '/cache.txt';
+					// 1 Check first igf the cache file exists
+					$cacheExists = file_exists($cacheFilePath);
+					
+					if ($cacheExists && $generateFile == false)
+					{
+						// The cache exists and we don 't need to generate it again
+						// -> Just return the cache value
+						return file_get_contents($cacheFilePath);
+					}
+					
+					// The cache file does not exist or we want to generate a new one
 					$base_url=JURI::root();
 					$tool = $this->params->def('tool');
 					$base=trim(JURI::base(true),'/\\');
@@ -247,12 +271,15 @@ class plgContentWookmark_Gallery extends JPlugin
 						$fileName = $string1[$c];
 						$caption = str_replace("'", "&apos;", $fileInfo[$fileName]);
 			
-						$tag .= "<li>
-								<a rel='shadowbox[gallery]' href='$base_url$folder_path$string1[$c]' title='$caption'>
-								<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$folder_path$string1[$c]&w=$th_img_width&q=100'>
-								</a>
-								</li>";	
+						$tag .= "<li>" .
+								"<a rel='shadowbox[gallery]' href='$base_url$folder_path$string1[$c]' title='$caption'>" .
+								"<img src='$base_url".'plugins/content/wookmark_gallery/wookmark_gallery/tmpl/'."$tool.php?src=$base/$folder_path$string1[$c]&w=$th_img_width&q=100'>" .
+								"</a>" .
+								"</li>";	
 					}
+					
+					// Write the cache file
+					file_put_contents($cacheFilePath, $tag);
 					return $tag;
 				}
 	
