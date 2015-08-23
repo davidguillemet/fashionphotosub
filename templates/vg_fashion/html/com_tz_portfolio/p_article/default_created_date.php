@@ -24,6 +24,6 @@ $params = $this -> item -> params;
 ?>
 <?php if ($params->get('show_create_date',1)) : ?>
 	<span class="TzCreate date" itemprop="dateCreated"><i class="icon-calendar"></i>
-		<?php setlocale(LC_TIME, "fr_FR"); echo strftime("%e %B %Y", strtotime($this->item->created)); ?>
+		<?php setlocale(LC_TIME, "fr_FR"); echo utf8_encode(strftime("%e %B %Y", strtotime($this->item->created))); ?>
 	</span>
 <?php endif; ?>
