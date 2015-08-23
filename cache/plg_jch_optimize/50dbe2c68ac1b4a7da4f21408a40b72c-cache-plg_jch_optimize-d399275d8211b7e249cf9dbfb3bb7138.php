@@ -1,1 +1,0 @@
-<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:212:"djConfig={modulePaths:{"dojo":"https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo","dijit":"https://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit","dojox":"https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojox"}};";}

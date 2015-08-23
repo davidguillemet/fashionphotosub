@@ -1,3 +1,0 @@
-<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:546:"jQuery(document).imagesLoaded(function(){jQuery(document).ready(new function(){var options0={autoResize:true,container:jQuery('#myapp0'),offset:5,itemWidth:167};var handler0=jQuery('#tiles0 li');handler0.wookmark(options0);jQuery('.tiles li').tipsy({gravity:'s',html:true,delayIn:0,delayOut:0,offset:0,opacity:1,fade:true,title:function(){var li=jQuery(this);var a=li.children().first();var title=a.attr('title');if(title!=null&&title.length>0)
-{li.attr('title',title);a.attr('title','');return title;}
-return li.attr('original-title');}});});});";}

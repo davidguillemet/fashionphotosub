@@ -1,1 +1,0 @@
-<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:99:".nn_tooltips-link{border-bottom:1px dashed #ccc}.nn_tooltips.popover{max-width:400px;z-index:10000}";}

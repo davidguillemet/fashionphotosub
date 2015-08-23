@@ -1,1 +1,0 @@
-<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:73:"var rootUrl="/fashion/";var rootTemplate=rootUrl+"templates/vg_fashion/";";}

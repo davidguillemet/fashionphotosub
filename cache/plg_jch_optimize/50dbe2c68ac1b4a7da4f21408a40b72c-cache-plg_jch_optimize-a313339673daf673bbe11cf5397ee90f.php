@@ -1,1 +1,0 @@
-<?php die("Access Denied"); ?>#x#a:2:{s:6:"output";s:0:"";s:6:"result";s:136:"jQuery(document).ready(function(){Fluidvids.init({selector:'.TzArticleMedia iframe',players:['www.youtube.com','player.vimeo.com']});});";}
