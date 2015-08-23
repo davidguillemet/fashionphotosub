@@ -2,9 +2,9 @@
         (function(){
             djConfig = {
               modulePaths: {
-                "dojo": "/fashion/plugins/system/dojoloader/dojo/1.6.1/dojo",
-                "dijit": "/fashion/plugins/system/dojoloader/dojo/1.6.1/dijit",
-                "dojox": "/fashion/plugins/system/dojoloader/dojo/1.6.1/dojox"
+                "dojo": "/plugins/system/dojoloader/dojo/1.6.1/dojo",
+                "dijit": "/plugins/system/dojoloader/dojo/1.6.1/dijit",
+                "dojox": "/plugins/system/dojoloader/dojo/1.6.1/dojox"
               }
               
               ,
