@@ -1157,8 +1157,6 @@
 
         getNestedProperty: function (obj, property) {
             property.replace(
-                // Matches native JavaScript notation in a String,
-                // e.g. '["doubleQuoteProp"].dotProp[2]'
                 /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
                 function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
                     var prop = dotProp || singleQuoteProp || doubleQuoteProp ||
@@ -1176,8 +1174,7 @@
                 var prop = obj.getAttribute('data-' +
                         property.replace(/([A-Z])/g, '-$1').toLowerCase());
                 if (typeof prop === 'string') {
-                    if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
-                            .test(prop)) {
+                    if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/.test(prop)) {
                         try {
                             return $.parseJSON(prop);
                         } catch (ignore) {}
