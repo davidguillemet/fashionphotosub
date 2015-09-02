@@ -2,7 +2,7 @@
 /**
  * @package		Joomla.Site
  * @subpackage	Templates.vg_fashion
- * @copyright	Copyright (C) 2012 Valentín García - http://www.valentingarcia.com.mx - All rights reserved.
+ * @copyright	Copyright (C) 2012 ValentÃ­n GarcÃ­a - http://www.valentingarcia.com.mx - All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -167,9 +167,7 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <script>
 
 $f(function($){
-	/* :::::::::::::: SUPER SIZED SLIDER ::::::::::::: */	
 	$.supersized({
-	
 		// Functionality
 		slide_interval          :   <?php echo $vg_slide_interval; ?>,		// Length between transitions
 		transition              :   <?php echo $vg_transition; ?>, 			// 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
@@ -195,8 +193,8 @@ $f(function($){
 									],
 		random					: 0,
 		image_protect			: 0,
-		autoplay				: 0
-		
+		autoplay				: 0,
+		keyboard_nav			: 0
 	});
 });
 
@@ -204,41 +202,75 @@ $f(function($){
 
 <?php }//A2.--> ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/shadowbox/shadowbox.css">
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/shadowbox/shadowbox.js"></script>
-<script type="text/javascript">
-var myApp = {
-    SBAdjust: function() {
-	    
-	    Shadowbox.play();
-	    Shadowbox.pause();
-	  
-        if (Shadowbox.hasNext())
-            jQuery('#sb-body').addClass('sb-touch');
+<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/css/blueimp-gallery.css">
+<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/css/blueimp-gallery-indicator.css">
+<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/blueimp-helper.js"></script>
+<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/blueimp-gallery.js"></script>
+<script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/blueimp-gallery-indicator.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/jquery.blueimp-gallery.js"></script>
 
-        jQuery(document).on('swipeleft', '.sb-touch', function (e) {
-            e.preventDefault();
-            Shadowbox.next();
-        });
-        jQuery(document).on('swiperight', '.sb-touch', function (e) {
-            e.preventDefault();
-            Shadowbox.previous();
-        });
-    }
-}
-</script> 
 <script type="text/javascript">
-Shadowbox.init({
-    modal: true,
-	displayNav: true,
-	slideshowDelay: 5,
-	overlayOpacity: 0.8,
-	handleOversize: 'resize',
-	onOpen: myApp.SBAdjust,
-    onClose: function() {
-        jQuery('.sb-touch').removeClass('sb-touch');
-    }
+
+jQuery.extend(blueimp.Gallery.prototype.options, {
+	slideClass: 'slide',
+	slideshowInterval: 3000,
+	titleElement: 'span',
+	toggleControlsOnReturn: false,
+	titleProperty: 'caption'
 });
+
+// Override blueimp setTitle function in order to allow HTML as image title
+blueimp.Gallery.prototype.setTitle = function (index) {
+    var text = this.slides[index].firstChild.title,
+        titleElement = this.titleElement;
+    if (titleElement.length) {
+        this.titleElement.empty();
+        if (text) {
+			jQuery(titleElement).append(jQuery('<span>' + text + '</span>'));
+        }
+    }
+	// Update image index indicator
+	var counterText = (index+1) + ' de ' + this.getNumber();
+	var counterElement = this.container.find("span.imageIndex");
+	jQuery(counterElement).empty().append(counterText);
+}
+
+// Override blueimp toggleControls method in order to let us decide when to dsiplay/hide controls
+blueimp.Gallery.prototype.toggleControls = function () {
+	// Do nothing...
+}
+
+var ctrlTimer = null;
+var ctrlDisplayTime = 4000;
+var controlsClass = blueimp.Gallery.prototype.options.controlsClass;
+function startHideGalleryControls(gallery)
+{
+	ctrlTimer = setUpControlTimer(gallery);
+	
+	jQuery(gallery).on("mousemove", function() { 
+		if (ctrlTimer != null) clearTimeout(ctrlTimer);
+		showGalleryControls(gallery);
+		ctrlTimer = setUpControlTimer(gallery);
+	});
+}
+function stopHideGalleryControls(gallery)
+{
+	if (ctrlTimer != null) clearTimeout(ctrlTimer);
+	showGalleryControls(gallery);
+}
+function setUpControlTimer(gallery)
+{
+	return setTimeout(function() { hideGalleryControls(gallery); }, ctrlDisplayTime );	
+}
+function hideGalleryControls(gallery)
+{
+	gallery.removeClass(controlsClass);
+}
+function showGalleryControls(gallery)
+{	
+	gallery.addClass(controlsClass);
+}
+
 </script>
 
 <style>
@@ -418,77 +450,6 @@ pageTracker._trackPageview();
 </script>
 
 <?php }//A4.--> ?>
-
-<?php if( $vg_video_status == 1 ){//<--A5. ?>
-	<script>
-	$f(document).ready(function(){
-	
-	$f(window).resize(function () {
-		window.win_w = $f(window).width();
-		window.win_h = $f(window).height();
-	});
-	$f(window).resize();
-	function isiPhone(){
-		return (
-			(navigator.platform.indexOf("iPhone") != -1) ||
-			(navigator.platform.indexOf("iPod") != -1)
-		);
-	}
-	if($f("#video-wrap").length){
-		$f("ul#supersized").css('display', 'none');
-		$f("ul#supersized").css('visibility', 'hidden');
-		var deviceAgent = navigator.userAgent.toLowerCase();
-		var agentID = deviceAgent.match(/(ipod|ipad)/);
-		if (agentID) {
-			jwplayer("video-wrap").setup({
-				flashplayer: "<?php echo JURI::base(); ?>/templates/vg_fashion/images/media/player.swf",
-				levels: [
-					{file: "<?php echo $vg_video_1; ?>"}
-				],
-				height: win_h-150,
-				width: win_w,
-				image: "<?php echo JURI::base(); ?>/<?php echo $vg_video_image; ?>",
-				'controlbar': 'none',
-				'autostart': 'true'
-			});
-			$f('#video-wrap_wrapper, #video-wrap ').addClass('ipad');
-		}
-		else if(isiPhone()){
-			jwplayer("video-wrap").setup({
-				flashplayer: "<?php echo JURI::base(); ?>/templates/vg_fashion/images/media/player.swf",
-				levels: [
-				{file: "<?php echo $vg_video_1; ?>"}
-				],
-				height: 740,
-				width: win_w,
-				image: "<?php echo JURI::base(); ?>/<?php echo $vg_video_image; ?>",
-				'controlbar': 'none',
-				'autostart': 'true'
-			});
-			$f('#video-wrap_wrapper, #video-wrap ').addClass('ipad');
-		}
-		else {
-			jwplayer("video-wrap").setup({
-				flashplayer: "<?php echo JURI::base(); ?>/templates/vg_fashion/images/media/player.swf",
-				file: "<?php echo $vg_video_1; ?>",
-				height: win_h,
-				width: win_w,
-				image: "<?php echo JURI::base(); ?>/<?php echo $vg_video_image; ?>",
-				'stretching': 'fill',
-				'controlbar': 'none',
-				icons:false,
-				'autostart': 'true'
-			});
-		}
-	}
-	
-	});
-		
-	</script>
-	
-	<div id="video-wrap"></div>
-
-<?php }//.A5--> ?>
 
 </body>
 </html>
