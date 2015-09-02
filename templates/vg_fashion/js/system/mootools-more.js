@@ -4902,6 +4902,8 @@ Element.Properties.slide = {
 		return a;
 	}
 };
+
+/* DGUI Remove This function since it conflcts with bllueimp gallery 
 Element.implement({
 	slide: function(d, e) {
 		d = d || "toggle";
@@ -4929,6 +4931,8 @@ Element.implement({
 		return this;
 	}
 });
+*/
+
 Fx.SmoothScroll = new Class({
 	Extends: Fx.Scroll,
 	options: {
@@ -9762,3 +9766,4 @@ Form.Validator.add("validate-currency-yuan", {
 		return Form.Validator.getValidator("IsEmpty").test(a) || (/^￥?\-?([1-9]{1}[0-9]{0,2}(\,[0-9]{3})*(\.[0-9]{0,2})?|[1-9]{1}\d*(\.[0-9]{0,2})?|0(\.[0-9]{0,2})?|(\.[0-9]{1,2})?)$/).test(a.get("value"));
 	}
 });
+
