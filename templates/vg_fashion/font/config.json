@@ -397,6 +397,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "ce06b5805120d0c2f8d60cd3f1a4fdb5",
+      "css": "play",
+      "code": 59464,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0b28050bac9d3facf2f0226db643ece0",
+      "css": "pause",
+      "code": 59465,
+      "src": "fontawesome"
+    },
+    {
       "uid": "e75c54c282c0bf22186c5c7ec4b03eac",
       "css": "target",
       "code": 59429,
