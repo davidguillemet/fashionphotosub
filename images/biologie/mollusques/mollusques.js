@@ -10,10 +10,20 @@
 		fadeInDelay = 1000, // TODO = increment this value with the number of images
 		$window = $(window),
 		$document = $(document),
-		imagesTooltip = [],
 		previousContentWidth = -1,
 		currentFilter = null;
-	
+
+		// Add an option to sort images from title and to filter inactive elements
+		jQuery.extend(blueimp.Gallery.prototype.options, {
+			sort: function(a, b) {
+					return $(a).attr('data-name').localeCompare($(b).attr('data-name'));
+			},
+			customFilter: function(index) {
+				var $imgLink = $(this);
+				return ($imgLink.parents("li")[0].hasClass("inactive") == false);
+			}
+		});
+
 	function comparatorName(a, b)
 	{
 		return $(a).data('name') < $(b).data('name') ? -1 : 1;
@@ -57,16 +67,9 @@
 				$handler = $('li', $tiles);
 				defaultWookmarkOptions.itemWidth = getWookmarkThumbnailWidth();
 				$handler.wookmark(defaultWookmarkOptions);
-
-				// Setup shadowbox links
-				Shadowbox.clearCache();
-				// Select all shadowbox links:
+				
+				// Select all image links:
 				var imgLinks = $(".tiles > li a.sblink");
-				imgLinks.each(function() { var $imgLink = $(this); imagesTooltip[$imgLink.attr('id')] = $imgLink.attr('title'); });
-				imgLinks.sort(function(a, b) {
-					return $(a).attr('data-name').localeCompare($(b).attr('data-name'));
-				});
-				Shadowbox.setup(imgLinks);
 				
 				imgLinks.tipsy({
 					gravity: 's',
@@ -219,17 +222,21 @@
 				html += '<div class="wmcontainer">';
 				html += '<div class="wmdesc">';
 				html += '<div class="wmlinks">';
-				html += '<a class="sblink" rel="shadowbox[mollusques]" href="' + imageFilePath + '"';
+				html += '<a class="sblink" data-gallery="#blueimp-gallery" href="' + imageFilePath + '"';
 				html += ' id="' + imgLinkId + '" data-name="' + image.desc + '"';
 				if (addArticleLink)
 				{
-					html += ' title="' + articleLinkEncoded + image.desc + '&lt;/a&gt;">';
+					html += ' data-caption="' + articleLinkEncoded + image.desc + '&lt;/a&gt;">';
 				}
 				else
 				{
-					html += ' title="' + image.desc + '">';
+					html += ' data-caption="' + image.desc + '">';
 				}
 				html += '<i class="icon-search"></i>';
+				
+				// Add image with 'display:none' in order to generate indicator thumbnail
+				html += '<img src="' + rootUrl + wPlugin + imageFilePath + '&amp;w=' + thumbnailWith + '&amp;q=100" style="display:none">';
+				
 				html += '</a>';
 				if (addArticleLink)
 				{
@@ -448,15 +455,6 @@
 		
 		// Filter wookmark gallery
 		$handler.wookmarkInstance.filter(wookmarkFilter);
-		
-		// Setup shadowbox links
-		Shadowbox.clearCache();
-		// Select all shadowbox links:
-		var links = $(".tiles > li:not(.inactive) a.sblink");
-		links.each(function() { var $imgLink = $(this); $imgLink.attr('title', imagesTooltip[$imgLink.attr('id')]); });
-		
-		Shadowbox.setup(links);
-		
 	}
 	
 	// Loading is true when onResize is called when the page is loading
