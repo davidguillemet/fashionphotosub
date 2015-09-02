@@ -222,17 +222,20 @@ $doc->addStyleDeclaration('
                         })
                     }
 
-                    jQuery('#tz_append').attr('data-order',max_order);
-                    var $opClass = getFilterOptions(),
+					if (jQuery('#tz_append').length)
+					{
+						jQuery('#tz_append').attr('data-order',max_order);
+                    	var $opClass = getFilterOptions(),
                             $b_class = jQuery('#tz_append').attr('class').split(' ');
 
-                    if($opClass.length){
-                        jQuery.each($opClass,function(i,el){
-                            if(jQuery.inArray(el,$b_class) === -1){
-                                jQuery('#tz_append').addClass(el);
-                            }
-                        });
-                    }
+                    	if($opClass.length){
+                        	jQuery.each($opClass,function(i,el){
+                            	if (jQuery.inArray(el,$b_class) === -1){
+                                	jQuery('#tz_append').addClass(el);
+                            	}
+                        	});
+                    	}
+					}
                 }
 
         );
