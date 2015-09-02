@@ -28,6 +28,6 @@ administrator/components/com_sh404sef/security/sh404SEF_AntiFlood_Data.dat
 
 components/com_foxcontact/uploads/*
 
-images/phocagallery/**/cache.txt
+images/phocagallery/**/cache*.txt
 
 cache/plg_jch_optimize/*
