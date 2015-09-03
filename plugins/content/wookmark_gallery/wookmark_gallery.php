@@ -364,7 +364,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		for ($i = 0; $i < count($img_path); $i++)
 		{
 			$tag .= "<span class='wookmark-single-" . $align . "'>" .
-					"<a href='" . $base_url . $img_path[$i] . "' title='" . $title[$i] . "' data-gallery>" .
+					"<a href='" . $base_url . $img_path[$i] . "' title='" . $title[$i] . "' data-caption='" . $title[$i] . "' data-gallery>" .
 					"<img  src='" . $wookmarkPath . "?src=" . $base . "/" . $img_path[$i] . "&w=" . $th_img_width . "&q=100'>" .
 					"</a></span>";
 		}
