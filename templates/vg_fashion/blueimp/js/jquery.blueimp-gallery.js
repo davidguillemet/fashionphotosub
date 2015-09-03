@@ -96,6 +96,18 @@
 			stopHideGalleryControls(this);
 		});	
 		
+		var responsiveData = getResponsiveData();
+		var indicators = container.find(".indicator");
+		if (responsiveData.blueimpThumbnails && !indicators.length)
+		{
+			container.append("<ol class='indicator'></o>");
+		}
+		
+		if (!responsiveData.blueimpThumbnails && indicators.length)
+		{
+			jQuery(".indicator").remove();
+		}
+		
         return new Gallery(links, options);
     });
 

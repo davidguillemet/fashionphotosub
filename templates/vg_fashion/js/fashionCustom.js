@@ -150,10 +150,10 @@ $f(document).ready(function(){
 
 // column-1 width = 100% (300px) -> 460px -> 730px -> 940px
 var responsiveData = [
-	{ thumbWidth: 210, chart: false },
-	{ thumbWidth: 184, chart: false },
-	{ thumbWidth: 210, chart: false },
-	{ thumbWidth: 210, chart: true }
+	{ thumbWidth: 210, chart: false, blueimpThumbnails: false },
+	{ thumbWidth: 184, chart: false, blueimpThumbnails: false },
+	{ thumbWidth: 210, chart: false, blueimpThumbnails: true },
+	{ thumbWidth: 210, chart: true, blueimpThumbnails: true }
 ];
 
 function getContentWidth()
