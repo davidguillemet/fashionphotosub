@@ -264,6 +264,14 @@ function startHideGalleryControls(gallery, initialized)
 		.mouseleave( function () {
 			startHideGalleryControls(gallery, true);
 		} );
+		
+		// Add tooltip for controls
+		jQuery(gallery).find(".next").attr('title', 'Appuyez sur -> pour afficher l\'image Suivante');
+		jQuery(gallery).find(".prev").attr('title', 'Appuyez sur <- pour afficher l\'image Précédente');
+		jQuery(gallery).find(".close").attr('title', 'Appuyez sur echap pour fermer la galerie');
+		jQuery(gallery).find(".icon-play").attr('title', 'Appuyez sur espace pour démarrer le diaporama');
+		jQuery(gallery).find(".icon-pause").attr('title', 'Appuyez sur espace pour arrêter le diaporama');
+		
 	}
 }
 function stopHideGalleryControls(gallery)
