@@ -2222,6 +2222,10 @@ div.acymailing_fulldiv
 	{
 		width: 385px;
 	}
+	.blueimp-gallery > .title
+	{
+		display: none;
+	}
 }
 
 @media only screen and (min-width: 200px) and (max-width: 479px) {
@@ -2284,6 +2288,10 @@ div.acymailing_fulldiv
 	input#search-area103:focus
 	{
 		width: 230px;
+	}
+	.blueimp-gallery > .title
+	{
+		display: none;
 	}
 }
 
