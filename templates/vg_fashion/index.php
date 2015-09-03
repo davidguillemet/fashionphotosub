@@ -465,5 +465,17 @@ pageTracker._trackPageview();
 
 <?php }//A4.--> ?>
 
+<div id='blueimp-gallery' class='blueimp-gallery blueimp-gallery-controls'>
+  <div class='slides'></div>
+  <span class='title'></span>
+  <span class='imageIndex'></span>
+  <a class='prev'>‹</a>
+  <a class='next'>›</a>
+  <a class='close'><i class='icon-cancel'></i></a>
+  <a class='info'><i class='icon-info-circled'></i></a>
+  <a class='play-pause'><i class='icon-play'></i><i class='icon-pause'></i></a>
+  <ol class='indicator'></ol>
+</div>
+
 </body>
 </html>
