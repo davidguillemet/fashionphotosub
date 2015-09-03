@@ -243,18 +243,32 @@ blueimp.Gallery.prototype.toggleControls = function () {
 var ctrlTimer = null;
 var ctrlDisplayTime = 4000;
 var controlsClass = blueimp.Gallery.prototype.options.controlsClass;
-function startHideGalleryControls(gallery)
+function startHideGalleryControls(gallery, initialized)
 {
 	ctrlTimer = setUpControlTimer(gallery);
 	
+	// Show controls as son as the mouse moves
 	jQuery(gallery).on("mousemove", function() { 
 		if (ctrlTimer != null) clearTimeout(ctrlTimer);
 		showGalleryControls(gallery);
 		ctrlTimer = setUpControlTimer(gallery);
 	});
+	
+	if (!initialized)
+	{
+		// Keep controls displayed when the mouse is over the prev/next buttons
+		jQuery(gallery).find(".next, .prev, .close, .play-pause")
+		.mouseenter( function () {
+			stopHideGalleryControls(gallery);
+		} )
+		.mouseleave( function () {
+			startHideGalleryControls(gallery, true);
+		} );
+	}
 }
 function stopHideGalleryControls(gallery)
 {
+	jQuery(gallery).off("mousemove");
 	if (ctrlTimer != null) clearTimeout(ctrlTimer);
 	showGalleryControls(gallery);
 }
