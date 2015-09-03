@@ -115,6 +115,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "5211af474d3a9848f67f945e2ccaf143",
+      "css": "cancel",
+      "code": 59466,
+      "src": "fontawesome"
+    },
+    {
       "uid": "0f4cae16f34ae243a6144c18a003f2d8",
       "css": "cancel-circled",
       "code": 59412,
