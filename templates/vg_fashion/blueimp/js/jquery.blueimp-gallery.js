@@ -90,7 +90,13 @@
 			links = links.sort(blueimp.Gallery.prototype.options.sort);
 		}
 		
-		jQuery(id).on('open', function (event) {
+		var $container = jQuery(id);
+		if (!$container.length)
+		{
+			$container = jQuery(Gallery.prototype.options.container);
+		}
+		
+		container.on('open', function (event) {
 			startHideGalleryControls(this);
 		}).on('close', function (event) {
 			stopHideGalleryControls(this);
