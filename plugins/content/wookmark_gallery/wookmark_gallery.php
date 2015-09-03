@@ -224,7 +224,7 @@ class plgContentWookmark_Gallery extends JPlugin
 
 	function fetchImgFold($folder_path, $insertInDatabase, $generateFile, $galleryIndex)
 	{
-		$cacheFilePath = $folder_path . '/cachev2.txt';
+		$cacheFilePath = $folder_path . '/cachev3.txt';
 		// 1 Check first igf the cache file exists
 		$cacheExists = file_exists($cacheFilePath);
 					
