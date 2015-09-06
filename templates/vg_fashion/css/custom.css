@@ -113,11 +113,19 @@ ul#slide-list
 
 .blueimp-gallery > .title
 {
-	width: 100%;
-	left: 0px;
+	width: auto;
+	height: 30px;
+	overflow: hidden;
+	left: 120px;
+	right: 90px;
 	top: 5px;
 	text-align: center;
 	display: block;
+	margin: 0px;
+}
+
+.blueimp-gallery > .title > span
+{
 }
 
 .blueimp-gallery > .imageIndex
@@ -133,13 +141,6 @@ ul#slide-list
             border-radius: 5px;
 			padding-left: 5px;
 			padding-right: 5px;
-}
-
-.blueimp-gallery > .title
-{
-	width: auto;
-	left: 100px;
-	right: 100px;
 }
 
 .blueimp-gallery > .close, .blueimp-gallery > .info, body:last-child .blueimp-gallery > .play-pause
@@ -2234,10 +2235,6 @@ div.acymailing_fulldiv
 	{
 		width: 385px;
 	}
-	.blueimp-gallery > .title
-	{
-		display: none;
-	}
 }
 
 @media only screen and (min-width: 200px) and (max-width: 479px) {
@@ -2300,10 +2297,6 @@ div.acymailing_fulldiv
 	input#search-area103:focus
 	{
 		width: 230px;
-	}
-	.blueimp-gallery > .title
-	{
-		display: none;
 	}
 }
 
