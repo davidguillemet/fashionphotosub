@@ -1,4 +1,5 @@
-(function($) {
+jQuery(document).ready( function($) {
+
 	var $articleTitle = $('h2.TzArticleTitle');
 	var mollusqueType = $.trim($articleTitle.text());
 	var $wikiContent = $('#wikicontent');
@@ -107,4 +108,4 @@
 		$(".TzNavigationItem").css('text-transform', 'none');
 	});
   
-})(jQuery);
+});

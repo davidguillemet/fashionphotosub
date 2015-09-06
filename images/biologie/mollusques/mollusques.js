@@ -1,4 +1,5 @@
-(function($) {
+jQuery(document).ready( function($) {
+	
 	var $tiles = $('.tiles'),
 		$handler = $('li', $tiles),
 		isLoading = false,
@@ -858,6 +859,6 @@
 	
 	loadData('count', '');
 	
-})(jQuery);
+});
 
 

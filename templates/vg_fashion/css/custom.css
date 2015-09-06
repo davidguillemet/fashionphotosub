@@ -1666,6 +1666,35 @@ ul.check > li
 
 
 /* Wookmark Gallery */
+.wookmarkProgress
+{
+	width: 90%;
+	margin: auto;
+	padding: 0 15px 15px 15px;
+	text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+	background-color: #222;
+}
+
+.wookmarkProgress h3
+{
+	padding-top: 10px;
+}
+
+.wookmarkProgress > .progressBar
+{
+	position: relative;
+	left: 0px;
+	width: 0%;
+	height: 10px;
+	background-color: white;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
 .myapp
 {
 	margin: 10px 0 10px 0;

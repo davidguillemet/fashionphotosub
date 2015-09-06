@@ -116,24 +116,22 @@ var responsiveData = [
 
 function getContentWidth()
 {
-	var contentWidthCssValue = $f(".column-1").css('width');
-	var contentWidth = parseInt(contentWidthCssValue.substr(0, contentWidthCssValue.length - 2));
-	return contentWidth;
+	return jQuery(window).width();
 }
 
 function getResponsiveData(width)
 {
 	var contentWidth = width == null ? getContentWidth() : width;
 	var dataIndex = -1;
-	if (contentWidth < 460)
+	if (contentWidth < 480)
 	{
 		dataIndex = 0;
 	}
-	else if (contentWidth < 730)
+	else if (contentWidth < 768)
 	{
 		dataIndex = 1;
 	}
-	else if (contentWidth < 940)
+	else if (contentWidth < 960)
 	{
 		dataIndex = 2;
 	}

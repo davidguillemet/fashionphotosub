@@ -131,9 +131,18 @@ class plgContentWookmark_Gallery extends JPlugin
 							}
 						}
 					}
+					
 					$returned = $this->fetchImgFold($arr_folder_path, $insertDB, $generateFile, $containerCount);
 						
-					$galleryHtml = "<div class='myapp' id='myapp$containerCount'><ul class='tiles' id='tiles$containerCount'>$returned</ul></div>";
+					$galleryHtml = "
+						<div class='myapp' id='myapp$containerCount'>
+							<div id='progress$containerCount' class='wookmarkProgress'>
+								<h3>Chargement en cours...</h3>
+								<div class='progressBar'></div>
+							</div>
+							<ul class='tiles' id='tiles$containerCount'>$returned</ul>
+						</div>";
+						
 					$galleryHtml .= "<div id='blueimp-gallery$containerCount' class='blueimp-gallery blueimp-gallery-controls'>" .
 									"<div class='slides'></div>" .
 									"<span class='title'></span>" .
@@ -150,25 +159,42 @@ class plgContentWookmark_Gallery extends JPlugin
 				}
 			}
 
-			$javascript = "
-			<script type='text/javascript'>
-			jQuery(document).imagesLoaded(function() {
-				jQuery(document).ready(new function() {";
-			
-				for ($galleryIndex = 0; $galleryIndex < $containerCount; $galleryIndex++)
-				{
-					$javascript .= "
+			$javascript = "<script type='text/javascript'>
+			jQuery(document).ready( function() {";
+							
+			for ($galleryIndex = 0; $galleryIndex < $containerCount; $galleryIndex++)
+			{
+				$javascript .= "
+				var imgLoad$galleryIndex = new imagesLoaded('#myapp$galleryIndex');
+					
+				function onAlways$galleryIndex(instance) {
+					
+					jQuery('#progress$galleryIndex').css('display', 'none');
+					
 					var options$galleryIndex = {
 						autoResize: $autoresize_gal, 
 						container: jQuery('#myapp$galleryIndex'), 
 						offset: $offset, 
 						itemWidth: $itemWidth
 					};
+					
 					var handler$galleryIndex = jQuery('#tiles$galleryIndex li');
-					handler$galleryIndex.wookmark(options$galleryIndex);";
+					handler$galleryIndex.wookmark(options$galleryIndex);
 				}
+				
+				imgLoad$galleryIndex.on('always', onAlways$galleryIndex);
+				
+				var imagesCount$galleryIndex = jQuery('#myapp$galleryIndex #tiles$galleryIndex li').length;
+				var imageLoaded$galleryIndex = 0;
+				
+				imgLoad$galleryIndex.on('progress', function (instance, image) {
+					imageLoaded$galleryIndex++;
+					var progress = Math.round((imageLoaded$galleryIndex * 100) / imagesCount$galleryIndex);
+					jQuery('#progress$galleryIndex .progressBar').css('width', progress + '%');
+				});";
+			}
 			  
-				$javascript .= "
+			$javascript .= "
 				jQuery('.tiles li').tipsy({
 					gravity: 's',
 					html: true,
@@ -177,10 +203,9 @@ class plgContentWookmark_Gallery extends JPlugin
 					offset: 0,
 					opacity: 1,
 					fade: true
-					});
 				});
 			});
-			</script>	";
+			</script>";
 		  
 			$article->text = $string . $javascript;
 		  
