@@ -99,7 +99,7 @@
 		container.on('open', function (event) {
 			startHideGalleryControls(this);
 		}).on('close', function (event) {
-			stopHideGalleryControls(this);
+			closeGallery(this);
 		});	
 		
 		var responsiveData = getResponsiveData();

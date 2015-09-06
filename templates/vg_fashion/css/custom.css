@@ -103,6 +103,14 @@ ul#slide-list
 }
 
 /* Blueimp Gallery */
+.blueimp-gallery > .slides
+{
+	position: absolute;
+	height: auto;
+	top: 0px;
+	bottom: 0px;
+}
+
 .blueimp-gallery > .title
 {
 	width: 100%;
@@ -217,9 +225,13 @@ body:last-child .blueimp-gallery-playing > .play-pause > .icon-play
 	display: none;
 }
 
-.blueimp-gallery-controls > .imageIndex/*, .blueimp-gallery-controls > .info*/
+.blueimp-gallery-controls > .imageIndex
 {
 	display: block;
+}
+.blueimp-gallery-controls > .indicator
+{
+	display: none;
 }
 
 /* Pour la recherhe AJAX */

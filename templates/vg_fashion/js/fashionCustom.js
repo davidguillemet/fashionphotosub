@@ -102,49 +102,7 @@ $f(document).ready(function(){
 			$f(this).children('span').removeClass('dark-background');
 		});
 	}
-		
-	/* :::::::::::::: PORTFOLIO FILTER (ISOTOPE) ::::::::::::: */
-	// Needed variables
-	var $container	 	= $f("#portfolio-list");
-	var $filter 		= $f("#portfolio-filter");
-		
-	// Run Isotope  
-	$container.isotope({
-		filter				: '*',
-		layoutMode   		: 'masonry',
-		animationOptions	: {
-		duration			: 750,
-		easing				: 'linear'
-	   }
-	});	
-	
-	// Isotope Filter 
-	$filter.find('a').click(function(){
-	  var selector = $f(this).attr('data-filter');
-		$container.isotope({ 
-		filter				: selector,
-		animationOptions	: {
-		duration			: 750,
-		easing				: 'linear',
-		queue				: false,
-	   }
-	  });
-	  return false;
-	});	
-	
-	// Copy categories to item classes
-	$filter.find('a').click(function() {
-		var currentOption = $f(this).attr('data-filter');
-		$filter.find('a').removeClass('current');
-		$f(this).addClass('current');
-	});	
-	
-	/*::::: FILTER BACKGROUND HOVER EFFECT :::::*/
-	 $f("#portfolio-filter li a").hover(function() {
-                $f(this).stop().animate({ backgroundColor: "#e5e5e5", color: "#070707" }, 600);
-        },function() {
-                 $f(this).stop().animate({ backgroundColor: "#070707", color: "#999999" }, 400);
-	});
+
 });
 
 

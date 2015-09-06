@@ -125,8 +125,6 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 	<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/supersized.shutter.css" type="text/css" media="screen" />
 <?php } ?>
 
-<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/flexslider.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/gridNavigation.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/joomla.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/fontello.css" type="text/css" />
@@ -134,15 +132,10 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/tipsy.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/jqcloud.css" type="text/css" />
 
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.color.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.jplayer.min.js"></script>
-
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.imagesloaded.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.wookmark.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.tipsy.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jqcloud-1.0.4.min.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/jquery.mobile.swipe.min.js"></script>
 
 <!-- supersized -->
 <?php if( $vg_slide_status == 1 ){ ?>
@@ -208,92 +201,7 @@ $f(function($){
 <script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/blueimp-gallery.js"></script>
 <script src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/blueimp-gallery-indicator.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/jquery.blueimp-gallery.js"></script>
-
-<script type="text/javascript">
-
-jQuery.extend(blueimp.Gallery.prototype.options, {
-	slideClass: 'slide',
-	slideshowInterval: 3000,
-	titleElement: 'span',
-	toggleControlsOnReturn: false,
-	titleProperty: 'caption'
-});
-
-// Override blueimp setTitle function in order to allow HTML as image title
-blueimp.Gallery.prototype.setTitle = function (index) {
-    var text = this.slides[index].firstChild.title,
-        titleElement = this.titleElement;
-    if (titleElement.length) {
-        this.titleElement.empty();
-        if (text) {
-			jQuery(titleElement).append(jQuery('<span>' + text + '</span>'));
-        }
-    }
-	// Update image index indicator
-	var counterText = (index+1) + ' de ' + this.getNumber();
-	var counterElement = this.container.find("span.imageIndex");
-	jQuery(counterElement).empty().append(counterText);
-}
-
-// Override blueimp toggleControls method in order to let us decide when to dsiplay/hide controls
-blueimp.Gallery.prototype.toggleControls = function () {
-	// Do nothing...
-}
-
-var ctrlTimer = null;
-var ctrlDisplayTime = 4000;
-var controlsClass = blueimp.Gallery.prototype.options.controlsClass;
-function startHideGalleryControls(gallery, initialized)
-{
-	ctrlTimer = setUpControlTimer(gallery);
-	
-	// Show controls as son as the mouse moves
-	jQuery(gallery).on("mousemove", function() { 
-		if (ctrlTimer != null) clearTimeout(ctrlTimer);
-		showGalleryControls(gallery);
-		ctrlTimer = setUpControlTimer(gallery);
-	});
-	
-	if (!initialized)
-	{
-		// Keep controls displayed when the mouse is over the prev/next buttons
-		jQuery(gallery).find(".next, .prev, .close, .play-pause")
-		.mouseenter( function () {
-			stopHideGalleryControls(gallery);
-		} )
-		.mouseleave( function () {
-			startHideGalleryControls(gallery, true);
-		} );
-		
-		// Add tooltip for controls
-		jQuery(gallery).find(".next").attr('title', 'Appuyez sur -> pour afficher l\'image Suivante');
-		jQuery(gallery).find(".prev").attr('title', 'Appuyez sur <- pour afficher l\'image Précédente');
-		jQuery(gallery).find(".close").attr('title', 'Appuyez sur echap pour fermer la galerie');
-		jQuery(gallery).find(".icon-play").attr('title', 'Appuyez sur espace pour démarrer le diaporama');
-		jQuery(gallery).find(".icon-pause").attr('title', 'Appuyez sur espace pour arrêter le diaporama');
-		
-	}
-}
-function stopHideGalleryControls(gallery)
-{
-	jQuery(gallery).off("mousemove");
-	if (ctrlTimer != null) clearTimeout(ctrlTimer);
-	showGalleryControls(gallery);
-}
-function setUpControlTimer(gallery)
-{
-	return setTimeout(function() { hideGalleryControls(gallery); }, ctrlDisplayTime );	
-}
-function hideGalleryControls(gallery)
-{
-	gallery.removeClass(controlsClass);
-}
-function showGalleryControls(gallery)
-{	
-	gallery.addClass(controlsClass);
-}
-
-</script>
+<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/blueimp/js/blueimpCustom.js"></script>
 
 <style>
 <?php echo $vg_css; ?>
