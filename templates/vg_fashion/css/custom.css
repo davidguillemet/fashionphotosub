@@ -115,10 +115,9 @@ ul#slide-list
 {
 	width: auto;
 	height: 30px;
-	overflow: hidden;
-	left: 120px;
-	right: 90px;
-	top: 5px;
+	left: 5px;
+	right: 5px;
+	top: 3px;
 	text-align: center;
 	display: block;
 	margin: 0px;
@@ -126,6 +125,10 @@ ul#slide-list
 
 .blueimp-gallery > .title > span
 {
+	position: absolute;
+	left: 0px;
+	height: 30px;
+	overflow: hidden;
 }
 
 .blueimp-gallery > .imageIndex

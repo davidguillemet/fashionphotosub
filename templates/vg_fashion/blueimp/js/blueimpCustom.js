@@ -30,6 +30,7 @@ blueimp.Gallery.prototype.setTitle = function (index) {
 	var counterText = '<i class="icon-th"></i>&nbsp;' + (index+1) + ' sur ' + this.getNumber();
 	var counterElement = this.container.find("span.imageIndex");
 	jQuery(counterElement).empty().append(counterText).attr('title', showThumbnailsTitle);
+	adjustTitle(this.container);
 }
 
 // Override blueimp toggleControls method in order to let me decide when to dsiplay/hide controls
@@ -113,10 +114,14 @@ function hideGalleryControls(gallery)
 	{
 		toggleThumbnails(gallery);
 	}
+	var $title = jQuery(gallery).find(".title");
+	$title.css("left", "5px");
+	$title.css("right", "5px");
 }
 function showGalleryControls(gallery)
 {	
 	gallery.addClass(controlsClass);
+	adjustTitle(gallery);
 }
 function toggleThumbnails(gallery)
 {
@@ -164,5 +169,27 @@ function checkThumbnailsSize()
 }
 function getindicatorsHeight($indicators)
 {
-	return $indicators.height() + parseInt($indicators.css("bottom"), 10) + thumbnailTopMargin;
+	return $indicators.height() + getCssIntProperty($indicators, "bottom") + thumbnailTopMargin;
+}
+function adjustTitle(gallery)
+{
+	var $title = jQuery(gallery).find(".title");
+	var $index = jQuery(gallery).find(".imageIndex");
+	var indexDisplay = $index.css("display");
+	if (indexDisplay == "none")
+	{
+		$title.css("left", "5px");	
+		$title.css("right", "5px");	
+	}
+	else
+	{
+		var indexLeft = getCssIntProperty($index, "left");
+		var indexWidth = $index.width();
+		$title.css("left", (indexLeft + indexWidth + 15) + "px");	
+		$title.css("right", "90px");	
+	}
+}
+function getCssIntProperty(element, property)
+{
+	return parseInt(element.css(property), 10);
 }
