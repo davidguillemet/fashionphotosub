@@ -97,10 +97,12 @@
 		}
 		
 		container.on('open', function (event) {
-			startHideGalleryControls(this);
+			openGallery(this);
 		}).on('close', function (event) {
 			closeGallery(this);
-		});	
+		}).on('opened', function (event) {
+			galleryOpened(this);
+		});
 		
 		var responsiveData = getResponsiveData();
 		var indicators = container.find(".indicator");

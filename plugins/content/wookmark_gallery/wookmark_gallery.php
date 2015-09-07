@@ -195,14 +195,9 @@ class plgContentWookmark_Gallery extends JPlugin
 			}
 			  
 			$javascript .= "
-				jQuery('.tiles li').tipsy({
-					gravity: 's',
-					html: true,
-					delayIn: 0,
-					delayOut: 0,
-					offset: 0,
-					opacity: 1,
-					fade: true
+				jQuery('.tiles li').tooltipster({
+					position: 'top',
+					offsetY: -4
 				});
 			});
 			</script>";

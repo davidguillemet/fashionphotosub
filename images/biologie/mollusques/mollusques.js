@@ -72,27 +72,17 @@ jQuery(document).ready( function($) {
 				// Select all image links:
 				var imgLinks = $(".tiles > li a.sblink");
 				
-				imgLinks.tipsy({
-					gravity: 's',
-					html: true,
-					delayIn: 0,
-					delayOut: 0,
-					offset: 0,
-					opacity: 1,
-					fade: true,
-					title: function() { return "Agrandir l'image"; }
+				imgLinks.tooltipster({
+					position: 'top',
+					offsetY: -4,
+					content: "Agrandir l'image"
 				});
 				
 				var articleLinks = $(".tiles > li a.artlink");
-				articleLinks.tipsy({
-					gravity: 's',
-					html: true,
-					delayIn: 0,
-					delayOut: 0,
-					offset: 0,
-					opacity: 1,
-					fade: true,
-					title: function() { return "Voir les détails"; }
+				articleLinks.tooltipster({
+					position: 'top',
+					offsetY: -4,
+					content: "Voir les détails"
 				});
 
 				// Set opacity for each new image at a random time
@@ -599,16 +589,18 @@ jQuery(document).ready( function($) {
 		
 		drawChart();
 		
-		$('svg text').tipsy({
-			gravity: $.fn.tipsy.autoWE,
-			html: true,
-			delayIn: 0,
-			delayOut: 0,
-			offset: 8,
-			opacity: 1,
-			fade: true,
-			title: function() {
-				return tooltips[this.id];
+		$('svg text.treelabel').tooltipster({
+			position: 'top',
+			minWidth: 200,
+			maxWidth: 400,
+			contentAsHTML: true,
+			functionInit: function (origin) {
+				var tip = tooltips[origin.attr('id')];
+				if (tip != null && tip.length > 0)
+				{
+					return tip;
+				}
+				return null;
 			}
 		});
 		
@@ -634,6 +626,7 @@ jQuery(document).ready( function($) {
 			});
 		
 		gElements.append("svg:text")
+			.attr("id", function (d,i) { return "alphafilter-" + i; })
 			.attr("class", "alphabeticalfilter")
 			.attr("x", circleRadius)
 			.attr("y", circleRadius + 6)
@@ -644,14 +637,10 @@ jQuery(document).ready( function($) {
 				if (d > 0) alphabeticalFilter(i);
 			});
 
-			$('svg text.alphabeticalfilter').tipsy({
-				gravity: 's',
-				html: true,
-				delayIn: 0,
-				delayOut: 0,
-				offset: 2,
-				opacity: 1,
-				fade: true
+			$('svg text.alphabeticalfilter').tooltipster({
+				position: 'top',
+				offsetY: 2,
+				contentAsHTML: true
 			});
 	}
 	
@@ -686,7 +675,10 @@ jQuery(document).ready( function($) {
 		
 		gElements.select("text")
 			.attr("fill", function (d) { return d > 0 ? textColor : emptyTextColor; })
-			.attr("title", function (d) { return d == 0 ? "" : d + " espèce" + (d > 1 ? "s" :""); } );
+			.each(function (d, i) {
+				var newTip = d == 0 ? null : d + " espèce" + (d > 1 ? "s" :"");
+				$("#alphafilter-" + i).tooltipster("content", newTip);
+			});
 	}
 	
 	function updateNodesXOffset() {
@@ -810,6 +802,7 @@ jQuery(document).ready( function($) {
 			var txtBox = nodeSVG.append("svg:text")
 				.data([node])
 				.attr("id", txtBoxId)
+				.attr("class", "treelabel")
 				.attr("dx", 10)
 				.attr("dy", 4)
 				.attr("fill", getTextColor(node.id))

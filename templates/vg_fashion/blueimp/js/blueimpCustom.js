@@ -16,10 +16,20 @@ var thumbnailsAreVisible = false;
 var thumbnailTopMargin = 10;
 var resizeProxy = null;
 
+var slideTitles = [];
+
 // Override blueimp setTitle function in order to allow HTML as image title
 blueimp.Gallery.prototype.setTitle = function (index) {
-    var text = this.slides[index].firstChild.title,
-        titleElement = this.titleElement;
+    var text = slideTitles[index];
+	if (!text)
+	{
+		text = this.slides[index].firstChild.title;
+		// Remove title attribute to avoid tooltip on the image
+		this.slides[index].firstChild.title = '';
+		// and store it in a separate container (array)
+		slideTitles[index] = text;
+	}
+    var titleElement = this.titleElement;
     if (titleElement.length) {
         this.titleElement.empty();
         if (text) {
@@ -38,7 +48,7 @@ blueimp.Gallery.prototype.toggleControls = function () {
 	// Do nothing...
 }
 
-function startHideGalleryControls(gallery, initialized)
+function startHideGalleryControls(gallery)
 {
 	ctrlTimer = setUpControlTimer(gallery);
 	
@@ -47,42 +57,53 @@ function startHideGalleryControls(gallery, initialized)
 		if (ctrlTimer != null) clearTimeout(ctrlTimer);
 		showGalleryControls(gallery);
 		ctrlTimer = setUpControlTimer(gallery);
-	});
+	});	
+}
+function openGallery(gallery)
+{	
+	// Keep controls displayed when the mouse is over the prev/next buttons
+	jQuery(gallery).find(".next, .prev, .close, .play-pause, .indicator, .imageIndex")
+	.mouseenter( function () {
+		stopHideGalleryControls(gallery);
+	} )
+	.mouseleave( function () {
+		startHideGalleryControls(gallery);
+	} );
 	
-	if (!initialized)
+	var responsiveData = getResponsiveData();
+	if (responsiveData != null && responsiveData.blueimpThumbnails)
 	{
-		// Keep controls displayed when the mouse is over the prev/next buttons
-		jQuery(gallery).find(".next, .prev, .close, .play-pause, .indicator, .imageIndex")
-		.mouseenter( function () {
-			stopHideGalleryControls(gallery);
-		} )
-		.mouseleave( function () {
-			startHideGalleryControls(gallery, true);
-		} );
-		
-		var responsiveData = getResponsiveData();
-		if (responsiveData != null && responsiveData.blueimpThumbnails)
-		{
-			jQuery(gallery).find("span.imageIndex")
-			.css("cursor", "pointer")
-			.on('click', function() {
-				toggleThumbnails(gallery);
-			});
-		}
-		
-		resizeProxy = jQuery.proxy(checkThumbnailsSize, gallery);
-		jQuery(window).on('resize', resizeProxy);
-		
-		// Add tooltip for controls
-		jQuery(gallery).find(".next").attr('title', 'Appuyez sur -> pour afficher l\'image Suivante');
-		jQuery(gallery).find(".prev").attr('title', 'Appuyez sur <- pour afficher l\'image Précédente');
-		jQuery(gallery).find(".close").attr('title', 'Appuyez sur echap pour fermer la galerie');
-		jQuery(gallery).find(".icon-play").attr('title', 'Appuyez sur espace pour démarrer le diaporama');
-		jQuery(gallery).find(".icon-pause").attr('title', 'Appuyez sur espace pour arrêter le diaporama');
+		jQuery(gallery).find("span.imageIndex")
+		.css("cursor", "pointer")
+		.on('click', function() {
+			toggleThumbnails(gallery);
+		});
 	}
+	
+	resizeProxy = jQuery.proxy(checkThumbnailsSize, gallery);
+	jQuery(window).on('resize', resizeProxy);
+	
+	// Add tooltip for controls
+	jQuery(gallery).find(".next").attr('title', 'Appuyez sur -> pour afficher l\'image Suivante');
+	jQuery(gallery).find(".prev").attr('title', 'Appuyez sur <- pour afficher l\'image Précédente');
+	jQuery(gallery).find(".close").attr('title', 'Appuyez sur echap pour fermer la galerie');
+	jQuery(gallery).find(".icon-play").attr('title', 'Appuyez sur espace pour démarrer le diaporama');
+	jQuery(gallery).find(".icon-pause").attr('title', 'Appuyez sur espace pour arrêter le diaporama');
+		
+	startHideGalleryControls(gallery);
+}
+function galleryOpened(gallery)
+{
+	// Setup tooltips for thumbnails
+	jQuery(gallery).find(".indicator li").tooltipster({
+		position: 'top',
+		offsetY: 2,
+		contentAsHTML: true,
+		interactive: true
+	});	
 }
 function closeGallery(gallery)
-{
+{	
 	// Unbind all events
 	jQuery(gallery).off("open").off("close");
 	jQuery(window).off('resize', resizeProxy);
@@ -185,7 +206,7 @@ function adjustTitle(gallery)
 	{
 		var indexLeft = getCssIntProperty($index, "left");
 		var indexWidth = $index.width();
-		$title.css("left", (indexLeft + indexWidth + 15) + "px");	
+		$title.css("left", (indexLeft + indexWidth + 20) + "px");	
 		$title.css("right", "90px");	
 	}
 }

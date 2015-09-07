@@ -1,0 +1,14 @@
+.tooltipster-dgui {
+	border-radius: 5px; 
+	border: 2px solid #000;
+	background: #666;
+	color: #fff;
+}
+.tooltipster-dgui .tooltipster-content {
+	font-family: 'Open Sans';
+	font-weight: 400;
+	font-size: 15px;
+	/*line-height: 17px;*/
+	padding: 8px 10px;
+	overflow: hidden;
+}

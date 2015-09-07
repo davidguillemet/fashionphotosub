@@ -352,14 +352,12 @@ function HomeControl(controlDiv, map, insideArticle) {
 		toggleFullScreen(this);
 	});
 
-	// Call tipsy on all custom google map controls
+	// Call tooltipster on all custom google map controls
 	var $customControls = jQuery(controlUI).find(".GMapControl");
-	$customControls.tipsy({
-		gravity: 'n',
-		delayIn: 0,
-		delayOut: 0,
-		opacity: 1,
-		fade: true
+	$customControls.tooltipster({
+		position: 'bottom',
+		touchDevices: false,
+		theme: 'tooltipster-dgui'
 	});
 	
 }
