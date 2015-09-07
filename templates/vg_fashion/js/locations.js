@@ -28,7 +28,7 @@ var clusterOptions = {
 
 function loadLocationsData(buildTagCloud)
 {
-  jQuery.getJSON(rootUrl + "data/locations.json", function(data) {
+  jQuery.getJSON(rootUrl + "data/locations.min.json", function(data) {
 	initializeLocationsData(data, buildTagCloud);
     if (onLocationsDataLoaded) onLocationsDataLoaded();
   });
