@@ -150,7 +150,6 @@ class plgContentWookmark_Gallery extends JPlugin
 							   		"<a class='prev'>‹</a>" .
  									"<a class='next'>›</a>" .
 									"<a class='close'><i class='icon-cancel'></i></a>" .
-									"<a class='info'><i class='icon-info-circled'></i></a>" .
 									"<a class='play-pause'><i class='icon-play'></i><i class='icon-pause'></i></a>" .
 									"</div>";
 						

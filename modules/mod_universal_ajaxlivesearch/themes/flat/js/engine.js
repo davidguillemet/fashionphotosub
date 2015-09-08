@@ -287,8 +287,8 @@ dojo.declare("AJAXSearchflat", AJAXSearchBase, {
     }
     
     if (element.href.match(/\.jpg$|\.png$/i)) {
-      dojo.attr(srLink, "rel", "shadowbox[UniversalAJAXLiveSearch];"); //options={slideshowDelay:5}
-      dojo.attr(srLink, "title", element.title);
+		dojo.attr(srLink, "data-gallery", "UniversalAJAXLiveSearchGallery");
+		dojo.attr(srLink, "title", element.title);
     } else {
       dojo.connect(srLink,'onclick',this,'stopEventBubble');
       // SUGGESTION
