@@ -294,7 +294,7 @@ $doc->addStyleDeclaration('
 	function updateCloud(pageIsLoading)
 	{
 		var $filterContainer = jQuery("#filter");
-		var newContentWidth = getContentWidth();
+		var newContentWidth = getResponsiveData().contentWidth;
 
 		if (pageIsLoading != true && newContentWidth != previousContentWidth)
 		{
