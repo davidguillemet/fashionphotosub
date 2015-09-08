@@ -138,7 +138,7 @@ class plgContentWookmark_Gallery extends JPlugin
 						<div class='myapp' id='myapp$containerCount'>
 							<div id='progress$containerCount' class='wookmarkProgress'>
 								<h3>Chargement en cours...</h3>
-								<div class='progressBar'></div>
+								<div class='progressBarContainer'><div class='progressBar'></div></div>
 							</div>
 							<ul class='tiles' id='tiles$containerCount'>$returned</ul>
 						</div>";
