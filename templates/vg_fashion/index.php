@@ -214,7 +214,8 @@ $f(function($){
 jQuery.fn.tooltipster('setDefaults', {
 	touchDevices: false,
 	theme: 'tooltipster-dgui',
-	delay: 0
+	delay: 0,
+	onlyOne: true
 });
 </script>
 
