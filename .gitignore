@@ -31,3 +31,5 @@ components/com_foxcontact/uploads/*
 images/phocagallery/**/cache*.txt
 
 cache/plg_jch_optimize/*
+
+cache/plg_jch_optimize/*.php
