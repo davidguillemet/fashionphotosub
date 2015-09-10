@@ -31,9 +31,6 @@ $doc->addStyleDeclaration('
 ?>
 <?php if($this -> listsArticle):?>
     <?php $params = $this -> params; ?>
-    <link rel="stylesheet/less" type="text/css" href="components/com_tz_portfolio/css/tz_lib_style.less">
-    <script src="components/com_tz_portfolio/js/less-1.0.21.min.js" type="text/javascript"></script>
-
     <script type="text/javascript">
         function tz_init(defaultwidth){
             var contentWidth    = jQuery('#TzContent').width();
@@ -178,76 +175,83 @@ $doc->addStyleDeclaration('
          });
          return tags;
      }
-
+	 
     jQuery(window).bind('load resize', function() {
         if (resizeTimer) clearTimeout(resizeTimer);
         resizeTimer = setTimeout("tz_init("+"<?php echo $params -> get('tz_column_width',233);?>)", 100);
     });
 
-    var $container = jQuery('#portfolio');
-    $items = $container.children('.element');
-    $container.imagesLoaded( function(){
-        $container.isotope({
-            itemSelector : '.element',
-            layoutMode: '<?php echo $layout[0];?>',
-            sortBy:'order',			sortAscending: false,
-            getSortData: {
-                name: function( $elem ) {
-                    var name = $elem.find('.name'),
-                        itemText = name.length ? name : $elem;
-                    return itemText.text();
-                },
-                date: function($elem){
-                    var number = $elem.hasClass('element') ?
-                      $elem.find('.create').text() :
-                      $elem.attr('data-date');
-                    return number;
+	jQuery (document).ready(function() {
+		
+		var $container = jQuery('#portfolio');
+    	$items = $container.children('.element');
+    	
+		$container.imagesLoaded( function() {
+        	$container.isotope({
+            	itemSelector : '.element',
+            	layoutMode: '<?php echo $layout[0];?>',
+            	sortBy:'order',
+				sortAscending: false,
+            	getSortData: {
+                	name: function( $elem ) {
+                    	var name = $elem.find('.name'),
+                        	itemText = name.length ? name : $elem;
+                    		return itemText.text();
+                		},
+                		date: function($elem){
+                    		var number = $elem.hasClass('element') ?
+                      	  		$elem.find('.create').text() :
+                      	  		$elem.attr('data-date');
+                    		return number;
 
-                },
-                order: function($elem){
-                    var _order = $elem.hasClass('element') ?
+                	},
+                	order: function($elem){
+                    	var _order = $elem.hasClass('element') ?
                             $elem.attr('data-order'):
                             $elem.find('.order').text();
-                    return parseInt(_order);
-                }
-            }
-        }, function($elem){
-                    var $elem   = $container.find('.element'),
-                            max_order   = $container.find('.element:first').attr('data-order');
-                    if($elem.length){
-                        $elem.each(function(index){
-                            if(parseInt(max_order) < parseInt(jQuery(this).attr('data-order'))){
-                                max_order   = parseInt(jQuery(this).attr('data-order')) +1;
-                            }
-                        })
+                    	return parseInt(_order);
+                	}
+            	}
+        	},
+			function($elem){
+            	var $elem   = $container.find('.element'),
+                    max_order   = $container.find('.element:first').attr('data-order');
+                    
+				if ($elem.length) {
+					$elem.each(function(index) {
+						if (parseInt(max_order) < parseInt(jQuery(this).attr('data-order'))) {
+							max_order   = parseInt(jQuery(this).attr('data-order')) +1;
+						}
+					})
+				}
+
+				if (jQuery('#tz_append').length)
+				{
+					jQuery('#tz_append').attr('data-order',max_order);
+                    var $opClass = getFilterOptions(),
+						$b_class = jQuery('#tz_append').attr('class').split(' ');
+
+                    if ($opClass.length) {
+						jQuery.each($opClass,function(i,el) {
+							if (jQuery.inArray(el,$b_class) === -1) {
+								jQuery('#tz_append').addClass(el);
+							}
+                        });
                     }
-
-					if (jQuery('#tz_append').length)
-					{
-						jQuery('#tz_append').attr('data-order',max_order);
-                    	var $opClass = getFilterOptions(),
-                            $b_class = jQuery('#tz_append').attr('class').split(' ');
-
-                    	if($opClass.length){
-                        	jQuery.each($opClass,function(i,el){
-                            	if (jQuery.inArray(el,$b_class) === -1){
-                                	jQuery('#tz_append').addClass(el);
-                            	}
-                        	});
-                    	}
-					}
-                }
-
-        );
-        tz_init('<?php echo $params -> get('tz_column_width',233);?>');
-    });
+				}
+            }); // isotope
+			
+        	tz_init('<?php echo $params -> get('tz_column_width',233);?>');
+    	
+		}); // $container.imagesLoaded
+	
+	}); // document.ready
 
     function loadPortfolio(){
-          
 		  var $optionSets = jQuery('#tz_options .option-set');
 		  
           var $optionLinks = $optionSets.find('a');
-          
+
 		  $optionLinks.click(function(event){
               event.preventDefault();
             var $this = jQuery(this);
@@ -267,14 +271,12 @@ $doc->addStyleDeclaration('
 
             value = value === 'false' ? false : value;
             options[ key ] = value;
-              
             if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
-
               // changes in layout modes need extra logic
               changeLayoutMode( $this, options )
             } else {
               // otherwise, apply new options
-              $container.isotope(options);
+              jQuery('#portfolio').isotope(options);
 
             }
 
@@ -316,7 +318,7 @@ $doc->addStyleDeclaration('
 		
 		previousContentWidth = newContentWidth;
 	}
-		
+	
 	loadLocationsData(true);
 
 	jQuery( window ).resize(updateCloud);
