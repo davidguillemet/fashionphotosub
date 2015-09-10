@@ -22,6 +22,8 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.view');
 
+JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
+
 /**
  * HTML Article View class for the Content component.
  */
@@ -156,10 +158,8 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
         $item ->link        = JRoute::_(TZ_PortfolioHelperRoute::getPortfolioArticleRoute($item -> slug,$item -> catid).$tmpl,true,-1);
         $item -> fullLink   = JRoute::_(TZ_PortfolioHelperRoute::getPortfolioArticleRoute($item -> slug,$item -> catid),true,-1);
 
-        // DGUI - remove parent category link generation
-        //$item -> parent_link    = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->parent_slug));
-        // DGUI - remove category link generation
-		//$item -> category_link  = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->catslug));
+        $item -> parent_link    = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->parent_slug));
+        $item -> category_link  = JRoute::_(TZ_PortfolioHelperRoute::getCategoryRoute($item->catslug));
 
         if($item -> params -> get('tz_portfolio_redirect') == 'article'){
             $configLink =JRoute::_(TZ_PortfolioHelperRoute::getArticleRoute($item -> slug,$item -> catid).$tmpl, true ,-1);
@@ -184,26 +184,6 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
 		if ($item->params->get('access-view') != true && (($item->params->get('show_noauth') != true &&  $user->get('guest') ))) {
 			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
             return;
-		}
-
-		if ($item->params->get('show_intro', '1')=='1') {
-			$item->text = $item->introtext.' '.$item->fulltext;
-		}
-		elseif ($item->fulltext) {
-			$item->text = $item->fulltext;
-		}
-		else  {
-			$item->text = $item->introtext;
-		}
-
-        if ($item->params->get('show_intro', '1')=='1') {
-			$item->text = $item->introtext.' '.$item->fulltext;
-		}
-		elseif ($item->fulltext) {
-			$item->text = $item->fulltext;
-		}
-		else  {
-			$item->text = $item->introtext;
 		}
 
         $item -> commentCount   = 0;
@@ -326,7 +306,56 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
 		// Process the content plugins.
 		//
 		JPluginHelper::importPlugin('content');
-		$results = $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+        JPluginHelper::importPlugin('tz_portfolio');
+
+        //Get Plugins Model
+        $pmodel = JModelLegacy::getInstance('Plugins','TZ_PortfolioModel',array('ignore_request' => true));
+        //Get plugin Params for this article
+        $pmodel -> setState('filter.contentid',$item -> id);
+        $pluginItems    = $pmodel -> getItems();
+        $pluginParams   = $pmodel -> getParams();
+
+        $item -> pluginparams   = clone($pluginParams);
+
+        if ($item->params->get('show_intro', '1')=='1') {
+            $text = $item->introtext.' '.$item->fulltext;
+        }
+        elseif ($item->fulltext) {
+            $text = $item->fulltext;
+        }
+        else  {
+            $text = $item->introtext;
+        }
+
+        if($item -> introtext && !empty($item -> introtext)) {
+            $item->text = $item->introtext;
+            $results = $dispatcher->trigger('onContentPrepare', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterTitle', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentBeforeDisplay', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterDisplay', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+
+            $results = $dispatcher->trigger('onTZPluginPrepare', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterTitle', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginBeforeDisplay', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterDisplay', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $item->introtext = $item->text;
+        }
+        if($item -> fulltext && !empty($item -> fulltext)) {
+            $item->text = $item->fulltext;
+            $results = $dispatcher->trigger('onContentPrepare', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterTitle', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentBeforeDisplay', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterDisplay', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
+
+            $results = $dispatcher->trigger('onTZPluginPrepare', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterTitle', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginBeforeDisplay', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterDisplay', array('com_tz_portfolio.p_article', &$item, &$item->params, &$pluginParams, $offset));
+            $item->fulltext = $item->text;
+        }
+
+        $item -> text   = $text;
+        $results = $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
 
 		$item->event = new stdClass();
 		$results = $dispatcher->trigger('onContentAfterTitle', array('com_tz_portfolio.p_article', &$item, &$this->params, $offset));
@@ -344,16 +373,7 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
         $results = $dispatcher->trigger('onContentTZPortfolioVote', array('com_tz_portfolio.p_article', &$item, &$item -> params, $offset));
         $item->event->TZPortfolioVote = trim(implode("\n", $results));
 
-        //Get Plugins Model
-        $pmodel = JModelLegacy::getInstance('Plugins','TZ_PortfolioModel',array('ignore_request' => true));
-        //Get plugin Params for this article
-        $pmodel -> setState('filter.contentid',$item -> id);
-        $pluginItems    = $pmodel -> getItems();
-        $pluginParams   = $pmodel -> getParams();
 
-        $item -> pluginparams   = clone($pluginParams);
-
-        JPluginHelper::importPlugin('tz_portfolio');
         $results   = $dispatcher -> trigger('onTZPluginPrepare',array('com_tz_portfolio.p_article', &$item, &$item -> params,&$pluginParams,$offset));
 
         $results = $dispatcher->trigger('onTZPluginAfterTitle', array('com_tz_portfolio.p_article', &$item, &$item -> params,&$pluginParams, $offset));
@@ -431,9 +451,9 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                     $params -> set('article_image_resize',strtolower($params -> get('detail_article_image_size')));
             }
             if($listMedia[0] -> type == 'imagegallery'){
-                $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                    $jscompress -> folder.'/jquery.flexslider-min'.$jscompress -> extfile.'.js"></script>');
-                $doc -> addStyleSheet('components/com_tz_portfolio/css/flexslider'.$csscompress.'.css');
+                $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'
+                    .'/jquery.flexslider-min.js"></script>');
+                $doc -> addStyleSheet('components/com_tz_portfolio/css/flexslider.min.css');
 
                 if($params -> get('detail_article_image_gallery_size'))
                     $params -> set('article_image_gallery_resize',strtolower($params -> get('detail_article_image_gallery_size')));
@@ -443,15 +463,15 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
         }
 
         if($item -> params -> get('useCloudZoom',1) == 1){
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/cloud-zoom'.$csscompress.'.css');
-            $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                $jscompress -> folder.'/cloud-zoom.1.0.3.min'.$jscompress -> extfile.'.js"></script>');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/cloud-zoom.min.css');
+            $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'
+                .'/cloud-zoom.1.0.3.min.js"></script>');
         }
 
         if($item -> params -> get('tz_use_lightbox',1) == 1 AND !$tmpl){
-            $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                $jscompress -> folder.'/jquery.fancybox.pack'.$jscompress -> extfile.'.js"></script>');
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox'.$csscompress.'.css');
+            $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'
+                .'/jquery.fancybox.pack.js"></script>');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox.min.css');
 
             $width      = null;
             $height     = null;
@@ -494,10 +514,9 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
 
         /* Add scrollbar script */
         if($item -> params -> get('use_custom_scrollbar',1) && JRequest::getString('tmpl') == 'component' && !$this ->print){
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/jquery.mCustomScrollbar'.$csscompress.'.css');
-            $doc -> addCustomTag('<script src="components/com_tz_portfolio/js'.
-                            $jscompress -> folder.'/jquery.mCustomScrollbar'
-                .$jscompress -> extfile.'.js"  type="text/javascript"></script>');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/jquery.mCustomScrollbar.min.css');
+            $doc -> addCustomTag('<script src="components/com_tz_portfolio/js'
+                .'/jquery.mCustomScrollbar.min.js"  type="text/javascript"></script>');
 
             if($item -> params -> get('horizontalScroll',0)){
                 $horizontalScroll   = 'true';
@@ -601,13 +620,12 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
         /* End add scrollbar script */
 
         if($item -> params -> get('show_video',1)){
-            $doc -> addCustomTag('<script src="components/com_tz_portfolio/js'.
-                                        $jscompress -> folder.'/fluidvids.v2.0.0'
-                            .$jscompress -> extfile.'.js" type="text/javascript"></script>');
+            $doc -> addCustomTag('<script src="components/com_tz_portfolio/js'
+                .'/fluidvids.min.js" type="text/javascript"></script>');
             $doc -> addCustomTag('<script type="text/javascript">
                 jQuery(document).ready(function(){
-                Fluidvids.init({
-                    selector: \'.TzArticleMedia iframe\',
+                fluidvids.init({
+                    selector: [\'.TzArticleMedia iframe\'],
                     players: [\'www.youtube.com\', \'player.vimeo.com\']
                 });
               });
@@ -626,7 +644,7 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
 //        $extraFields -> setState('fieldsId',$params -> get('tz_fieldsid'));
         $this -> assign('listFields',$extraFields -> getExtraFields());
 
-        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio'.$csscompress.'.css');
+        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio.min.css');
 
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->item->params->get('pageclass_sfx'));
@@ -657,7 +675,7 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
 
         if($theme){
             if($tplParams  = $theme ->params){
-                $this -> document -> addStyleSheet('components/com_tz_portfolio/css/tz.bootstrap'.$csscompress.'.css');
+                $this -> document -> addStyleSheet('components/com_tz_portfolio/css/tz.bootstrap.min.css');
                 foreach($tplParams as $tplItems){
                     $rows   = null;
 
@@ -702,14 +720,13 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                     $rows[] = '<div id="tz-portfolio-template-'.JApplication::stringURLSafe($tplItems -> name).'"'
                         .' class="tz-container-fluid'.($tplItems -> {"class"}?' '.$tplItems -> {"class"}:'')
                         .($tplItems -> responsive?' '.$tplItems -> responsive:'').'">';
+                    if($tplItems -> containertype){
+                        $rows[] = '<div class="'.$tplItems -> containertype.'">';
+                    }
                     $rows[] = '<div class="tz-row">';
                     foreach($tplItems -> children as $children){
                         $html   = null;
-                        if($children -> type && $children -> type !='none'){
-                            $html   = $this -> loadTemplate($children -> type);
-                            $html   = trim($html);
-                        }
-//                        if($html && !empty($html)){
+
                         if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
                             || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
                             || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
@@ -728,25 +745,17 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                                 .($children -> responsiveclass?' '.$children -> responsiveclass:'').'">';
                         }
 
-                        if($children -> type == 'introtext' || $children -> type == 'fulltext'){
-                            $article -> text    = null;
-                            if ($params->get('show_intro', 1) && $children -> type == 'introtext') {
-                                $article -> text    = $article -> introtext;
-                            }
-                            if($children -> type == 'fulltext'){
-                                $article -> text    = $article -> fulltext;
-                            }
-                            $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.article', &$article, &$params, $this->state->get('list.offset')));
+                        if($children -> type && $children -> type !='none'){
+                            $html   = $this -> loadTemplate($children -> type);
+                            $html   = trim($html);
                         }
 
                         $rows[] = $html;
-//                        }
 
                         if( !empty($children -> children) and is_array($children -> children) ){
                             $this -> childrenLayout($rows,$children,$article,$params,$dispatcher);
                         }
 
-//                        if($html && !empty($html)){
                         if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
                             || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
                             || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
@@ -754,7 +763,10 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                             || !empty($children -> {"customclass"}) || $children -> responsiveclass){
                             $rows[] = '</div>'; // Close col tag
                         }
-//                        }
+                    }
+
+                    if($tplItems -> containertype){
+                        $rows[] = '</div>';
                     }
                     $rows[] = '</div>';
                     $rows[] = '</div>';
@@ -781,7 +793,7 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                 $margin = 'margin: '.$children -> margin.';';
             }
             if($children -> padding){
-                $padding = 'padding: '.$children -> margin.';';
+                $padding = 'padding: '.$children -> padding.';';
             }
             if($background || $color){
                 $this -> document -> addStyleDeclaration('
@@ -809,11 +821,7 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
             $rows[] = '<div class="tz-row">';
             foreach($children -> children as $children){
                 $html   = null;
-                if($children -> type && $children -> type !='none'){
-                    $html   = $this -> loadTemplate($children -> type);
-                    $html   = trim($html);
-                }
-//                if($html && !empty($html)){
+
                 if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
                     || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
                     || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
@@ -832,24 +840,17 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                         .($children -> responsiveclass?' '.$children -> responsiveclass:'').'">';
                 }
 
-                if($children -> type == 'introtext' || $children -> type == 'fulltext'){
-                    $article -> text    = null;
-                    if ($params->get('show_intro', 1) && $children -> type == 'introtext') {
-                        $article -> text    = $article -> introtext;
-                    }
-                    if($children -> type == 'fulltext'){
-                        $article -> text    = $article -> fulltext;
-                    }
-                    $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.article', &$article, &$params, $this->state->get('list.offset')));
+                if($children -> type && $children -> type !='none'){
+                    $html   = $this -> loadTemplate($children -> type);
+                    $html   = trim($html);
                 }
+
                 $rows[] = $html;
-//                }
 
                 if( !empty($children -> children) and is_array($children -> children) ){
                     $this -> childrenLayout($rows,$children,$article,$params,$dispatcher);
                 }
 
-//                if($html && !empty($html)){
                 if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
                     || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
                     || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
@@ -857,7 +858,7 @@ class TZ_PortfolioViewP_Article extends JViewLegacy
                     || !empty($children -> {"customclass"}) || $children -> responsiveclass){
                     $rows[] = '</div>'; // Close col tag
                 }
-//                }
+
             }
             $rows[] = '</div>';
             $rows[] = '</div>';

@@ -22,7 +22,8 @@ defined('_JEXEC') or die;
 $showread = $params->get('readmore');
 $readtext = $params->get('readmoretext');
 $document = JFactory::getDocument();
-$document->addStyleSheet('modules/mod_tz_portfolio_articles_features/css/mod_tz_portfolio_articles_features.css')
+$document->addStyleSheet('modules/mod_tz_portfolio_articles_features/css/mod_tz_portfolio_articles_features.css');
+if($list):
 ?>
 <ul class="TzModFeature TzModFeature<?php echo $moduleclass_sfx; ?>">
 <?php
@@ -43,7 +44,7 @@ foreach ($list as $item) :
         <?php endif;?>
         
         <?php
-        if(isset($item -> introtext)):
+        if(isset($item -> introtext) && $params -> get('tz_show_introtext',1)):
         ?>
         <div class="introtext"><?php echo $item -> introtext;?></div>
         <?php endif;?>
@@ -70,7 +71,7 @@ foreach ($list as $item) :
                 <a class="title" href="<?php echo $media -> link_url;?>"
                     target="<?php echo $media -> link_target;?>"
                     rel="<?php echo $media -> link_follow;?>"><?php echo $media -> link_title?></a>
-                <?php if($params -> get('show_introtext',1)):?>
+                <?php if($params -> get('tz_show_introtext',1)):?>
                 <div class="introtext"><?php echo $item -> introtext; ?></div>
                 <?php endif;?>
             </div>
@@ -81,3 +82,4 @@ foreach ($list as $item) :
 
 <?php endforeach; ?>
 </ul>
+<?php endif;?>

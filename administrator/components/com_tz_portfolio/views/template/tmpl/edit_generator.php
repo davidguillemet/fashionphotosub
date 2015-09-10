@@ -27,6 +27,12 @@ if($this -> tzlayout){
     //print_r($layout); die;
     foreach($this -> tzlayout as $items )
     {
+        $containerType  = '';
+        if(isset($items -> containertype)){
+            $containerType  = $items -> containertype;
+        }
+        $parentId   = uniqid(rand());
+        $id         = uniqid(rand());
         ?>
         <!-- Main Rows -->
         <div class="row-fluid layoutmainrow">
@@ -47,8 +53,19 @@ if($this -> tzlayout){
                 <input type="hidden" class="rowpaddinginput" name="" value="<?php echo $this -> get_value($items,'padding') ?>">
             </span>
         </div>
-        <div class="pull-right row-tools row-container">
+        <div id="<?php echo $parentId?>" class="pull-right row-tools row-container">
+            <select class="containertype" name="" aria-invalid="false">
+                <option<?php echo ($containerType == '')?' selected=""':''?> value=""><?php echo JText::_('JNONE');?></option>
+                <option<?php echo ($containerType == 'container')?' selected=""':''?> value="container"><?php echo JText::_('COM_TZ_PORTFOLIO_FIXED_WIDTH');?></option>
+                <option<?php echo ($containerType == 'container-fluid')?' selected=""':''?> value="container-fluid"><?php echo JText::_('COM_TZ_PORTFOLIO_FULL_WIDTH');?></option>
+            </select>
             <a href="" title="<?php echo JText::_('COM_TZ_PORTFOLIO_MOVE_THIS_ROW');?>" class="fa fa-arrows rowmove"></a>
+            <a href="javascript:" class="accordion-toggle"
+               title="<?php echo JText::_('COM_TZ_PORTFOLIO_TOGGLE_THIS_ROW');?>"
+               data-toggle="collapse" data-parent="#<?php echo $parentId;?>"
+               data-target="#<?php echo $id;?>">
+                <span class="fa fa-chevron-up"></span><span class="fa fa-chevron-down"></span>
+            </a>
             <a href="#rowsettingbox" title="<?php echo JText::_('COM_TZ_PORTFOLIO_ROW_SETTINGS');?>" class="fa fa-cog rowsetting" rel="rowpopover"></a>
             <a href="" title="<?php echo JText::_('COM_TZ_PORTFOLIO_ADD_NEW_ROW');?>" class="fa fa-bars add-row"></a>
             <a href="" title="<?php echo JText::_('COM_TZ_PORTFOLIO_ADD_NEW_COLUMN');?>" class="fa fa-columns add-column"></a>
@@ -57,7 +74,7 @@ if($this -> tzlayout){
 
         <div class="hr clr"></div>
 
-        <div class="row-fluid show-grid">
+        <div id="<?php echo $id;?>" class="row-fluid show-grid collapse in">
 
         <!-- Columns -->
         <?php
@@ -105,6 +122,8 @@ if($this -> tzlayout){
                                     {
                                         foreach( $item -> children as $children )
                                         {
+                                            $parentId2  = uniqid(rand());
+                                            $id2        = uniqid(rand());
                                             ?>
                                             <div class="row-fluid child-row">
                                             <div class="span12">
@@ -128,8 +147,13 @@ if($this -> tzlayout){
                                                         </span>
                                             </div>
 
-                                            <div class="pull-right row-tools">
+                                            <div id="<?php echo $parentId2;?>" class="pull-right row-tools">
                                                 <a href="" title="<?php echo JText::_('COM_TZ_PORTFOLIO_MOVE_THIS_ROW');?>" class="fa fa-arrows row-move-in-column"></a>
+                                                <a href="javascript:" class="accordion-toggle"
+                                                   data-toggle="collapse" data-parent="#<?php echo $parentId2;?>"
+                                                   data-target="#<?php echo $id2;?>">
+                                                    <span class="fa fa-chevron-up"></span><span class="fa fa-chevron-down"></span>
+                                                </a>
                                                 <a href="" title="<?php echo JText::_('COM_TZ_PORTFOLIO_ADD_NEW_ROW');?>" class="fa fa-bars add-row"></a>
                                                 <a href="" title="<?php echo JText::_('COM_TZ_PORTFOLIO_ADD_NEW_COLUMN');?>" class="fa fa-columns add-column"></a>
                                                 <a href="#rowsettingbox" title="<?php echo JText::_('COM_TZ_PORTFOLIO_ROW_SETTINGS');?>" class="fa fa-cog rowsetting" rel="rowpopover"></a>
@@ -138,7 +162,7 @@ if($this -> tzlayout){
 
                                             <div class="clearfix"></div>
 
-                                            <div class="row-fluid show-grid">
+                                            <div id="<?php echo $id2;?>" class="row-fluid show-grid collapse in">
 
                                             <?php
                                             foreach($children -> children as $children)

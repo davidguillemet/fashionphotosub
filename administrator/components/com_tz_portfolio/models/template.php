@@ -21,6 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.filesystem.file');
+jimport('joomla.application.component.modeladmin');
 
 class TZ_PortfolioModelTemplate extends JModelAdmin
 {
@@ -29,7 +30,7 @@ class TZ_PortfolioModelTemplate extends JModelAdmin
 
         $this -> setState('template.id',JRequest::getInt('id'));
         $this -> setState('content.id',null);
-        $this -> setState('categorye.id',null);
+        $this -> setState('category.id',null);
     }
     public function getTable($type = 'Templates', $prefix = 'Table', $config = array())
     {
@@ -139,7 +140,12 @@ class TZ_PortfolioModelTemplate extends JModelAdmin
     public function save($data)
     {
         $app        = JFactory::getApplication();
-        $dispatcher = JEventDispatcher::getInstance();
+
+        if(COM_TZ_PORTFOLIO_JVERSION_COMPARE){
+            $dispatcher = JEventDispatcher::getInstance();
+        }else{
+            $dispatcher = JDispatcher::getInstance();
+        }
         $table = $this->getTable();
 
         $post   = JRequest::get();

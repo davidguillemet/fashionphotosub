@@ -16,7 +16,7 @@
 # Technical Support:  Forum - http://templaza.com/Forum
 
 -------------------------------------------------------------------------*/
- 
+
 //no direct access
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.modellist');
@@ -105,7 +105,7 @@ class TZ_PortfolioModelTimeLine extends JModelList
         $this -> setState('list.limit',$limit);
         $this -> setState('params',$this -> params);
         $this -> setState('char',JRequest::getString('char',null));
-        
+
     }
 
     function ajax(){
@@ -168,7 +168,7 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 $view -> extraFields -> setState('filter.option.order',$fieldsOptionOrder);
             }
         }
-        
+
         JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 
         $list   = $this -> getItems();
@@ -332,40 +332,66 @@ class TZ_PortfolioModelTimeLine extends JModelList
 
         return $data;
     }
+
     function getCategories(){
         $catids = $this -> categories;
+        $params = $this -> getState('params');
+        $db     = JFactory::getDbo();
+        $query  = $db -> getQuery(true);
 
-        if(count($catids) > 1){
-            if(empty($catids[0])){
-                array_shift($catids);
+        $query -> select('id,title');
+        $query -> from($db -> quoteName('#__categories'));
+        $query -> where('published = 1');
+        $query -> where('extension='.$db -> quote('com_content'));
+
+        if(is_array($catids)){
+            $catids = array_filter($catids);
+            if(count($catids)){
+                $query -> where('id IN('.implode(',',$catids).')');
             }
-            $catids = implode(',',$catids);
-        }
-        else{
-            if(!empty($catids[0])){
-                $catids = $catids[0];
-            }
-            else
-                $catids = null;
+        }elseif(!empty($catids)){
+            $query -> where('id IN('.$catids.')');
         }
 
-        $where  = null;
-        if($catids){
-            $where  = ' AND cc.id IN('.$catids.')';
+        // Order by artilce
+        switch ($params -> get('orderby_pri')){
+            case 'alpha' :
+                $query -> order('title');
+                break;
+
+            case 'ralpha' :
+                $query -> order('title DESC ');
+                break;
+
+            case 'order' :
+                $query -> order('lft');
+                break;
         }
-        $query  = 'SELECT cc.id,cc.title FROM #__categories AS cc'
-                  .' LEFT JOIN #__content AS c ON c.catid=cc.id'
-                  .' WHERE cc.published=1 AND cc.extension="com_content" AND c.state=1'
-                  .$where
-                  .' GROUP BY cc.id';
-        $db = JFactory::getDbo();
+
+        $query -> group('id');
+
         $db -> setQuery($query);
-        if(!$db -> query()){
-            var_dump($db -> getErrorMsg());
-            return false;
-        }
 
         if($rows = $db -> loadObjectList()){
+            if($allCatIds  = $this -> getAllCategories()){
+                foreach($allCatIds as &$allCatId){
+                    $allCatId   = (int) $allCatId -> id;
+                }
+            }
+
+            $array      = array();
+            $revArray   = array();
+            if(is_array($catids)){
+                $array      = array_intersect($allCatIds,$catids);
+                $revArray   = array_flip($array);
+            }
+
+            foreach($rows as $item){
+                $item -> order  = 0;
+                if(in_array($item -> id,$array)){
+                    $item -> order  = $revArray[$item -> id];
+                }
+            }
             return $rows;
         }
 
@@ -389,6 +415,22 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 $query -> where('id IN('.$catid.')');
             }
         }
+
+        // Order by artilce
+        switch ($params -> get('orderby_pri')){
+            case 'alpha' :
+                $query -> order('title');
+                break;
+
+            case 'ralpha' :
+                $query -> order('title DESC ');
+                break;
+
+            case 'order' :
+                $query -> order('lft');
+                break;
+        }
+
         $db -> setQuery($query);
         if($rows = $db -> loadObjectList()){
             return $rows;
@@ -398,7 +440,7 @@ class TZ_PortfolioModelTimeLine extends JModelList
 
     //Get first letter of title
     function getFirstLetter(){
-        
+
     }
 
 
@@ -600,8 +642,13 @@ class TZ_PortfolioModelTimeLine extends JModelList
         }
 
         if($char   = $this -> getState('char')){
+            $query -> where('c.title LIKE '.$db -> quote(urldecode(mb_strtolower($char)).'%'));
             $query -> where('ASCII(SUBSTR(LOWER(c.title),1,1)) = ASCII('.$db -> quote(mb_strtolower($char)).')');
+            $subQuery -> where('c.title LIKE'.$db -> quote(urldecode(mb_strtolower($char)).'%'));
             $subQuery -> where('ASCII(SUBSTR(LOWER(c.title),1,1)) = ASCII('.$db -> quote(mb_strtolower($char)).')');
+
+//            $query -> where('ASCII(SUBSTR(LOWER(c.title),1,1)) = ASCII('.$db -> quote(mb_strtolower($char)).')');
+//            $subQuery -> where('ASCII(SUBSTR(LOWER(c.title),1,1)) = ASCII('.$db -> quote(mb_strtolower($char)).')');
         }
 
         $query -> group('c.id');
@@ -611,15 +658,15 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 $cateOrder  = null;
                 break;
             case 'alpha' :
-                $cateOrder = 'cc.path, ';
+                $cateOrder = ',cc.path ';
                 break;
 
             case 'ralpha' :
-                $cateOrder = 'cc.path DESC, ';
+                $cateOrder = ',cc.path DESC ';
                 break;
 
             case 'order' :
-                $cateOrder = 'cc.lft, ';
+                $cateOrder = ',cc.lft ';
                 break;
         }
 
@@ -628,10 +675,10 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 $orderby    = 'id DESC';
                 break;
             case 'rdate':
-                $orderby    = 'created DESC';
+                $orderby    = 'c.created DESC';
                 break;
             case 'date':
-                $orderby    = 'created ASC';
+                $orderby    = '';
                 break;
             case 'alpha':
                 $orderby    = 'title ASC';
@@ -640,10 +687,10 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 $orderby    = 'title DESC';
                 break;
             case 'author':
-                $orderby    = 'create_by ASC';
+                $orderby    = 'u.name ASC';
                 break;
             case 'rauthor':
-                $orderby    = 'create_by DESC';
+                $orderby    = 'u.name DESC';
                 break;
             case 'hits':
                 $orderby    = 'hits DESC';
@@ -655,7 +702,7 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 $orderby    = 'ordering ASC';
                 break;
         }
-        $query -> order($cateOrder.'c.created DESC,'.$orderby);
+        $query -> order('c.created DESC'.$cateOrder.(($orderby && !empty($orderby))?','.$orderby:''));
 
         /** Query get max hits for sort filter **/
         $subQuery -> select('MAX(c.hits)');
@@ -675,27 +722,31 @@ class TZ_PortfolioModelTimeLine extends JModelList
 //            $query->where('(contact.language in ('.$db->quote(JFactory::getLanguage()->getTag()).','.$db->quote('*').') OR contact.language IS NULL)');
         }
 
+//        var_dump($query -> dump()); die();
+
         return $query;
     }
 
     public function getItems(){
         if($items = parent::getItems()){
-            $user	= JFactory::getUser();
-            $userId	= $user->get('id');
-            $guest	= $user->get('guest');
+            $user	        = JFactory::getUser();
+            $userId	        = $user->get('id');
+            $guest	        = $user->get('guest');
 
-            $params = $this -> getState('params');
+            $params         = $this -> getState('params');
 
-            $contentId  = array();
-            $tzDate     = array();
+            $contentId      = array();
+            $tzDate         = array();
+            $content_ids    = array();
 
-            $_params    = null;
-            $categories = JCategories::getInstance('Content');
+            $_params        = null;
+            $categories     = JCategories::getInstance('Content');
 
-            $threadLink = null;
-            $comments   = null;
+            $threadLink     = null;
+            $comments       = null;
 
             foreach($items as &$item){
+                $content_ids[]  = $item -> id;
                 $_params        = clone($params);
                 $temp           = clone($params);
 
@@ -848,10 +899,22 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 // End Get comment counts for all items(articles)
             }
 
+            $tags   = null;
+            if(count($content_ids) && $params -> get('show_tags',1)) {
+                $m_tag = JModelLegacy::getInstance('Tag', 'TZ_PortfolioModel', array('ignore_request' => true));
+                $m_tag->setState('params',$params);
+                $m_tag->setState('article.id', $content_ids);
+                $m_tag -> setState('list.ordering','x.contentid');
+                $tags   = $m_tag -> getArticleTags();
+            }
+
             //Get Plugins Model
             $pmodel = JModelLegacy::getInstance('Plugins','TZ_PortfolioModel',array('ignore_request' => true));
 
             foreach($items as $i => &$item){
+                if($tags && count($tags) && isset($tags[$item -> id])){
+                    $item -> tags   = $tags[$item -> id];
+                }
 
                 /*** Start New Source ***/
                 $tmpl   = null;
@@ -1112,6 +1175,10 @@ class TZ_PortfolioModelTimeLine extends JModelList
                 foreach($rows as &$item){
                     $item -> name   = trim($item -> name);
                     $item -> tagFilter  = JApplication::stringURLSafe($item -> name);
+                    $item -> params      = null;
+                    if(isset($item -> attribs) && !empty($item -> attribs)){
+                        $item -> params  = new JRegistry($item -> attribs);
+                    }
                 }
                 $this -> rowsTag    = $rows;
             }
@@ -1139,6 +1206,10 @@ class TZ_PortfolioModelTimeLine extends JModelList
             foreach($rows as $row){
                 $row -> name    = trim($row -> name);
                 $row -> tagFilter   = JApplication::stringURLSafe($row -> name);
+                $row -> params      = null;
+                if(isset($row -> attribs) && !empty($row -> attribs)){
+                    $row -> params  = new JRegistry($row -> attribs);
+                }
             }
             return $rows;
         }

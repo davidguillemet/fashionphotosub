@@ -80,7 +80,6 @@ class TZ_PortfolioViewArticle extends JViewLegacy
 
 		// Create a shortcut for $item.
 		$item = &$this->item;
-//        var_dump($item -> params);
 
 		// Add router helpers.
 		$item->slug			= $item->alias ? ($item->id.':'.$item->alias) : $item->id;
@@ -314,27 +313,11 @@ class TZ_PortfolioViewArticle extends JViewLegacy
             }
         }
 
-		//
-		// Process the content plugins.
-		//
-		JPluginHelper::importPlugin('content');
-		$results = $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.article', &$item, &$this->params, $offset));
-
-		$item->event = new stdClass();
-		$results = $dispatcher->trigger('onContentAfterTitle', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
-		$item->event->afterDisplayTitle = trim(implode("\n", $results));
-
-		$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
-		$item->event->beforeDisplayContent = trim(implode("\n", $results));
-
-		$results = $dispatcher->trigger('onContentAfterDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
-		$item->event->afterDisplayContent = trim(implode("\n", $results));
-
-        $results = $dispatcher -> trigger('onTZPortfolioCommentDisplay',array('com_tz_portfolio.comment',&$item,&$item -> params,$offset));
-        $item -> event -> onTZPortfolioCommentDisplay  = trim(implode("\n",$results));
-
-        $results = $dispatcher->trigger('onContentTZPortfolioVote', array('com_tz_portfolio.article', &$item, &$item -> params, $offset));
-        $item->event->TZPortfolioVote = trim(implode("\n", $results));
+        //
+        // Process the content plugins.
+        //
+        JPluginHelper::importPlugin('content');
+        JPluginHelper::importPlugin('tz_portfolio');
 
         //Get Plugins Model
         $pmodel = JModelLegacy::getInstance('Plugins','TZ_PortfolioModel',array('ignore_request' => true));
@@ -342,9 +325,70 @@ class TZ_PortfolioViewArticle extends JViewLegacy
         $pmodel -> setState('filter.contentid',$item -> id);
         $pluginItems    = $pmodel -> getItems();
         $pluginParams   = $pmodel -> getParams();
-        $item -> pluginparams    = clone($pluginParams);
 
-        JPluginHelper::importPlugin('tz_portfolio');
+        $item -> pluginparams   = clone($pluginParams);
+
+        if ($item->params->get('show_intro', '1')=='1') {
+            $text = $item->introtext.' '.$item->fulltext;
+        }
+        elseif ($item->fulltext) {
+            $text = $item->fulltext;
+        }
+        else  {
+            $text = $item->introtext;
+        }
+
+        if($item -> introtext && !empty($item -> introtext)) {
+            $item->text = $item->introtext;
+            $results = $dispatcher->trigger('onContentPrepare', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterTitle', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentBeforeDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+//            $results = $dispatcher->trigger('onTZPortfolioCommentDisplay', array('com_tz_portfolio.article', &$item, &$item->params, $offset));
+//            $results = $dispatcher->trigger('onContentTZPortfolioVote', array('com_tz_portfolio.article', &$item, &$item->params, $offset));
+
+            $results = $dispatcher->trigger('onTZPluginPrepare', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterTitle', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginBeforeDisplay', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterDisplay', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $item->introtext = $item->text;
+        }
+        if($item -> fulltext && !empty($item -> fulltext)) {
+            $item->text = $item->fulltext;
+            $results = $dispatcher->trigger('onContentPrepare', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterTitle', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentBeforeDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+            $results = $dispatcher->trigger('onContentAfterDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+//            $results = $dispatcher->trigger('onTZPortfolioCommentDisplay', array('com_tz_portfolio.article', &$item, &$item->params, $offset));
+//            $results = $dispatcher->trigger('onContentTZPortfolioVote', array('com_tz_portfolio.article', &$item, &$item->params, $offset));
+
+            $results = $dispatcher->trigger('onTZPluginPrepare', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterTitle', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginBeforeDisplay', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $results = $dispatcher->trigger('onTZPluginAfterDisplay', array('com_tz_portfolio.article', &$item, &$item->params, &$pluginParams, $offset));
+            $item->fulltext = $item->text;
+        }
+
+        $item -> text   = $text;
+        $results = $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.article', &$item, &$this->params, $offset));
+
+        $item->event = new stdClass();
+        $results = $dispatcher->trigger('onContentAfterTitle', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+        $item->event->afterDisplayTitle = trim(implode("\n", $results));
+
+        $results = $dispatcher->trigger('onContentBeforeDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+        $item->event->beforeDisplayContent = trim(implode("\n", $results));
+
+        $results = $dispatcher->trigger('onContentAfterDisplay', array('com_tz_portfolio.article', &$item, &$this->params, $offset));
+        $item->event->afterDisplayContent = trim(implode("\n", $results));
+
+        $results = $dispatcher -> trigger('onTZPortfolioCommentDisplay',array('com_tz_portfolio.article',&$item,&$item -> params,$offset));
+        $item -> event -> onTZPortfolioCommentDisplay  = trim(implode("\n",$results));
+
+        $results = $dispatcher->trigger('onContentTZPortfolioVote', array('com_tz_portfolio.article', &$item, &$item -> params, $offset));
+        $item->event->TZPortfolioVote = trim(implode("\n", $results));
+
+
         $results   = $dispatcher -> trigger('onTZPluginPrepare',array('com_tz_portfolio.article', &$item, &$item -> params,&$pluginParams,$offset));
 
         $results = $dispatcher->trigger('onTZPluginAfterTitle', array('com_tz_portfolio.article', &$item, &$item -> params,&$pluginParams, $offset));
@@ -425,8 +469,8 @@ class TZ_PortfolioViewArticle extends JViewLegacy
             }
             if($listMedia[0] -> type == 'imagegallery'){
                 $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                    $jscompress -> folder.'/jquery.flexslider-min'.$jscompress -> extfile.'.js"></script>');
-                $doc -> addStyleSheet('components/com_tz_portfolio/css/flexslider'.$csscompress.'.css');
+                    '/jquery.flexslider-min.js"></script>');
+                $doc -> addStyleSheet('components/com_tz_portfolio/css/flexslider.min.css');
 
                 if($params -> get('detail_article_image_gallery_size'))
                     $params -> set('article_image_gallery_resize',strtolower($params -> get('detail_article_image_gallery_size')));
@@ -436,15 +480,15 @@ class TZ_PortfolioViewArticle extends JViewLegacy
         }
 
         if($item -> params -> get('useCloudZoom',1) == 1){
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/cloud-zoom'.$csscompress.'.css');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/cloud-zoom.min.css');
             $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                $jscompress -> folder.'/cloud-zoom.1.0.3.min'.$jscompress -> extfile.'.js"></script>');
+                '/cloud-zoom.1.0.3.min.js"></script>');
         }
 
         if($item -> params -> get('tz_use_lightbox',1) == 1 AND !$tmpl){
             $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                $jscompress -> folder.'/jquery.fancybox.pack'.$jscompress -> extfile.'.js"></script>');
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox'.$csscompress.'.css');
+                '/jquery.fancybox.pack.js"></script>');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox.min.css');
 
             $width      = null;
             $height     = null;
@@ -487,10 +531,9 @@ class TZ_PortfolioViewArticle extends JViewLegacy
 
         /* Add scrollbar script */
         if($item -> params -> get('use_custom_scrollbar',1) && JRequest::getString('tmpl') == 'component' && !$this ->print){
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/jquery.mCustomScrollbar'.$csscompress.'.css');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/jquery.mCustomScrollbar.min.css');
             $doc -> addCustomTag('<script src="components/com_tz_portfolio/js'.
-                            $jscompress -> folder.'/jquery.mCustomScrollbar'
-                .$jscompress -> extfile.'.js"></script>');
+                            '/jquery.mCustomScrollbar.min.js"></script>');
 
             if($item -> params -> get('horizontalScroll',0)){
                 $horizontalScroll   = 'true';
@@ -595,12 +638,11 @@ class TZ_PortfolioViewArticle extends JViewLegacy
 
         if($item -> params -> get('show_video',1)){
             $doc -> addCustomTag('<script src="components/com_tz_portfolio/js'.
-                                        $jscompress -> folder.'/fluidvids.v2.0.0'
-                            .$jscompress -> extfile.'.js" type="text/javascript"></script>');
+                                        '/fluidvids.min.js" type="text/javascript"></script>');
             $doc -> addCustomTag('<script type="text/javascript">
                 jQuery(document).ready(function(){
-                Fluidvids.init({
-                    selector: \'.TzArticleMedia iframe\',
+                fluidvids.init({
+                    selector: [\'.TzArticleMedia iframe\'],
                     players: [\'www.youtube.com\', \'player.vimeo.com\']
                 });
               });
@@ -618,7 +660,7 @@ class TZ_PortfolioViewArticle extends JViewLegacy
         $extraFields -> setState('params',$params);
         $this -> assign('listFields',$extraFields -> getExtraFields());
 
-        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio'.$csscompress.'.css');
+        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio.min.css');
 
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->item->params->get('pageclass_sfx'));
@@ -648,7 +690,7 @@ class TZ_PortfolioViewArticle extends JViewLegacy
 
         if($theme){
             if($tplParams  = $theme ->params){
-                $this -> document -> addStyleSheet('components/com_tz_portfolio/css/tz.bootstrap'.$csscompress.'.css');
+                $this -> document -> addStyleSheet('components/com_tz_portfolio/css/tz.bootstrap.min.css');
                 foreach($tplParams as $tplItems){
                     $rows   = null;
 
@@ -663,11 +705,11 @@ class TZ_PortfolioViewArticle extends JViewLegacy
                     if($tplItems -> textcolor && !preg_match('/^rgba\([0-9]+\,\s+?[0-9]+\,\s+?[0-9]+\,\s+?0\)$/i',trim($tplItems -> textcolor))){
                         $color      =  'color: '.$tplItems -> textcolor.';';
                     }
-                    if($tplItems -> margin){
+                    if(isset($tplItems -> margin) && !empty($tplItems -> margin)){
                         $margin = 'margin: '.$tplItems -> margin.';';
                     }
-                    if($tplItems -> padding){
-                        $padding = 'padding: '.$tplItems -> margin.';';
+                    if(isset($tplItems -> padding) && !empty($tplItems -> padding)){
+                        $padding = 'padding: '.$tplItems -> padding.';';
                     }
                     if($background || $color || $margin || $padding){
                         $this -> document -> addStyleDeclaration('
@@ -693,45 +735,38 @@ class TZ_PortfolioViewArticle extends JViewLegacy
                     $rows[] = '<div id="tz-portfolio-template-'.JApplication::stringURLSafe($tplItems -> name).'"'
                         .' class="tz-container-fluid'.($tplItems -> {"class"}?' '.$tplItems -> {"class"}:'')
                         .($tplItems -> responsive?' '.$tplItems -> responsive:'').'">';
+                    if($tplItems -> containertype){
+                        $rows[] = '<div class="'.$tplItems -> containertype.'">';
+                    }
+
                     $rows[] = '<div class="tz-row">';
                     foreach($tplItems -> children as $children){
                         $html   = null;
+
+                        if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
+                            || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
+                            || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
+                            || !empty($children -> {"col-sm-offset"}) || !empty($children -> {"col-xs-offset"})
+                            || !empty($children -> {"customclass"}) || $children -> responsiveclass){
+                            $rows[] = '<div class="'
+                                .(!empty($children -> {"col-lg"})?'tz-col-lg-'.$children -> {"col-lg"}:'')
+                                .(!empty($children -> {"col-md"})?' tz-col-md-'.$children -> {"col-md"}:'')
+                                .(!empty($children -> {"col-sm"})?' tz-col-sm-'.$children -> {"col-sm"}:'')
+                                .(!empty($children -> {"col-xs"})?' tz-col-xs-'.$children -> {"col-xs"}:'')
+                                .(!empty($children -> {"col-lg-offset"})?' tz-col-lg-offset-'.$children -> {"col-lg-offset"}:'')
+                                .(!empty($children -> {"col-md-offset"})?' tz-col-md-offset-'.$children -> {"col-md-offset"}:'')
+                                .(!empty($children -> {"col-sm-offset"})?' tz-col-sm-offset-'.$children -> {"col-sm-offset"}:'')
+                                .(!empty($children -> {"col-xs-offset"})?' tz-col-xs-offset-'.$children -> {"col-xs-offset"}:'')
+                                .(!empty($children -> {"customclass"})?' '.$children -> {"customclass"}:'')
+                                .($children -> responsiveclass?' '.$children -> responsiveclass:'').'">';
+                        }
+
                         if($children -> type && $children -> type !='none'){
                             $html   = $this -> loadTemplate($children -> type);
                             $html   = trim($html);
                         }
-//                        if($html && !empty($html)){
-                            if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
-                                || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
-                                || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
-                                || !empty($children -> {"col-sm-offset"}) || !empty($children -> {"col-xs-offset"})
-                                || !empty($children -> {"customclass"}) || $children -> responsiveclass){
-                                $rows[] = '<div class="'
-                                    .(!empty($children -> {"col-lg"})?'tz-col-lg-'.$children -> {"col-lg"}:'')
-                                    .(!empty($children -> {"col-md"})?' tz-col-md-'.$children -> {"col-md"}:'')
-                                    .(!empty($children -> {"col-sm"})?' tz-col-sm-'.$children -> {"col-sm"}:'')
-                                    .(!empty($children -> {"col-xs"})?' tz-col-xs-'.$children -> {"col-xs"}:'')
-                                    .(!empty($children -> {"col-lg-offset"})?' tz-col-lg-offset-'.$children -> {"col-lg-offset"}:'')
-                                    .(!empty($children -> {"col-md-offset"})?' tz-col-md-offset-'.$children -> {"col-md-offset"}:'')
-                                    .(!empty($children -> {"col-sm-offset"})?' tz-col-sm-offset-'.$children -> {"col-sm-offset"}:'')
-                                    .(!empty($children -> {"col-xs-offset"})?' tz-col-xs-offset-'.$children -> {"col-xs-offset"}:'')
-                                    .(!empty($children -> {"customclass"})?' '.$children -> {"customclass"}:'')
-                                    .($children -> responsiveclass?' '.$children -> responsiveclass:'').'">';
-                            }
 
-                            if($children -> type == 'introtext' || $children -> type == 'fulltext'){
-                                $article -> text    = null;
-                                if ($params->get('show_intro', 1) && $children -> type == 'introtext') {
-                                    $article -> text    = $article -> introtext;
-                                }
-                                if($children -> type == 'fulltext'){
-                                    $article -> text    = $article -> fulltext;
-                                }
-                                $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.article', &$article, &$params, $this->state->get('list.offset')));
-                            }
-
-                            $rows[] = $html;
-//                        }
+                        $rows[] = $html;
 
                         if( !empty($children -> children) and is_array($children -> children) ){
                             $this -> childrenLayout($rows,$children,$article,$params,$dispatcher);
@@ -746,6 +781,10 @@ class TZ_PortfolioViewArticle extends JViewLegacy
                                 $rows[] = '</div>'; // Close col tag
                             }
 //                        }
+                    }
+
+                    if($tplItems -> containertype){
+                        $rows[] = '</div>';
                     }
                     $rows[] = '</div>';
                     $rows[] = '</div>';
@@ -768,11 +807,11 @@ class TZ_PortfolioViewArticle extends JViewLegacy
             if($children -> textcolor && !preg_match('/^rgba\([0-9]+\,\s+?[0-9]+\,\s+?[0-9]+\,\s+?0\)$/i',trim($children -> textcolor))){
                 $color      =  'color: '.$children -> textcolor.';';
             }
-            if($children -> margin){
+            if(isset($children -> margin) && !empty($children -> margin)){
                 $margin = 'margin: '.$children -> margin.';';
             }
-            if($children -> padding){
-                $padding = 'padding: '.$children -> margin.';';
+            if(isset($children -> padding) && !empty($children -> padding)){
+                $padding = 'padding: '.$children -> padding.';';
             }
             if($background || $color){
                 $this -> document -> addStyleDeclaration('
@@ -800,55 +839,43 @@ class TZ_PortfolioViewArticle extends JViewLegacy
             $rows[] = '<div class="tz-row">';
             foreach($children -> children as $children){
                 $html   = null;
+
+                if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
+                || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
+                || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
+                || !empty($children -> {"col-sm-offset"}) || !empty($children -> {"col-xs-offset"})
+                || !empty($children -> {"customclass"}) || $children -> responsiveclass){
+                    $rows[] = '<div class="'
+                        .(!empty($children -> {"col-lg"})?'tz-col-lg-'.$children -> {"col-lg"}:'')
+                        .(!empty($children -> {"col-md"})?' tz-col-md-'.$children -> {"col-md"}:'')
+                        .(!empty($children -> {"col-sm"})?' tz-col-sm-'.$children -> {"col-sm"}:'')
+                        .(!empty($children -> {"col-xs"})?' tz-col-xs-'.$children -> {"col-xs"}:'')
+                        .(!empty($children -> {"col-lg-offset"})?' tz-col-lg-offset-'.$children -> {"col-lg-offset"}:'')
+                        .(!empty($children -> {"col-md-offset"})?' tz-col-md-offset-'.$children -> {"col-md-offset"}:'')
+                        .(!empty($children -> {"col-sm-offset"})?' tz-col-sm-offset-'.$children -> {"col-sm-offset"}:'')
+                        .(!empty($children -> {"col-xs-offset"})?' tz-col-xs-offset-'.$children -> {"col-xs-offset"}:'')
+                        .(!empty($children -> {"customclass"})?' '.$children -> {"customclass"}:'')
+                        .($children -> responsiveclass?' '.$children -> responsiveclass:'').'">';
+                }
+
                 if($children -> type && $children -> type !='none'){
                     $html   = $this -> loadTemplate($children -> type);
                     $html   = trim($html);
                 }
-//                if($html && !empty($html)){
-                    if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
-                    || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
-                    || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
-                    || !empty($children -> {"col-sm-offset"}) || !empty($children -> {"col-xs-offset"})
-                    || !empty($children -> {"customclass"}) || $children -> responsiveclass){
-                        $rows[] = '<div class="'
-                            .(!empty($children -> {"col-lg"})?'tz-col-lg-'.$children -> {"col-lg"}:'')
-                            .(!empty($children -> {"col-md"})?' tz-col-md-'.$children -> {"col-md"}:'')
-                            .(!empty($children -> {"col-sm"})?' tz-col-sm-'.$children -> {"col-sm"}:'')
-                            .(!empty($children -> {"col-xs"})?' tz-col-xs-'.$children -> {"col-xs"}:'')
-                            .(!empty($children -> {"col-lg-offset"})?' tz-col-lg-offset-'.$children -> {"col-lg-offset"}:'')
-                            .(!empty($children -> {"col-md-offset"})?' tz-col-md-offset-'.$children -> {"col-md-offset"}:'')
-                            .(!empty($children -> {"col-sm-offset"})?' tz-col-sm-offset-'.$children -> {"col-sm-offset"}:'')
-                            .(!empty($children -> {"col-xs-offset"})?' tz-col-xs-offset-'.$children -> {"col-xs-offset"}:'')
-                            .(!empty($children -> {"customclass"})?' '.$children -> {"customclass"}:'')
-                            .($children -> responsiveclass?' '.$children -> responsiveclass:'').'">';
-                    }
-
-                    if($children -> type == 'introtext' || $children -> type == 'fulltext'){
-                        $article -> text    = null;
-                        if ($params->get('show_intro', 1) && $children -> type == 'introtext') {
-                            $article -> text    = $article -> introtext;
-                        }
-                        if($children -> type == 'fulltext'){
-                            $article -> text    = $article -> fulltext;
-                        }
-                        $dispatcher->trigger('onContentPrepare', array ('com_tz_portfolio.article', &$article, &$params, $this->state->get('list.offset')));
-                    }
-                    $rows[] = $html;
-//                }
+                $rows[] = $html;
 
                 if( !empty($children -> children) and is_array($children -> children) ){
                     $this -> childrenLayout($rows,$children,$article,$params,$dispatcher);
                 }
 
-//                if($html && !empty($html)){
-                    if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
-                        || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
-                        || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
-                        || !empty($children -> {"col-sm-offset"}) || !empty($children -> {"col-xs-offset"})
-                        || !empty($children -> {"customclass"}) || $children -> responsiveclass){
-                        $rows[] = '</div>'; // Close col tag
-                    }
-//                }
+                if(!empty($children -> {"col-lg"}) || !empty($children -> {"col-md"})
+                    || !empty($children -> {"col-sm"}) || !empty($children -> {"col-xs"})
+                    || !empty($children -> {"col-lg-offset"}) || !empty($children -> {"col-md-offset"})
+                    || !empty($children -> {"col-sm-offset"}) || !empty($children -> {"col-xs-offset"})
+                    || !empty($children -> {"customclass"}) || $children -> responsiveclass){
+                    $rows[] = '</div>'; // Close col tag
+                }
+
             }
             $rows[] = '</div>';
             $rows[] = '</div>';

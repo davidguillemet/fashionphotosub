@@ -257,10 +257,30 @@ class TZ_PortfolioViewDate extends JViewLegacy{
             }
         }
 
+        $content_ids    = array();
+        if($items) {
+            for ($i = 0, $n = count($items); $i < $n; $i++) {
+                $content_ids[]  = $items[$i] -> id;
+            }
+        }
+
+        $tags   = null;
+        if(count($content_ids) && $params -> get('show_tags',1)) {
+            $m_tag = JModelLegacy::getInstance('Tag', 'TZ_PortfolioModel', array('ignore_request' => true));
+            $m_tag->setState('params',$params);
+            $m_tag->setState('article.id', $content_ids);
+            $m_tag -> setState('list.ordering','x.contentid');
+            $tags   = $m_tag -> getArticleTags();
+        }
+
         $_params    = null;
         for ($i = 0, $n = count($items); $i < $n; $i++)
         {
             $item = &$items[$i];
+
+            if($tags && count($tags) && isset($tags[$item -> id])){
+                $item -> tags   = $tags[$item -> id];
+            }
 
             $item->slug = $item->alias ? ($item->id . ':' . $item->alias) : $item->id;
 
@@ -452,8 +472,8 @@ class TZ_PortfolioViewDate extends JViewLegacy{
 
         if($params -> get('tz_use_lightbox',1) == 1){
             $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                $jscompress -> folder.'/jquery.fancybox.pack'.$jscompress -> extfile.'.js"></script>');
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox'.$csscompress.'.css');
+                $jscompress -> folder.'/jquery.fancybox.pack.js"></script>');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox.min.css');
 
             $width      = null;
             $height     = null;
@@ -502,7 +522,7 @@ class TZ_PortfolioViewDate extends JViewLegacy{
             ');
         }
 
-        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio'.$csscompress.'.css');
+        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio.min.css');
 
 //        $this->_prepareDocument();
 
@@ -620,6 +640,8 @@ class TZ_PortfolioViewDate extends JViewLegacy{
         $app		= JFactory::getApplication();
         $menus		= $app->getMenu('site');
         $active     = $menus->getActive();
+        $homeId     = null;
+        $userid     = null;
         if($_userid){
             $userid    = intval($_userid);
         }
@@ -649,10 +671,12 @@ class TZ_PortfolioViewDate extends JViewLegacy{
             }
         }
 
-        if(!isset($active -> id)){
+        if(!isset($active -> id) && $homeId){
             return $homeId;
         }
 
-        return $active -> id;
+        if($active && isset($active -> id))
+            return $active -> id;
+        return null;
     }
 }

@@ -21,6 +21,7 @@
 defined('_JEXEC') or die;
 
 jimport('joomla.application.component.model');
+jimport('joomla.filesystem.file');
 
 class TZ_PortfolioModelMedia extends JModelLegacy
 {
@@ -39,6 +40,8 @@ class TZ_PortfolioModelMedia extends JModelLegacy
         else {
             $this->setState('filter.published', array(0, 1, 2));
         }
+
+        $this -> setState('params',null);
     }
 
     function getCatParams($catid = null){
@@ -110,6 +113,10 @@ class TZ_PortfolioModelMedia extends JModelLegacy
             if($this -> _params)
                 $params -> merge($this -> _params);
 
+            if($_params = $this -> getState('params')){
+                $params = $_params;
+            }
+
             if(!empty($rows -> type)){
 
                 switch (trim(strtolower($rows -> type))){
@@ -141,9 +148,10 @@ class TZ_PortfolioModelMedia extends JModelLegacy
 
                                 if(isset($title[$i]) && !empty($title[$i])){
                                     $data[$i] -> imagetitle     = htmlspecialchars(trim($title[$i]));
-                                }elseif(isset($rows -> c_title) && !empty($rows -> c_title)){
-                                    $data[0] -> imagetitle     = $rows -> c_title;
                                 }
+//                                elseif(isset($rows -> c_title) && !empty($rows -> c_title)){
+//                                    $data[$i] -> imagetitle     = $rows -> c_title;
+//                                }
 
                                 $data[$i] -> articleId   = $articleId;
                             }

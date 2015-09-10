@@ -306,7 +306,6 @@ class TZ_PortfolioModelPortfolio extends JModelList
             $this->setState('filter.published', array(0, 1, 2));
         }
 
-
         $this -> setState('list.limit',$limit);
         $this -> setState('list.start',$offset);
         $this -> setState('params',$params);
@@ -325,17 +324,10 @@ class TZ_PortfolioModelPortfolio extends JModelList
         if(isset($newCatids) && count($newCatids) > 0){
 
             foreach($newCatids as $key => $newCatid){
-                $bool   = false;
                 if(isset($curCatids) && count($curCatids) > 0){
-                    foreach($curCatids as $curCatid){
-                        if( (int) $curCatid == (int) $newCatid -> id){
-                            $bool   = true;
-                            break;
-                        }
+                    if(!in_array($newCatid -> id,$curCatids)){
+                        $catIds[] = $newCatid;
                     }
-                }
-                if($bool == false){
-                    $catIds[] = $newCatid;
                 }
             }
         }
@@ -348,39 +340,67 @@ class TZ_PortfolioModelPortfolio extends JModelList
 
         return $data;
     }
+
     function getCategories(){
         $catids = $this -> categories;
 
-        if(count($catids) > 1){
-            if(empty($catids[0])){
-                array_shift($catids);
+        $params = $this -> getState('params');
+        $db     = JFactory::getDbo();
+        $query  = $db -> getQuery(true);
+
+        $query -> select('id,title,lft');
+        $query -> from($db -> quoteName('#__categories'));
+        $query -> where('published = 1');
+        $query -> where('extension='.$db -> quote('com_content'));
+
+        if(is_array($catids)){
+            $catids = array_filter($catids);
+            if(count($catids)){
+                $query -> where('id IN('.implode(',',$catids).')');
             }
-            $catids = implode(',',$catids);
-        }
-        else{
-            if(!empty($catids[0])){
-                $catids = $catids[0];
-            }
-            else
-                $catids = null;
+        }elseif(!empty($catids)){
+            $query -> where('id IN('.$catids.')');
         }
 
-        $where  = null;
-        if($catids){
-            $where  = ' AND id IN('.$catids.')';
+        // Order by artilce
+        switch ($params -> get('orderby_pri')){
+            case 'alpha' :
+                $query -> order('title');
+                break;
+
+            case 'ralpha' :
+                $query -> order('title DESC ');
+                break;
+
+            case 'order' :
+                $query -> order('lft');
+                break;
         }
-        $query  = 'SELECT id,title FROM #__categories'
-                  .' WHERE published=1 AND extension="com_content"'
-                  .$where
-                  .' GROUP BY id';
-        $db = JFactory::getDbo();
+
+        $query -> group('id');
+
         $db -> setQuery($query);
-        if(!$db -> query()){
-            var_dump($db -> getErrorMsg());
-            return false;
-        }
 
         if($rows = $db -> loadObjectList()){
+            if($allCatIds  = $this -> getAllCategories()){
+                foreach($allCatIds as &$allCatId){
+                    $allCatId   = (int) $allCatId -> id;
+                }
+            }
+
+            $array      = array();
+            $revArray   = array();
+            if(is_array($catids)){
+                $array      = array_intersect($allCatIds,$catids);
+                $revArray   = array_flip($array);
+            }
+
+            foreach($rows as $item){
+                $item -> order  = 0;
+                if(in_array($item -> id,$array)){
+                    $item -> order  = $revArray[$item -> id];
+                }
+            }
             return $rows;
         }
 
@@ -396,14 +416,28 @@ class TZ_PortfolioModelPortfolio extends JModelList
         $query -> where($db -> quoteName('extension').'='.$db -> quote('com_content'));
 
         if($catid = $params -> get('tz_catid')){
-            if(empty($catid[0])){
-                array_shift($catid);
-            }
+            $catid  = array_unique($catid);
             $catid  = implode(',',$catid);
             if(!empty($catid)){
                 $query -> where('id IN('.$catid.')');
             }
         }
+
+        // Order by artilce
+        switch ($params -> get('orderby_pri')){
+            case 'alpha' :
+                $query -> order('title');
+                break;
+
+            case 'ralpha' :
+                $query -> order('title DESC ');
+                break;
+
+            case 'order' :
+                $query -> order('lft');
+                break;
+        }
+
         $db -> setQuery($query);
         if($rows = $db -> loadObjectList()){
             return $rows;
@@ -432,6 +466,10 @@ class TZ_PortfolioModelPortfolio extends JModelList
             foreach($rows as $row){
                 $row -> name    = trim($row -> name);
                 $row -> tagFilter   = JApplication::stringURLSafe($row -> name);
+                $row -> params      = null;
+                if(isset($row -> attribs) && !empty($row -> attribs)){
+                    $row -> params  = new JRegistry($row -> attribs);
+                }
             }
             return $rows;
         }
@@ -481,6 +519,10 @@ class TZ_PortfolioModelPortfolio extends JModelList
                 foreach($rows as &$item){
                     $item -> name   = trim($item -> name);
                     $item -> tagFilter  = JApplication::stringURLSafe(trim($item -> name));
+                    $item -> params      = null;
+                    if(isset($item -> attribs) && !empty($item -> attribs)){
+                        $item -> params  = new JRegistry($item -> attribs);
+                    }
                 }
                 $this -> rowsTag    = $rows;
             }
@@ -543,25 +585,18 @@ class TZ_PortfolioModelPortfolio extends JModelList
 
         $catids = $params -> get('tz_catid');
 
-        if(count($catids) > 1){
-            if(empty($catids[0])){
-                array_shift($catids);
+        if(is_array($catids)){
+            $catids = array_filter($catids);
+            if(count($catids)){
+                $query -> where('c.catid IN('.implode(',',$catids).')');
             }
-            $catids = implode(',',$catids);
-        }
-        else{
-            if(!empty($catids[0])){
-                $catids = $catids[0];
-            }
-            else
-                $catids = null;
-        }
-
-        if($catids){
+        }else{
             $query -> where('c.catid IN('.$catids.')');
         }
 
         if($char   = $this -> getState('char')){
+//            $query -> where('ASCII(SUBSTR(LOWER(c.title),1,1)) = ASCII('.$db -> quote(mb_strtolower($char)).')');
+            $query -> where('c.title LIKE '.$db -> quote(urldecode(mb_strtolower($char)).'%'));
             $query -> where('ASCII(SUBSTR(LOWER(c.title),1,1)) = ASCII('.$db -> quote(mb_strtolower($char)).')');
         }
 
@@ -600,10 +635,10 @@ class TZ_PortfolioModelPortfolio extends JModelList
                 $orderby    = 'title DESC';
                 break;
             case 'author':
-                $orderby    = 'create_by ASC';
+                $orderby    = 'u.name ASC';
                 break;
             case 'rauthor':
-                $orderby    = 'create_by DESC';
+                $orderby    = 'u.name DESC';
                 break;
             case 'hits':
                 $orderby    = 'hits DESC';
@@ -632,21 +667,23 @@ class TZ_PortfolioModelPortfolio extends JModelList
     public function getItems(){
         if($items = parent::getItems()){
 
-            $user	= JFactory::getUser();
-            $userId	= $user->get('id');
-            $guest	= $user->get('guest');
+            $user	        = JFactory::getUser();
+            $userId	        = $user->get('id');
+            $guest	        = $user->get('guest');
 
-            $params = $this -> getState('params');
-            $contentId  = array();
+            $params         = $this -> getState('params');
+            $contentId      = array();
+            $content_ids    = array();
 
-            $_params    = null;
-            $categories = JCategories::getInstance('Content');
+            $_params        = null;
+            $categories     = JCategories::getInstance('Content');
 
-            $threadLink = null;
-            $comments   = null;
+            $threadLink     = null;
+            $comments       = null;
 
             if(count($items)>0){
                 foreach($items as &$item){
+                    $content_ids[]  = $item -> id;
                     $_params        = clone($params);
                     $temp           = clone($params);
 
@@ -799,10 +836,22 @@ class TZ_PortfolioModelPortfolio extends JModelList
                     // End Get comment counts for all items(articles)
                 }
 
+                $tags   = null;
+                if(count($content_ids) && $params -> get('show_tags',1)) {
+                    $m_tag = JModelLegacy::getInstance('Tag', 'TZ_PortfolioModel', array('ignore_request' => true));
+                    $m_tag->setState('params',$params);
+                    $m_tag->setState('article.id', $content_ids);
+                    $m_tag -> setState('list.ordering','x.contentid');
+                    $tags   = $m_tag -> getArticleTags();
+                }
+
                 //Get Plugins Model
                 $pmodel = JModelLegacy::getInstance('Plugins','TZ_PortfolioModel',array('ignore_request' => true));
 
                 foreach($items as $key => &$item){
+                    if($tags && count($tags) && isset($tags[$item -> id])){
+                        $item -> tags   = $tags[$item -> id];
+                    }
                     /*** Start New Source ***/
                     $tmpl   = null;
                     if($item->params -> get('tz_use_lightbox',1) == 1){
@@ -926,7 +975,7 @@ class TZ_PortfolioModelPortfolio extends JModelList
 //                    $item -> attribs    = $itemParams -> toString();
 
                     //Get Catid
-                    $this -> categories[]   = $item -> catid;
+                    $this -> categories[]   = (int) $item -> catid;
 
                 }
                 $this -> _Tags($contentId);

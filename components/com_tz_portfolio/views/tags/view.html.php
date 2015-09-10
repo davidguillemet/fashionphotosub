@@ -351,8 +351,8 @@ class TZ_PortfolioViewTags extends JViewLegacy
 
         if($params -> get('tz_use_lightbox',1) == 1){
             $doc -> addCustomTag('<script type="text/javascript" src="components/com_tz_portfolio/js'.
-                $jscompress -> folder.'/jquery.fancybox.pack'.$jscompress -> extfile.'.js"></script>');
-            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox'.$csscompress.'.css');
+                $jscompress -> folder.'/jquery.fancybox.pack.js"></script>');
+            $doc -> addStyleSheet('components/com_tz_portfolio/css/fancybox.min.css');
 
             $width      = null;
             $height     = null;
@@ -401,7 +401,9 @@ class TZ_PortfolioViewTags extends JViewLegacy
             ');
         }
 
-        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio'.$csscompress.'.css');
+        $doc -> addStyleSheet('components/com_tz_portfolio/css/tzportfolio.min.css');
+
+        $this -> _prepareDocument();
 
         // Add feed links
 		if ($params->get('show_feed_link', 1)) {
@@ -413,6 +415,41 @@ class TZ_PortfolioViewTags extends JViewLegacy
 		}
 
         parent::display($tpl);
+    }
+
+    protected function _prepareDocument()
+    {
+        $app    = JFactory::getApplication();
+        $title  = $this->params->get('page_title', '');
+
+        if (empty($title)) {
+            $title = $app->getCfg('sitename');
+        }
+        elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
+            $title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+        }
+        elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
+            $title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+        }
+
+        $this->document->setTitle($title);
+
+        if ($this->params->get('menu-meta_description'))
+        {
+            $this->document->setDescription($this->params->get('menu-meta_description'));
+        }
+
+        if ($this->params->get('menu-meta_keywords'))
+        {
+            $this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
+        }elseif($this -> tag && !$this->params->get('menu-meta_keywords')){
+            $this->document->setMetadata('keywords', $this -> tag -> name);
+        }
+
+        if ($this->params->get('robots'))
+        {
+            $this->document->setMetadata('robots', $this->params->get('robots'));
+        }
     }
 
     protected function FindUserItemId($_userid=null){
