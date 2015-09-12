@@ -67,7 +67,7 @@ function onLocationsDataLoaded()
 	
 }
 
-jQuery(document).ready(function() { loadLocationsData(false); });
+google.load("maps", "3", { callback: function() { loadLocationsData(false); } } );
 
 </script>
 

@@ -93,6 +93,7 @@ if( $this->countModules('fashion-right-top') or $this->countModules('fashion-rig
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,600,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,600&subset=latin-ext' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
@@ -139,8 +140,6 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
 	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.3.2.7.js"></script>
 	<script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/supersized.shutter.js"></script>
 <?php } ?>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKLtTlcioENuFJU6ruZwtIrwxr7S07nTw"></script>
 
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/select2/select2.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/js/select2/select2_locale_fr.js"></script>
