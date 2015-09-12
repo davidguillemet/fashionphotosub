@@ -67,7 +67,7 @@ function onLocationsDataLoaded()
 	
 }
 
-loadLocationsData(false);
+jQuery(document).ready(function() { loadLocationsData(false); });
 
 </script>
 

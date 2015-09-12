@@ -319,7 +319,7 @@ $doc->addStyleDeclaration('
 		previousContentWidth = newContentWidth;
 	}
 	
-	loadLocationsData(true);
+	jQuery(document).ready(function() { loadLocationsData(true); });
 
 	jQuery( window ).resize(updateCloud);
 
