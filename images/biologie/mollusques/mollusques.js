@@ -131,7 +131,7 @@ jQuery(document).ready( function($) {
 
 	function getAlphabeticalFilterType()
 	{
-		return $("#alphabeticalcriteria").val();
+		return $("input[name=alphabeticalcriteria]:checked").val();
 	}
 	
 	function IsUndescribedSpecies(species)
@@ -512,9 +512,12 @@ jQuery(document).ready( function($) {
 		filters.empty();
 		filters.css("display", "none");
 	
+		// hide d3 alphabetical filer
 		var alphabetical = $("#alphabetical");
 		alphabetical.empty();
-		alphabetical.css("display", "none");
+		alphabetical.hide();
+		// hide bootstrap alphabetical filter behavior (radios to filter on genius or species)
+		$("#alphafilterbehavior").hide();
 		
 		var $initiaTip = $("#initialTip");
 		if ($initiaTip)
@@ -558,7 +561,8 @@ jQuery(document).ready( function($) {
 	
 		// Show the chart and alphabetical filter container
 		$("#filters").css("display", "block");
-		$("#alphabetical").css("display","block");
+		$("#alphabetical").show();
+		$("#alphafilterbehavior").show();
 
 		chartActive = true;
 						
@@ -653,7 +657,7 @@ jQuery(document).ready( function($) {
 		
 		onResize(true);
 		
-		$("#alphabeticalcriteria").change(function () {
+		$("label[id=alphafilter]").on("click", function () {
 			if (currentFilter != null)
 			{
 				loadData('filter', currentFilter);
