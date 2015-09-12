@@ -108,10 +108,6 @@ var rootTemplate = rootUrl + "templates/<?php echo $this->template; ?>/"
   ga('create', 'UA-27250055-1', 'auto');
   ga('send', 'pageview');
 </script>  
-<!-- Share This -->
-<script type="text/javascript">var switchTo5x=true;</script>
-<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "23fa9369-ba77-499c-9e23-6f1e82eb5516", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
 
 <jdoc:include type="head" />
 
