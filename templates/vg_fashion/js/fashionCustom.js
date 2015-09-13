@@ -108,10 +108,10 @@ $f(document).ready(function(){
 
 // column-1 width = 100% (300px) -> 460px -> 730px -> 940px
 var responsiveData = [
-	{ contentWidth: 300, thumbWidth: 210, chart: false, blueimpThumbnails: false },
-	{ contentWidth: 460, thumbWidth: 184, chart: false, blueimpThumbnails: false },
-	{ contentWidth: 730, thumbWidth: 210, chart: false, blueimpThumbnails: true },
-	{ contentWidth: 940, thumbWidth: 210, chart: true, blueimpThumbnails: true }
+	{ contentWidth: 300, thumbWidth: 220, chart: false, blueimpThumbnails: false },
+	{ contentWidth: 460, thumbWidth: 189, chart: false, blueimpThumbnails: false },
+	{ contentWidth: 730, thumbWidth: 216, chart: false, blueimpThumbnails: true },
+	{ contentWidth: 940, thumbWidth: 214, chart: true, blueimpThumbnails: true }
 ];
 
 function getContentWidth()

@@ -40,7 +40,7 @@ jQuery(document).ready( function($) {
 	var defaultWookmarkOptions = {
 		autoResize: true, // This will auto-update the layout when the browser window is resized.
 		container: $('.tiles'), // Optional, used for some extra CSS styling
-		offset: 5, // Optional, the distance between grid items
+		offset: 1, // Optional, the distance between grid items
 		itemWidth: defaultThumbnailWith, // Optional, the width of a grid item
 		comparator: comparatorName
 	};
