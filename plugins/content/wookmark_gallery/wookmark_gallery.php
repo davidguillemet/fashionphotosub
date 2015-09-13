@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.plugin.plugin');
 class plgContentWookmark_Gallery extends JPlugin
 {
-	const CacheFileName = 'cachev3.gzip';
+	const CacheFileName = 'cachev5.gzip';
 	
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
