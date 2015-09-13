@@ -13,6 +13,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.plugin.plugin');
 class plgContentWookmark_Gallery extends JPlugin
 {
+	const CacheFileName = 'cachev3.gzip';
+	
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		if (strpos($article->text, 'end-wookmark') === false) 
@@ -79,6 +81,8 @@ class plgContentWookmark_Gallery extends JPlugin
 			}
 			$string = $article->text;
 
+			$galleryPath = array();
+			
 			$containerCount = 0;
 			$regex = "/{wookmark}(.*?){end-wookmark}/is";			
 			preg_match_all($regex, $string, $matches);
@@ -133,14 +137,16 @@ class plgContentWookmark_Gallery extends JPlugin
 					}
 					
 					$returned = $this->fetchImgFold($arr_folder_path, $insertDB, $generateFile, $containerCount);
-						
+					
+					$galleryPath[$containerCount] = $arr_folder_path;
+					
 					$galleryHtml = "
 						<div class='myapp' id='myapp$containerCount'>
 							<div id='progress$containerCount' class='wookmarkProgress'>
 								<h3>Chargement en cours...</h3>
 								<div class='progressBarContainer'><div class='progressBar'></div></div>
 							</div>
-							<ul class='tiles' id='tiles$containerCount'>$returned</ul>
+							<ul class='tiles' id='tiles$containerCount'></ul>
 						</div>";
 						
 					$galleryHtml .= "<div id='blueimp-gallery$containerCount' class='blueimp-gallery blueimp-gallery-controls'>" .
@@ -158,16 +164,51 @@ class plgContentWookmark_Gallery extends JPlugin
 				}
 			}
 
-			$javascript = "<script type='text/javascript'>
-			jQuery(document).ready( function() {";
+			$javascript = "<script type='text/javascript'>";
 							
 			for ($galleryIndex = 0; $galleryIndex < $containerCount; $galleryIndex++)
 			{
 				$javascript .= "
-				var imgLoad$galleryIndex = new imagesLoaded('#myapp$galleryIndex');
 					
-				function onAlways$galleryIndex(instance) {
+				jQuery(document).ready( function() {
+				
+					jQuery.ajax({
+						url: rootUrl + 'getCacheFile.php',
+						dataType: 'text',
+						data: {
+							filepath:  '$galleryPath[$galleryIndex]/" . self::CacheFileName . "'
+						},
+						success: onLoadData$galleryIndex
+					});
+				
+				});
+				
+				function onLoadData$galleryIndex(response)
+				{
+					jQuery('#tiles$galleryIndex').append(jQuery(response));
 					
+					jQuery('#tiles$galleryIndex li').tooltipster({
+						position: 'top',
+						offsetY: -4
+					});
+					
+					var imgLoad$galleryIndex = new imagesLoaded('#myapp$galleryIndex');
+					
+					imgLoad$galleryIndex.on('always', onAlways$galleryIndex);
+				
+					var imagesCount$galleryIndex = jQuery('#myapp$galleryIndex #tiles$galleryIndex li').length;
+					var imageLoaded$galleryIndex = 0;
+				
+					imgLoad$galleryIndex.on('progress', function (instance, image) {
+						imageLoaded$galleryIndex++;
+						var progress = Math.round((imageLoaded$galleryIndex * 100) / imagesCount$galleryIndex);
+						jQuery('#progress$galleryIndex .progressBar').css('width', progress + '%');
+					});
+				}
+
+					
+				function onAlways$galleryIndex(instance)
+				{
 					jQuery('#progress$galleryIndex').css('display', 'none');
 					
 					var options$galleryIndex = {
@@ -180,26 +221,10 @@ class plgContentWookmark_Gallery extends JPlugin
 					var handler$galleryIndex = jQuery('#tiles$galleryIndex li');
 					handler$galleryIndex.wookmark(options$galleryIndex);
 				}
-				
-				imgLoad$galleryIndex.on('always', onAlways$galleryIndex);
-				
-				var imagesCount$galleryIndex = jQuery('#myapp$galleryIndex #tiles$galleryIndex li').length;
-				var imageLoaded$galleryIndex = 0;
-				
-				imgLoad$galleryIndex.on('progress', function (instance, image) {
-					imageLoaded$galleryIndex++;
-					var progress = Math.round((imageLoaded$galleryIndex * 100) / imagesCount$galleryIndex);
-					jQuery('#progress$galleryIndex .progressBar').css('width', progress + '%');
-				});";
+				";
 			}
 			  
-			$javascript .= "
-				jQuery('.tiles li').tooltipster({
-					position: 'top',
-					offsetY: -4
-				});
-			});
-			</script>";
+			$javascript .= "</script>";
 		  
 			$article->text = $string . $javascript;
 		  
@@ -243,7 +268,7 @@ class plgContentWookmark_Gallery extends JPlugin
 
 	function fetchImgFold($folder_path, $insertInDatabase, $generateFile, $galleryIndex)
 	{
-		$cacheFilePath = $folder_path . '/cachev3.txt';
+		$cacheFilePath = $folder_path . '/' . self::CacheFileName;
 		// 1 Check first igf the cache file exists
 		$cacheExists = file_exists($cacheFilePath);
 					
@@ -297,7 +322,8 @@ class plgContentWookmark_Gallery extends JPlugin
 		}
 					
 		// Write the cache file
-		file_put_contents($cacheFilePath, $tag);
+		file_put_contents($cacheFilePath, gzencode($tag));
+		//file_put_contents($cacheFilePath, $tag);
 		return $tag;
 	}
 	
