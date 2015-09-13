@@ -128,7 +128,7 @@ $doc->addStyleDeclaration('
 
         </div>
 
-        <div id="portfolio" class="super-list variable-sizes clearfix">
+        <div id="portfolio" class="super-list variable-sizes clearfix" style="display: none">
             <?php if($params -> get('tz_portfolio_layout') == 'ajaxButton'):?>
 
                     <div id="tz_append" class="element tz_item  isotope-item" data-order="0" >
@@ -319,7 +319,13 @@ $doc->addStyleDeclaration('
 		previousContentWidth = newContentWidth;
 	}
 	
-	jQuery(document).ready(function() { loadLocationsData(true); });
+	jQuery(document).ready(function()
+	{ 
+		jQuery("#portfolio").imagesLoaded(function () {
+			jQuery("#portfolio").show();
+		});
+		loadLocationsData(true); 
+	});
 
 	jQuery( window ).resize(updateCloud);
 
