@@ -24,9 +24,8 @@ $doc = JFactory::getDocument();
 //menu title
 $menu = JFactory::getApplication()->getMenu();
 $pagetitle = $menu->getActive()->title;
-if( $pagetitle == '' ){ $pagetitle = $doc->getTitle(); }
-	if( strlen( $pagetitle ) > 35 ){ $pagetitle_fontsize = 'style="font-size:275%;"'; }else{ $pagetitle_fontsize = ''; }
-$this->setTitle( $pagetitle . '  |  ' . $sitename );
+if ( $pagetitle == '' ){ $pagetitle = $doc->getTitle(); }
+if ( strlen( $pagetitle ) > 35 ){ $pagetitle_fontsize = 'style="font-size:275%;"'; }else{ $pagetitle_fontsize = ''; }
 //menu page heading show or not
 $vg_active = $menu->getActive();
 
@@ -273,6 +272,8 @@ jQuery.fn.tooltipster('setDefaults', {
 								
             </div>
             <!-- /Title -->
+
+			<div class="addthis_responsive_sharing" style="margin: 0 8px"></div>
             
             <jdoc:include type="modules" name="fashion-content-top" style="top" />
 			
@@ -406,6 +407,8 @@ pageTracker._trackPageview();
   <a class='play-pause'><i class='icon-play'></i><i class='icon-pause'></i></a>
   <ol class='indicator'></ol>
 </div>
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55f951a421c08c5e" async="async"></script>
 
 </body>
 </html>
