@@ -167,6 +167,11 @@ if ($_GET['search_exp']!=''){
         $searchresult[$pluginname][$i]->href = html_entity_decode(JRoute::_($value->href));
         $searchresult[$pluginname][$i]->id = md5($searchresult[$pluginname][$i]->href.$searchresult[$pluginname][$i]->text.$value->title);
         $searchresult[$pluginname][$i]->price = $value->price;
+		
+		if ($value->articleId)
+		{
+			$searchresult[$pluginname][$i]->articleId = $value->articleId;
+		}	
         $i++;
       }
     }

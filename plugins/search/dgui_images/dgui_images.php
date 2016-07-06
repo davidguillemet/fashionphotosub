@@ -107,6 +107,7 @@ class plgSearchDGUI_Images extends JPlugin
 			$query->clear();
 
 			$query->select('a.title AS title');
+			$query->select('a.cid AS articleId');
 			$query->select($query->concatenate(array('"images/"', 'a.filepath', '"/"', 'a.filename')).' AS image');
 
 			$query->from('#__phocagallery AS a');

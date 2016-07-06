@@ -4,6 +4,10 @@
 /* Semi Bold => font-weight: 600 */
 /* Bold => font-weight: 700 */
 
+body.wait, body.wait *{
+    cursor: wait !important;   
+}
+
 body
 {
 	color: #a5a5a5;

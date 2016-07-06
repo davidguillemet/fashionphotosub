@@ -14,6 +14,7 @@ jimport('joomla.plugin.plugin');
 class plgContentWookmark_Gallery extends JPlugin
 {
 	const CacheFileName = 'cachev5.gzip';
+	private $contentArticle;
 	
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
@@ -21,6 +22,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		{
 			return true;
 		}
+		$this->contentArticle = $article;
 		$base_url=JURI::root();
 		$load1 = $this->params->def('load1');
 		$jsfiles = $this->params->def('jsfiles');
@@ -341,13 +343,13 @@ class plgContentWookmark_Gallery extends JPlugin
 		$insertQuery = $db->getQuery(true);
 					
 		// Specify columns
-		$columns = array('title','filename','filepath','metadata','published');
+		$columns = array('title','filename','filepath','metadata','published','cid');
 					
 		// IPopulate values array
 		$values = array();
 		foreach ($imgData as $fileName => $data)
 		{
-			$values[] = '"' . str_replace('"', '\"', $data['title']) . '","' . $fileName . '","' . $filePath . '","' . $data['keywords'] . '",1';
+			$values[] = '"' . str_replace('"', '\"', $data['title']) . '","' . $fileName . '","' . $filePath . '","' . $data['keywords'] . '",1,' . $this->contentArticle->id;
 		}
 		$insertQuery->insert($db->quoteName('#__phocagallery'));
 		$insertQuery->columns($columns);

@@ -155,6 +155,8 @@ function routeArticle(id, catid, itemid)
 {
 	if (isCallingRouter ==  true) return;
 	
+	jQuery("body").addClass("wait");
+	
 	isCallingRouter = true;
 
 	jQuery.ajax({

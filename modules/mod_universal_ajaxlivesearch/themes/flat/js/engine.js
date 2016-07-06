@@ -287,9 +287,14 @@ dojo.declare("AJAXSearchflat", AJAXSearchBase, {
     }
     
     if (element.href.match(/\.jpg$|\.png$/i)) {
-		dojo.attr(srLink, "data-gallery", "UniversalAJAXLiveSearchGallery");
-		dojo.attr(srLink, "data-caption", element.title);
 		dojo.attr(srLink, "title", element.title);
+		dojo.attr(srLink, "data-gallery", "UniversalAJAXLiveSearchGallery");
+		var dataCaption = element.title;
+		if (element.articleId)
+		{
+			dataCaption += "&nbsp;<a href='javascript:routeArticle(" + element.articleId + ", 8, 101)' title='Voir la galerie complète'><i class='icon-link-ext'></i></a>";
+		}
+		dojo.attr(srLink, "data-caption", dataCaption);
     } else {
       dojo.connect(srLink,'onclick',this,'stopEventBubble');
       // SUGGESTION
