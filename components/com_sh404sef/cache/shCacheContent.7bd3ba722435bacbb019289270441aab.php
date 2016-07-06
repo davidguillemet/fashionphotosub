@@ -1,9 +1,8 @@
 <?php // shCache : URL cache file for sh404SEF
   // version 4.4.6.2271
   if (!defined('_JEXEC')) die('Direct Access to this location is not allowed.');
-  $shURLCacheCreationDate = 1454308525;
+  $shURLCacheCreationDate = 1453487471;
   
-$this->_urlCache['61562dd75008341468f9490e59b54dbe']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=237&amp;lang=fr&amp;view=p_article#galeries/2015/bahamas#0';
 $this->_urlCache['842de898f2f73c5de3fb6cea9ad29110']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=236&amp;lang=fr&amp;view=p_article#galeries/2014/dampier#0';
 $this->_urlCache['55403ffc33ff135350f44c44aa48ef64']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=235&amp;lang=fr&amp;view=p_article#galeries/2014/misool#0';
 $this->_urlCache['6ca665c54ded2460ef38b49a0559a7ad']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=222&amp;lang=fr&amp;view=p_article#galeries/2014/ambon#0';
@@ -59,23 +58,4 @@ $this->_urlCache['dd4b25eb5c00db28274a58725db14da1']='index.php?option=com_tz_po
 $this->_urlCache['e0e4a33c2779d8ded7feb0d9e8b93b77']='index.php?option=com_tz_portfolio&amp;Itemid=193&amp;id=179&amp;lang=fr&amp;view=p_article#divers/liens#0';
 $this->_urlCache['46d2db94b845faddb4ced7d4ce2ac463']='index.php?option=com_tz_guestbook&amp;Itemid=141&amp;lang=fr&amp;view=guestbook#guestbook#0';
 $this->_urlCache['fc062347e21a32d1a7e811f3f87e9d53']='index.php?option=com_foxcontact&amp;Itemid=149&amp;lang=fr&amp;view=foxcontact#contact#0';
-$shURLCacheCreationDate=1454308532;
-$this->_urlCache['9cbb83673f679710b04a275aa861561e']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;id=8&amp;lang=fr&amp;view=category#galeries#0';
-$shURLCacheCreationDate=1454353379;
-$this->_urlCache['6f413df8c5c2fdb9a01cfd32ebccefbf']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;catid=41&amp;id=60&amp;lang=fr&amp;view=p_article#galeries/map#0';
-$this->_urlCache['4f6bfefb877c6e1f8a1ce910dffa6ba9']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;id=8&amp;lang=fr&amp;view=category#galeries#0';
-$this->_urlCache['7813c80a781f4545ee5665066fd9c214']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;id=41&amp;lang=fr&amp;view=category#galeries/map#0';
-$shURLCacheCreationDate=1454356076;
-$this->_urlCache['c07c974d5ccce4bee9837e6d95511bef']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;catid=10&amp;id=238&amp;lang=fr&amp;view=p_article#requins/actualite/finis-les-ailerons-sur-cathay#0';
-$this->_urlCache['ff14530d531cf5f94e20d78784362736']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;catid=10&amp;id=8&amp;lang=fr&amp;view=p_article#requins/actualite/le-japon-s-oppose-a-la-protection-des-requins#0';
-$this->_urlCache['ce6fcd0fb1653d448397b8560477c118']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;catid=10&amp;id=9&amp;lang=fr&amp;view=p_article#requins/actualite/cinq-especes-de-requins-protegees#0';
-$this->_urlCache['b82a4f642db9f5032558adeebeb81079']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;catid=10&amp;id=10&amp;lang=fr&amp;view=p_article#requins/actualite/le-grand-requin-marteau#0';
-$this->_urlCache['07c76e5e26ddd9b28bba7f57cd64e552']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;catid=10&amp;id=11&amp;lang=fr&amp;view=p_article#requins/actualite/les-iles-cook-creent-un-sanctuaire-pour-les-requins#0';
-$this->_urlCache['9fe6c64665e11e43a329e2f8b671d26f']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;id=10&amp;lang=fr&amp;layout=blog&amp;limit=5&amp;limitstart=5&amp;view=category#requins/actualite/page-2#0';
-$this->_urlCache['637679887c08fc66ded4a7abdb380b03']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;id=10&amp;lang=fr&amp;layout=blog&amp;limit=5&amp;limitstart=35&amp;view=category#requins/actualite/page-8#0';
-$this->_urlCache['4972b4ae85c29e8a5e3d84ea76ac5350']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;id=10&amp;lang=fr&amp;layout=blog&amp;limit=5&amp;limitstart=10&amp;view=category#requins/actualite/page-3#0';
-$this->_urlCache['4753df960abdaa63486ab779e22fc94f']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;id=10&amp;lang=fr&amp;layout=blog&amp;limit=5&amp;limitstart=15&amp;view=category#requins/actualite/page-4#0';
-$this->_urlCache['a1db225eee47006f61304c880e98812e']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;id=10&amp;lang=fr&amp;layout=blog&amp;limit=5&amp;limitstart=20&amp;view=category#requins/actualite/page-5#0';
-$this->_urlCache['6f562d4d119c216140b61a6d742fc901']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;id=10&amp;lang=fr&amp;layout=blog&amp;limit=5&amp;limitstart=25&amp;view=category#requins/actualite/page-6#0';
-$this->_urlCache['6f222b335aa7fd1a62cf51e266dec43a']='index.php?option=com_tz_portfolio&amp;Itemid=137&amp;id=10&amp;lang=fr&amp;layout=blog&amp;limit=5&amp;limitstart=30&amp;view=category#requins/actualite/page-7#0';
-$shURLCacheCreationDate=1467830399;
+$shURLCacheCreationDate=1453487474;

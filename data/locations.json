@@ -135,6 +135,92 @@
     "locations": [
         {
             "cat": [
+                "car"
+            ],
+            "desc": "Plongée avec les grands requins marteau de Bimini",
+            "position": {
+                "lat": 25.726673,
+                "lng": -79.295764
+            },
+            "title": "Bimini",
+            "trips": [
+                {
+                    "date": "Février 2015",
+                    "id": "237"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "car"
+            ],
+            "desc": "A la rencontre des requins tigre de Tiger Beach",
+            "position": {
+                "lat": 26.701179,
+                "lng": -78.992238
+            },
+            "title": "Tiger Beach",
+            "trips": [
+                {
+                    "date": "Février 2015",
+                    "id": "237"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "car"
+            ],
+            "desc": "Plongée avec Cristina Zenato, pionnière de l'immmobilité tonique",
+            "position": {
+                "lat": 26.514583,
+                "lng": -78.640930
+            },
+            "title": "Freeport",
+            "trips": [
+                {
+                    "date": "Février 2015",
+                    "id": "237"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "car"
+            ],
+            "desc": "Plongée avec les requins gris de Nassau chez <a href='http://www.stuartcove.com/' target='_blank'>Stuart Cove</a>",
+            "position": {
+                "lat": 24.995757,
+                "lng": -77.481635
+            },
+            "title": "New Providence",
+            "trips": [
+                {
+                    "date": "Février 2015",
+                    "id": "237"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "ase",
+                "ind"
+            ],
+            "desc": "Séjour dans le détroit de Dampier, au <a href='http://rajaampatbiodiversity.com/' target='_blank'>Biodiversity Eco Resort</a>",
+            "position": {
+                "lat": -0.464649,
+                "lng": 130.684199
+            },
+            "title": "Détroit de Dampier",
+            "trips": [
+                {
+                    "date": "Octobre 2014",
+                    "id": "236"
+                }
+            ]
+        },
+        {
+            "cat": [
                 "ase",
                 "ind"
             ],

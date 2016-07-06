@@ -24,8 +24,8 @@ $doc = JFactory::getDocument();
 //menu title
 $menu = JFactory::getApplication()->getMenu();
 $pagetitle = $menu->getActive()->title;
-if ( $pagetitle == '' ){ $pagetitle = $doc->getTitle(); }
-if ( strlen( $pagetitle ) > 35 ){ $pagetitle_fontsize = 'style="font-size:275%;"'; }else{ $pagetitle_fontsize = ''; }
+if( $pagetitle == '' ){ $pagetitle = $doc->getTitle(); }
+	if( strlen( $pagetitle ) > 35 ){ $pagetitle_fontsize = 'style="font-size:275%;"'; }else{ $pagetitle_fontsize = ''; }
 //menu page heading show or not
 $vg_active = $menu->getActive();
 
@@ -209,7 +209,8 @@ jQuery.fn.tooltipster('setDefaults', {
 	touchDevices: false,
 	theme: 'tooltipster-dgui',
 	delay: 0,
-	onlyOne: true
+	onlyOne: true,
+	maxWidth: 350
 });
 </script>
 
@@ -408,6 +409,11 @@ pageTracker._trackPageview();
   <ol class='indicator'></ol>
 </div>
 
+<script type="text/javascript">
+var addthis_config = {
+  ui_language: "fr" 
+} 
+</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55f951a421c08c5e" async="async"></script>
 
 </body>

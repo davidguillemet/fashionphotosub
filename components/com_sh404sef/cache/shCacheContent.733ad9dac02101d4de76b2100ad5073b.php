@@ -1,8 +1,9 @@
 <?php // shCache : URL cache file for sh404SEF
   // version 4.4.6.2271
   if (!defined('_JEXEC')) die('Direct Access to this location is not allowed.');
-  $shURLCacheCreationDate = 1440786914;
+  $shURLCacheCreationDate = 1452070308;
   
+$this->_urlCache['842de898f2f73c5de3fb6cea9ad29110']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=236&amp;lang=fr&amp;view=p_article#galeries/2014/dampier#0';
 $this->_urlCache['55403ffc33ff135350f44c44aa48ef64']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=235&amp;lang=fr&amp;view=p_article#galeries/2014/misool#0';
 $this->_urlCache['6ca665c54ded2460ef38b49a0559a7ad']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=222&amp;lang=fr&amp;view=p_article#galeries/2014/ambon#0';
 $this->_urlCache['b70aeff8ed1fe0e297f9375d19a05001']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;catid=8&amp;id=221&amp;lang=fr&amp;view=p_article#galeries/2014/coron#0';
@@ -57,7 +58,4 @@ $this->_urlCache['dd4b25eb5c00db28274a58725db14da1']='index.php?option=com_tz_po
 $this->_urlCache['e0e4a33c2779d8ded7feb0d9e8b93b77']='index.php?option=com_tz_portfolio&amp;Itemid=193&amp;id=179&amp;lang=fr&amp;view=p_article#divers/liens#0';
 $this->_urlCache['46d2db94b845faddb4ced7d4ce2ac463']='index.php?option=com_tz_guestbook&amp;Itemid=141&amp;lang=fr&amp;view=guestbook#guestbook#0';
 $this->_urlCache['fc062347e21a32d1a7e811f3f87e9d53']='index.php?option=com_foxcontact&amp;Itemid=149&amp;lang=fr&amp;view=foxcontact#contact#0';
-$shURLCacheCreationDate=1440786916;
-$this->_urlCache['2c181d4aa0e80753e4db24f35e2a7436']='index.php?option=com_content&amp;Itemid=217&amp;id=182&amp;lang=fr&amp;view=article#sh404sef-custom-content/404#0';
-$this->_urlCache['4da4bd51cbdc3f3d1521172c49324e32']='index.php?option=com_content&amp;Itemid=101&amp;catid=40&amp;id=182&amp;lang=fr&amp;view=article#sh404sef-custom-content/404#0';
-$shURLCacheCreationDate=1441404460;
+$shURLCacheCreationDate=1452070312;

@@ -57,6 +57,7 @@ label /* because of boostrap bold label */
 .title-block
 {
 	text-transform: uppercase;
+	margin-bottom: 10px;
 }
 
 .title-block h3
@@ -270,7 +271,7 @@ input#search-area103:focus
 #offlajn-ajax-tile-results
 {
 	display: none;
-	margin: 0 10px 20px 10px;
+	margin: 0 10px 10px 10px;
 }
 
 #offlajn-ajax-tile-results .search-result-card .search-result-title > span
@@ -1100,6 +1101,7 @@ span.tagName{
 .column-1
 {
 	margin-bottom: 50px;
+	margin-top: 10px;
 }
 #controls-wrapper
 {

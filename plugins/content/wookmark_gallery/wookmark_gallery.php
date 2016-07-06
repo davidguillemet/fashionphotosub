@@ -347,7 +347,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		$values = array();
 		foreach ($imgData as $fileName => $data)
 		{
-			$values[] = '"' . $data['title'] . '","' . $fileName . '","' . $filePath . '","' . $data['keywords'] . '",1';
+			$values[] = '"' . str_replace('"', '\"', $data['title']) . '","' . $fileName . '","' . $filePath . '","' . $data['keywords'] . '",1';
 		}
 		$insertQuery->insert($db->quoteName('#__phocagallery'));
 		$insertQuery->columns($columns);
