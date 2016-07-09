@@ -33,3 +33,5 @@ images/phocagallery/**/cache*.*
 cache/plg_jch_optimize/*
 
 cache/plg_jch_optimize/*.php
+
+.TEDEVLockVolumeFile*

@@ -292,7 +292,7 @@ dojo.declare("AJAXSearchflat", AJAXSearchBase, {
 		var dataCaption = element.title;
 		if (element.articleId)
 		{
-			dataCaption += "&nbsp;<a href='javascript:routeArticle(" + element.articleId + ", 8, 101)' title='Voir la galerie complète'><i class='icon-link-ext'></i></a>";
+			dataCaption = "<a href='javascript:routeArticle(" + element.articleId + ", 8, 101)' title='Accéder à la galerie'>" + element.title + "</a>";
 		}
 		dojo.attr(srLink, "data-caption", dataCaption);
     } else {
