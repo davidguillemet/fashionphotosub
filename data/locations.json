@@ -137,6 +137,23 @@
             "cat": [
                 "car"
             ],
+            "desc": "Séjour dans l'archipel des Saintes, chez <a href='http://pisquettes.fr/' target='_blank'>Pisquettes</a>",
+            "position": {
+                "lat": 15.870414,
+                "lng": -61.582104
+            },
+            "title": "Les Saintes",
+            "trips": [
+                {
+                    "date": "Mai 2015",
+                    "id": "239"
+                }
+            ]
+        },
+        {
+            "cat": [
+                "car"
+            ],
             "desc": "Plongée avec les grands requins marteau de Bimini",
             "position": {
                 "lat": 25.726673,
