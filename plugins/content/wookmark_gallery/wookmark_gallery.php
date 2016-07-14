@@ -334,7 +334,7 @@ class plgContentWookmark_Gallery extends JPlugin
 		$filePath = trim(substr($imageFolder, 7), '/');
 					
 		// Remove all entries for the current folder
-		$db =& JFactory::getDBO();
+		$db = JFactory::getDBO();
 		$DeleteQquery = 'DELETE FROM `#__phocagallery` WHERE filepath ="'. $filePath .'"';
 		$db->setQuery($DeleteQquery);
 		$db->query();
