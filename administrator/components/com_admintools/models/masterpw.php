@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -14,12 +14,13 @@ JLoader::import('joomla.application.component.model');
 class AdmintoolsModelMasterpw extends F0FModel
 {
 	var $views = array(
-		'adminpw', 'badwords', 'dbtools', 'eom', 'fixperms',
-		'fixpermsconfig', 'htmaker', 'ipbl', 'ipwl',
-		//'jupdate',
-		'log', 'redirs',
-		'update', 'waf', 'wafconfig', 'cleantmp', 'dbchcol', 'seoandlink',
-		'dbprefix', 'acl'
+		'adminpw', 'badwords', 'cleantmp', 'dbchcol', 'dbtools',
+		'eom', 'fixperms',  'fixpermsconfig',
+		'geoblock',  'htmaker', 'ipautobanhistory', 'ipautoban',
+		'ipbl', 'ipwl',  'log', 'masterpw', 'nginxmaker', 'quickstart',
+		'redirs', 'scanner', 'scan', 'seoandlink',
+		'waf', 'wafblacklist',
+		'wafconfig', 'wafexception', 'waftemplate', 'dbprefix', 'tmplogcheck'
 	);
 
 	/**
@@ -45,30 +46,34 @@ class AdmintoolsModelMasterpw extends F0FModel
 		{
 			$view = $this->input->get('view', 'cpanel');
 		}
-		if (!in_array($view, $this->views))
+
+		$altView = F0FInflector::isPlural($view) ? F0FInflector::singularize($view) : F0FInflector::pluralize($view);
+
+		if (!in_array($view, $this->views) && !in_array($altView, $this->views))
 		{
 			return true;
 		}
 
 		$masterHash = $params->getValue('masterpassword', '');
+
 		if (!empty($masterHash))
 		{
 			$masterHash = md5($masterHash);
+
 			// Compare the master pw with the one the user entered
 			$session = JFactory::getSession();
 			$userHash = $session->get('userpwhash', '', 'admintools');
+
 			if ($userHash != $masterHash)
 			{
 				// The login is invalid. If the view is locked I'll have to kick the user out.
 				$lockedviews_raw = $params->getValue('lockedviews', '');
+
 				if (!empty($lockedviews_raw))
 				{
-					if (empty($view))
-					{
-						$view = $this->input->getCmd('view', 'cpanel');
-					}
 					$lockedViews = explode(",", $lockedviews_raw);
-					if (in_array($view, $lockedViews))
+
+					if (in_array($view, $lockedViews) || in_array($altView, $lockedViews))
 					{
 						return false;
 					}

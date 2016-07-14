@@ -1,8 +1,8 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    4.8.1
+ * @version    5.5.0
  * @author     acyba.com
- * @copyright  (C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright  (C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -213,7 +213,10 @@ var acymailing_js = {
 					this.currentBox = id;
 					jQuery('#modal-' + id).modal('show');
 					if(url) {
-						jQuery('#modal-' + id + '-container').find('iframe').attr('src', url);
+						if(document.getElementById('modal-' + id + '-container'))
+							jQuery('#modal-' + id + '-container').find('iframe').attr('src', url);
+						else
+							jQuery('#modal-' + id).find('iframe').attr('src', url);
 					}
 				}
 			} catch(e) {}

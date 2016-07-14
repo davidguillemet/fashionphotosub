@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  */
 
@@ -11,12 +11,6 @@ defined('_JEXEC') or die;
 if (!file_exists(JPATH_ADMINISTRATOR . '/components/com_admintools'))
 {
 	return;
-}
-
-// You can't fix stupid… but you can try working around it
-if ((!function_exists('json_encode')) || (!function_exists('json_decode')))
-{
-	require_once JPATH_ADMINISTRATOR . '/components/com_admintools/helpers/jsonlib.php';
 }
 
 // PHP version check
@@ -32,15 +26,8 @@ else
 {
 	$version = '5.0.0'; // all bets are off!
 }
-if (!version_compare($version, '5.3.0', '>='))
+if (!version_compare($version, '5.3.4', '>='))
 {
-	return;
-}
-
-// Joomla! version check
-if (version_compare(JVERSION, '2.5', 'lt') && version_compare(JVERSION, '1.6.0', 'ge'))
-{
-	// Joomla! 1.6.x and 1.7.x: sorry fellas, no go.
 	return;
 }
 
@@ -51,7 +38,9 @@ if (function_exists('date_default_timezone_get') && function_exists('date_defaul
 	{
 		$oldLevel = error_reporting(0);
 	}
+
 	$serverTimezone = @date_default_timezone_get();
+
 	if (empty($serverTimezone) || !is_string($serverTimezone))
 	{
 		$serverTimezone = 'UTC';
@@ -78,18 +67,42 @@ if (!defined('F0F_INCLUDED') || !class_exists('F0FLess', true))
 	return;
 }
 
-JLoader::import('joomla.filesystem.file');
-$target_include = JPATH_ROOT . '/plugins/system/admintools/admintools/main.php';
-
-if (JFile::exists($target_include))
+// Include and initialise Admin Tools System Plugin autoloader
+if (!defined('ATSYSTEM_AUTOLOADER'))
 {
-	require_once $target_include;
+	@include_once __DIR__ . '/autoloader.php';
 }
-else
+
+if (!defined('ATSYSTEM_AUTOLOADER') || !class_exists('AdmintoolsAutoloaderPlugin'))
 {
-	$target_include = $target_include = JPATH_ROOT . 'plugins/system/admintools/admintools/main.php';
-	if (JFile::exists($target_include))
+	return;
+}
+
+AdmintoolsAutoloaderPlugin::init();
+
+// fnmatch() doesn't exist in non-POSIX systems :(
+if (!function_exists('fnmatch'))
+{
+	function fnmatch($pattern, $string)
 	{
-		require_once $target_include;
+		return @preg_match(
+			'/^' . strtr(addcslashes($pattern, '/\\.+^$(){}=!<>|'),
+				array('*' => '.*', '?' => '.?')) . '$/i', $string
+		);
 	}
+}
+
+// This is used during testing
+if (defined('JDEBUG') && JDEBUG)
+{
+	if (file_exists(__DIR__ . '/phonymail.php'))
+	{
+		require_once __DIR__ . '/phonymail.php';
+	}
+}
+
+// Import main plugin file
+if (!class_exists('AtsystemAdmintoolsMain', true))
+{
+	return;
 }

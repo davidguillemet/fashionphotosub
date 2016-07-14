@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  */
 
@@ -22,7 +22,10 @@ class AdmintoolsViewDbtools extends F0FViewHtml
 		$this->percentage = $percent;
 
 		$document = JFactory::getDocument();
-		$script = '(function($){$(document).ready(function(){' . "\n";
+
+		$script = "\n;// This comment is intentionally put here to prevent badly written plugins from causing a Javascript error\n// due to missing trailing semicolon and/or newline in their code.\n";
+		$script .= '(function($){$(document).ready(function(){' . "\n";
+
 		if (!empty($lastTable))
 		{
 			$script .= "document.forms.adminForm.submit();\n";

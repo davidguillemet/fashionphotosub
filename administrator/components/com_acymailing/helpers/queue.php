@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -19,18 +19,19 @@ class acyqueueHelper{
 	var $nbprocess = 0;
 	var $start = 0;
 	var $stoptime = 0;
-	var $successSend =0;
-	var $errorSend=0;
-	var $consecutiveError=0;
+	var $successSend = 0;
+	var $errorSend = 0;
+	var $consecutiveError = 0;
 	var $messages = array();
 	var $pause = 0;
 	var $config;
- 	var $listsubClass;
+	var $listsubClass;
 	var $subClass;
 	var $mod_security2 = false;
 	var $obend = 0;
+	var $emailtypes = array();
 
-	public function acyqueueHelper(){
+	public function __construct(){
 		$this->config = acymailing_config();
 		$this->subClass = acymailing_get('class.subscriber');
 		$this->listsubClass = acymailing_get('class.listsub');
@@ -38,11 +39,11 @@ class acyqueueHelper{
 		$this->listsubClass->sendNotif = false;
 		$this->listsubClass->sendConf = false;
 
-		$this->send_limit = (int) $this->config->get('queue_nbmail',40);
+		$this->send_limit = (int)$this->config->get('queue_nbmail', 40);
 
 		acymailing_increasePerf();
 
-		@ini_set('default_socket_timeout',10);
+		@ini_set('default_socket_timeout', 10);
 
 		@ignore_user_abort(true);
 
@@ -50,33 +51,31 @@ class acyqueueHelper{
 		if(empty($timelimit)) $timelimit = 600;
 
 		$calculatedTimeout = $this->config->get('max_execution_time');
-		if(!empty($calculatedTimeout) && $calculatedTimeout < $timelimit){
-			$timelimit = $calculatedTimeout;
-		}
+		if(!empty($calculatedTimeout)) $timelimit = $calculatedTimeout;
 
 		if(!empty($timelimit)){
-			$this->stoptime = time()+$timelimit-4;
+			$this->stoptime = time() + $timelimit - 4;
 		}
 
 		$this->db = JFactory::getDBO();
-
 	}
 
 	public function process(){
 
 		$queueClass = acymailing_get('class.queue');
-		$queueElements = $queueClass->getReady($this->send_limit,$this->mailid);
+		$queueClass->emailtypes = $this->emailtypes;
+		$queueElements = $queueClass->getReady($this->send_limit, $this->mailid);
 
 		if(empty($queueElements)){
 			$this->finish = true;
 			if($this->report){
-				acymailing_display('<a href="index.php?option=com_acymailing&ctrl=queue" target="_blank">'.JText::_('NO_PROCESS').'</a>','warning');
+				acymailing_display('<a href="index.php?option=com_acymailing&ctrl=queue" target="_blank">'.JText::_('NO_PROCESS').'</a>', 'warning');
 			}
 			return true;
 		}
 
 		if($this->report){
-			if( function_exists('apache_get_modules') ) {
+			if(function_exists('apache_get_modules')){
 				$modules = apache_get_modules();
 				$this->mod_security2 = in_array('mod_security2', $modules);
 			}
@@ -86,22 +85,25 @@ class acyqueueHelper{
 			@ini_set('zlib.output_compression', 0);
 
 			if(!headers_sent()){
-				while(ob_get_level() > 0 && $this->obend++ < 3) { @ob_end_flush(); }
+				while(ob_get_level() > 0 && $this->obend++ < 3){
+					@ob_end_flush();
+				}
 			}
 
 			$disp = '<html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8" />';
 			$disp .= '<title>'.JText::_('SEND_PROCESS').'</title>';
 			$disp .= '<style>body{font-size:12px;font-family: Arial,Helvetica,sans-serif;}</style></head><body>';
-			$disp.= "<div style='position:fixed; top:3px;left:3px;background-color : white;border : 1px solid grey; padding : 3px;font-size:14px'>";
-			$disp.= "<span id='divpauseinfo' style='padding:10px;margin:5px;font-size:16px;font-weight:bold;display:none;background-color:black;color:white;'> </span>";
-			$disp.= JText::_('SEND_PROCESS').': <span id="counter" >'.$this->start.'</span> / '. $this->total;
-			$disp.= '</div>';
-			$disp.= "<div id='divinfo' style='display:none; position:fixed; bottom:3px;left:3px;background-color : white; border : 1px solid grey; padding : 3px;'> </div>";
+			$disp .= '<div style="margin-bottom: 18px;padding: 8px !important; background-color: #fcf8e3; border: 1px solid #fbeed5; border-radius: 4px;"><p style="margin:0;">'.JText::_('ACY_DONT_CLOSE').'</p></div>';
+			$disp .= "<div style='display: inline;background-color : white;border : 1px solid grey; padding : 3px;font-size:14px'>";
+			$disp .= "<span id='divpauseinfo' style='padding:10px;margin:5px;font-size:16px;font-weight:bold;display:none;background-color:black;color:white;'> </span>";
+			$disp .= JText::_('SEND_PROCESS').': <span id="counter" >'.$this->start.'</span> / '.$this->total;
+			$disp .= '</div>';
+			$disp .= "<div id='divinfo' style='display:none; position:fixed; bottom:3px;left:3px;background-color : white; border : 1px solid grey; padding : 3px;'> </div>";
 			$disp .= '<br /><br />';
 			$url = JURI::base().'index.php?option=com_acymailing&ctrl=send&tmpl=component&task=continuesend&mailid='.$this->mailid.'&totalsend='.$this->total.'&alreadysent=';
-			$disp.= '<script type="text/javascript" language="javascript">';
-			$disp.= 'var mycounter = document.getElementById("counter");';
-			$disp.= 'var divinfo = document.getElementById("divinfo");
+			$disp .= '<script type="text/javascript" language="javascript">';
+			$disp .= 'var mycounter = document.getElementById("counter");';
+			$disp .= 'var divinfo = document.getElementById("divinfo");
 					var divpauseinfo = document.getElementById("divpauseinfo");
 					function setInfo(message){ divinfo.style.display = \'block\';divinfo.innerHTML=message; }
 					function setPauseInfo(nbpause){ divpauseinfo.style.display = \'\';divpauseinfo.innerHTML=nbpause;}
@@ -124,14 +126,14 @@ class acyqueueHelper{
 
 		$mailHelper = acymailing_get('helper.mailer');
 		$mailHelper->report = false;
-		if($this->config->get('smtp_keepalive',1) || in_array($this->config->get('mailer_method'),array('elasticemail'))) $mailHelper->SMTPKeepAlive = true;
+		if($this->config->get('smtp_keepalive', 1) || in_array($this->config->get('mailer_method'), array('elasticemail'))) $mailHelper->SMTPKeepAlive = true;
 
 		$queueDelete = array();
 		$queueUpdate = array();
 		$statsAdd = array();
 		$actionSubscriber = array();
 
-		$maxTry = (int) $this->config->get('queue_try',0);
+		$maxTry = (int)$this->config->get('queue_try', 0);
 
 		$currentMail = $this->start;
 		$this->nbprocess = 0;
@@ -141,21 +143,23 @@ class acyqueueHelper{
 		}
 
 		foreach($queueElements as $oneQueue){
-			$currentMail++; $this->nbprocess++;
+			$currentMail++;
+			$this->nbprocess++;
 			if($this->report){
-				echo '<script type="text/javascript" language="javascript">setCounter('. $currentMail .')</script>';
+				echo '<script type="text/javascript" language="javascript">setCounter('.$currentMail.')</script>';
 				if(function_exists('ob_flush')) @ob_flush();
-				if(!$this->mod_security2)
+				if(!$this->mod_security2){
 					@flush();
+				}
 			}
 
-			$result = $mailHelper->sendOne($oneQueue->mailid,$oneQueue);
+			$result = $mailHelper->sendOne($oneQueue->mailid, $oneQueue);
 
 			$queueDeleteOk = true;
 			$otherMessage = '';
 
 			if($result){
-				$this->successSend ++;
+				$this->successSend++;
 				$this->consecutiveError = 0;
 				$queueDelete[$oneQueue->mailid][] = $oneQueue->subid;
 				$statsAdd[$oneQueue->mailid][1][(int)$mailHelper->sendHTML][] = $oneQueue->subid;
@@ -163,23 +167,22 @@ class acyqueueHelper{
 				$queueDeleteOk = $this->_deleteQueue($queueDelete);
 				$queueDelete = array();
 
-				if($this->nbprocess%10 == 0){
+				if($this->nbprocess % 10 == 0){
 					$this->statsAdd($statsAdd);
 					$this->_queueUpdate($queueUpdate);
 					$statsAdd = array();
 					$queueUpdate = array();
 				}
-
 			}else{
-				$this->errorSend ++;
+				$this->errorSend++;
 
 				$newtry = false;
-				if(in_array($mailHelper->errorNumber,$mailHelper->errorNewTry)){
-					if(empty($maxTry) OR $oneQueue->try < $maxTry-1){
+				if(in_array($mailHelper->errorNumber, $mailHelper->errorNewTry)){
+					if(empty($maxTry) OR $oneQueue->try < $maxTry - 1){
 						$newtry = true;
-						$otherMessage = JText::sprintf('QUEUE_NEXT_TRY',60);
+						$otherMessage = JText::sprintf('QUEUE_NEXT_TRY', 60);
 					}
-					if($mailHelper->errorNumber == 1) $this->consecutiveError ++;
+					if($mailHelper->errorNumber == 1) $this->consecutiveError++;
 					if($this->consecutiveError == 2) sleep(1);
 				}
 
@@ -198,7 +201,7 @@ class acyqueueHelper{
 
 			$messageOnScreen = '[ ID '.$oneQueue->mailid.'] '.$mailHelper->reportMessage;
 			if(!empty($otherMessage)) $messageOnScreen .= ' => '.$otherMessage;
-			$this->_display($messageOnScreen,$result,$currentMail);
+			$this->_display($messageOnScreen, $result, $currentMail);
 
 			if(!$queueDeleteOk){
 				$this->finish = true;
@@ -211,7 +214,7 @@ class acyqueueHelper{
 				break;
 			}
 
-			if($this->consecutiveError > 3 AND $this->successSend>3){
+			if($this->consecutiveError > 3 AND $this->successSend > 3){
 				$this->_display(JText::_('SEND_REFRESH_CONNECTION'));
 				break;
 			}
@@ -226,13 +229,13 @@ class acyqueueHelper{
 		$this->statsAdd($statsAdd);
 		$this->_queueUpdate($queueUpdate);
 
-		if($mailHelper->SMTPKeepAlive) $mailHelper->SmtpClose();
+		if($mailHelper->SMTPKeepAlive) $mailHelper->smtpClose();
 
 		if(!empty($this->total) AND $currentMail >= $this->total){
 			$this->finish = true;
 		}
 
-		if($this->consecutiveError>5){
+		if($this->consecutiveError > 5){
 			$this->_handleError();
 			return false;
 		}
@@ -258,16 +261,16 @@ class acyqueueHelper{
 
 		foreach($queueDelete as $mailid => $subscribers){
 			$nbsub = count($subscribers);
-			$query = 'DELETE FROM '.acymailing_table('queue').' WHERE mailid = '.intval($mailid).' AND subid IN ('.implode(',',$subscribers).') LIMIT '.$nbsub;
+			$query = 'DELETE FROM '.acymailing_table('queue').' WHERE mailid = '.intval($mailid).' AND subid IN ('.implode(',', $subscribers).') LIMIT '.$nbsub;
 			$this->db->setQuery($query);
 			if(!$this->db->query()){
 				$status = false;
-				$this->_display($this->db->getErrorNum.' : '.$this->db->getErrorMsg());
+				$this->_display($this->db->getErrorNum().' : '.$this->db->getErrorMsg());
 			}else{
 				$nbdeleted = $this->db->getAffectedRows();
 				if($nbdeleted != $nbsub){
 					$status = false;
-					$this->_display(JText::_('QUEUE_DOUBLE'));
+					$this->_display($nbdeleted < $nbsub ? JText::_('QUEUE_DOUBLE') : $nbdeleted.' emails deleted from the queue whereas we only have '.$nbsub.' subscribers');
 				}
 			}
 		}
@@ -287,42 +290,37 @@ class acyqueueHelper{
 
 		foreach($statsAdd as $mailid => $infos){
 			$mailid = intval($mailid);
+
 			foreach($infos as $status => $infosSub){
 				foreach($infosSub as $html => $subscribers){
-					$query = 'INSERT IGNORE INTO '.acymailing_table('userstats').' (mailid,subid,html,sent,senddate) VALUES ('.$mailid.','.implode(','.$html.',0,'.$time.'),('.$mailid.',',$subscribers).','.$html.',0,'.$time.')';
+
+					$query = 'INSERT INTO '.acymailing_table('userstats').' (mailid,subid,html,sent,fail,senddate) VALUES ';
+					$query .= '('.$mailid.','.implode(','.$html.','.($status ? 1 : 0).','.($status ? 0 : 1).','.$time.'),('.$mailid.',', $subscribers).','.$html.','.($status ? 1 : 0).','.($status ? 0 : 1).','.$time.') ';
+					$query .= 'ON DUPLICATE KEY UPDATE html = '.$html.',sent = sent + '.($status ? 1 : 0).', fail = '.($status ? '0' : 'fail + 1').', senddate = '.$time;
 					$this->db->setQuery($query);
 					$this->db->query();
 
 					if($status){
-						$subids = array_merge($subids,$subscribers);
-						$query = 'UPDATE '.acymailing_table('userstats').' SET html = '.$html.',sent = sent +1, fail = 0, senddate = '.$time.' WHERE mailid = '.$mailid.' AND subid IN  ('.implode(',',$subscribers).')';
-					}else{
-						$query = 'UPDATE '.acymailing_table('userstats').' SET html = '.$html.',senddate = '.$time.', fail = fail +1 WHERE mailid = '.$mailid.' AND subid IN  ('.implode(',',$subscribers).')';
+						$subids = array_merge($subids, $subscribers);
 					}
-
-					$this->db->setQuery($query);
-					$this->db->query();
 				}
 			}
 
-			$nbhtml = empty($infos[1][1]) ? 0 : count($infos[1][1]);
-			$nbtext = empty($infos[1][0]) ? 0 : count($infos[1][0]);
+			$nbhtml = empty($infos[1][1]) ? 0 : count($infos[1][1]); //nbhtml sent
+			$nbtext = empty($infos[1][0]) ? 0 : count($infos[1][0]); //nbtext sent
 			$nbfail = 0;
-			if(!empty($infos[0][0])) $nbfail += count($infos[0][0]);
-			if(!empty($infos[0][1])) $nbfail += count($infos[0][1]);
+			if(!empty($infos[0][0])) $nbfail += count($infos[0][0]); //fail text version
+			if(!empty($infos[0][1])) $nbfail += count($infos[0][1]); //fail html version
 
-			$query = 'UPDATE '.acymailing_table('stats').' SET senthtml = senthtml + '.$nbhtml.', senttext = senttext + '.$nbtext.', fail = fail + '.$nbfail.', senddate = '.$time.' WHERE mailid = '.$mailid.' LIMIT 1';
+			$query = 'INSERT INTO '.acymailing_table('stats').' (mailid,senthtml,senttext,fail,senddate) ';
+			$query .= 'VALUES ('.$mailid.','.$nbhtml.', '.$nbtext.', '.$nbfail.', '.$time.') ';
+			$query .= 'ON DUPLICATE KEY UPDATE senthtml = senthtml + '.$nbhtml.', senttext = senttext + '.$nbtext.', fail = fail + '.$nbfail.', senddate = '.$time;
 			$this->db->setQuery($query);
 			$this->db->query();
-			if(!$this->db->getAffectedRows()){
-				$query = 'INSERT INTO '.acymailing_table('stats').' (mailid,senthtml,senttext,fail,senddate) VALUES ('.$mailid.','.$nbhtml.', '.$nbtext.', '.$nbfail.', '.$time.')';
-				$this->db->setQuery($query);
-				$this->db->query();
-			}
 		}
 
 		if(!empty($subids)){
-			$this->db->setQuery('UPDATE #__acymailing_subscriber SET `lastsent_date` = '.time().' WHERE `subid` IN ('.implode(',',$subids).')');
+			$this->db->setQuery('UPDATE #__acymailing_subscriber SET `lastsent_date` = '.time().' WHERE `subid` IN ('.implode(',', $subids).')');
 			$this->db->query();
 		}
 	}
@@ -334,7 +332,7 @@ class acyqueueHelper{
 
 
 		foreach($queueUpdate as $mailid => $subscribers){
-			$query = 'UPDATE '.acymailing_table('queue').' SET senddate = senddate + '.$delay.', try = try +1 WHERE mailid = '.$mailid.' AND subid IN ('.implode(',',$subscribers).')';
+			$query = 'UPDATE '.acymailing_table('queue').' SET senddate = senddate + '.$delay.', try = try +1 WHERE mailid = '.$mailid.' AND subid IN ('.implode(',', $subscribers).')';
 			$this->db->setQuery($query);
 			$this->db->query();
 		}
@@ -365,7 +363,7 @@ class acyqueueHelper{
 		$this->_display($message);
 	}
 
-	private function _display($message,$status = '',$num = ''){
+	private function _display($message, $status = '', $num = ''){
 		$this->messages[] = strip_tags($message);
 
 		if(!$this->report) return;
@@ -374,11 +372,12 @@ class acyqueueHelper{
 			$color = $status ? 'green' : 'red';
 			echo '<br />'.$num.' : <font color="'.$color.'">'.$message.'</font>';
 		}else{
-			echo '<script type="text/javascript" language="javascript">setInfo(\''. addslashes($message) .'\')</script>';
+			echo '<script type="text/javascript" language="javascript">setInfo(\''.addslashes($message).'\')</script>';
 		}
 		if(function_exists('ob_flush')) @ob_flush();
-		if(!$this->mod_security2)
+		if(!$this->mod_security2){
 			@flush();
+		}
 	}
 
 	private function _subscriberAction($subid){
@@ -387,7 +386,7 @@ class acyqueueHelper{
 			return ' user '.$subid.' deleted';
 		}
 		$listId = 0;
-		if(in_array($this->config->get('bounce_action_maxtry'),array('sub','remove','unsub'))){
+		if(in_array($this->config->get('bounce_action_maxtry'), array('sub', 'remove', 'unsub'))){
 			$status = $this->subClass->getSubscriptionStatus($subid);
 		}
 		$message = '';
@@ -396,26 +395,26 @@ class acyqueueHelper{
 				$listId = $this->config->get('bounce_action_lists_maxtry');
 				if(!empty($listId)){
 					$message .= ' user '.$subid.' subscribed to '.$listId;
-								if(empty($status[$listId])){
-						$this->listsubClass->addSubscription($subid,array('1' => array($listId)));
-								}elseif($status[$listId]->status != 1){
-					 	$this->listsubClass->updateSubscription($subid,array('1' => array($listId)));
-								}
+					if(empty($status[$listId])){
+						$this->listsubClass->addSubscription($subid, array('1' => array($listId)));
+					}elseif($status[$listId]->status != 1){
+						$this->listsubClass->updateSubscription($subid, array('1' => array($listId)));
+					}
 				}
 			case 'remove' :
-				$unsubLists = array_diff(array_keys($status),array($listId));
+				$unsubLists = array_diff(array_keys($status), array($listId));
 				if(!empty($unsubLists)){
-					$message .= ' user '.$subid.' removed from lists '.implode(',',$unsubLists);
-					$this->listsubClass->removeSubscription($subid,$unsubLists);
+					$message .= ' user '.$subid.' removed from lists '.implode(',', $unsubLists);
+					$this->listsubClass->removeSubscription($subid, $unsubLists);
 				}else{
 					$message .= ' user '.$subid.' not subscribed';
 				}
 				break;
 			case 'unsub' :
-				$unsubLists = array_diff(array_keys($status),array($listId));
+				$unsubLists = array_diff(array_keys($status), array($listId));
 				if(!empty($unsubLists)){
-					$message .= ' user '.$subid.' unsubscribed from lists '.implode(',',$unsubLists);
-					$this->listsubClass->updateSubscription($subid,array('-1' => $unsubLists));
+					$message .= ' user '.$subid.' unsubscribed from lists '.implode(',', $unsubLists);
+					$this->listsubClass->updateSubscription($subid, array('-1' => $unsubLists));
 				}else{
 					$message .= ' user '.$subid.' not subscribed';
 				}
@@ -431,7 +430,7 @@ class acyqueueHelper{
 				$this->db->setQuery('DELETE FROM `#__acymailing_queue` WHERE `subid` = '.intval($subid));
 				$this->db->query();
 				break;
-			}
+		}
 		return $message;
 	}
 }

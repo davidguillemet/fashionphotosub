@@ -2,7 +2,7 @@
 /**
  * @package    FrameworkOnFramework
  * @subpackage controller
- * @copyright  Copyright (C) 2010 - 2014 Akeeba Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -479,6 +479,13 @@ class F0FController extends F0FUtilsObject
 		foreach ($rMethods as $rMethod)
 		{
 			$mName = $rMethod->getName();
+
+			// If the developer screwed up and declared one of the helper method public do NOT make them available as
+			// tasks.
+			if ((substr($mName, 0, 8) == 'onBefore') || (substr($mName, 0, 7) == 'onAfter') || substr($mName, 0, 1) == '_')
+			{
+				continue;
+			}
 
 			// Add default display method if not explicitly declared.
 			if (!in_array($mName, $xMethods) || in_array($mName, $iMethods))
@@ -996,12 +1003,13 @@ class F0FController extends F0FUtilsObject
 	 * YOU MUST NOT USETHIS TASK DIRECTLY IN A URL. It is supposed to be
 	 * used ONLY inside your code. In the URL, use task=browse instead.
 	 *
-	 * @param   bool  $cachable   Is this view cacheable?
-	 * @param   bool  $urlparams  Add your safe URL parameters (see further down in the code)
+	 * @param   bool    $cachable   Is this view cacheable?
+	 * @param   bool    $urlparams  Add your safe URL parameters (see further down in the code)
+	 * @param   string  $tpl        The name of the template file to parse
 	 *
 	 * @return  bool
 	 */
-	public function display($cachable = false, $urlparams = false)
+	public function display($cachable = false, $urlparams = false, $tpl = null)
 	{
 		$document = F0FPlatform::getInstance()->getDocument();
 
@@ -1048,8 +1056,9 @@ class F0FController extends F0FUtilsObject
 				$groups = $user->groups;
 			}
 
-			// Set up safe URL parameters
+			$importantParameters = array();
 
+			// Set up safe URL parameters
 			if (!is_array($urlparams))
 			{
 				$urlparams = array(
@@ -1089,6 +1098,9 @@ class F0FController extends F0FUtilsObject
 				{
 					// Add your safe url parameters with variable type as value {@see JFilterInput::clean()}.
 					$registeredurlparams->$key = $value;
+
+					// Add the URL-important parameters into the array
+					$importantParameters[$key] = $this->input->get($key, null, $value);
 				}
 
 				if (version_compare(JVERSION, '3.0', 'ge'))
@@ -1102,7 +1114,7 @@ class F0FController extends F0FUtilsObject
 			}
 
 			// Create the cache ID after setting the registered URL params, as they are used to generate the ID
-			$cacheId = md5(serialize(array(JCache::makeId(), $view->getName(), $this->doTask, $groups)));
+			$cacheId = md5(serialize(array(JCache::makeId(), $view->getName(), $this->doTask, $groups, $importantParameters)));
 
 			// Get the cached view or cache the current view
 			$cache->get($view, 'display', $cacheId);
@@ -1110,7 +1122,7 @@ class F0FController extends F0FUtilsObject
 		else
 		{
 			// Display without caching
-			$view->display();
+			$view->display($tpl);
 		}
 
 		return true;
@@ -1221,7 +1233,7 @@ class F0FController extends F0FUtilsObject
 
 		// Set the layout to form, if it's not set in the URL
 
-		if (is_null($this->layout))
+		if (!$this->layout)
 		{
 			$this->layout = 'form';
 		}
@@ -1346,7 +1358,7 @@ class F0FController extends F0FUtilsObject
 				$customURL = base64_decode($customURL);
 			}
 
-			$url = !empty($customURL) ? $customURL : 'index.php?option=' . $this->component . '&view=' . $this->view . '&task=edit&id=' . $id  . $this->getItemidURLSuffix();
+			$url = !empty($customURL) ? $customURL : 'index.php?option=' . $this->component . '&view=' . $this->view . '&task=edit&id=' . $id . $this->getItemidURLSuffix();
 			$this->setRedirect($url, JText::_($textkey));
 		}
 
@@ -2771,15 +2783,15 @@ class F0FController extends F0FUtilsObject
 		if (!isset($config['linkbar_style']))
 		{
 			$style = $this->configProvider->get($config['option'] . '.views.' . $config['view'] . '.config.linkbar_style', false);
-			
+
 			if ($style) {
 				$config['linkbar_style'] = $style;
 			}
 		}
 
 		/**
-		 * Some stupid administrative templates force format=utf (yeah, I know, what the fuck, right?) when a format
-		 * URL parameter does not exist in the URL. Of course there is no such thing as F0FViewUtf (why the hell would
+		 * Some administrative templates force format=utf (yeah, I know, what the heck, right?) when a format
+		 * URL parameter does not exist in the URL. Of course there is no such thing as F0FViewUtf (why the heck would
 		 * it be, there is no such thing as a format=utf in Joomla! for crying out loud) which causes a Fatal Error. So
 		 * we have to detect that and force $type='html'...
 		 */

@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -79,37 +79,41 @@ defined('_JEXEC') or die('Restricted access');
 						if($oneField == 'name' AND empty($extraFields[$oneField])){
 							if($displayOutside) echo '<td><label for="user_name_'.$formName.'" class="acy_requiredField">'.$nameCaption.'</label></td>'; ?>
 							<td class="acyfield_<?php echo $oneField. (!$displayOutside? ' acy_requiredField':''); ?>">
-								<input id="user_name_<?php echo $formName; ?>" <?php if(!empty($identifiedUser->userid)) echo 'disabled="disabled" ';  if(!$displayOutside){ ?> onfocus="if(this.value == '<?php echo $nameCaption;?>') this.value = '';" onblur="if(this.value=='') this.value='<?php echo $nameCaption?>';"<?php } ?> class="inputbox" type="text" name="user[name]" style="width:<?php echo $fieldsize; ?>" value="<?php if(!empty($identifiedUser->userid)) echo $identifiedUser->name; elseif(!$displayOutside) echo $nameCaption; ?>" title="<?php echo $nameCaption?>"/>
+								<input id="user_name_<?php echo $formName; ?>" <?php if(!empty($identifiedUser->userid)) echo 'readonly="readonly" ';  if(!$displayOutside){ ?> onfocus="if(this.value == '<?php echo $nameCaption;?>') this.value = '';" onblur="if(this.value=='') this.value='<?php echo $nameCaption?>';"<?php } ?> class="inputbox" type="text" name="user[name]" style="width:<?php echo $fieldsize; ?>" value="<?php if(!empty($identifiedUser->userid)) echo $identifiedUser->name; elseif(!$displayOutside) echo $nameCaption; ?>" title="<?php echo $nameCaption?>"/>
 							</td> <?php
 						}elseif($oneField == 'email' AND empty($extraFields[$oneField])){
 							if($displayOutside) echo '<td><label for="user_email_'.$formName.'" class="acy_requiredField">'.$emailCaption.'</label></td>'; ?>
 							<td class="acyfield_<?php echo $oneField. (!$displayOutside? ' acy_requiredField':''); ?>">
-								<input id="user_email_<?php echo $formName; ?>" <?php if(!empty($identifiedUser->userid)) echo 'disabled="disabled" ';  if(!$displayOutside){ ?> onfocus="if(this.value == '<?php echo $emailCaption;?>') this.value = '';" onblur="if(this.value=='') this.value='<?php echo $emailCaption?>';"<?php } ?> class="inputbox" type="text" name="user[email]" style="width:<?php echo $fieldsize; ?>" value="<?php if(!empty($identifiedUser->userid)) echo $identifiedUser->email; elseif(!$displayOutside) echo $emailCaption; ?>" title="<?php echo $emailCaption;?>"/>
+								<input id="user_email_<?php echo $formName; ?>" <?php if(!empty($identifiedUser->userid)) echo 'readonly="readonly" ';  if(!$displayOutside){ ?> onfocus="if(this.value == '<?php echo $emailCaption;?>') this.value = '';" onblur="if(this.value=='') this.value='<?php echo $emailCaption?>';"<?php } ?> class="inputbox" type="text" name="user[email]" style="width:<?php echo $fieldsize; ?>" value="<?php if(!empty($identifiedUser->userid)) echo $identifiedUser->email; elseif(!$displayOutside) echo $emailCaption; ?>" title="<?php echo $emailCaption;?>"/>
 							</td> <?php
 						}elseif($oneField == 'html' AND empty($extraFields[$oneField])){
 							echo '<td class="acyfield_'.$oneField.'" ';
 							if($displayOutside AND !$displayInline) echo 'colspan="2"';
 							echo '>'.JText::_('RECEIVE').JHTML::_('select.booleanlist', "user[html]" ,'title="'.JText::_('RECEIVE').'"',isset($identifiedUser->html) ? $identifiedUser->html : 1,JText::_('HTML'),JText::_('JOOMEXT_TEXT'),'user_html_'.$formName).'</td>';
 						}elseif(!empty($extraFields[$oneField])){
-							if($displayOutside){
-								if(!empty($extraFields[$oneField]->required)) $requireClass = 'class="acy_requiredField"';
+							if($extraFields[$oneField]->type == 'category'){
+								echo '<td '. ($displayOutside && !$displayInline?'colspan="2"':'').' class="category_warning">Please use Tableless mode to display categories.</td>';
+							} else{
+								if($displayOutside){
+									if(!empty($extraFields[$oneField]->required)) $requireClass = 'class="acy_requiredField"';
+									else $requireClass = "";
+									echo '<td><label '.((strpos($extraFields[$oneField]->type,'text') !== false) ? 'for="user_'.$oneField.'_'.$formName.'"' : '' ).' '. $requireClass .'>'.$fieldsClass->trans($extraFields[$oneField]->fieldname).'</label></td>';
+								}
+								$sizestyle = '';
+								if(!empty($extraFields[$oneField]->options['size'])){
+									$sizestyle = 'style="width:'.(is_numeric($extraFields[$oneField]->options['size']) ? ($extraFields[$oneField]->options['size'].'px') : $extraFields[$oneField]->options['size']).'"';
+								}
+								if(!empty($extraFields[$oneField]->required) && !$displayOutside) $requireClass = 'acy_requiredField';
 								else $requireClass = "";
-								echo '<td><label '.((strpos($extraFields[$oneField]->type,'text') !== false) ? 'for="user_'.$oneField.'_'.$formName.'"' : '' ).' '. $requireClass .'>'.$fieldsClass->trans($extraFields[$oneField]->fieldname).'</label></td>';
+								?>
+								<td class="acyfield_<?php echo $oneField .' '. $requireClass; ?>">
+								<?php if(!empty($identifiedUser->userid) AND in_array($oneField,array('name','email'))){ ?>
+										<input id="user_<?php echo $oneField; ?>_<?php echo $formName; ?>" readonly="readonly" class="inputbox" type="text" name="user[<?php echo $oneField;?>]" <?php echo $sizestyle; ?> value="<?php echo @$identifiedUser->$oneField; ?>" title="<?php echo $oneField;?>"/>
+								<?php }else{
+										echo $fieldsClass->display($extraFields[$oneField],@$identifiedUser->$oneField,'user['.$oneField.']',!$displayOutside);
+								}?>
+								</td><?php
 							}
-							$sizestyle = '';
-							if(!empty($extraFields[$oneField]->options['size'])){
-								$sizestyle = 'style="width:'.(is_numeric($extraFields[$oneField]->options['size']) ? ($extraFields[$oneField]->options['size'].'px') : $extraFields[$oneField]->options['size']).'"';
-							}
-							if(!empty($extraFields[$oneField]->required) && !$displayOutside) $requireClass = 'acy_requiredField';
-							else $requireClass = "";
-							?>
-							<td class="acyfield_<?php echo $oneField .' '. $requireClass; ?>">
-							<?php if(!empty($identifiedUser->userid) AND in_array($oneField,array('name','email'))){ ?>
-									<input id="user_<?php echo $oneField; ?>_<?php echo $formName; ?>" disabled="disabled" class="inputbox" type="text" name="user[<?php echo $oneField;?>]" <?php echo $sizestyle; ?> value="<?php echo @$identifiedUser->$oneField; ?>" title="<?php echo $oneField;?>"/>
-							<?php }else{
-									echo $fieldsClass->display($extraFields[$oneField],@$identifiedUser->$oneField,'user['.$oneField.']',!$displayOutside);
-							}?>
-							</td><?php
 						}else{
 							continue;
 						}
@@ -119,23 +123,16 @@ defined('_JEXEC') or die('Restricted access');
 				if(empty($identifiedUser->userid) AND $config->get('captcha_enabled') AND acymailing_level(1)){ ?>
 					<td class="captchakeymodule">
 					<?php
-					if(ACYMAILING_J16){
-						$image = '<img id="captcha_picture_'.$formName.'" title="'.JText::_('ERROR_CAPTCHA').'" width="'.$config->get('captcha_width_module').'" height="'.$config->get('captcha_height_module').'" class="captchaimagemodule" src="'.JRoute::_('index.php?option=com_acymailing&ctrl=captcha&acyformname='.$formName.'&val='.rand(0,10000)).'" alt="captcha" />';
-					}else{
-						$image = '<img id="captcha_picture_'.$formName.'" title="'.JText::_('ERROR_CAPTCHA').'" width="'.$config->get('captcha_width_module').'" height="'.$config->get('captcha_height_module').'" class="captchaimagemodule" src="'.rtrim(JURI::root(),'/').'/index.php?option=com_acymailing&amp;ctrl=captcha&amp;acyformname='.$formName.'&amp;val='.rand(0,10000).'" alt="captcha" />';
-					}
-					$refreshImg = '<span class="refreshCaptchaModule" onclick="refreshCaptchaModule(\''.$formName.'\')">&nbsp;</span>';
-					if($displayOutside){ echo $image.$refreshImg.'</td><td class="captchafieldmodule">'; }else{echo $image.$refreshImg;} ?>
-
-					<input id="user_captcha_<?php echo $formName; ?>" title="<?php echo JText::_('ERROR_CAPTCHA'); ?>" class="inputbox captchafield" type="text" name="acycaptcha" style="width:50px" /></td>
-
+						$captchaClass = acymailing_get('class.acycaptcha');
+						if($displayOutside){ $captchaClass->display($formName, true).'</td><td class="captchafieldmodule">'; }else{$captchaClass->display($formName, true);}
+					?>
 					<?php if(!$displayInline) echo '</tr><tr>';
 				}
 
 				 if($params->get('showterms',false)){
 					?>
 					<td class="acyterms" <?php if($displayOutside AND !$displayInline) echo 'colspan="2"'; ?> >
-					<input id="mailingdata_terms_<?php echo $formName; ?>" class="checkbox" type="checkbox" name="terms"/> <?php echo $termslink;?>
+					<input id="mailingdata_terms_<?php echo $formName; ?>" class="checkbox" type="checkbox" name="terms" title="<?php echo JText::_('JOOMEXT_TERMS'); ?>"/> <?php echo $termslink;?>
 					</td>
 					<?php if(!$displayInline) echo '</tr><tr>';
 					} ?>

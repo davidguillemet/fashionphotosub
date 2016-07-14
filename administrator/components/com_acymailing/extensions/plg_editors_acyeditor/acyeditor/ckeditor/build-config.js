@@ -1,5 +1,5 @@
-/**
- * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+﻿/**
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/fce2189f1fa87496b62281a5d0d16310
+ * (2) http://ckeditor.com/builder/7153261abd4d4d6b80f49e808500483a
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/fce2189f1fa87496b62281a5d0d16310
+ * (3) http://ckeditor.com/builder/download/7153261abd4d4d6b80f49e808500483a
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -28,11 +28,25 @@ var CKBUILDER_CONFIG = {
 	skin: 'moono',
 	preset: 'standard',
 	ignore: [
+		'.bender',
+		'bender.js',
+		'bender-err.log',
+		'bender-out.log',
 		'dev',
-		'.gitignore',
+		'.DS_Store',
+		'.editorconfig',
 		'.gitattributes',
+		'.gitignore',
+		'gruntfile.js',
+		'.idea',
+		'.jscsrc',
+		'.jshintignore',
+		'.jshintrc',
+		'.mailmap',
+		'node_modules',
+		'package.json',
 		'README.md',
-		'.mailmap'
+		'tests'
 	],
 	plugins : {
 		'basicstyles' : 1,
@@ -73,6 +87,13 @@ var CKBUILDER_CONFIG = {
 		'wysiwygarea' : 1
 	},
 	languages : {
-		'en' : 1
+		'de' : 1,
+		'en' : 1,
+		'es' : 1,
+		'fr' : 1,
+		'it' : 1,
+		'nl' : 1,
+		'pt-br' : 1,
+		'ru' : 1
 	}
 };

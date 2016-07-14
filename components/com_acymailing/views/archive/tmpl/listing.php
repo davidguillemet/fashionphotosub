@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -26,7 +26,7 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td>
 			<?php
-				if($this->access->frontEndManagement){
+				if(!empty($this->manageableLists)){
 			?>
 				<p class="acynewbutton"><a class="btn" href="<?php echo acymailing_completeLink('frontnewsletter&task=add&listid='.$this->list->listid); ?>" title="<?php echo JText::_('CREATE_NEWSLETTER',true); ?>" ><img class="icon16" src="<?php echo ACYMAILING_IMAGES; ?>icons/icon-16-add.png" alt="<?php echo JText::_('CREATE_NEWSLETTER',true); ?>" /> <?php echo JText::_('CREATE_NEWSLETTER'); ?></a></p>
 			<?php } ?>
@@ -66,14 +66,10 @@ defined('_JEXEC') or die('Restricted access');
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<span class="refreshCaptcha" onClick="refreshCaptcha()">&nbsp;</span>
-							<img title="<?php echo JText::_('ERROR_CAPTCHA'); ?>" id="captcha_picture" width="<?php echo $this->config->get('captcha_width_component') ?>" height="<?php echo $this->config->get('captcha_height_component') ?>" class="captchaimagecomponent" src="<?php if(ACYMAILING_J16){ echo JRoute::_('index.php?option=com_acymailing&ctrl=captcha&val='.rand(0,10000)); }else{ echo rtrim(JURI::root(),'/').'/index.php?option=com_acymailing&amp;ctrl=captcha&amp;val='.rand(0,10000);} ?>" alt="captcha" />
-
-						</td>
-						<td>
-							<input id="user_captcha" title="<?php echo JText::_('ERROR_CAPTCHA'); ?>" class="inputbox captchafield required" type="text" name="acycaptcha" style="width:50px" />
-						</td>
+						<?php
+							$captchaClass = acymailing_get('class.acycaptcha');
+							$captchaClass->display();
+						?>
 					</tr>
 				</table>
 				<button class="btn btn-primary" type="submit" value="sendarchive" name="task"/><?php echo JText::_('SEND'); ?></button>
@@ -81,9 +77,8 @@ defined('_JEXEC') or die('Restricted access');
 			</fieldset>
 		</div>
 
-	<?php } ?>
-	<?php
-		if($this->access->frontEndManagement){
+	<?php }
+		if(!empty($this->manageableLists)){
 	?>
 		<p class="acynewbutton"><a class="btn" href="<?php echo acymailing_completeLink('frontnewsletter&task=add&listid='.$this->list->listid); ?>" title="<?php echo JText::_('CREATE_NEWSLETTER',true); ?>" ><img class="icon16" src="<?php echo ACYMAILING_IMAGES; ?>icons/icon-16-add.png" alt="<?php echo JText::_('CREATE_NEWSLETTER',true); ?>" /> <?php echo JText::_('CREATE_NEWSLETTER'); ?></a></p>
 	<?php } ?>

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_config` (
 	`namekey` varchar(200) NOT NULL,
 	`value` text,
 	PRIMARY KEY (`namekey`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_fields` (
 	`fieldid` smallint unsigned NOT NULL AUTO_INCREMENT,
@@ -17,16 +17,21 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_fields` (
 	`required` tinyint unsigned NOT NULL DEFAULT '0',
 	`backend` tinyint unsigned NOT NULL DEFAULT '1',
 	`frontcomp` tinyint unsigned NOT NULL DEFAULT '0',
+	`frontform` tinyint unsigned NOT NULL DEFAULT '1',
 	`default` varchar(250) DEFAULT NULL,
 	`listing` tinyint unsigned DEFAULT NULL,
 	`frontlisting` tinyint unsigned NOT NULL DEFAULT '0',
 	`frontjoomlaprofile` tinyint unsigned NOT NULL DEFAULT '0',
 	`frontjoomlaregistration` tinyint unsigned NOT NULL DEFAULT '0',
 	`joomlaprofile` tinyint unsigned NOT NULL DEFAULT '0',
+	`access` varchar(250) NOT NULL DEFAULT 'all',
+	`fieldcat` int(11) NOT NULL DEFAULT '0',
+	`listingfilter` tinyint unsigned NOT NULL DEFAULT '0',
+	`frontlistingfilter` tinyint unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`fieldid`),
 	UNIQUE KEY `namekey` (`namekey`),
 	KEY `orderingindex` (`published`,`ordering`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_filter` (
 	`filid` mediumint unsigned NOT NULL AUTO_INCREMENT,
@@ -39,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_filter` (
 	`action` text,
 	`filter` text,
 	PRIMARY KEY (`filid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_history` (
 	`subid` int unsigned NOT NULL,
@@ -52,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_history` (
 	KEY `subid` (`subid`,`date`),
 	KEY `dateindex` (`date`),
 	KEY `actionindex` (`action`,`mailid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_list` (
 	`name` varchar(250) NOT NULL,
@@ -71,23 +76,24 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_list` (
 	`access_manage` varchar(250) NOT NULL DEFAULT 'none',
 	`languages` varchar(250) NOT NULL DEFAULT 'all',
 	`startrule` varchar(50) NOT NULL DEFAULT '0',
+	`category` varchar(250) NOT NULL DEFAULT '',
 	PRIMARY KEY (`listid`),
 	KEY `typeorderingindex` (`type`,`ordering`),
 	KEY `useridindex` (`userid`),
 	KEY `typeuseridindex` (`type`,`userid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_listcampaign` (
 	`campaignid` smallint unsigned NOT NULL,
 	`listid` smallint unsigned NOT NULL,
 	PRIMARY KEY (`campaignid`,`listid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_listmail` (
 	`listid` smallint unsigned NOT NULL,
 	`mailid` mediumint unsigned NOT NULL,
 	PRIMARY KEY (`listid`,`mailid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_listsub` (
 	`listid` smallint unsigned NOT NULL,
@@ -98,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_listsub` (
 	PRIMARY KEY (`listid`,`subid`),
 	KEY `subidindex` (`subid`),
 	KEY `listidstatusindex` (`listid`,`status`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_mail` (
 	`mailid` mediumint unsigned NOT NULL AUTO_INCREMENT,
@@ -112,11 +118,13 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_mail` (
 	`fromemail` varchar(250) DEFAULT NULL,
 	`replyname` varchar(250) DEFAULT NULL,
 	`replyemail` varchar(250) DEFAULT NULL,
-	`type` enum('news','autonews','followup','unsub','welcome','notification','joomlanotification') NOT NULL DEFAULT 'news',
+	`bccaddresses` varchar(250) DEFAULT NULL,
+	`type` enum('news','autonews','followup','unsub','welcome','notification','joomlanotification','action') NOT NULL DEFAULT 'news',
 	`visible` tinyint NOT NULL DEFAULT '1',
 	`userid` int unsigned DEFAULT NULL,
 	`alias` varchar(250) DEFAULT NULL,
 	`attach` text,
+	`favicon` text,
 	`html` tinyint NOT NULL DEFAULT '1',
 	`tempid` smallint NOT NULL DEFAULT '0',
 	`key` varchar(200) DEFAULT NULL,
@@ -128,11 +136,13 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_mail` (
 	`filter` text,
 	`language` varchar(50) NOT NULL DEFAULT '',
 	`abtesting` varchar(250) DEFAULT NULL,
+	`thumb` varchar(250) DEFAULT NULL,
+	`summary` text NOT NULL DEFAULT '',
 	PRIMARY KEY (`mailid`),
 	KEY `senddate` (`senddate`),
 	KEY `typemailidindex` (`type`,`mailid`),
 	KEY `useridindex` (`userid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_queue` (
 	`senddate` int unsigned NOT NULL,
@@ -145,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_queue` (
 	KEY `listingindex` (`senddate`,`subid`),
 	KEY `mailidindex` (`mailid`),
 	KEY `orderingindex` (`priority`,`senddate`,`subid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_rules` (
 	`ruleid` smallint unsigned NOT NULL AUTO_INCREMENT,
@@ -158,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_rules` (
 	`published` tinyint unsigned NOT NULL,
 	PRIMARY KEY (`ruleid`),
 	KEY `ordering` (`published`,`ordering`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_stats` (
 	`mailid` mediumint unsigned NOT NULL,
@@ -176,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_stats` (
 	`bouncedetails` text,
 	PRIMARY KEY (`mailid`),
 	KEY `senddateindex` (`senddate`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_subscriber` (
 	`subid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -196,12 +206,12 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_subscriber` (
 	`lastopen_ip` varchar(100) DEFAULT NULL,
 	`lastclick_date` int unsigned NOT NULL DEFAULT '0',
 	`lastsent_date` int unsigned NOT NULL DEFAULT '0',
-	`source` varchar(50) NOT NULL DEFAULT '',
+	`source` varchar(250) NOT NULL DEFAULT '',
 	PRIMARY KEY (`subid`),
 	UNIQUE KEY `email` (`email`),
 	KEY `userid` (`userid`),
 	KEY `queueindex` (`enabled`,`accept`,`confirmed`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_template` (
 	`tempid` smallint unsigned NOT NULL AUTO_INCREMENT,
@@ -224,10 +234,11 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_template` (
 	`thumb` varchar(250) DEFAULT NULL,
 	`readmore` varchar(250) DEFAULT NULL,
 	`access` varchar(250) NOT NULL DEFAULT 'all',
+	`category` varchar(250) NOT NULL DEFAULT '',
 	PRIMARY KEY (`tempid`),
 	UNIQUE KEY `namekey` (`namekey`),
 	KEY `orderingindex` (`ordering`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_url` (
 	`urlid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -235,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_url` (
 	`url` text NOT NULL,
 	PRIMARY KEY (`urlid`),
 	KEY `url` (`url`(250))
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_urlclick` (
 	`urlid` int unsigned NOT NULL,
@@ -248,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_urlclick` (
 	KEY `dateindex` (`date`),
 	KEY `mailidindex` (`mailid`),
 	KEY `subidindex` (`subid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_userstats` (
 	`mailid` mediumint unsigned NOT NULL,
@@ -266,10 +277,11 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_userstats` (
 	`is_mobile` tinyint unsigned DEFAULT NULL,
 	`mobile_os` varchar(255) DEFAULT NULL,
 	`user_agent` varchar(255) DEFAULT NULL,
+	`bouncerule` varchar(255) DEFAULT NULL,
 	PRIMARY KEY (`mailid`,`subid`),
 	KEY `senddateindex` (`senddate`),
 	KEY `subidindex` (`subid`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
 
 CREATE TABLE IF NOT EXISTS `#__acymailing_geolocation` (
 	`geolocation_id` int unsigned NOT NULL AUTO_INCREMENT,
@@ -285,6 +297,34 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_geolocation` (
 	`geolocation_state` varchar(255) NOT NULL DEFAULT '',
 	`geolocation_state_code` varchar(255) NOT NULL DEFAULT '',
 	`geolocation_city` varchar(255) NOT NULL DEFAULT '',
+	`geolocation_continent` varchar(255) NOT NULL DEFAULT '',
+	`geolocation_timezone` varchar(255) NOT NULL DEFAULT '',
 	PRIMARY KEY (`geolocation_id`),
-	KEY `geolocation_type` (`geolocation_subid`, `geolocation_type`)
-) ENGINE=MyISAM /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+	KEY `geolocation_type` (`geolocation_subid`, `geolocation_type`),
+	KEY `geolocation_ip_created` (`geolocation_ip`, `geolocation_created`)
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;
+
+CREATE TABLE IF NOT EXISTS `#__acymailing_action` (
+	`action_id` int unsigned NOT NULL AUTO_INCREMENT,
+	`name` varchar(255) DEFAULT NULL,
+	`frequency` int unsigned NOT NULL,
+	`nextdate` int unsigned NOT NULL,
+	`description` text,
+	`server` varchar(255) NOT NULL,
+	`port` varchar(50) NOT NULL,
+	`connection_method` varchar(10) NOT NULL DEFAULT '0',
+	`secure_method` varchar(10) NOT NULL DEFAULT '0',
+	`self_signed` tinyint NOT NULL DEFAULT '0',
+	`username` varchar(255) NOT NULL,
+	`password` varchar(50) NOT NULL,
+	`userid` int unsigned DEFAULT NULL,
+	`conditions` text,
+	`actions` text,
+	`report` text,
+	`delete_wrong_emails` tinyint NOT NULL DEFAULT 0,
+	`senderfrom` tinyint NOT NULL DEFAULT 0,
+	`senderto` tinyint NOT NULL DEFAULT 0,
+	`published` tinyint NOT NULL DEFAULT '0',
+	`ordering` smallint unsigned NULL DEFAULT '0',
+	PRIMARY KEY (`action_id`)
+) /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci*/;

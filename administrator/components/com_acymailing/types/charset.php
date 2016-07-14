@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -11,7 +11,7 @@ defined('_JEXEC') or die('Restricted access');
 
 class charsetType{
 	var $addinfo = '';
-	function charsetType(){
+	function __construct(){
 		$charsets = array(
 					'BIG5'=>'BIG5',//Iconv,mbstring
 					'ISO-8859-1'=>'ISO-8859-1',//Iconv,mbstring
@@ -31,6 +31,7 @@ class charsetType{
 					'US-ASCII'=>'US-ASCII', //Iconv,mbstring
 					'UTF-7'=>'UTF-7',//Iconv,mbstring
 					'UTF-8'=>'UTF-8',//Iconv,mbstring
+					'UTF-16'=>'UTF-16',//Iconv,mbstring
 					'Windows-1251'=>'Windows-1251', //Iconv,mbstring
 					'Windows-1252'=>'Windows-1252' //Iconv,mbstring
 				);

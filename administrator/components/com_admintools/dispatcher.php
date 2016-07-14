@@ -1,9 +1,8 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
- * @revision fecb4221ee6968cf78095ae6968cf71773fab4b89c5a
  */
 
 // Protect from unauthorized access
@@ -17,6 +16,22 @@ class AdmintoolsDispatcher extends F0FDispatcher
 
 		if ($result)
 		{
+			// Clear com_modules and com_plugins cache (needed when we alter module/plugin state)
+			$core_components = array('com_modules', 'com_plugins');
+
+			foreach ($core_components as $component)
+			{
+				try
+				{
+					$cache = JFactory::getCache($component);
+					$cache->clean();
+				}
+				catch (Exception $e)
+				{
+					// suck it up
+				}
+			}
+
 			// Merge the language overrides
 			$paths = array(JPATH_ROOT, JPATH_ADMINISTRATOR);
 			$jlang = JFactory::getLanguage();
@@ -40,13 +55,12 @@ class AdmintoolsDispatcher extends F0FDispatcher
 			AkeebaStrapper::$tag = ADMINTOOLSMEDIATAG;
 			AkeebaStrapper::bootstrap();
 			AkeebaStrapper::jQueryUI();
-			AkeebaStrapper::addCSSfile('media://com_admintools/css/backend.css');
+			AkeebaStrapper::addCSSfile('admin://components/com_admintools/media/css/backend.css');
 
 			// Work around non-transparent proxy and reverse proxy IP issues
-			include_once JPATH_ADMINISTRATOR . '/components/com_admintools/helpers/ip.php';
-			if (class_exists('AdmintoolsHelperIp', false))
+			if (class_exists('F0FUtilsIp', true))
 			{
-				AdmintoolsHelperIp::workaroundIPIssues();
+				F0FUtilsIp::workaroundIPIssues();
 			}
 
 			// Control Check
@@ -61,6 +75,7 @@ class AdmintoolsDispatcher extends F0FDispatcher
 			}
 
 			// ========== Master PW check ==========
+			/** @var AdmintoolsModelMasterpw $model */
 			$model = F0FModel::getAnInstance('Masterpw', 'AdmintoolsModel');
 			if (!$model->accessAllowed($view))
 			{

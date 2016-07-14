@@ -1,16 +1,16 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 class unsubType{
-	function unsubType(){
+	function __construct(){
 
 		$query = 'SELECT `subject`, `mailid` FROM '.acymailing_table('mail').' WHERE `type`= \'unsub\'';
 		$db = JFactory::getDBO();
@@ -39,7 +39,7 @@ class unsubType{
 
 	function display($value){
 		JHTML::_('behavior.modal','a.modal');
-		$linkEdit = 'index.php?option=com_acymailing&amp;tmpl=component&amp;ctrl=email&amp;task=edit&amp;mailid='.$value;
+		$linkEdit = 'index.php?option=com_acymailing&amp;tmpl=component&amp;ctrl=email&amp;task=edit&amp;type=unsub&amp;mailid='.$value;
 		$linkAdd = 'index.php?option=com_acymailing&amp;tmpl=component&amp;ctrl=email&amp;task=add&amp;type=unsub';
 		$style = empty($value) ? 'style="display:none"' : '';
 		$text = ' <a '.$style.' class="modal" id="unsub_edit" title="'.JText::_('EDIT_EMAIL',true).'"  href="'.$linkEdit.'" rel="{handler: \'iframe\', size:{x:800, y:500}}"><img class="icon16" src="'.ACYMAILING_IMAGES.'icons/icon-16-edit.png" alt="'.JText::_('EDIT_EMAIL',true).'"/></a>';

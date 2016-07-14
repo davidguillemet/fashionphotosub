@@ -2,7 +2,7 @@
 /**
  * @package     FrameworkOnFramework
  * @subpackage  table
- * @copyright   Copyright (C) 2010 - 2014 Akeeba Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -41,7 +41,7 @@ class F0FTableNested extends F0FTable
 	 *
 	 * @param   string          $table  Name of the database table to model.
 	 * @param   string          $key    Name of the primary key field in the table.
-	 * @param   JDatabaseDriver &$db    Database driver
+	 * @param   F0FDatabaseDriver &$db    Database driver
 	 * @param   array           $config The configuration parameters array
 	 *
 	 * @throws \RuntimeException When lft/rgt columns are not found
@@ -85,16 +85,15 @@ class F0FTableNested extends F0FTable
 	/**
 	 * Delete a node, either the currently loaded one or the one specified in $id. If an $id is specified that node
 	 * is loaded before trying to delete it. In the end the data model is reset. If the node has any children nodes
-	 * they will be removed before the node itself is deleted if $recursive == true (default: true).
+	 * they will be removed before the node itself is deleted.
 	 *
 	 * @param   integer $oid       The primary key value of the item to delete
-	 * @param   bool    $recursive Should I recursively delete any nodes in the subtree? (default: true)
 	 *
 	 * @throws  UnexpectedValueException
 	 *
 	 * @return  boolean  True on success
 	 */
-	public function delete($oid = null, $recursive = true)
+	public function delete($oid = null)
 	{
 		// Load the specified record (if necessary)
 		if (!empty($oid))
@@ -102,26 +101,31 @@ class F0FTableNested extends F0FTable
 			$this->load($oid);
 		}
 
+        $k  = $this->_tbl_key;
+        $pk = (!$oid) ? $this->$k : $oid;
+
+        // If no primary key is given, return false.
+        if (!$pk)
+        {
+            throw new UnexpectedValueException('Null primary key not allowed.');
+        }
+
+        // Execute the logic only if I have a primary key, otherwise I could have weird results
+        // Perform the checks on the current node *BEFORE* starting to delete the children
+        if (!$this->onBeforeDelete($oid))
+        {
+            return false;
+        }
+
+        $result = true;
+
 		// Recursively delete all children nodes as long as we are not a leaf node and $recursive is enabled
-		if ($recursive && !$this->isLeaf())
+		if (!$this->isLeaf())
 		{
-			// Get a reference to the database
-			$db = $this->getDbo();
-
-			// Get my lft/rgt values
-			$myLeft = $this->lft;
-			$myRight = $this->rgt;
-
-			$fldLft = $db->qn($this->getColumnAlias('lft'));
-			$fldRgt = $db->qn($this->getColumnAlias('rgt'));
-
 			// Get all sub-nodes
 			$table = $this->getClone();
-			$table->reset();
-			$subNodes = $table
-				->whereRaw($fldLft . ' > ' . $myLeft)
-				->whereRaw($fldRgt . ' < ' . $myRight)
-				->get();
+			$table->bind($this->getData());
+			$subNodes = $table->getDescendants();
 
 			// Delete all subnodes (goes through the model to trigger the observers)
 			if (!empty($subNodes))
@@ -129,13 +133,82 @@ class F0FTableNested extends F0FTable
 				/** @var F0FTableNested $item */
 				foreach ($subNodes as $item)
 				{
-					$item->delete(null, false);
+                    // We have to pass the id, so we are getting it again from the database.
+                    // We have to do in this way, since a previous child could have changed our lft and rgt values
+					if(!$item->delete($item->$k))
+                    {
+                        // A subnode failed or prevents the delete, continue deleting other nodes,
+                        // but preserve the current node (ie the parent)
+                        $result = false;
+                    }
 				};
+
+                // Load it again, since while deleting a children we could have updated ourselves, too
+                $this->load($pk);
 			}
 		}
 
-		return parent::delete($oid);
+        if($result)
+        {
+            // Delete the row by primary key.
+            $query = $this->_db->getQuery(true);
+            $query->delete();
+            $query->from($this->_tbl);
+            $query->where($this->_tbl_key . ' = ' . $this->_db->q($pk));
+
+            $this->_db->setQuery($query)->execute();
+
+            $result = $this->onAfterDelete($oid);
+        }
+
+		return $result;
 	}
+
+    protected function onAfterDelete($oid)
+    {
+        $db = $this->getDbo();
+
+        $myLeft  = $this->lft;
+        $myRight = $this->rgt;
+
+        $fldLft = $db->qn($this->getColumnAlias('lft'));
+        $fldRgt = $db->qn($this->getColumnAlias('rgt'));
+
+        // Move all siblings to the left
+        $width = $this->rgt - $this->lft + 1;
+
+        // Wrap everything in a transaction
+        $db->transactionStart();
+
+        try
+        {
+            // Shrink lft values
+            $query = $db->getQuery(true)
+                        ->update($db->qn($this->getTableName()))
+                        ->set($fldLft . ' = ' . $fldLft . ' - '.$width)
+                        ->where($fldLft . ' > ' . $db->q($myLeft));
+            $db->setQuery($query)->execute();
+
+            // Shrink rgt values
+            $query = $db->getQuery(true)
+                        ->update($db->qn($this->getTableName()))
+                        ->set($fldRgt . ' = ' . $fldRgt . ' - '.$width)
+                        ->where($fldRgt . ' > ' . $db->q($myRight));
+            $db->setQuery($query)->execute();
+
+            // Commit the transaction
+            $db->transactionCommit();
+        }
+        catch (\Exception $e)
+        {
+            // Roll back the transaction on error
+            $db->transactionRollback();
+
+            throw $e;
+        }
+
+        return parent::onAfterDelete($oid);
+    }
 
 	/**
 	 * Not supported in nested sets
@@ -190,13 +263,54 @@ class F0FTableNested extends F0FTable
 	}
 
 	/**
-	 * Makes a copy of the record, inserting it as the last child of the current node's parent.
+	 * Makes a copy of the record, inserting it as the last child of the given node's parent.
 	 *
-	 * @return self
+	 * @param   integer|array  $cid  The primary key value (or values) or the record(s) to copy. 
+	 *                               If null, the current record will be copied
+	 * 
+	 * @return self|F0FTableNested	 The last copied node
 	 */
-	public function copy()
+	public function copy($cid = null)
 	{
-		return $this->create($this->getData());
+		//We have to cast the id as array, or the helper function will return an empty set
+		if($cid)
+		{
+			$cid = (array) $cid;
+		}
+
+        F0FUtilsArray::toInteger($cid);
+		$k = $this->_tbl_key;
+
+		if (count($cid) < 1)
+		{
+			if ($this->$k)
+			{
+				$cid = array($this->$k);
+			}
+			else
+			{
+				// Even if it's null, let's still create the record
+				$this->create($this->getData());
+				
+				return $this;
+			}
+		}
+
+		foreach ($cid as $item)
+		{
+			// Prevent load with id = 0
+
+			if (!$item)
+			{
+				continue;
+			}
+
+			$this->load($item);
+			
+			$this->create($this->getData());
+		}
+
+		return $this;
 	}
 
 	/**
@@ -609,7 +723,12 @@ class F0FTableNested extends F0FTable
 			->get(0, 1)->current();
 
 		// Move the node
-		return $this->moveToLeftOf($leftSibling);
+		if (is_object($leftSibling) && ($leftSibling instanceof F0FTableNested))
+		{
+			return $this->moveToLeftOf($leftSibling);
+		}
+
+		return false;
 	}
 
 	/**
@@ -650,7 +769,12 @@ class F0FTableNested extends F0FTable
 			->get(0, 1)->current();
 
 		// Move the node
-		return $this->moveToRightOf($rightSibling);
+		if (is_object($rightSibling) && ($rightSibling instanceof F0FTableNested))
+		{
+			return $this->moveToRightOf($rightSibling);
+		}
+
+		return false;
 	}
 
 	/**
@@ -1221,11 +1345,11 @@ class F0FTableNested extends F0FTable
 				->select($db->qn('parent') . '.' . $fldLft)
 				->from($db->qn($this->getTableName()) . ' AS ' . $db->qn('node'))
 				->join('CROSS', $db->qn($this->getTableName()) . ' AS ' . $db->qn('parent'))
-				->where($db->qn('node') . '.' . $fldLft . ' >= ' . $db->qn('parent') . '.' . $fldLft)
+				->where($db->qn('node') . '.' . $fldLft . ' > ' . $db->qn('parent') . '.' . $fldLft)
 				->where($db->qn('node') . '.' . $fldLft . ' <= ' . $db->qn('parent') . '.' . $fldRgt)
 				->where($db->qn('node') . '.' . $fldLft . ' = ' . $db->q($this->lft))
 				->order($db->qn('parent') . '.' . $fldLft . ' DESC');
-			$targetLft = $db->setQuery($query, 1, 1)->loadResult();
+			$targetLft = $db->setQuery($query, 0, 1)->loadResult();
 
 			$table = $this->getClone();
 			$table->reset();
@@ -2033,7 +2157,7 @@ class F0FTableNested extends F0FTable
 	/**
 	 * Builds the query for the get() method
 	 *
-	 * @return JDatabaseQuery
+	 * @return F0FDatabaseQuery
 	 */
 	protected function buildQuery()
 	{

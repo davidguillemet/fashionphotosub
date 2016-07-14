@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  */
 
@@ -49,14 +49,7 @@ class AdmintoolsModelStorage extends JoomlaCompatModel
 			$this->load();
 		}
 
-		if (version_compare(JVERSION, '3.0', 'ge'))
-		{
-			return $this->config->get($key, $default);
-		}
-		else
-		{
-			return $this->config->getValue($key, $default);
-		}
+		return $this->config->get($key, $default);
 	}
 
 	public function setValue($key, $value, $save = false)
@@ -66,20 +59,29 @@ class AdmintoolsModelStorage extends JoomlaCompatModel
 			$this->load();
 		}
 
-		if (version_compare(JVERSION, '3.0', 'ge'))
-		{
-			$x = $this->config->set($key, $value);
-		}
-		else
-		{
-			$x = $this->config->setValue($key, $value);
-		}
+		$x = $this->config->set($key, $value);
+
 		if ($save)
 		{
 			$this->save();
 		}
 
 		return $x;
+	}
+
+	public function resetContents($save = false)
+	{
+		if (is_null($this->config))
+		{
+			$this->load();
+		}
+
+		$this->config->loadArray(array());
+
+		if ($save)
+		{
+			$this->save();
+		}
 	}
 
 	public function load()
@@ -112,14 +114,7 @@ class AdmintoolsModelStorage extends JoomlaCompatModel
 		}
 
 
-		if (version_compare(JVERSION, '3.0', 'ge'))
-		{
-			$this->config = new JRegistry();
-		}
-		else
-		{
-			$this->config = new JRegistry('admintools');
-		}
+		$this->config = new JRegistry();
 
 		if (!empty($res))
 		{

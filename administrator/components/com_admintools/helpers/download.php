@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  */
 
@@ -391,20 +391,10 @@ class AdmintoolsHelperDownload
 		{
 			// Connect the FTP client
 			JLoader::import('joomla.client.ftp');
-			if (version_compare(JVERSION, '3.0', 'ge'))
-			{
-				$ftp = JClientFTP::getInstance(
-					$ftpOptions['host'], $ftpOptions['port'], array(),
-					$ftpOptions['user'], $ftpOptions['pass']
-				);
-			}
-			else
-			{
-				$ftp = JFTP::getInstance(
-					$ftpOptions['host'], $ftpOptions['port'], array(),
-					$ftpOptions['user'], $ftpOptions['pass']
-				);
-			}
+			$ftp = JClientFTP::getInstance(
+				$ftpOptions['host'], $ftpOptions['port'], array(),
+				$ftpOptions['user'], $ftpOptions['pass']
+			);
 		}
 
 		if (@chmod($path, $mode))

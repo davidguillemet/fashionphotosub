@@ -1,4 +1,265 @@
 <?php die() ?>
+Admin Tools 3.8.6
+================================================================================
+# [HIGH] PHP File Change Scanner's CLI script didn't work
+# [LOW] PHP File Change Scanner emails (from CLI) displayed the HTML markup instead of formatted text
+
+Admin Tools 3.8.5
+================================================================================
+! File packaging issues affecting the Core release
+
+Admin Tools 3.8.4
+================================================================================
++ Improved detection and removal of duplicate update sites
++ Added support for WAF blacklist and WAF exclusions import/export
+~ Joomla! 3.6 has moved the logs folder inside /administrator. Our software is now adjusted for this change.
+~ Remove obsolete FOF 2.x update site if it exists
+~ Work around MASSIVE BUG IN JOOMLA! 3.5.1+ regarding email sending
+~ Replace the update site with the one which will be used for version 4.x
+# [HIGH] Joomla! "Conservative" cache bug: you could not enter the Download ID when prompted
+# [HIGH] Joomla! "Conservative" cache bug: you could not apply the proposed Secret Word when prompted
+# [HIGH] Joomla! "Conservative" cache bug: component Options (e.g. Download ID, Secret Word, front-end file scanner feature) would be forgotten on the next page load
+# [HIGH] WAF Blacklist with RegEx matching would block all requests all the time
+# [LOW] Under rare circumstances, banning the same IP twice would result in a uncaught exception
+
+Admin Tools 3.8.3
+================================================================================
+# [HIGH] The display of log and temp directories is inversed, leading many of our users to unnecessarily panic.
+
+Admin Tools 3.8.2
+================================================================================
+- Removed integrity check (showing wrong check results on some sites)
+
+Admin Tools 3.8.1
+================================================================================
+! Update failure on ancient servers lacking UTF8MB4 support
+
+Admin Tools 3.8.0
+================================================================================
++ UTF8MB4 support for our own database tables (requires Joomla! 3.5 and a PHP/MySQL environment with UTF8MB4 support)
++ web.config Maker for IIS
++ .htaccess & NginX Conf Maker: Add GZip compression support for SVG files
++ gh-80 Added Joomla! temp and log directory check
++ gh-84 Improved text of emails sent by the PHP Scanner when there are no modified or added files
+- Removed the "Forbid displaying in FRAME (for HTTPS-only sites)" switch from .htaccess Maker / NginX Conf Maker. It's exactly the same feature as "Protect against clickjacking". Enable the latter to get the same protection.
+~ The Quick Setup Wizard is now hidden after you configure Admin Tools for the first time
+
+Admin Tools 3.7.1
+================================================================================
+! Core version throws a fatal error (it tries to access a Professional feature that doesn't exist in the Core version)
+
+Admin Tools 3.7.0
+================================================================================
+! Joomla! 3.5 breaks CLI scripts, workaround applied
++ gh-76 Front-end scheduling URL for the PHP File Change Scanner
++ gh-76 Scheduling information page for the PHP File Change Scanner
++ gh-77 Check Joomla Global Configuration for invalid log or temporary directories
+~ Working around SpamAssassin's BROKEN rules for email messages sent by Admin Tools
+~ gh-78 Media files are moved to under administrator making it harder to detect Admin Tools' version.
+~ Update PHP File Change Scanner signatures
+~ Disable CLI script workaround necessary only under Joomla! 3.4.7 on all other versions of Joomla!
+~ Disable IP workarounds in the Core version
+# [LOW] Preview popup in .htaccess and NginX Conf Maker was not rendering properly due to bad Joomla! default height value for popups
+
+Admin Tools 3.6.8
+================================================================================
+# [HIGH] Joomla! 3.4.7 has a major bug which may prevent CLI (CRON) scripts from executing
+
+Admin Tools 3.6.7
+================================================================================
+- Remove XSSShield
++ SessionShield to deal with PHP session data poisoning attacks
+# [LOW] Untranslated string COM_ADMINTOOLS_EMAILTEMPLATE_REASON_IPAUTOBAN in notification emails
+
+Admin Tools 3.6.6
+================================================================================
++ Inform the user if he needs to supply the Download ID
+! Detection and neutralization of the high priority Joomla! security issue 20151201, ref https://developer.joomla.org/security-centre/630-20151214-core-remote-code-execution-vulnerability.html
+# [HIGH] You couldn't configure WAF under Joomla! 3.0 and 3.1 without setting the "Long Configure WAF page" option to Yes
+# [HIGH] Wrong display rendering of file diffs
+# [MEDIUM] The administrator URL parameter wasn't saved by the Quick Setup Wizard
+# [LOW] The Quick Setup Wizard button was shown in the Core edition by accident
+# [LOW] Some .htaccess Maker options were not compatible with the *!!OLD, INSECURE, DO NOT USE!!* Apache 1.3 version family
+# [LOW] Notice thrown by the auto-update CLI script
+
+Admin Tools 3.6.4
+================================================================================
+~ This version is compatible with Joomla! 3.0 to 3.4, inclusive
+~ Improved SQLiShield feature
++ Support negated RegEx in the WAF blacklist feature (for both the query parameter and the query value)
++ Support array query parameters in the WAF blacklist feature
+# [HIGH] Possible false negatives for certain query parameters when applying WAF protections
+# [LOW] Fixed WAF exceptions when we have no option parameter
+# [LOW] Fixed double slash in www to non-www redirect with no rewrite base parameter
+
+Admin Tools 3.6.3
+================================================================================
+~ Workaround for hosts who blacklist the wrong domain name
+# [HIGH] UploadShield would cause blank pages when uploading files in the front-end
+# [HIGH] Updating the component with the "System - Admin Tools" plugin disabled results in a white page
+
+Admin Tools 3.6.2
+================================================================================
++ Quick Setup Wizard to get you quickly started with the security setup of your site
++ You can now turn off IP workarounds
++ You can set up email templates for failed/successful administrator login and automatic IP banning of repeat offenders
++ You can set WAF Exceptions for SEF URLs
++ You can now unblock your IP with a single click
+# [HIGH] The CORS option in the .htaccess Maker had a typo which caused a 500 error when you enable it
+# [MEDIUM] You couldn't use HTML in the custom security exception and block messages
+# [LOW] The autoupdate script could not download the package in PRO versions
+# [LOW] Fixed import settings when some of them are empty
+# [LOW] Fixed exporting only some of the settings
+# [LOW] Fixed away schedule when it was spanning across the night
+
+Admin Tools 3.6.1
+================================================================================
+~ .htaccess Maker: Better implementation of "Disable HTTP methods TRACE and TRACK", compatible with Apache 1.3 and 2.2
+# [MEDIUM] Third party security exception integration was not working
+# [LOW] .htaccess and NginX Maker: compatibility issues with PHP 5.3 – Last version to support PHP 5.3.
+# [LOW] Option to prevent plugin reordering was not honoured
+# [LOW] The admintools-update.php script was broken
+
+Admin Tools 3.6.0
+================================================================================
+~ The PHP File Scanner was updated. The threat scores are now more realistically calculated.
++ You can now disable automatically reordering the Admin Tools system plugin
++ Add UTF-8 Multibyte (e.g. Emoji) support with the Database Collation feature!
++ .htaccess Maker & NginX Conf Maker: "Do not display in IFrame" option for HTTPS site
++ .htaccess Maker & NginX Conf Maker: "Forbid TRACE and TRACK" option
++ .htaccess Maker & NginX Conf Maker: "Enable CORS (Cross Origin Request Sharing)" option
++ .htaccess Maker & NginX Conf Maker: "Protect against clickjacking" option
++ .htaccess Maker: "Set the UTF-8 character set as the default" option
++ .htaccess Maker: apply expiration headers also to .ogg files
++ .htaccess Maker: Protection against third party settings modification and .htaccess file regeneration
++ .htaccess Maker: Will not allow you to add php as an allowed extension for the front-end and back-end protection as that nullifies the protection!
++ .htaccess Maker: Reduce MIME type security risks
++ .htaccess Maker: Reflected XSS prevention
++ .htaccess Maker: Remove Apache and PHP version signature
++ .htaccess Maker: Prevent content transformation
++ .htaccess Maker: Force GZip compression for mangled Accept-Encoding headers
++ .htaccess Maker: Choose how to send ETags (or whether not to send them at all)
++ NginX Maker: Protection against third party settings modification and nginx.conf file regeneration
++ NginX Maker: Will not allow you to add php as an allowed extension for the front-end and back-end protection as that nullifies the protection!
++ NginX Maker: Allows you to set up more complex fastcgi pass-throughs
++ NginX Maker: Reduce MIME type security risks
++ NginX Maker: Reflected XSS prevention
++ NginX Maker: Prevent content transformation
++ NginX Maker: Enable or disable ETags
++ [HIGH] NginX Maker: Front-end protection could lead to an infinite redirection loop with SEF URLs on multi-language sites
++ [LOW] NginX Maker: The "No directory indexes" option could cause problems with SEF URLs on multi-language sites
+# [LOW] NginX Maker: The Preview button didn't work
+# [LOW] Geographic Blocking page: select all / none not working (leftover mooTools code)
+# [LOW] Master Password page: select all / none not working (leftover mooTools code)
+# [LOW] Fixed Scan Files email subject
+
+Admin Tools 3.5.1
+================================================================================
+~ Restored the Custom administrator directory feature. This feature is provided WITHOUT ANY SUPPORT WHATSOEVER.
+~ Minor, mostly cosmetic, changes in the Joomla Update Check plugin
+
+Admin Tools 3.5.0
+================================================================================
+! The minimum required Joomla! version is 3.3.0
+- Removed Change Super User ID feature
+- Removed Database Table Prefix Editor feature
+- Removed Database Change Collation feature
+- Removed Two Factor Authentication feature
+- Removed dependencies on mooTools
+- Removed the obsolete installer plugin
+- Removed the Custom administrator directory feature
++ Check for obsolete PHP versions and printing a warning
++ IPv6 CIDR support in IP white-/black-lists
+~ Adding "koowa" to the list of allowed tmpl= keywords to allow components based on Nooku Framework to load correctly.
+# [MEDIUM] Custom administrator directory: some servers misbehave when asked to access /administrator instead of /administrator/index.php
+# [MEDIUM] Fixed DB repair CLI script
+# [LOW] IP Blacklist: when accessing the administrator area you are redirected back to an invalid URL
+
+Admin Tools 3.4.3
+================================================================================
+! Work around BROKEN Apache installations when you are using BOTH .htaccess files (.htaccess Maker OR Joomla! htaccess.txt contents) AND administrator password protection. If you were affected by this issue PLEASE ASK YOUR HOST TO FIX THEIR SERVERS per the release notes of this version!
+# [LOW] The obsolete pro.php / core.php files of the system plugin were not removed automatically
+
+Admin Tools 3.4.2
+================================================================================
+! Language files were not being installed
+
+Admin Tools 3.4.1
+================================================================================
+~ Less intrusive display of the file integrity check results
+# [MEDIUM] Password protect administrator directory no longer works correctly due to changes in PHP's crypt() method
+# [MEDIUM] Removed .htaccess line causing issues with some hosts
+
+Admin Tools 3.4.0
+================================================================================
++ Warning added when Joomla!'s com_postinstall component is broken (with instructions to fix it)
+~ Some features are now deprecated and will be removed in 2015 when we discontinue Joomla! 2.5 support: change super user ID, change db prefix, change db collation, two factor authentication
+~ Explain that the corrupt files message is not something to worry about when you have renamed files of the System - Admin Tools plugin (thank you, Jenny!)
+~ .htaccess Maker: URL rewrites to Joomla! work no matter what is the SEF URL extension (part after the last dot)
+# [MEDIUM] Two Factor Authentication under Joomla 2.5.x was not working properly
+# [MEDIUM] Logging out of Joomla! 3.2 when using secret URL parameter may raise security exception
+# [MEDIUM] Users could change the master password even if they didn't authenticate inside Admin Tools
+# [MEDIUM] The option "Disable editing backend users' properties" was not working when clicking on "Save & New"
+# [MEDIUM] The option "Disable editing backend users' properties" was not working when trying to edit your own profile
+# [LOW] Prevent javascript error in WAF configuration page with translated strings due a Joomla bug.
+
+Admin Tools 3.3.1
+================================================================================
++ Self-check the installation. If files are missing or have been tampered with you will be notified about it.
+# [LOW] Database repair CLI script is not installed
+# [MEDIUM] Logging out of Joomla! 2.5 when using secret URL parameter may raise security exception
+# [HIGH] Missing files in core package leading to incorrect post-setup page under Joomla 2.5
+
+Admin Tools 3.3.0
+================================================================================
++ You can now specify multiple email addresses for the "Email this address on security exceptions" field by separating them with commas
++ You can now specify multiple email addresses for the "Email this address on successful back-end login" field by separating them with commas
++ You can now specify multiple email addresses for the "Email this address on failed administrator login" field by separating them with commas
+- Removed the "Block extensions installer" feature (obsolete). Since Joomla! 1.6 you can use the Extension Installer's Options, Permissions page to determine exactly who has access to the installer, by default only Super Users.
+~ Use Joomla! tabs in Configure WAF page. The last tab will be remembered automatically (by means of a cookie).
+~ Changed the .htaccess files to be compatible with Apache 2.4
+# [HIGH] Fixed fatal error while trying to run Admin Tools plugin under Joomla 2.5
+# [HIGH] Regressions in 3.2.x versions didn't allow some features to work
+# [HIGH] XSSShield would miss some attacks
+# [HIGH] DFIShield couldn't handle Windows-style relative paths
+# [HIGH] Disable editing backend users' properties not working when you use Save & Close to save the back-end user
+# [HIGH] IP white-/black-listing not working with netmask, CIDR ranges and shorthand range notation in PHP 5.5 and 5.6
+# [MEDIUM] Fixed two factor authentication to only display on Joomla! 2.5 and 3.0/3.1
+# [MEDIUM] URL Redirection would not work properly with sites in subdirectories when redirecting to an internal (non-SEF) URL
+
+Admin Tools 3.2.1
+================================================================================
+# [HIGH] System plugin installation package was missing some files
+
+Admin Tools 3.2.0
+================================================================================
++ When using the custom administrator directory and you log out you now MUST use the custom administrator directory (it's no longer remembered)
+~ Refactored System - Admin Tools plugin for performance and better maintainability
+~ Now using Joomla!'s Post-installation Messages on Joomla! 3.2.0 and later instead of showing our own post-installation page after a new install / upgrade to a new version
+~ Some servers seem to try and load the AkeebaUsagestats class twice
+~ Default values in PHP File Change Scanner configuration
+# [MEDIUM] The Deactivate user after frequency would not stick in the settings
+# [MEDIUM] Fixed SQL error in PHP File Change Scanner
+# [LOW] The tmpl= and template= switches would stop working in the future, when the JRequest class will be removed from Joomla!.
+
+Admin Tools 3.1.1
+================================================================================
+! PHP File Change Scanner is broken
+
+Admin Tools 3.1.0
+================================================================================
++ Anonymous reporting of PHP, MySQL and CMS versions (opt-out through the options)
++ Added feature to purge scanned files cache
++ Added CLI script to check and repair database tables
++ You can now export and import Admin Tools settings
++ Added option to block user registration from selected email addresses
+~ Even better workaround for very badly written system plugins which output Javascript without a trailing semicolon and/or newline, leading to Javascript errors. This is not a bug in our software, it's a bug in those badly written plugins and WE have to work around THEIR bad code!
+# [MEDIUM] Joomla! caches plugin information, leading to unexpected behaviour in various places
+# [MEDIUM] Master Password sometimes doesn't work properly on some views
+# [MEDIUM] "Disable editing back-end users" doesn't work due to a Joomla! bug in JAccess::checkGroup
+# [LOW] Joomla! caches plugins' published status, leading to false reports of the Admin Tools plugin being disabled when it's enabled
+# [LOW] Notice thrown in cpanel when the system plugin is not enabled
+
 Admin Tools 3.0.3
 ================================================================================
 - Removed the CSS and Javascript combination / minification feature as it's technically impossible to make as reliable as we'd like it to be

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  */
 
@@ -32,7 +32,7 @@ class AdmintoolsViewFixperms extends F0FViewHtml
 			$percent = 100;
 			$more = false;
 
-			JToolBarHelper::back('JTOOLBAR_BACK', 'index.php?option=com_admintools');
+			JToolbarHelper::back('JTOOLBAR_BACK', 'index.php?option=com_admintools');
 		}
 
 		$this->more = $more;
@@ -43,6 +43,9 @@ class AdmintoolsViewFixperms extends F0FViewHtml
 		{
 			$script = <<<JS
 
+
+;// This comment is intentionally put here to prevent badly written plugins from causing a Javascript error
+// due to missing trailing semicolon and/or newline in their code.
 (function($){
 	$(document).ready(function(){
 		document.forms.adminForm.submit();

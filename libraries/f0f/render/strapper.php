@@ -2,7 +2,7 @@
 /**
  * @package     FrameworkOnFramework
  * @subpackage  render
- * @copyright   Copyright (C) 2010 - 2014 Akeeba Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('F0F_INCLUDED') or die;
@@ -55,6 +55,24 @@ class F0FRenderStrapper extends F0FRenderAbstract
 			return;
 		}
 
+		if (version_compare(JVERSION, '3.0.0', 'lt'))
+		{
+			JHtml::_('behavior.framework');
+		}
+		else
+		{
+			if (version_compare(JVERSION, '3.3.0', 'ge'))
+			{
+				JHtml::_('behavior.core');
+			}
+			else
+			{
+				JHtml::_('behavior.framework', true);
+			}
+
+			JHtml::_('jquery.framework');
+		}
+
 		// Wrap output in various classes
 		$version = new JVersion;
 		$versionParts = explode('.', $version->RELEASE);
@@ -68,7 +86,6 @@ class F0FRenderStrapper extends F0FRenderAbstract
 			$view = $input->getCmd('view', '');
 			$layout = $input->getCmd('layout', '');
 			$task = $input->getCmd('task', '');
-			$itemid = $input->getCmd('Itemid', '');
 
 			$classes = array(
 				'joomla-version-' . $majorVersion,
@@ -78,7 +95,10 @@ class F0FRenderStrapper extends F0FRenderAbstract
 				'view-' . $view,
 				'layout-' . $layout,
 				'task-' . $task,
-				'itemid-' . $itemid,
+				// We have a floating sidebar, they said. It looks great, they said. They must've been blind, I say!
+				'j-toggle-main',
+				'j-toggle-transition',
+				'span12',
 			);
 		}
 		elseif ($platform->isFrontend())
@@ -433,7 +453,7 @@ JS;
 			return;
 		}
 
-		$bar	 = JToolBar::getInstance('toolbar');
+		$bar	 = JToolbar::getInstance('toolbar');
 		$items	 = $bar->getItems();
 
 		$substitutions = array(
@@ -717,8 +737,22 @@ HTML;
 		// Start the form
 		$filter_order		 = $form->getView()->getLists()->order;
 		$filter_order_Dir	 = $form->getView()->getLists()->order_Dir;
+        $actionUrl           = F0FPlatform::getInstance()->isBackend() ? 'index.php' : JUri::root().'index.php';
 
-		$html .= '<form action="index.php" method="post" name="adminForm" id="adminForm" ' . $form_class . '>' . PHP_EOL;
+		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
+		{
+			$itemid = $input->getCmd('Itemid', 0);
+			$uri = new JUri($actionUrl);
+
+			if ($itemid)
+			{
+				$uri->setVar('Itemid', $itemid);
+			}
+
+			$actionUrl = JRoute::_($uri->toString());
+		}
+
+		$html .= '<form action="'.$actionUrl.'" method="post" name="adminForm" id="adminForm" ' . $form_class . '>' . PHP_EOL;
 
 		if (version_compare(JVERSION, '3.0', 'ge'))
 		{
@@ -925,6 +959,7 @@ HTML;
 		$html .= "\t" . '<input type="hidden" name="option" value="' . $input->getCmd('option') . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="view" value="' . F0FInflector::pluralize($input->getCmd('view')) . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="task" value="' . $input->getCmd('task', 'browse') . '" />' . PHP_EOL;
+		$html .= "\t" . '<input type="hidden" name="layout" value="' . $input->getCmd('layout', '') . '" />' . PHP_EOL;
 
 		// The id field is required in Joomla! 3 front-end to prevent the pagination limit box from screwing it up. Huh!!
 
@@ -937,11 +972,6 @@ HTML;
 		$html .= "\t" . '<input type="hidden" name="hidemainmenu" value="" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="filter_order" value="' . $filter_order . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="filter_order_Dir" value="' . $filter_order_Dir . '" />' . PHP_EOL;
-
-		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
-		{
-			$html .= "\t" . '<input type="hidden" name="Itemid" value="' . $input->getCmd('Itemid', 0) . '" />' . PHP_EOL;
-		}
 
 		$html .= "\t" . '<input type="hidden" name="' . JFactory::getSession()->getFormToken() . '" value="1" />' . PHP_EOL;
 
@@ -988,8 +1018,7 @@ HTML;
 
 		if (in_array($validate, array('true', 'yes', '1', 'on')))
 		{
-			JHTML::_('behavior.framework', true);
-			JHTML::_('behavior.formvalidation');
+			JHtml::_('behavior.formvalidation');
 			$class = ' form-validate';
 			$this->loadValidationScript($form);
 		}
@@ -1026,18 +1055,37 @@ HTML;
 			$formid = 'adminForm';
 		}
 
-		$html .= '<form action="index.php" method="post" name="' . $formname .
+		// Check if we have a custom task
+		$customTask = $form->getAttribute('customTask');
+
+		if (empty($customTask))
+		{
+			$customTask = '';
+		}
+
+		// Get the form action URL
+        $actionUrl = F0FPlatform::getInstance()->isBackend() ? 'index.php' : JUri::root().'index.php';
+
+		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
+		{
+			$itemid = $input->getCmd('Itemid', 0);
+			$uri = new JUri($actionUrl);
+
+			if ($itemid)
+			{
+				$uri->setVar('Itemid', $itemid);
+			}
+
+			$actionUrl = JRoute::_($uri->toString());
+		}
+
+		$html .= '<form action="'.$actionUrl.'" method="post" name="' . $formname .
 			'" id="' . $formid . '"' . $enctype . ' class="form-horizontal' .
 			$class . '">' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="option" value="' . $input->getCmd('option') . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="view" value="' . $input->getCmd('view', 'edit') . '" />' . PHP_EOL;
-		$html .= "\t" . '<input type="hidden" name="task" value="" />' . PHP_EOL;
+		$html .= "\t" . '<input type="hidden" name="task" value="' . $customTask . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="' . $key . '" value="' . $keyValue . '" />' . PHP_EOL;
-
-		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
-		{
-			$html .= "\t" . '<input type="hidden" name="Itemid" value="' . $input->getCmd('Itemid', 0) . '" />' . PHP_EOL;
-		}
 
 		$html .= "\t" . '<input type="hidden" name="' . JFactory::getSession()->getFormToken() . '" value="1" />' . PHP_EOL;
 
@@ -1060,15 +1108,34 @@ HTML;
 	protected function renderFormRaw(F0FForm &$form, F0FModel $model, F0FInput $input, $formType)
 	{
 		$html = '';
+		$tabHtml = array();
 
 		// Do we have a tabbed form?
 		$isTabbed = $form->getAttribute('tabbed', '0');
 		$isTabbed = in_array($isTabbed, array('true', 'yes', 'on', '1'));
 
+		foreach ($form->getFieldsets() as $fieldset)
+		{
+			if ($isTabbed && $this->isTabFieldset($fieldset))
+			{
+				continue;
+			}
+			elseif ($isTabbed && isset($fieldset->innertab))
+			{
+				$inTab = $fieldset->innertab;
+			}
+			else
+			{
+				$inTab = '__outer';
+			}
+
+			$tabHtml[$inTab][] = $this->renderFieldset($fieldset, $form, $model, $input, $formType, false);
+		}
+
 		// If the form is tabbed, render the tabs bars
 		if ($isTabbed)
 		{
-			$html .= '<ul class="nav nav-tabs">' . "\n";
+			$html .= '<ul class="nav nav-tabs">' . PHP_EOL;
 
 			foreach ($form->getFieldsets() as $fieldset)
 			{
@@ -1089,10 +1156,10 @@ HTML;
 				$name = $fieldset->name;
 				$liClass = ($isTabbedFieldset == 2) ? 'class="active"' : '';
 
-				$html .= "<li $liClass><a href=\"#$name\" data-toggle=\"tab\">$label</a></li>\n";
+				$html .= "<li $liClass><a href=\"#$name\" data-toggle=\"tab\">$label</a></li>" . PHP_EOL;
 			}
 
-			$html .= '</ul>' . "\n\n<div class=\"tab-content\">\n";
+			$html .= '</ul>' . "\n\n<div class=\"tab-content\">" . PHP_EOL;
 
 			foreach ($form->getFieldsets() as $fieldset)
 			{
@@ -1101,20 +1168,15 @@ HTML;
 					continue;
 				}
 
-				$html .= $this->renderFieldset($fieldset, $form, $model, $input, $formType, false);
+				$html .= $this->renderFieldset($fieldset, $form, $model, $input, $formType, false, $tabHtml);
 			}
 
 			$html .= "</div>\n";
 		}
 
-		foreach ($form->getFieldsets() as $fieldset)
+		if (isset($tabHtml['__outer']))
 		{
-			if ($isTabbed && $this->isTabFieldset($fieldset))
-			{
-				continue;
-			}
-
-			$html .= $this->renderFieldset($fieldset, $form, $model, $input, $formType, false);
+			$html .= implode('', $tabHtml['__outer']);
 		}
 
 		return $html;
@@ -1132,7 +1194,7 @@ HTML;
 	 *
 	 * @return  string    The HTML rendering of the fieldset
 	 */
-	protected function renderFieldset(stdClass &$fieldset, F0FForm &$form, F0FModel $model, F0FInput $input, $formType, $showHeader = true)
+	protected function renderFieldset(stdClass &$fieldset, F0FForm &$form, F0FModel $model, F0FInput $input, $formType, $showHeader = true, &$innerHtml = null)
 	{
 		$html = '';
 
@@ -1147,7 +1209,17 @@ HTML;
 			$class = '';
 		}
 
-		$html .= "\t" . '<div id="' . $fieldset->name . '" ' . $class . '>' . PHP_EOL;
+		if (isset($innerHtml[$fieldset->name]))
+		{
+			$innerclass = isset($fieldset->innerclass) ? ' class="' . $fieldset->innerclass . '"' : '';
+
+			$html .= "\t" . '<div id="' . $fieldset->name . '" ' . $class . '>' . PHP_EOL;
+			$html .= "\t\t" . '<div' . $innerclass . '>' . PHP_EOL;
+		}
+		else
+		{
+			$html .= "\t" . '<div id="' . $fieldset->name . '" ' . $class . '>' . PHP_EOL;
+		}
 
 		$isTabbedFieldset = $this->isTabFieldset($fieldset);
 
@@ -1223,7 +1295,16 @@ HTML;
 			}
 		}
 
-		$html .= "\t" . '</div>' . PHP_EOL;
+		if (isset($innerHtml[$fieldset->name]))
+		{
+			$html .= "\t\t" . '</div>' . PHP_EOL;
+			$html .= implode('', $innerHtml[$fieldset->name]) . PHP_EOL;
+			$html .= "\t" . '</div>' . PHP_EOL;
+		}
+		else
+		{
+			$html .= "\t" . '</div>' . PHP_EOL;
+		}
 
 		return $html;
 	}
@@ -1241,7 +1322,7 @@ HTML;
 	{
 		$html = '';
 
-		$labelClass	 = $field->labelClass;
+		$labelClass	 = $field->labelClass ? $field->labelClass : $field->labelclass; // Joomla! 2.5/3.x use different case for the same name
 		$required	 = $field->required;
 
 		$tooltip = $form->getFieldAttribute($field->fieldname, 'tooltip', '', $field->group);

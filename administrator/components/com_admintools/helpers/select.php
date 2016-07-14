@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  */
 
@@ -93,7 +93,7 @@ class AdmintoolsHelperSelect
 		$reasons = array(
 			'other', 'adminpw', 'ipwl', 'ipbl', 'sqlishield', 'antispam',
 			'tpone', 'tmpl', 'template', 'muashield', 'csrfshield', 'badbehaviour',
-			'geoblocking', 'rfishield', 'dfishield', 'uploadshield', 'xssshield',
+			'geoblocking', 'rfishield', 'dfishield', 'uploadshield', 'sessionshield',
 			'httpbl', 'loginfailure', 'securitycode', 'external', 'awayschedule', 'admindir'
 		);
 
@@ -104,10 +104,14 @@ class AdmintoolsHelperSelect
 			$options[] = JHTML::_('select.option', $reason, JText::_('ATOOLS_LBL_REASON_' . strtoupper($reason)));
 		}
 
-        if (isset($attribs['user-reactivate']))
+		// Enable miscellaneous reasons, for use in email templates
+        if (isset($attribs['misc']))
         {
             $options[] = JHTML::_('select.option', 'user-reactivate', JText::_('ATOOLS_LBL_USER_REACTIVATE'));
-            unset($attribs['user-reactivate']);
+            $options[] = JHTML::_('select.option', 'adminloginfail', JText::_('COM_ADMINTOOLS_EMAILTEMPLATE_REASON_ADMINLOGINFAIL'));
+            $options[] = JHTML::_('select.option', 'adminloginsuccess', JText::_('COM_ADMINTOOLS_EMAILTEMPLATE_REASON_ADMINLOGINSUCCESS'));
+            $options[] = JHTML::_('select.option', 'ipautoban', JText::_('COM_ADMINTOOLS_EMAILTEMPLATE_REASON_IPAUTOBAN'));
+            unset($attribs['misc']);
         }
 
 		// Let's sort the list alphabetically
@@ -138,18 +142,6 @@ class AdmintoolsHelperSelect
 			JHTML::_('select.option', '0', JText::_('ATOOLS_LBL_HTMAKER_WWWREDIR_NO')),
 			JHTML::_('select.option', '1', JText::_('ATOOLS_LBL_HTMAKER_WWWREDIR_WWW')),
 			JHTML::_('select.option', '2', JText::_('ATOOLS_LBL_HTMAKER_WWWREDIR_NONWWW'))
-		);
-
-		return self::genericlist($options, $name, $attribs, $selected, $name);
-	}
-
-	public static function blockinstallopts($name, $attribs = null, $selected = null)
-	{
-		$options = array(
-			JHTML::_('select.option', '-1', '---'),
-			JHTML::_('select.option', '0', JText::_('ATOOLS_LBL_WAF_OPT_BLOCKINSTALL_NO')),
-			JHTML::_('select.option', '1', JText::_('ATOOLS_LBL_WAF_OPT_BLOCKINSTALL_ADMIN')),
-			JHTML::_('select.option', '2', JText::_('ATOOLS_LBL_WAF_OPT_BLOCKINSTALL_ALL'))
 		);
 
 		return self::genericlist($options, $name, $attribs, $selected, $name);
@@ -255,4 +247,97 @@ class AdmintoolsHelperSelect
 
 		return self::genericlist($options, $id, $attribs, $selected, $id);
 	}
+
+	public static function keepUrlParamsList($name, $attribs = null, $selected = null)
+	{
+		$options = array(
+			JHTML::_('select.option', '', '- - -'),
+			JHTML::_('select.option', '0', JText::_('COM_ADMINTOOLS_LBL_KEEPURLPARAMS_OFF')),
+			JHTML::_('select.option', '1', JText::_('COM_ADMINTOOLS_LBL_KEEPURLPARAMS_ALL')),
+			JHTML::_('select.option', '2', JText::_('COM_ADMINTOOLS_LBL_KEEPURLPARAMS_ADD')),
+		);
+
+		return self::genericlist($options, $name, $attribs, $selected, $name);
+	}
+
+    public static function httpVerbs($name, $attribs = null, $selected = null)
+    {
+        $options = array(
+            JHTML::_('select.option', '', '- - -'),
+            JHTML::_('select.option', 'GET', 'GET'),
+            JHTML::_('select.option', 'POST', 'POST'),
+            JHTML::_('select.option', 'PUT', 'PUT'),
+            JHTML::_('select.option', 'DELETE', 'DELETE'),
+            JHTML::_('select.option', 'HEAD', 'HEAD'),
+            JHTML::_('select.option', 'TRACE', 'TRACE'),
+        );
+
+        return self::genericlist($options, $name, $attribs, $selected, $name);
+    }
+
+    public static function queryParamType($name, $attribs = null, $selected = null)
+    {
+        $options = array(
+            JHTML::_('select.option', '', '- - -'),
+            JHTML::_('select.option', 'E', JText::_('ATOOLS_LBL_WAFBLACKLISTS_QUERY_CONTENT_EXACT')),
+            JHTML::_('select.option', 'P', JText::_('ATOOLS_LBL_WAFBLACKLISTS_QUERY_CONTENT_PARTIAL')),
+            JHTML::_('select.option', 'R', JText::_('ATOOLS_LBL_WAFBLACKLISTS_QUERY_CONTENT_REGEX')),
+        );
+
+        return self::genericlist($options, $name, $attribs, $selected, $name);
+    }
+
+	public static function etagtype($name, $attribs = null, $selected = null)
+	{
+		$options = array(
+			JHTML::_('select.option', 'default', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_DEFAULT')),
+			JHTML::_('select.option', 'full', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_FULL')),
+			JHTML::_('select.option', 'sizetime', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_SIZETIME')),
+			JHTML::_('select.option', 'size', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_SIZE')),
+			JHTML::_('select.option', 'none', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_NONE')),
+		);
+
+		return self::genericlist($options, $name, $attribs, $selected, $name);
+	}
+
+	public static function etagtypeIIS($name, $attribs = null, $selected = null)
+	{
+		$options = array(
+			JHTML::_('select.option', 'default', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_DEFAULT')),
+			JHTML::_('select.option', 'none', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_NONE')),
+		);
+
+		return self::genericlist($options, $name, $attribs, $selected, $name);
+	}
+
+	public static function etagtypeNginX($name, $attribs = null, $selected = null)
+	{
+		$options = array(
+			JHTML::_('select.option', '-1', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_DEFAULT')),
+			JHTML::_('select.option', '1', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_FULL')),
+			JHTML::_('select.option', '0', JText::_('ATOOLS_LBL_HTMAKER_ETAGTYPE_NONE')),
+		);
+
+		return self::genericlist($options, $name, $attribs, $selected, $name);
+	}
+
+    /**
+     * Drop down list of CSV delimiter preference
+     *
+     * @param   string  $name      The field's name
+     * @param   int     $selected  Pre-selected value
+     * @param   array   $attribs   Field attributes
+     *
+     * @return  string  The HTML of the drop-down
+     */
+    public static function csvdelimiters($name = 'csvdelimiters', $selected = 1, $attribs = array())
+    {
+        $options   = array();
+        $options[] = JHtml::_('select.option', '1', 'abc, def');
+        $options[] = JHtml::_('select.option', '2', 'abc; def');
+        $options[] = JHtml::_('select.option', '3', '"abc"; "def"');
+        $options[] = JHtml::_('select.option', '-99', JText::_('COM_ADMINTOOLS_IMPORT_DELIMITERS_CUSTOM'));
+
+        return self::genericlist($options, $name, $attribs, $selected, $name);
+    }
 }

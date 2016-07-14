@@ -7,8 +7,8 @@
 	<author>Acyba</author>
 	<authorEmail>dev@acyba.com</authorEmail>
 	<authorUrl>http://www.acyba.com</authorUrl>
-	<copyright>Copyright (C) 2009-2014 ACYBA SARL - All rights reserved.</copyright>
-	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<copyright>Copyright (C) 2009-2016 ACYBA SAS - All rights reserved..</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<description>This plugin enables you to generate table of contents</description>
 	<files>
 		<filename plugin="tablecontents">tablecontents.php</filename>

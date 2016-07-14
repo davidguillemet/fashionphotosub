@@ -1,10 +1,12 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    4.8.1
+ * @version    5.5.0
  * @author     acyba.com
- * @copyright  (C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright  (C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
+
+@import "acyicon.css";
 
 div.toolbar { float: right; text-align: right; padding: 0; }
 div.toolbar span { float: none; width: 32px; height: 32px; margin: 0 auto; display: block; background-repeat:no-repeat;}
@@ -137,6 +139,100 @@ table.adminform td { padding: 3px; text-align: left; }
 .icon-32-save {background-image:url(../images/icons/icon-32-save.png) !important; background-position:0% 0% !important}
 .icon-32-edit {background-image:url(../images/icons/icon-32-edit.png) !important; background-position:0% 0% !important}
 .icon-32-apply {background-image:url(../images/icons/icon-32-apply.png) !important; background-position:0% 0% !important}
-.icon-32-help {background-image:url(../images/icons/icon-32-help.png) !important; background-position:0% 0% !important}
 .icon-32-delete {background-image:url(../images/icons/icon-32-delete.png) !important; background-position:0% 0% !important}
 .icon-32-new {background-image:url(../images/icons/icon-32-new.png) !important; background-position:0% 0% !important}
+
+
+
+.tree{
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: white;
+	-webkit-box-shadow: 0 4px 8px #d7d7d7;
+	-moz-box-shadow: 0 4px 8px #d7d7d7;
+	box-shadow: 0 4px 8px #d7d7d7;
+	z-index: 2;
+}
+
+.tree li{
+	list-style: none;
+}
+
+.tree ul{
+	margin-left: 10px;
+}
+
+.tree > ul{
+	margin: 15px 0;
+}
+
+.tree-child-item .tree-child-title{
+	cursor: pointer;
+	font-size: 15px;
+	color: #545454;
+}
+
+.tree-icon{
+	padding-right: 5px;
+	padding-left: 5px;
+	font-size: 15px;
+	color: #6b6c5a;
+
+}
+
+.tree-child-item.tree-empty .tree-icon:before{
+	opacity: 0;
+}
+
+.tree-child-item .tree-icon:before{
+	text-decoration: none;
+	content: '\25bc';
+	padding: 0 5px;
+}
+
+.tree-child-item.tree-closed .tree-icon, .tree-child-item.tree-closed .tree-icon:before{
+	content: '\25b6';
+	color: #aeaf98;
+}
+
+.tree-closed .acyicon-folder{
+	font-size: 12px;
+}
+
+.tree-closed .tree-icon:before{
+	font-size: 16px;
+}
+
+.tree-icon:before{
+	font-size: 12px;
+}
+
+.tree-current > span,
+.tree-child-item:hover > span{
+	color: #08c !important;
+}
+
+.tree-child-item.tree-closed ul{
+	height: 0;
+	-webkit-transform: scaleY(0);
+	-moz-transform: scaleY(0);
+	-ms-transform: scaleY(0);
+	-o-transform: scaleY(0);
+	transform: scaleY(0);
+}
+
+.tree-child-item ul{
+	height: auto;
+	overflow: hidden;
+	-webkit-transform: scaleY(1);
+	-moz-transform: scaleY(1);
+	-ms-transform: scaleY(1);
+	-o-transform: scaleY(1);
+	transform: scaleY(1);
+	-webkit-transition: transform 0.5s;
+	-moz-transition: transform 0.5s;
+	-ms-transition: transform 0.5s;
+	-o-transition: transform 0.5s;
+	transition: transform 0.5s;
+}

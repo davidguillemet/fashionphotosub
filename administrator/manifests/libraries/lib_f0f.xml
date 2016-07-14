@@ -3,22 +3,27 @@
     <name>F0F (NEW) DO NOT REMOVE</name>
 	<libraryname>f0f</libraryname>
 	<description>Framework-on-Framework (FOF) newer version - DO NOT REMOVE - The rapid component development framework for Joomla!. This package is the newer version of FOF, not the one shipped with Joomla! as the official Joomla! RAD Layer. The Joomla! RAD Layer has ceased development in March 2014. DO NOT UNINSTALL THIS PACKAGE, IT IS *** N O T *** A DUPLICATE OF THE 'FOF' PACKAGE. REMOVING EITHER FOF PACKAGE WILL BREAK YOUR SITE.</description>
-	<creationDate>2014-07-17 13:41:29</creationDate>
+	<creationDate>2016-03-19</creationDate>
 	<author>Nicholas K. Dionysopoulos / Akeeba Ltd</author>
 	<authorEmail>nicholas@akeebabackup.com</authorEmail>
 	<authorUrl>https://www.akeebabackup.com</authorUrl>
 	<copyright>(C)2011-2014 Nicholas K. Dionysopoulos</copyright>
 	<license>GNU GPLv2 or later</license>
-	<version>2.3.3</version>
+	<version>2.5.4</version>
 	<packager>Akeeba Ltd</packager>
 	<packagerurl>https://www.AkeebaBackup.com/download.html</packagerurl>
 
-	<files folder="fof">
+    <languages folder="_lang">
+        <language tag="en-GB">en-GB/en-GB.lib_f0f.ini</language>
+    </languages>
+
+    <files folder="fof">
 		<folder>autoloader</folder>
 		<folder>config</folder>
 		<folder>controller</folder>
 		<folder>database</folder>
 		<folder>dispatcher</folder>
+		<folder>download</folder>
 		<folder>encrypt</folder>
 		<folder>form</folder>
 		<folder>hal</folder>
@@ -40,7 +45,6 @@
 
 		<file>LICENSE.txt</file>
 		<file>include.php</file>
-		<file>index.html</file>
 		<file>version.txt</file>
 	</files>
 </extension>

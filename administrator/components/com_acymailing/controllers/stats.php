@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -52,8 +52,7 @@ class StatsController extends acymailingController{
 		$class = acymailing_get('class.stats');
 		$num = $class->delete($cids);
 
-		$app = JFactory::getApplication();
-		$app->enqueueMessage(JText::sprintf('SUCC_DELETE_ELEMENTS',$num), 'message');
+		acymailing_enqueueMessage(JText::sprintf('SUCC_DELETE_ELEMENTS',$num), 'message');
 
 		return $this->listing();
 	}
@@ -61,6 +60,9 @@ class StatsController extends acymailingController{
 	function export(){
 		$selectedMail = JRequest::getInt('filter_mail',0);
 		$selectedStatus = JRequest::getString('filter_status','');
+		$selectedBounce = JRequest::getString('filter_bounce','');
+
+		$db = JFactory::getDBO();
 
 		$filters = array();
 		if(!empty($selectedMail)) $filters[] = 'userstats.mailid = '.$selectedMail;
@@ -70,6 +72,7 @@ class StatsController extends acymailingController{
 			elseif($selectedStatus == 'notopen') $filters[] = 'userstats.open < 1';
 			elseif($selectedStatus == 'failed') $filters[] = 'userstats.fail > 0';
 		}
+		if(!empty($selectedStatus) && $selectedStatus == 'bounce' && !empty($selectedBounce)) $filters[] = "userstats.bouncerule = ".$db->Quote($selectedBounce);
 
 		$query = 'FROM `#__acymailing_userstats` as userstats JOIN `#__acymailing_subscriber` as s ON s.subid = userstats.subid';
 		if(!empty($filters)) $query .= ' WHERE ('.implode(') AND (',$filters).')';
@@ -77,7 +80,9 @@ class StatsController extends acymailingController{
 		$currentSession = JFactory::getSession();
 		$currentSession->set('acyexportquery',$query);
 
-		$this->setRedirect(acymailing_completeLink('data&task=export&sessionquery=1',false,true));
+		$app = JFactory::getApplication();
+		$tmplVar = JRequest::getString('tmpl','') == 'component' ? '&tmpl=component' : '';
+		$app->redirect(acymailing_completeLink(($app->isAdmin() ? '' : 'front').'data&task=export&sessionquery=1'.$tmplVar,false,true));
 	}
 
 	public function exportUnsubscribed(){
@@ -94,7 +99,7 @@ class StatsController extends acymailingController{
 		$filters = array();
 		$db = JFactory::getDBO();
 		$filters[] = "hist.action = ".$db->Quote($action);
-		if(!empty($selectedMail)) $filters[] = 'hist.mailid = '.$selectedMail;
+		if(!empty($selectedMail)) $filters[] = 'hist.mailid = '.intval($selectedMail);
 
 		$query = 'FROM #__acymailing_history as hist JOIN #__acymailing_mail as b on hist.mailid = b.mailid JOIN #__acymailing_subscriber as s on hist.subid = s.subid';
 		if(!empty($filters)) $query .= ' WHERE ('.implode(') AND (',$filters).')';
@@ -143,16 +148,18 @@ class StatsController extends acymailingController{
 			$line.= acymailing_getDate($nl->senddate) . $separator;
 			$line.= $nl->openunique . $separator;
 			$line.= $nl->opentotal . $separator;
-			$prct = (!empty($nl->senthtml)? round($nl->openunique/$nl->senthtml*100,2):'-');
+			$cleanSent = $nl->senthtml + $nl->senttext;
+			if(acymailing_level(3)) $cleanSent = $cleanSent - $nl->bounceunique;
+			$prct = (!empty($cleanSent)? round($nl->openunique/$cleanSent*100,2):'-');
 			$line.= $prct . '%' . $separator;
 			if(acymailing_level(1)){
 				$line.= $nl->clickunique . $separator;
 				$line.= $nl->clicktotal . $separator;
-				$prct = (!empty($nl->senthtml)? round($nl->clickunique/$nl->senthtml*100,2):'-');
+				$prct = (!empty($cleanSent)? round($nl->clickunique/$cleanSent*100,2):'-');
 				$line.= $prct . '%' . $separator;
 			}
 			$line.= $nl->unsub . $separator;
-			$prct = (!empty($nl->senthtml)? round($nl->unsub/($nl->senthtml+$nl->senttext)*100,2):'-');
+			$prct = (!empty($cleanSent)? round($nl->unsub/$cleanSent*100,2):'-');
 			$line.= $prct . '%' . $separator;
 			if(acymailing_level(1) && $forwardEnabled == 1){
 				$line.= $nl->forward . $separator;

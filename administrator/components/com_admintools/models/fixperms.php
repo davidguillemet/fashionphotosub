@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -81,16 +81,12 @@ class AdmintoolsModelFixperms extends F0FModel
 		// Add cache, tmp and log to the exceptions
 		$this->skipDirs[] = rtrim(JPATH_CACHE, '/');
 		$this->skipDirs[] = rtrim(JPATH_ROOT . '/cache', '/');
-		if (version_compare(JVERSION, '3.0', 'ge'))
-		{
-			$this->skipDirs[] = rtrim(JFactory::getConfig()->get('tmp_path', JPATH_ROOT . '/tmp'), '/');
-			$this->skipDirs[] = rtrim(JFactory::getConfig()->get('log_path', JPATH_ROOT . '/logs'), '/');
-		}
-		else
-		{
-			$this->skipDirs[] = rtrim(JFactory::getConfig()->getValue('tmp_path', JPATH_ROOT . '/tmp'), '/');
-			$this->skipDirs[] = rtrim(JFactory::getConfig()->getValue('log_path', JPATH_ROOT . '/logs'), '/');
-		}
+		$this->skipDirs[] = rtrim(JFactory::getConfig()->get('tmp_path', JPATH_ROOT . '/tmp'), '/');
+		$this->skipDirs[] = rtrim(JFactory::getConfig()->get('log_path', JPATH_ROOT . '/logs'), '/');
+		$this->skipDirs[] = JPATH_ADMINISTRATOR . '/logs';
+		$this->skipDirs[] = JPATH_ADMINISTRATOR . '/log';
+		$this->skipDirs[] = JPATH_ROOT . '/logs';
+		$this->skipDirs[] = JPATH_ROOT . '/log';
 	}
 
 	/**
@@ -297,20 +293,10 @@ class AdmintoolsModelFixperms extends F0FModel
 		{
 			// Connect the FTP client
 			JLoader::import('joomla.client.ftp');
-			if (version_compare(JVERSION, '3.0', 'ge'))
-			{
-				$ftp = JClientFTP::getInstance(
-					$ftpOptions['host'], $ftpOptions['port'], array(),
-					$ftpOptions['user'], $ftpOptions['pass']
-				);
-			}
-			else
-			{
-				$ftp = JFTP::getInstance(
-					$ftpOptions['host'], $ftpOptions['port'], array(),
-					$ftpOptions['user'], $ftpOptions['pass']
-				);
-			}
+			$ftp = JClientFTP::getInstance(
+				$ftpOptions['host'], $ftpOptions['port'], array(),
+				$ftpOptions['user'], $ftpOptions['pass']
+			);
 		}
 
 		if (@chmod($path, $mode))

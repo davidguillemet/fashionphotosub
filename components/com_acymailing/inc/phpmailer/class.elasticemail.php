@@ -4,8 +4,8 @@ defined('_JEXEC') or die('Restricted access');
 
 
 /**
- * @copyright	Copyright (C) 2009-2014 ACYBA SARL - All rights reserved.
- * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+ * @copyright	Copyright (C) 2009-2016 ACYBA SAS - All rights reserved..
+ * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 class acymailingElasticemail {
 	/**
@@ -29,13 +29,13 @@ class acymailingElasticemail {
 		$data = file_get_contents($filepath);
 		$header = "PUT /attachments/upload?username=".urlencode($this->Username)."&api_key=".urlencode($this->Password)."&file=".urlencode($filename)." HTTP/1.0\r\n";
 		$header .= "Host: api.elasticemail.com\r\n";
-		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 		$header .= "Connection: Keep-alive\r\n";
 		$header .= "Content-Length: ".strlen($data)."\r\n\r\n";
 		$info = $header.$data;
 		$result = $this->sendinfo($info);
 		//We take the last value of the server's response which correspond of the file's ID.
-		$res = end(explode("\r\n", $result));
+		$explodedResult = explode("\r\n", $result);
+		$res = end($explodedResult);
 		//If the ID is correct and we have no Errors
 		if(preg_match('#[^a-z0-9\-]#i',$res) || strpos($result,'200 OK') === false){
 			$this->error = "Error while uploading file : ".$res;
@@ -61,7 +61,7 @@ class acymailingElasticemail {
 		$to = array_merge($object->to, $object->cc, $object->bcc);
 		$data .="&to=";
 		foreach($to as $oneRecipient){
-			$data .= urlencode($object->AddrFormat($oneRecipient).";");
+			$data .= urlencode($object->addrFormat($oneRecipient).";");
 		}
 		$data = trim($data,';');
 

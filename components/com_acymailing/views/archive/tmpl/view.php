@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -16,9 +16,9 @@ defined('_JEXEC') or die('Restricted access');
 <?php } ?>
 	<?php if($this->config->get('frontend_print',0) OR $this->config->get('frontend_pdf',0)) {
 		$link = 'archive&task=view&mailid='.$this->mail->mailid.'-'.$this->mail->alias;
-		$listid = JRequest::getString('listid');
+		$listid = JRequest::getCmd('listid');
 		if(!empty($listid)) $link .= '&listid='.$listid;
-		$key = JRequest::getString('key');
+		$key = JRequest::getCmd('key');
 		if(!empty($key)) $link .= '&key='.$key; ?>
 	<div align="right" style="float:right;">
 		<table>
@@ -93,6 +93,12 @@ defined('_JEXEC') or die('Restricted access');
 			<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <?php
 		}
+	}elseif($this->config->get('comments_feature') == 'rscomments'){
+		echo '{rscomments option="com_acymailing" id="'.$this->mail->mailid.'"}';
+	}elseif($this->config->get('comments_feature') == 'komento'){
+		require_once(JPATH_ROOT.DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_komento'.DIRECTORY_SEPARATOR.'bootstrap.php' );
+		echo Komento::commentify('com_acymailing', $this->mail,array());
 	}
+
 ?>
 </div>

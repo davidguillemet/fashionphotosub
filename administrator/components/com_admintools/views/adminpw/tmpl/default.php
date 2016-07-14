@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -15,6 +15,8 @@ $isWindows = substr($os, 0, 3) == 'WIN';
 
 $script = <<<JS
 
+;// This comment is intentionally put here to prevent badly written plugins from causing a Javascript error
+// due to missing trailing semicolon and/or newline in their code.
 (function($){
 	$(document).ready(function(){
 		$('#protect').click(function(e){
@@ -36,8 +38,6 @@ JS;
 
 $document = JFactory::getDocument();
 $document->addScriptDeclaration($script, 'text/javascript');
-
-JHTML::_('behavior.framework', true);
 
 ?>
 <?php if ($isWindows): ?>

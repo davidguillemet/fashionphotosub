@@ -2,7 +2,7 @@
 /**
  * @package     FrameworkOnFramework
  * @subpackage  render
- * @copyright   Copyright (C) 2010 - 2014 Akeeba Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 defined('F0F_INCLUDED') or die;
@@ -55,6 +55,24 @@ class F0FRenderJoomla extends F0FRenderAbstract
 			return;
 		}
 
+		if (version_compare(JVERSION, '3.0.0', 'lt'))
+		{
+			JHtml::_('behavior.framework');
+		}
+		else
+		{
+			if (version_compare(JVERSION, '3.3.0', 'ge'))
+			{
+				JHtml::_('behavior.core');
+			}
+			else
+			{
+				JHtml::_('behavior.framework', true);
+			}
+
+			JHtml::_('jquery.framework');
+		}
+
 		// Wrap output in various classes
 		$version = new JVersion;
 		$versionParts = explode('.', $version->RELEASE);
@@ -68,7 +86,6 @@ class F0FRenderJoomla extends F0FRenderAbstract
 			$view = $input->getCmd('view', '');
 			$layout = $input->getCmd('layout', '');
 			$task = $input->getCmd('task', '');
-			$itemid = $input->getCmd('Itemid', '');
 
 			$classes = array(
 				'joomla-version-' . $majorVersion,
@@ -78,7 +95,6 @@ class F0FRenderJoomla extends F0FRenderAbstract
 				'view-' . $view,
 				'layout-' . $layout,
 				'task-' . $task,
-				'itemid-' . $itemid,
 			);
 		}
 		elseif ($platform->isFrontend())
@@ -153,20 +169,30 @@ class F0FRenderJoomla extends F0FRenderAbstract
 		$html				 = '';
 		$filter_order		 = $form->getView()->getLists()->order;
 		$filter_order_Dir	 = $form->getView()->getLists()->order_Dir;
+        $actionUrl           = F0FPlatform::getInstance()->isBackend() ? 'index.php' : JUri::root().'index.php';
 
-		$html .= '<form action="index.php" method="post" name="adminForm" id="adminForm">' . PHP_EOL;
+		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
+		{
+			$itemid = $input->getCmd('Itemid', 0);
+			$uri = new JUri($actionUrl);
+
+			if ($itemid)
+			{
+				$uri->setVar('Itemid', $itemid);
+			}
+
+			$actionUrl = JRoute::_($uri->toString());
+		}
+
+		$html .= '<form action="'.$actionUrl.'" method="post" name="adminForm" id="adminForm">' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="option" value="' . $input->getCmd('option') . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="view" value="' . F0FInflector::pluralize($input->getCmd('view')) . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="task" value="" />' . PHP_EOL;
+		$html .= "\t" . '<input type="hidden" name="layout" value="' . $input->getCmd('layout', '') . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="boxchecked" value="" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="hidemainmenu" value="" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="filter_order" value="' . $filter_order . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="filter_order_Dir" value="' . $filter_order_Dir . '" />' . PHP_EOL;
-
-		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
-		{
-			$html .= "\t" . '<input type="hidden" name="Itemid" value="' . $input->getCmd('Itemid', 0) . '" />' . PHP_EOL;
-		}
 
 		$html .= "\t" . '<input type="hidden" name="' . JFactory::getSession()->getFormToken() . '" value="1" />' . PHP_EOL;
 
@@ -373,7 +399,7 @@ class F0FRenderJoomla extends F0FRenderAbstract
 		$key		 = $model->getTable()->getKeyName();
 		$keyValue	 = $model->getId();
 
-		JHTML::_('behavior.tooltip');
+		JHtml::_('behavior.tooltip');
 
 		$html = '';
 
@@ -382,8 +408,7 @@ class F0FRenderJoomla extends F0FRenderAbstract
 
 		if (in_array($validate, array('true', 'yes', '1', 'on')))
 		{
-			JHTML::_('behavior.framework', true);
-			JHTML::_('behavior.formvalidation');
+			JHtml::_('behavior.formvalidation');
 			$class = 'form-validate ';
 			$this->loadValidationScript($form);
 		}
@@ -416,18 +441,37 @@ class F0FRenderJoomla extends F0FRenderAbstract
 			$formid = 'adminForm';
 		}
 
-		$html .= '<form action="index.php" method="post" name="' . $formname .
+		// Check if we have a custom task
+		$customTask = $form->getAttribute('customTask');
+
+		if (empty($customTask))
+		{
+			$customTask = '';
+		}
+
+		// Get the form action URL
+        $actionUrl = F0FPlatform::getInstance()->isBackend() ? 'index.php' : JUri::root().'index.php';
+
+		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
+		{
+			$itemid = $input->getCmd('Itemid', 0);
+			$uri = new JUri($actionUrl);
+
+			if ($itemid)
+			{
+				$uri->setVar('Itemid', $itemid);
+			}
+
+			$actionUrl = JRoute::_($uri->toString());
+		}
+
+		$html .= '<form action="'.$actionUrl.'" method="post" name="' . $formname .
 			'" id="' . $formid . '"' . $enctype . ' class="' . $class .
 			'">' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="option" value="' . $input->getCmd('option') . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="view" value="' . $input->getCmd('view', 'edit') . '" />' . PHP_EOL;
-		$html .= "\t" . '<input type="hidden" name="task" value="" />' . PHP_EOL;
+		$html .= "\t" . '<input type="hidden" name="task" value="' . $customTask . '" />' . PHP_EOL;
 		$html .= "\t" . '<input type="hidden" name="' . $key . '" value="' . $keyValue . '" />' . PHP_EOL;
-
-		if (F0FPlatform::getInstance()->isFrontend() && ($input->getCmd('Itemid', 0) != 0))
-		{
-			$html .= "\t" . '<input type="hidden" name="Itemid" value="' . $input->getCmd('Itemid', 0) . '" />' . PHP_EOL;
-		}
 
 		$html .= "\t" . '<input type="hidden" name="' . JFactory::getSession()->getFormToken() . '" value="1" />' . PHP_EOL;
 
@@ -580,7 +624,7 @@ class F0FRenderJoomla extends F0FRenderAbstract
 	{
 		$html = '';
 
-		$labelClass	 = $field->labelClass;
+		$labelClass	 = $field->labelClass ? $field->labelClass : $field->labelclass; // Joomla! 2.5/3.x use different case for the same name
 		$required	 = $field->required;
 
 		if ($required)
@@ -733,7 +777,7 @@ JS;
 		F0FPlatform::getInstance()->loadTranslations('joomla');
 
 		$title	 = JFactory::getApplication()->get('JComponentTitle');
-		$bar	 = JToolBar::getInstance('toolbar');
+		$bar	 = JToolbar::getInstance('toolbar');
 
 		// Delete faux links, since if SEF is on, Joomla will follow the link instead of submitting the form
 		$bar_content = str_replace('href="#"', '', $bar->render());

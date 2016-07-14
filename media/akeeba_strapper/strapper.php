@@ -4,8 +4,8 @@
  * A handy distribution of namespaced jQuery, jQuery UI and Twitter
  * Bootstrapper for use with Akeeba components.
  *
- * @copyright (c) 2012-2014 Akeeba Ltd
- * @license GNU General Public License version 2 or later
+ * @copyright Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
+ * @license   GNU General Public License version 2 or later
  */
 
 // Protect from unauthorized access
@@ -332,6 +332,18 @@ class AkeebaStrapper
 		}
 
         $altCss = array('media://akeeba_strapper/css/strapper.min.css');
+
+		switch ($key)
+		{
+			case 'joomla3':
+			case 'joomla32':
+				$altCss[] = 'media://akeeba_strapper/css/strapper.j3.css';
+				break;
+
+			case 'joomla2':
+				$altCss[] = 'media://akeeba_strapper/css/strapper.j25.css';
+				break;
+		}
 
         if ($loadBootstrap == 'full')
         {

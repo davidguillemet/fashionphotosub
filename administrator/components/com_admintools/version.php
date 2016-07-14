@@ -1,7 +1,7 @@
 <?php
 // Protect from unauthorized access
-defined('_JEXEC') or die('Restricted Access');
+defined('_JEXEC') or die;
 
-define('ADMINTOOLS_VERSION', '3.0.3');
-define('ADMINTOOLS_DATE', '2014-07-17');
-define('ADMINTOOLS_PRO','1');
+define('ADMINTOOLS_VERSION', '3.8.6');
+define('ADMINTOOLS_DATE', '2016-07-01');
+define('ADMINTOOLS_PRO','0');

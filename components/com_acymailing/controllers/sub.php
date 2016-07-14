@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -34,7 +34,7 @@ class SubController extends acymailingController{
 		if(JRequest::getInt('interval') > 0) setcookie('acymailingSubscriptionState', true, time() + JRequest::getInt('interval'), '/');
 
 		$db = JFactory::getDBO();
-	 	$db->setQuery('SELECT * FROM #__modules WHERE id = '.intval($moduleId).' AND `module` LIKE \'%acymailing%\' LIMIT 1');
+	 	$db->setQuery('SELECT * FROM #__modules WHERE id = '.intval($moduleId).' AND `module` LIKE \'%acymailing%\' AND published = 1 LIMIT 1');
 	 	$module = $db->loadObject();
 	 	if(empty($module)){ echo 'No module found'; exit; }
 
@@ -44,7 +44,8 @@ class SubController extends acymailingController{
 		$module->module = preg_replace('/[^A-Z0-9_\.-]/i', '', $module->module);
 
 		$params = array();
-		acymailing_loadMootools();
+		if(JRequest::getInt('autofocus',0)){
+			acymailing_loadMootools();
 			$js = "
 				window = addEvent('load', function(){
 					this.focus();
@@ -58,8 +59,9 @@ class SubController extends acymailingController{
 					}
 				});";
 
-		$doc = JFactory::getDocument();
-		$doc->addScriptDeclaration($js);
+			$doc = JFactory::getDocument();
+			$doc->addScriptDeclaration($js);
+		}
 
 		echo JModuleHelper::renderModule($module, $params);
 	}
@@ -245,7 +247,7 @@ class SubController extends acymailingController{
 			if($allowSubscriptionModifications){
 				if($statusAdd == 2){
 					if($userClass->confirmationSentSuccess){
-						$msg = JText::_('CONFIRMATION_SENT');
+						$msg = 'CONFIRMATION_SENT';
 						$code = 2;
 						$msgtype = 'success';
 					}else{
@@ -255,23 +257,23 @@ class SubController extends acymailingController{
 					}
 				}else{
 					if($insertMessage){
-						$msg = JText::_('SUBSCRIPTION_OK');
+						$msg = 'SUBSCRIPTION_OK';
 						$code = 3;
 						$msgtype = 'success';
 					}elseif($updateMessage){
 
-						$msg = JText::_('SUBSCRIPTION_UPDATED_OK');
+						$msg = 'SUBSCRIPTION_UPDATED_OK';
 						$code = 4;
 						$msgtype = 'success';
 					}else{
-						$msg = JText::_('ALREADY_SUBSCRIBED');
+						$msg = 'ALREADY_SUBSCRIBED';
 						$code = 5;
 						$msgtype = 'success';
 					}
 				}
 			}else{
 				if($modifySubscriptionSuccess){
-					$msg = JText::_('IDENTIFICATION_SENT');
+					$msg = 'IDENTIFICATION_SENT';
 					$code = 6;
 					$msgtype = 'warning';
 				}else{
@@ -279,6 +281,15 @@ class SubController extends acymailingController{
 					$code = 8;
 					$msgtype = 'error';
 				}
+			}
+
+			if($msg == strtoupper($msg)){
+				$source = JRequest::getCmd('acy_source');
+				if(strpos($source, 'module_') !== false){
+					$moduleId = '_'.strtoupper($source);
+					if(JText::_($msg.$moduleId) != $msg.$moduleId) $msg = $msg.$moduleId;
+				}
+				$msg = JText::_($msg);
 			}
 
 			$replace = array();
@@ -312,6 +323,7 @@ class SubController extends acymailingController{
 			$mailer->report = false;
 			foreach($user as $field => $value) $mailer->addParam('user:'.$field,$value);
 			$mailer->addParam('user:subscription',$listsubClass->getSubscriptionString($user->subid));
+			$mailer->addParam('user:subscriptiondates',$listsubClass->getSubscriptionString($user->subid, true));
 			$mailer->addParam('user:ip',$userHelper->getIP());
 			if(!empty($userClass->geolocData)){
 				foreach($userClass->geolocData as $map=>$value){
@@ -481,9 +493,9 @@ class SubController extends acymailingController{
 
 	function listing(){
 		$errorMsg = "You shouldn't see this page. If you come from an external subscription form, maybe the URL in the form action is not valid.";
-		$errorMsg .= "<br />Host: " . (!empty($_SERVER['HTTP_HOST'])?$_SERVER['HTTP_HOST']:'');
-		$errorMsg .= "<br />URI: " . (!empty($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'');
-		if(!empty($_SERVER['HTTP_REFERER'])) $errorMsg .= "<br />Referer: " . $_SERVER['HTTP_REFERER'];
+		if(!empty($_SERVER['HTTP_HOST'])) $errorMsg .= "<br />Host: ".htmlspecialchars($_SERVER['HTTP_HOST'],ENT_COMPAT, 'UTF-8');
+		if(!empty($_SERVER['REQUEST_URI'])) $errorMsg .= "<br />URI: ".htmlspecialchars($_SERVER['REQUEST_URI'],ENT_COMPAT, 'UTF-8');
+		if(!empty($_SERVER['HTTP_REFERER'])) $errorMsg .= "<br />Referer: ".htmlspecialchars($_SERVER['HTTP_REFERER'],ENT_COMPAT, 'UTF-8');
 		acymailing_display($errorMsg, 'error');
 	}
 

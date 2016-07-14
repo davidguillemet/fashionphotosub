@@ -1,30 +1,28 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 
-class EmailViewEmail extends acymailingView
-{
-	function display($tpl = null)
-	{
+class EmailViewEmail extends acymailingView{
+	function display($tpl = null){
 		$function = $this->getLayout();
-		if(method_exists($this,$function)) $this->$function();
+		if(method_exists($this, $function)) $this->$function();
 
 
 		parent::display($tpl);
-
 	}
 
 	function form(){
 
 		acymailing_loadMootools();
+		$app = JFactory::getApplication();
 
 		$mailid = acymailing_getCID('mailid');
 		if(empty($mailid)) $mailid = JRequest::getString('mailid');
@@ -59,27 +57,34 @@ class EmailViewEmail extends acymailingView
 
 		$toggleClass = acymailing_get('helper.toggle');
 
-		JHTML::_('behavior.modal','a.modal');
+		JHTML::_('behavior.modal', 'a.modal');
 
+		$acyToolbar = acymailing::get('helper.toolbar');
+		$acyToolbar->custom('', JText::_('ACY_TEMPLATES'), 'template', false, 'displayTemplates(); return false;');
+		$acyToolbar->custom('', JText::_('TAGS'), 'tag', false, 'try{IeCursorFix();}catch(e){}; displayTags(); return false;');
+		$acyToolbar->divider();
+		$acyToolbar->custom('test', JText::_('SEND_TEST'), 'send', false);
+		$acyToolbar->custom('apply', JText::_('ACY_APPLY'), 'apply', false);
+		$acyToolbar->setTitle(JText::_('ACY_EDIT'));
+		$acyToolbar->topfixed = false;
+		$acyToolbar->display();
 
 		$editor = acymailing_get('helper.editor');
+		$editor->setTemplate($mail->tempid);
 		$editor->name = 'editor_body';
 		$editor->content = $mail->body;
 
 		$js = "function updateAcyEditor(htmlvalue){";
-			$js .= 'if(htmlvalue == \'0\'){window.document.getElementById("htmlfieldset").style.display = \'none\'}else{window.document.getElementById("htmlfieldset").style.display = \'block\'}';
+		$js .= 'if(htmlvalue == \'0\'){window.document.getElementById("htmlfieldset").style.display = \'none\'}else{window.document.getElementById("htmlfieldset").style.display = \'block\'}';
 		$js .= '}';
-		$js .='window.addEvent(\'load\', function(){ updateAcyEditor('.$mail->html.'); });';
 
-		$script = 'function addFileLoader(){
-		var divfile=window.document.getElementById("loadfile");
-		var input = document.createElement(\'input\');
-		input.type = \'file\';
-		input.style.width = \'auto\';
-		input.name = \'attachments[]\';
-		divfile.appendChild(document.createElement(\'br\'));
-		divfile.appendChild(input);}
-		';
+		$script = '
+		var attachmentNb = 1;
+		function addFileLoader(){
+			if(attachmentNb > 9) return;
+			window.document.getElementById("attachmentsdiv"+attachmentNb).style.display = "";
+			attachmentNb++;
+		}';
 
 		if(!ACYMAILING_J16){
 			$script .= 'function submitbutton(pressbutton){
@@ -94,13 +99,23 @@ class EmailViewEmail extends acymailingView
 							return;
 						}';
 		}
-		$script .= 'if(window.document.getElementById("subject").value.length < 2){alert(\''.JText::_('ENTER_SUBJECT',true).'\'); return false;}';
+		$script .= 'if(window.document.getElementById("subject").value.length < 2){alert(\''.JText::_('ENTER_SUBJECT', true).'\'); return false;}';
 		$script .= $editor->jsCode();
 		if(!ACYMAILING_J16){
 			$script .= 'submitform( pressbutton );} ';
-		}else{ $script .= 'Joomla.submitform(pressbutton,document.adminForm);}; '; }
+		}else{
+			$script .= 'Joomla.submitform(pressbutton,document.adminForm);}; ';
+		}
 
-		$script .= "function insertTag(tag){ try{jInsertEditorText(tag,'editor_body'); document.getElementById('iframetag').style.display = 'none'; displayTags(); return true;} catch(err){alert('Your editor does not enable AcyMailing to automatically insert the tag, please copy/paste it manually in your Newsletter'); return false;}}";
+		$script .= "function insertTag(tag){
+		try{
+			if(window.parent.tinymce){ parentTinymce = window.parent.tinymce; window.parent.tinymce = false; }
+			jInsertEditorText(tag,'editor_body');
+			if(typeof parentTinymce !== 'undefined'){ window.parent.tinymce = parentTinymce; }
+			document.getElementById('iframetag').style.display = 'none';
+			displayTags();
+			return true;
+		}catch(err){alert('Your editor does not enable AcyMailing to automatically insert the tag, please copy/paste it manually in your Newsletter'); return false;}}";
 
 		$typeMail = 'news';
 		if(strpos($mail->alias, 'notification') !== false){
@@ -162,17 +177,15 @@ class EmailViewEmail extends acymailingView
 		";
 
 		$doc = JFactory::getDocument();
-		$doc->addScriptDeclaration( $js.$script );
+		$doc->addScriptDeclaration($js.$script);
 
-		$this->assignRef('toggleClass',$toggleClass);
-		$this->assignRef('editor',$editor);
-		$this->assignRef('values',$values);
-		$this->assignRef('mail',$mail);
+		$this->assignRef('toggleClass', $toggleClass);
+		$this->assignRef('editor', $editor);
+		$this->assignRef('values', $values);
+		$this->assignRef('mail', $mail);
 		$tabs = acymailing_get('helper.acytabs');
 		$tabs->setOptions(array('useCookie' => true));
-		$this->assignRef('tabs',$tabs);
-
+		$this->assignRef('tabs', $tabs);
+		$this->assign('app', $app);
 	}
-
-
 }

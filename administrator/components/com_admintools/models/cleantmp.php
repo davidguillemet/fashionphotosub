@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -140,14 +140,7 @@ class AdmintoolsModelCleantmp extends F0FModel
 	public function getDirectories($root = null)
 	{
 		$jreg = JFactory::getConfig();
-		if (version_compare(JVERSION, '3.0', 'ge'))
-		{
-			$tmpdir = $jreg->get('tmp_path');
-		}
-		else
-		{
-			$tmpdir = $jreg->getValue('config.tmp_path');
-		}
+		$tmpdir = $jreg->get('tmp_path');
 
 		if (empty($root))
 		{
@@ -182,14 +175,7 @@ class AdmintoolsModelCleantmp extends F0FModel
 	public function getFiles($root = null)
 	{
 		$jreg = JFactory::getConfig();
-		if (version_compare(JVERSION, '3.0', 'ge'))
-		{
-			$tmpdir = $jreg->get('tmp_path');
-		}
-		else
-		{
-			$tmpdir = $jreg->getValue('config.tmp_path');
-		}
+		$tmpdir = $jreg->get('tmp_path');
 
 		if (empty($root))
 		{
@@ -280,20 +266,10 @@ class AdmintoolsModelCleantmp extends F0FModel
 		if ($ftpOptions['enabled'] == 1)
 		{
 			// Connect the FTP client
-			if (version_compare(JVERSION, '3.0', 'ge'))
-			{
-				$ftp = JClientFTP::getInstance(
-					$ftpOptions['host'], $ftpOptions['port'], array(),
-					$ftpOptions['user'], $ftpOptions['pass']
-				);
-			}
-			else
-			{
-				$ftp = JFTP::getInstance(
-					$ftpOptions['host'], $ftpOptions['port'], array(),
-					$ftpOptions['user'], $ftpOptions['pass']
-				);
-			}
+			$ftp = JClientFTP::getInstance(
+				$ftpOptions['host'], $ftpOptions['port'], array(),
+				$ftpOptions['user'], $ftpOptions['pass']
+			);
 		}
 
 		if (@unlink($path))

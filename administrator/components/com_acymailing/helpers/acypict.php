@@ -1,9 +1,9 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.8.1
+ * @version	5.5.0
  * @author	acyba.com
- * @copyright	(C) 2009-2014 ACYBA S.A.R.L. All rights reserved.
+ * @copyright	(C) 2009-2016 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
@@ -16,7 +16,7 @@ class acypictHelper{
 	var $maxWidth;
 	var $destination;
 
-	function acypictHelper(){
+	function __construct(){
 		jimport('joomla.filesystem.file');
 	}
 
@@ -127,7 +127,7 @@ class acypictHelper{
 			$name .= substr(@filemtime($picturePath),-4);
 		}
 
-		$newImage = $name.'thumb'.$this->maxWidth.'x'.$this->maxHeight.'.'.$extension;
+		$newImage = md5($picturePath).'-'.$name.'thumb'.$this->maxWidth.'x'.$this->maxHeight.'.'.$extension;
 		if(empty($this->destination)){
 			$newFile = dirname($picturePath).DS.$newImage;
 		}else{

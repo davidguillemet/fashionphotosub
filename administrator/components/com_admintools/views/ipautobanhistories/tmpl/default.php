@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AkeebaReleaseSystem
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -20,15 +20,10 @@ else
 }
 $iplink = $cparams->getValue('iplookupscheme', 'http') . '://' . $cparams->getValue('iplookup', 'ip-lookup.net/index.php?ip={ip}');
 
-JHTML::_('behavior.framework', true);
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.multiselect');
-
-if (version_compare(JVERSION, '3.0', 'gt'))
-{
-	JHtml::_('dropdown.init');
-	JHtml::_('formbehavior.chosen', 'select');
-}
+JHtml::_('dropdown.init');
+JHtml::_('formbehavior.chosen', 'select');
 
 $sortFields = array(
 	'id'     => JText::_('JGRID_HEADING_ID'),
@@ -38,25 +33,23 @@ $sortFields = array(
 );
 ?>
 
-<?php if (version_compare(JVERSION, '3.0', 'ge')): ?>
-	<script type="text/javascript">
-		Joomla.orderTable = function ()
+<script type="text/javascript">
+	Joomla.orderTable = function ()
+	{
+		table = document.getElementById("sortTable");
+		direction = document.getElementById("directionTable");
+		order = table.options[table.selectedIndex].value;
+		if (order != '$order')
 		{
-			table = document.getElementById("sortTable");
-			direction = document.getElementById("directionTable");
-			order = table.options[table.selectedIndex].value;
-			if (order != '$order')
-			{
-				dirn = 'asc';
-			}
-			else
-			{
-				dirn = direction.options[direction.selectedIndex].value;
-			}
-			Joomla.tableOrdering(order, dirn);
+			dirn = 'asc';
 		}
-	</script>
-<?php endif; ?>
+		else
+		{
+			dirn = direction.options[direction.selectedIndex].value;
+		}
+		Joomla.tableOrdering(order, dirn);
+	}
+</script>
 
 <form name="adminForm" id="adminForm" action="index.php" method="post" class="form form-horizontal">
 	<input type="hidden" name="option" id="option" value="com_admintools"/>
@@ -68,38 +61,36 @@ $sortFields = array(
 	<input type="hidden" name="filter_order_Dir" id="filter_order_Dir" value="<?php echo $this->lists->order_Dir ?>"/>
 	<input type="hidden" name="<?php echo JFactory::getSession()->getFormToken(); ?>" value="1"/>
 
-	<?php if (version_compare(JVERSION, '3.0', 'gt')): ?>
-		<div id="filter-bar" class="btn-toolbar">
-			<div class="btn-group pull-right hidden-phone">
-				<label for="limit"
-					   class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC') ?></label>
-				<?php echo $this->getModel()->getPagination()->getLimitBox(); ?>
-			</div>
-			<?php
-			$asc_sel = ($this->getLists()->order_Dir == 'asc') ? 'selected="selected"' : '';
-			$desc_sel = ($this->getLists()->order_Dir == 'desc') ? 'selected="selected"' : '';
-			?>
-			<div class="btn-group pull-right hidden-phone">
-				<label for="directionTable"
-					   class="element-invisible"><?php echo JText::_('JFIELD_ORDERING_DESC') ?></label>
-				<select name="directionTable" id="directionTable" class="input-medium" onchange="Joomla.orderTable()">
-					<option value=""><?php echo JText::_('JFIELD_ORDERING_DESC') ?></option>
-					<option
-						value="asc" <?php echo $asc_sel ?>><?php echo JText::_('JGLOBAL_ORDER_ASCENDING') ?></option>
-					<option
-						value="desc" <?php echo $desc_sel ?>><?php echo JText::_('JGLOBAL_ORDER_DESCENDING') ?></option>
-				</select>
-			</div>
-			<div class="btn-group pull-right">
-				<label for="sortTable" class="element-invisible"><?php echo JText::_('JGLOBAL_SORT_BY') ?></label>
-				<select name="sortTable" id="sortTable" class="input-medium" onchange="Joomla.orderTable()">
-					<option value=""><?php echo JText::_('JGLOBAL_SORT_BY') ?></option>
-					<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $this->getLists()->order) ?>
-				</select>
-			</div>
+	<div id="filter-bar" class="btn-toolbar">
+		<div class="btn-group pull-right hidden-phone">
+			<label for="limit"
+				   class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC') ?></label>
+			<?php echo $this->getModel()->getPagination()->getLimitBox(); ?>
 		</div>
-		<div class="clearfix"></div>
-	<?php endif; ?>
+		<?php
+		$asc_sel = ($this->getLists()->order_Dir == 'asc') ? 'selected="selected"' : '';
+		$desc_sel = ($this->getLists()->order_Dir == 'desc') ? 'selected="selected"' : '';
+		?>
+		<div class="btn-group pull-right hidden-phone">
+			<label for="directionTable"
+				   class="element-invisible"><?php echo JText::_('JFIELD_ORDERING_DESC') ?></label>
+			<select name="directionTable" id="directionTable" class="input-medium" onchange="Joomla.orderTable()">
+				<option value=""><?php echo JText::_('JFIELD_ORDERING_DESC') ?></option>
+				<option
+					value="asc" <?php echo $asc_sel ?>><?php echo JText::_('JGLOBAL_ORDER_ASCENDING') ?></option>
+				<option
+					value="desc" <?php echo $desc_sel ?>><?php echo JText::_('JGLOBAL_ORDER_DESCENDING') ?></option>
+			</select>
+		</div>
+		<div class="btn-group pull-right">
+			<label for="sortTable" class="element-invisible"><?php echo JText::_('JGLOBAL_SORT_BY') ?></label>
+			<select name="sortTable" id="sortTable" class="input-medium" onchange="Joomla.orderTable()">
+				<option value=""><?php echo JText::_('JGLOBAL_SORT_BY') ?></option>
+				<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $this->getLists()->order) ?>
+			</select>
+		</div>
+	</div>
+	<div class="clearfix"></div>
 
 	<table class="table table-striped">
 		<thead>
@@ -160,7 +151,7 @@ $sortFields = array(
 					<td>
 						<a href="<?php echo str_replace('{ip}', $item->ip, $iplink) ?>" target="_blank">
 							<img align="middle" border="0" width="16" height="16"
-								 src="<?php echo rtrim(JURI::base(), '/') ?>/../media/com_admintools/images/iplookup_16.png"/>
+								 src="<?php echo rtrim(JURI::base(), '/') ?>/components/com_admintools/media/images/iplookup_16.png"/>
 						</a>&nbsp;
 						<?php echo $this->escape($item->ip) ?>
 					</td>

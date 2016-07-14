@@ -2,7 +2,7 @@
 /**
  * @package    FrameworkOnFramework
  * @subpackage form
- * @copyright  Copyright (C) 2010 - 2014 Akeeba Ltd. All rights reserved.
+ * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 // Protect from unauthorized access
@@ -133,6 +133,9 @@ class F0FFormFieldOrdering extends JFormField implements F0FFormField
 			throw new Exception(__CLASS__ . ' needs a F0FTable to act upon');
 		}
 
+		$class = isset($this->element['class']) ? $this->element['class'] : 'input-mini';
+		$icon  = isset($this->element['icon']) ? $this->element['icon'] : 'icon-menu';
+
 		$html = '';
 
 		$view = $this->form->getView();
@@ -167,23 +170,16 @@ class F0FFormFieldOrdering extends JFormField implements F0FFormField
 					$disableClassName = 'inactive tip-top';
 				}
 
-				$class = $ordering ? 'order-enabled' : 'order-disabled';
+				$orderClass = $ordering ? 'order-enabled' : 'order-disabled';
 
-				$html .= '<div class="' . $class . '">';
+				$html .= '<div class="' . $orderClass . '">';
 				$html .= '<span class="sortable-handler ' . $disableClassName . '" title="' . $disabledLabel . '" rel="tooltip">';
-				$html .= '<i class="icon-menu"></i>';
+				$html .= '<i class="' . $icon . '"></i>';
 				$html .= '</span>';
 
 				if ($ordering)
 				{
-					$html .= '<input type="text" name="order[]" size="5" class="input-mini text-area-order" ';
-
-					if (!$hasAjaxOrderingSupport)
-					{
-						$html .= 'disabled="disabled" ';
-					}
-
-					$html .= 'value="' . $this->value . '"  class="' . 'input-mini text-area-order' . ' " />';
+					$html .= '<input type="text" name="order[]" size="5" class="' . $class . ' text-area-order" value="' . $this->value . '" />';
 				}
 
 				$html .= '</div>';
@@ -191,7 +187,7 @@ class F0FFormFieldOrdering extends JFormField implements F0FFormField
 			else
 			{
 				$html .= '<span class="sortable-handler inactive" >';
-				$html .= '<i class="icon-menu"></i>';
+				$html .= '<i class="' . $icon . '"></i>';
 				$html .= '</span>';
 			}
 		}
@@ -204,19 +200,19 @@ class F0FFormFieldOrdering extends JFormField implements F0FFormField
 	 *
 	 * @since 2.3.2
 	 *
-	 * @return JDatabaseQuery  The query for the ordering form field
+	 * @return F0FDatabaseQuery  The query for the ordering form field
 	 */
 	protected function getQuery()
 	{
 		$ordering = $this->name;
 		$title    = $this->element['ordertitle'] ? (string) $this->element['ordertitle'] : $this->item->getColumnAlias('title');
 
-		$db = JFactory::getDbo();
+		$db = F0FPlatform::getInstance()->getDbo();
 		$query = $db->getQuery(true);
 		$query->select(array($db->quoteName($ordering, 'value'), $db->quoteName($title, 'text')))
 				->from($db->quoteName($this->item->getTableName()))
 				->order($ordering);
-	
+
 		return $query;
 	}
 }

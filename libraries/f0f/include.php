@@ -2,7 +2,7 @@
 /**
  *  @package     FrameworkOnFramework
  *  @subpackage  include
- *  @copyright   Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ *  @copyright   Copyright (C) 2010-2015 Nicholas K. Dionysopoulos
  *  @license     GNU General Public License version 2, or later
  *
  *  Initializes F0F
@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 
 if (!defined('F0F_INCLUDED'))
 {
-    define('F0F_INCLUDED', '2.3.3');
+    define('F0F_INCLUDED', '2.5.4');
 
 	// Register the F0F autoloader
     require_once __DIR__ . '/autoloader/fof.php';

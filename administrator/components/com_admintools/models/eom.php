@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -107,14 +107,8 @@ class AdmintoolsModelEom extends F0FModel
 		if (!JFile::exists($offlineFile))
 		{
 			$jreg = JFactory::getConfig();
-			if (version_compare(JVERSION, '3.0', 'ge'))
-			{
-				$message = JText::_($jreg->get('offline_message'));
-			}
-			else
-			{
-				$message = JText::_($jreg->getValue('config.offline_message'));
-			}
+			$message = JText::_($jreg->get('offline_message'));
+
 			$app = JFactory::getApplication();
 			$sitename = $app->getCfg('sitename');
 

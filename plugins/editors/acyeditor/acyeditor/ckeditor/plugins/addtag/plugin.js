@@ -20,7 +20,7 @@
 	CKEDITOR.plugins.add(b,{
 		init:function(editor){
 			editor.addCommand(b,a);
-			editor.ui.addButton("addtag",{label:'Tags',
+			editor.ui.addButton("addtag",{label:editor.lang.addtag.toolbar,
 											icon: this.path + "icon-16-tag.png",
 											command:b,
 											toolbar: "insert"});

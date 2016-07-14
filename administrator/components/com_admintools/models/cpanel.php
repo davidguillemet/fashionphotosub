@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -57,6 +57,12 @@ class AdmintoolsModelCpanels extends F0FModel
 		// Get our plugin's ID
 		$id = $this->getPluginID();
 
+		// The plugin is not enabled, there's no point in continuing
+		if (!$id)
+		{
+			return;
+		}
+
 		// Get a list of ordering values per ID
 		$db = $this->getDbo();
 
@@ -102,122 +108,37 @@ class AdmintoolsModelCpanels extends F0FModel
 				->where($db->qn('extension_id') . ' = ' . $db->q($id));
 			$db->setQuery($query);
 			$db->execute();
+
+			// Reset the Joomla! plugins cache
+			F0FUtilsCacheCleaner::clearPluginsCache();
 		}
 	}
 
-	/**
-	 * Automatically migrates settings from the component's parameters storage
-	 * to our version 2.1+ dedicated storage table.
-	 */
-	public function autoMigrate()
-	{
-		// First, load the component parameters
-		// FIX 2.1.13: Load the component parameters WITHOUT using JComponentHelper
-		$db = JFactory::getDbo();
-		$query = $db->getQuery(true)
-			->select($db->qn('params'))
-			->from($db->qn('#__extensions'))
-			->where($db->qn('type') . ' = ' . $db->quote('component'))
-			->where($db->qn('element') . ' = ' . $db->quote('com_admintools'));
-		$db->setQuery($query);
-		$rawparams = $db->loadResult();
-		$cparams = new JRegistry();
-		if (version_compare(JVERSION, '3.0', 'ge'))
-		{
-			$cparams->loadString($rawparams, 'JSON');
-		}
-		else
-		{
-			$cparams->loadJSON($rawparams);
-		}
-
-		// Migrate parameters
-		$allParams = $cparams->toArray();
-		$safeList = array(
-			'downloadid', 'lastversion', 'minstability',
-			'scandiffs', 'scanemail', 'htmaker_folders_fix_at240',
-			'acceptlicense', 'acceptsupport', 'sitename',
-			'showstats', 'longconfigpage',
-            'autoupdateCli', 'notificationFreq', 'notificationTime', 'notificationEmail'
-		);
-		if (interface_exists('JModel'))
-		{
-			$params = JModelLegacy::getInstance('Storage', 'AdmintoolsModel');
-		}
-		else
-		{
-			$params = JModel::getInstance('Storage', 'AdmintoolsModel');
-		}
-		$modified = 0;
-		foreach ($allParams as $k => $v)
-		{
-			if (in_array($k, $safeList))
-			{
-				continue;
-			}
-			if ($v == '')
-			{
-				continue;
-			}
-
-			$modified++;
-
-			if (version_compare(JVERSION, '3.0', 'ge'))
-			{
-				$cparams->set($k, null);
-			}
-			else
-			{
-				$cparams->setValue($k, null);
-			}
-			$params->setValue($k, $v);
-		}
-
-		if ($modified == 0)
-		{
-			return;
-		}
-
-		// Save new parameters
-		$params->save();
-
-		// Save component parameters
-		$db = JFactory::getDBO();
-		$data = $cparams->toString();
-
-		$sql = $db->getQuery(true)
-			->update($db->qn('#__extensions'))
-			->set($db->qn('params') . ' = ' . $db->q($data))
-			->where($db->qn('element') . ' = ' . $db->q('com_admintools'))
-			->where($db->qn('type') . ' = ' . $db->q('component'));
-
-		$db->setQuery($sql);
-		$db->execute();
-	}
-
+    /**
+     * Does the user need to enter a Download ID in the component's Options page?
+     *
+     * @return bool
+     */
 	public function needsDownloadID()
 	{
-		JLoader::import('joomla.application.component.helper');
+		if (!class_exists('AdmintoolsHelperParams'))
+		{
+			require_once JPATH_ADMINISTRATOR . '/components/com_admintools/helpers/params.php';
+		}
 
 		// Do I need a Download ID?
-		$ret = false;
+		$ret   = false;
 		$isPro = ADMINTOOLS_PRO;
+
 		if (!$isPro)
 		{
-			$ret = true;
+			$ret = false;
 		}
 		else
 		{
-			$ret = false;
-			$params = JComponentHelper::getParams('com_admintools');
-			if (version_compare(JVERSION, '3.0', 'ge'))
-			{
-				$dlid = $params->get('downloadid', '');
-			}
-			else
-			{
-				$dlid = $params->getValue('downloadid', '');
-			}
+			$params = new AdmintoolsHelperParams();
+			$dlid = $params->get('downloadid', '');
+
 			if (!preg_match('/^([0-9]{1,}:)?[0-9a-f]{32}$/i', $dlid))
 			{
 				$ret = true;
@@ -225,71 +146,6 @@ class AdmintoolsModelCpanels extends F0FModel
 		}
 
 		return $ret;
-	}
-
-	/**
-	 * Checks if the download ID provisioning plugin for the updates of this extension is published. If not, it will try
-	 * to publish it automatically. It reports the status of the plugin as a boolean.
-	 *
-	 * @return  bool
-	 */
-	public function isUpdatePluginEnabled()
-	{
-		// We can't be bothered about the plugin in Joomla! 2.5.0 through 2.5.19
-		if (version_compare(JVERSION, '2.5.19', 'lt'))
-		{
-			return true;
-		}
-
-		// We can't be bothered about the plugin in Joomla! 3.x
-		if (version_compare(JVERSION, '3.0.0', 'gt'))
-		{
-			return true;
-		}
-
-		$db = $this->getDBO();
-
-		// Let's get the information of the update plugin
-		$query = $db->getQuery(true)
-			->select('*')
-			->from($db->qn('#__extensions'))
-			->where($db->qn('folder') . ' = ' . $db->quote('installer'))
-			->where($db->qn('element') . ' = ' . $db->quote('admintools'))
-			->where($db->qn('type') . ' = ' . $db->quote('plugin'))
-			->order($db->qn('ordering') . ' ASC');
-		$db->setQuery($query);
-		$plugin = $db->loadObject();
-
-		// If the plugin is missing report it as unpublished (of course!)
-		if (!is_object($plugin))
-		{
-			return false;
-		}
-
-		// If it's enabled there's nothing else to do
-		if ($plugin->enabled)
-		{
-			return true;
-		}
-
-		// Otherwise, try to enable it and report false (so the user knows what he did wrong)
-		$pluginObject = (object)array(
-			'extension_id' => $plugin->extension_id,
-			'enabled'      => 1
-		);
-
-		try
-		{
-			$result = $db->updateObject('#__extensions', $pluginObject, 'extension_id');
-			// Do not remove this line. We need to tell the user he's doing something wrong.
-			$result = false;
-		}
-		catch (Exception $e)
-		{
-			$result = false;
-		}
-
-		return $result;
 	}
 
 	/**
@@ -304,8 +160,362 @@ class AdmintoolsModelCpanels extends F0FModel
 		$dbInstaller = new F0FDatabaseInstaller(array(
 			'dbinstaller_directory' => JPATH_ADMINISTRATOR . '/components/com_admintools/sql/xml'
 		));
+
 		$dbInstaller->updateSchema();
 
+        // Let's check and fix common tables, too
+        F0FModel::getTmpInstance('Stats', 'AdmintoolsModel')->checkAndFixCommonTables();
+
 		return $this;
+	}
+
+	/**
+	 * Returns true if we are installed in Joomla! 3.2 or later and we have post-installation messages for our component
+	 * which must be showed to the user.
+	 *
+	 * Returns null if the com_postinstall component is broken because the user screwed up his Joomla! site following
+	 * some idiot's advice. Apparently there's no shortage of idiots giving terribly bad advice to Joomla! users.
+	 *
+	 * @return bool|null
+	 */
+	public function hasPostInstallMessages()
+	{
+		// Get the extension ID for our component
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select('extension_id')
+			->from('#__extensions')
+			->where($db->qn('element') . ' = ' . $db->q('com_admintools'));
+		$db->setQuery($query);
+
+		try
+		{
+			$ids = $db->loadColumn();
+		}
+		catch (Exception $exc)
+		{
+			return false;
+		}
+
+		if (empty($ids))
+		{
+			return false;
+		}
+
+		$extension_id = array_shift($ids);
+
+		$this->setState('extension_id', $extension_id);
+
+		if (!defined('FOF_INCLUDED'))
+		{
+			include_once JPATH_SITE.'/libraries/fof/include.php';
+		}
+
+		if (!defined('FOF_INCLUDED'))
+		{
+			return false;
+		}
+
+		// Do I have messages?
+		try
+		{
+			$pimModel = FOFModel::getTmpInstance('Messages', 'PostinstallModel');
+			$pimModel->savestate(false);
+			$pimModel->setState('eid', $extension_id);
+
+			$list   = $pimModel->getList();
+			$result = count($list) >= 1;
+		}
+		catch (\Exception $e)
+		{
+			$result = null;
+		}
+
+		return ($result);
+	}
+	
+	/**
+	 * Checks all the available places if we just blocked our own IP?
+	 *
+	 * @param	string	$externalIp	Additional IP address to check
+	 *
+	 * @return bool
+	 */
+	public function selfBlocked($externalIp = null)
+	{
+		// First let's get the current IP of the user
+		$internalIP = F0FUtilsIp::getIp();
+
+		if (array_key_exists('FOF_REMOTE_ADDR', $_SERVER))
+		{
+			$internalIP = $_SERVER['FOF_REMOTE_ADDR'];
+		}
+		elseif (function_exists('getenv'))
+		{
+			if (getenv('FOF_REMOTE_ADDR'))
+			{
+				$internalIP = getenv('FOF_REMOTE_ADDR');
+			}
+		}
+
+		$ipList[] = $internalIP;
+
+		if($externalIp)
+		{
+			$ipList[] = $externalIp;
+		}
+
+		/** @var AdmintoolsModelIpautobans $autoban */
+		$autoban = F0FModel::getTmpInstance('Ipautobans', 'AdmintoolsModel');
+		/** @var AdmintoolsModelIpautobanhistories $history */
+		$history = F0FModel::getTmpInstance('Ipautobanhistories', 'AdmintoolsModel');
+		/** @var AdmintoolsModelIpbls $black */
+		$black   = F0FModel::getTmpInstance('Ipbls', 'AdmintoolsModel');
+
+		// Then for each ip let's check if it's in any "blocked" list
+		foreach ($ipList as $ip)
+		{
+			$autoban->reset()->set('ip', $ip);
+			$history->reset()->set('ip', $ip);
+			$black->reset()->set('ip', $ip);
+
+			if($autoban->getList(true))
+			{
+				return true;
+			}
+
+			if($history->getList(true))
+			{
+				return true;
+			}
+
+			if($black->getList(true))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Removed the current IP from all the "block" lists
+	 *
+	 * @param	string	$externalIp	Additional IP address to check
+	 *
+	 * @return bool
+	 */
+	public function unblockme($externalIp = null)
+	{
+		// First let's get the current IP of the user
+		$internalIP = F0FUtilsIp::getIp();
+
+		if (array_key_exists('FOF_REMOTE_ADDR', $_SERVER))
+		{
+			$internalIP = $_SERVER['FOF_REMOTE_ADDR'];
+		}
+		elseif (function_exists('getenv'))
+		{
+			if (getenv('FOF_REMOTE_ADDR'))
+			{
+				$internalIP = getenv('FOF_REMOTE_ADDR');
+			}
+		}
+
+		$ipList[] = $internalIP;
+
+		if($externalIp)
+		{
+			$ipList[] = $externalIp;
+		}
+
+		/** @var AdmintoolsModelIpautobans $autoban */
+		$autoban = F0FModel::getTmpInstance('Ipautobans', 'AdmintoolsModel');
+		/** @var AdmintoolsModelIpautobanhistories $history */
+		$history = F0FModel::getTmpInstance('Ipautobanhistories', 'AdmintoolsModel');
+		/** @var AdmintoolsModelIpbls $black */
+		$black   = F0FModel::getTmpInstance('Ipbls', 'AdmintoolsModel');
+		/** @var AdmintoolsModelLogs $log */
+		$log     = F0FModel::getTmpInstance('Logs', 'AdmintoolsModel');
+		$db		 = $this->getDbo();
+
+		// Let's delete all the IP. We are going to directly use the database since it would be faster
+		// than loading the record and then deleting it
+		foreach ($ipList as $ip)
+		{
+			$autoban->reset()->set('ip', $ip);
+			$history->reset()->set('ip', $ip);
+			$black->reset()->set('ip', $ip);
+			$log->reset()->set('ip', $ip);
+
+			if($autoban->getList(true))
+			{
+				$query = $db->getQuery(true)
+							->delete($db->qn('#__admintools_ipautoban'))
+							->where($db->qn('ip').' = '.$db->q($ip));
+				$db->setQuery($query)->execute();
+			}
+
+			if($history->getList(true))
+			{
+				$query = $db->getQuery(true)
+							->delete($db->qn('#__admintools_ipautobanhistory'))
+							->where($db->qn('ip').' = '.$db->q($ip));
+				$db->setQuery($query)->execute();
+			}
+
+			if($black->getList(true))
+			{
+				$query = $db->getQuery(true)
+							->delete($db->qn('#__admintools_ipblock'))
+							->where($db->qn('ip').' = '.$db->q($ip));
+				$db->setQuery($query)->execute();
+			}
+
+			// I have to delete the log of security exceptions, too. Otherwise at the next check the user will be
+			// banned once again
+			if($log->getList(true))
+			{
+				$query = $db->getQuery(true)
+							->delete($db->qn('#__admintools_log'))
+							->where($db->qn('ip').' = '.$db->q($ip));
+				$db->setQuery($query)->execute();
+			}
+		}
+	}
+
+	/**
+	 * Update the cached live site's URL for the front-end scheduling feature
+	 */
+	public function updateMagicParameters()
+	{
+		if (!class_exists('AdmintoolsHelperParams'))
+		{
+			require_once JPATH_ADMINISTRATOR . '/components/com_admintools/helpers/params.php';
+		}
+
+		$params = new AdmintoolsHelperParams();
+		$params->set('siteurl', str_replace('/administrator', '', JUri::base()));
+		$params->save();
+	}
+
+	/**
+	 * Check the strength of the Secret Word for front-end and remote scans. If it is insecure return the reason it
+	 * is insecure as a string. If the Secret Word is secure return an empty string.
+	 *
+	 * @return  string
+	 */
+	public function getFrontendSecretWordError()
+	{
+		// Load the Akeeba Engine autoloader
+		define('AKEEBAENGINE', 1);
+		require_once JPATH_ADMINISTRATOR . '/components/com_admintools/engine/Autoloader.php';
+
+		// Load the platform
+		\Akeeba\Engine\Platform::addPlatform('filescan', JPATH_ADMINISTRATOR . '/components/com_admintools/platform/Filescan');
+
+		// Is frontend backup enabled?
+		$febEnabled = \Akeeba\Engine\Platform::getInstance()->get_platform_configuration_option('frontend_enable', 0) != 0;
+
+		if (!$febEnabled)
+		{
+			return '';
+		}
+
+		$secretWord = \Akeeba\Engine\Platform::getInstance()->get_platform_configuration_option('frontend_secret_word', '');
+
+		try
+		{
+			\Akeeba\Engine\Util\Complexify::isStrongEnough($secretWord);
+		}
+		catch (RuntimeException $e)
+		{
+			// Ah, the current Secret Word is bad. Create a new one if necessary.
+			$session = JFactory::getSession();
+			$newSecret = $session->get('newSecretWord', null, 'admintools.cpanel');
+
+			if (empty($newSecret))
+			{
+				$random = new \Akeeba\Engine\Util\RandomValue();
+				$newSecret = $random->generateString(32);
+				$session->set('newSecretWord', $newSecret, 'admintools.cpanel');
+			}
+
+			return $e->getMessage();
+		}
+
+		return '';
+	}
+
+    /**
+     * Performs some checks about Joomla configuration (log and tmp path correctly set)
+     */
+    public function checkJoomlaConfiguration()
+    {
+        // Let's get the site root using the Platform code
+        if(!defined('AKEEBAENGINE'))
+        {
+            define('AKEEBAENGINE', 1);
+        }
+
+        require_once JPATH_ADMINISTRATOR . '/components/com_admintools/engine/Autoloader.php';
+
+        $siteroot = \Akeeba\Engine\Platform::getInstance()->get_site_root();
+        $siteroot_real = @realpath($siteroot);
+
+        if (!empty($siteroot_real))
+        {
+            $siteroot = $siteroot_real;
+        }
+
+        //First of all, do we have a VALID log folder?
+        $config = JFactory::getConfig();
+        $log_dir = $config->get('log_path');
+
+        if(!$log_dir || !@is_writable($log_dir))
+        {
+            return JText::_('COM_ADMINTOOLS_CPANEL_ERR_JCONFIG_INVALID_LOGDIR');
+        }
+
+        if($siteroot == $log_dir)
+        {
+            return JText::_('COM_ADMINTOOLS_CPANEL_ERR_JCONFIG_LOGDIR_SITEROOT');
+        }
+
+        // Do we have a VALID tmp folder?
+        $tmp_dir = $config->get('tmp_path');
+
+        if(!$tmp_dir || !@is_writable($tmp_dir))
+        {
+            return JText::_('COM_ADMINTOOLS_CPANEL_ERR_JCONFIG_INVALID_TMPDIR');
+        }
+
+        if($siteroot == $tmp_dir)
+        {
+            return JText::_('COM_ADMINTOOLS_CPANEL_ERR_JCONFIG_TMPDIR_SITEROOT');
+        }
+
+        return false;
+    }
+
+	/**
+	 * Do I need to show the Quick Setup Wizard?
+	 *
+	 * @return  bool
+	 */
+	public function needsQuickSetupWizard()
+	{
+		if (interface_exists('JModel'))
+		{
+			/** @var AdmintoolsModelStorage $params */
+			$params = JModelLegacy::getInstance('Storage', 'AdmintoolsModel');
+		}
+		else
+		{
+			/** @var AdmintoolsModelStorage $params */
+			$params = JModel::getInstance('Storage', 'AdmintoolsModel');
+		}
+
+		return $params->getValue('quickstart', 0) == 0;
 	}
 }

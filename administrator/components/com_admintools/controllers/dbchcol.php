@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   AdminTools
- * @copyright Copyright (c)2010-2014 Nicholas K. Dionysopoulos
+ * @copyright Copyright (c)2010-2016 Nicholas K. Dionysopoulos
  * @license   GNU General Public License version 3, or later
  * @version   $Id$
  */
@@ -29,8 +29,15 @@ class AdmintoolsControllerDbchcol extends F0FController
 
 	public function apply()
 	{
+		// CSRF prevention
+		if ($this->csrfProtection)
+		{
+			$this->_csrfProtection();
+		}
+
+		/** @var AdmintoolsModelDbchcol $model */
 		$model = $this->getThisModel();
-		$collation = $this->input->getString('collation', 'utf8_general_ci');
+		$collation = $this->input->getString('collation', 'utf8mb4_general_ci');
 		$model->changeCollation($collation);
 
 		$msg = JText::_('ATOOLS_LBL_DBCHCOLDONE');
