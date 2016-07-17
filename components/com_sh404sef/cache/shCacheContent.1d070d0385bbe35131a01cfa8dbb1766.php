@@ -60,3 +60,9 @@ $this->_urlCache['e0e4a33c2779d8ded7feb0d9e8b93b77']='index.php?option=com_tz_po
 $this->_urlCache['46d2db94b845faddb4ced7d4ce2ac463']='index.php?option=com_tz_guestbook&amp;Itemid=141&amp;lang=fr&amp;view=guestbook#guestbook#0';
 $this->_urlCache['fc062347e21a32d1a7e811f3f87e9d53']='index.php?option=com_foxcontact&amp;Itemid=149&amp;lang=fr&amp;view=foxcontact#contact#0';
 $shURLCacheCreationDate=1468530116;
+$this->_urlCache['9cbb83673f679710b04a275aa861561e']='index.php?option=com_tz_portfolio&amp;Itemid=101&amp;id=8&amp;lang=fr&amp;view=category#galeries#0';
+$shURLCacheCreationDate=1468792753;
+$this->_urlCache['6f413df8c5c2fdb9a01cfd32ebccefbf']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;catid=41&amp;id=60&amp;lang=fr&amp;view=p_article#galeries/map#0';
+$this->_urlCache['4f6bfefb877c6e1f8a1ce910dffa6ba9']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;id=8&amp;lang=fr&amp;view=category#galeries#0';
+$this->_urlCache['7813c80a781f4545ee5665066fd9c214']='index.php?option=com_tz_portfolio&amp;Itemid=163&amp;id=41&amp;lang=fr&amp;view=category#galeries/map#0';
+$shURLCacheCreationDate=1468792975;

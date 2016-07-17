@@ -67,7 +67,7 @@ function onLocationsDataLoaded()
 	
 }
 
-google.load("maps", "3", { callback: function() { loadLocationsData(false); } } );
+google.load("maps", "3", { other_params : "key=AIzaSyCKLtTlcioENuFJU6ruZwtIrwxr7S07nTw", callback: function() { loadLocationsData(false); } } );
 
 </script>
 
